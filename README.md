@@ -4,6 +4,8 @@
 
 ## 下载
 
+当前下载为 **0.3.2 窗口修复版**，修复关闭主窗口后进程残留及再次启动报错。
+
 在 [Releases](https://github.com/gh283249008/yyslslogs-public/releases) 下载 Windows x64 完整压缩包，解压后保留整个目录。
 
 - **燕云 Logs.exe**：采集和本地保存。

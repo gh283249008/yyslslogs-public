@@ -9,6 +9,10 @@ const {ServiceLifecycle}=require('./service-lifecycle.cjs');
 const {runtimePaths,childEnv,checkRuntime}=require('../tools/p2-runtime.cjs');
 const root=path.resolve(__dirname,'..'),dist=path.join(root,'vendor/kagerou/dist');
 const startupCheck=process.argv.includes('--verify-startup');
+const liveCheck=process.argv.includes('--verify-live'),checks=process.argv.includes('--verify-ui')||liveCheck||startupCheck;
+// Rejected instances must not write shared state or initialize services.
+if(!checks&&!app.requestSingleInstanceLock()){app.quit();return;}
+app.on('before-quit',()=>{app.isQuitting=true;});
 const defaultDataRoot=path.join(app.getPath('appData'),'YyslsLogs');
 const dataRoot=process.env.YYSLS_DATA_ROOT||defaultDataRoot;
 if(startupCheck&&(!process.env.YYSLS_DATA_ROOT||path.resolve(dataRoot).toLowerCase()===path.resolve(defaultDataRoot).toLowerCase()))throw Error('--verify-startup requires a separate YYSLS_DATA_ROOT');
@@ -29,13 +33,13 @@ const serviceLifecycle=new ServiceLifecycle();
 let checkingRuntime=false,setupTimer=null;
 const diagnosticRoot=path.join(dataRoot,'diagnostics');
 let win,buffWin,tray,server,model=new CombatModel(),feed=new SnapshotFeed(latest),buffFeed=new BuffMonitorFeed(latest),mode=process.argv.includes('--replay')?'replay':'live',locked=false,buffLocked=false,lastText='',replayTimer,replayIndex=0,replayRows=[],lastView=null;
-const liveCheck=process.argv.includes('--verify-live'),checks=process.argv.includes('--verify-ui')||liveCheck||startupCheck;
-if(!checks&&!app.requestSingleInstanceLock()){app.quit();}
-app.on('second-instance',()=>{if(win){win.show();win.focus();}});
+function mainWindowAlive(){return !app.isQuitting&&win&&!win.isDestroyed();}
+function showMainWindow(){if(mainWindowAlive()){if(win.isMinimized())win.restore();win.show();}}
+app.on('second-instance',()=>{if(mainWindowAlive()){showMainWindow();win.focus();}});
 function payload(){return {mode,locked,labelsFromScreenshot:mode==='replay'&&!!labelsFile,...lastView,service:{...serviceState},data:lastView?toKagerou(lastView,mode==='replay'?actorLabels:{}):null};}
 function buffPayload(){return {...buffFeed.poll(),locked:buffLocked};}
 function send(){if(win&&!win.isDestroyed())win.webContents.send('state',payload());if(buffWin&&!buffWin.isDestroyed())buffWin.webContents.send('buff-state',buffPayload());}
-function toggleLock(){locked=!locked;win.setIgnoreMouseEvents(locked,{forward:true});send();}
+function toggleLock(){if(!mainWindowAlive())return;locked=!locked;win.setIgnoreMouseEvents(locked,{forward:true});send();}
 function toggleBuffLock(){buffLocked=!buffLocked;if(buffWin&&!buffWin.isDestroyed())buffWin.setIgnoreMouseEvents(buffLocked,{forward:true});send();}
 function toggleBuffWindow(){if(!buffWin||buffWin.isDestroyed())return;if(buffWin.isVisible())buffWin.hide();else buffWin.showInactive();updateTray();}
 function setSource(file){latest=file;model=new CombatModel();feed=new SnapshotFeed(latest);buffFeed=new BuffMonitorFeed(latest);attributionFeed=new AttributionFeed(latest);lastView=null;clearInterval(replayTimer);mode='live';send();}
@@ -53,7 +57,7 @@ function restartElevated(){
  app.quit();
 }
 function updateTray(){send();if(!tray)return;tray.setToolTip(('燕云 Logs · '+serviceState.message).slice(0,120));tray.setContextMenu(Menu.buildFromTemplate([
- {label:'显示悬浮窗',click:()=>win.show()},{label:'锁定 / 鼠标穿透 (Ctrl+Shift+F8)',click:toggleLock},
+ {label:'显示悬浮窗',click:showMainWindow},{label:'锁定 / 鼠标穿透 (Ctrl+Shift+F8)',click:toggleLock},
  {label:buffWin?.isVisible()?'隐藏 Buff 提示窗':'显示 Buff 提示窗',click:toggleBuffWindow},{label:'锁定 Buff 提示窗 / 鼠标穿透',type:'checkbox',checked:buffLocked,click:toggleBuffLock},
  {label:'实时采集',click:()=>{lastServiceSource=null;if(serviceState.latestPath)setSource(serviceState.latestPath);else setSource(path.join(dataRoot,'waiting/latest.json'));}},
  {label:'本地战斗记录',submenu:historyMenu()},{label:'打开记录文件夹',click:()=>shell.openPath(dataRoot)},
@@ -88,7 +92,7 @@ function serviceDiagnostics(event){
  }catch(e){console.error('Service diagnostics:',e.message);}
 }
 function startService(){
- if(service)return;
+ if(app.isQuitting||service)return;
  clearInterval(setupTimer);setupTimer=null;
  const launchId=serviceLifecycle.begin();lastServiceSource=null;
  serviceState={status:'starting',message:'正在启动采集服务',detail:'正在等待本次采集服务确认启动。',launchId};updateTray();
@@ -112,9 +116,10 @@ function startService(){
  });
 }
 async function prepareCapture(interactive=false,announce=false){
- if(checkingRuntime)return;checkingRuntime=true;
+ if(app.isQuitting||checkingRuntime)return;checkingRuntime=true;
  try{
   const result=await checkRuntime();
+  if(app.isQuitting)return;
   fs.mkdirSync(diagnosticRoot,{recursive:true});fs.writeFileSync(path.join(diagnosticRoot,'environment.json'),JSON.stringify(result,null,2));
   if(result.ok){
    if(!service)await require('./service-handoff.cjs').handoffService(dataRoot,{onWaiting:()=>{serviceState={message:'正在切换采集服务',detail:'正在保存并结束上一次采集，完成后自动启动。'};updateTray();send();}});
@@ -170,15 +175,17 @@ app.whenReady().then(async()=>{
   win.webContents.setWindowOpenHandler(({url})=>url.startsWith(origin+'/kagerou/config/')?{action:'allow',overrideBrowserWindowOptions:{width:900,height:700,webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true}}}:{action:'deny'});
   win.webContents.on('will-navigate',(e,url)=>{if(!url.startsWith(origin+'/kagerou/'))e.preventDefault();});
   win.on('close',()=>{if(checks)return;try{fs.mkdirSync(path.dirname(prefs),{recursive:true});fs.writeFileSync(prefs,JSON.stringify(win.getBounds()));}catch{}});
-  ipcMain.on('ready',e=>{if(e.sender===win.webContents)send();});
+  // The companion window outlives the main window; window-all-closed is insufficient.
+  win.on('closed',()=>{if(!app.isQuitting)app.quit();});
+  ipcMain.on('ready',e=>{if(mainWindowAlive()&&e.sender===win.webContents)send();});
   ipcMain.on('buff-ready',e=>{if(e.sender===buffWin.webContents)send();});
-  ipcMain.on('command',(e,a)=>{if(e.sender===win.webContents||e.sender===buffWin.webContents)action(a);});
+  ipcMain.on('command',(e,a)=>{if(mainWindowAlive()&&(e.sender===win.webContents||(!buffWin.isDestroyed()&&e.sender===buffWin.webContents)))action(a);});
   const pixels=Buffer.alloc(16*16*4);for(let p=0;p<pixels.length;p+=4){pixels[p]=0xda;pixels[p+1]=0xc6;pixels[p+2]=0x26;pixels[p+3]=255;}
   const icon=fs.existsSync(path.join(__dirname,'assets/logo.png'))?nativeImage.createFromPath(path.join(__dirname,'assets/logo.png')).resize({width:32,height:32}):nativeImage.createFromBitmap(pixels,{width:16,height:16});
   tray=new Tray(icon.isEmpty()?nativeImage.createEmpty():icon);tray.setToolTip('燕云 Logs · Ctrl+Shift+F8锁定 · Ctrl+Shift+F9显示');
   updateTray();tray.on('right-click',updateTray);
-  tray.on('double-click',()=>win.show());
-  const shortcuts={'CommandOrControl+Shift+F8':toggleLock,'CommandOrControl+Shift+F9':()=>win.isVisible()?win.hide():win.show(),'CommandOrControl+Shift+F10':()=>app.quit()};
+  tray.on('double-click',showMainWindow);
+  const shortcuts={'CommandOrControl+Shift+F8':toggleLock,'CommandOrControl+Shift+F9':()=>{if(mainWindowAlive()){if(win.isVisible())win.hide();else showMainWindow();}},'CommandOrControl+Shift+F10':()=>app.quit()};
   const shortcutResults=checks?{verification:'not registered'}:Object.fromEntries(Object.entries(shortcuts).map(([k,v])=>[k,globalShortcut.register(k,v)]));
   await Promise.all([win.loadURL(origin+'/kagerou/overlay/'),buffWin.loadURL(origin+'/kagerou/buff-monitor.html')]);switchMode(mode);
   if(startupCheck||(!checks&&!arg('--live-file'))){
