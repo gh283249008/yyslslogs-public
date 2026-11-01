@@ -1,5 +1,5 @@
 {
-  "id": "yysls-cn-simple-rdps-20261031-v9",
+  "id": "yysls-cn-simple-rdps-20261101-v10",
   "enabled": true,
   "label": "rDPS 简化估算",
   "resource": "HP",
@@ -10,6 +10,9 @@
   "allocationPolicy": "yysls-additive-within-pool-log-between-pools-v1",
   "allocationReference": "evidence/p1/fflogs-algorithm-20261019/findings.json",
   "damagePoolEvidence": "evidence/p1/rdps-rules/pure-damage-identifiability-review.json",
+  "compatibleWithoutRules": {
+    "3a23e6711142f3f5fc6033713ad8737a61f8d380e64448e067c186c4721966fa": ["1002148", "1002149"]
+  },
   "rules": {
     "109710": {
       "name": "惊神",
@@ -200,6 +203,28 @@
       "rate": 0.24,
       "priority": 2
     },
+    "1002148": {
+      "name": "破核·首控",
+      "holder": "source",
+      "family": "pohe-control",
+      "pool": "damage",
+      "rate": 0.15,
+      "maxStacks": 1,
+      "activation": "observed-buff",
+      "creditProviderId": "mechanic:pohe",
+      "evidence": "docs/knowledge/pohe-20261101.json"
+    },
+    "1002149": {
+      "name": "破核·全队",
+      "holder": "source",
+      "family": "pohe-team",
+      "pool": "damage",
+      "rate": 0.15,
+      "maxStacks": 1,
+      "activation": "observed-buff",
+      "creditProviderId": "mechanic:pohe",
+      "evidence": "docs/knowledge/pohe-20261101.json"
+    },
     "1870156": {
       "name": "血祭",
       "holder": "source",
@@ -285,6 +310,10 @@
     "evidence": "evidence/p1/rdps-rules/school-20261023/conditional-buffs-review.json"
   },
   "mechanicProviders": {
+    "mechanic:pohe": {
+      "name": "破核",
+      "ruleIds": ["1002148", "1002149"]
+    },
     "mechanic:xueji": {
       "name": "血祭",
       "ruleIds": [

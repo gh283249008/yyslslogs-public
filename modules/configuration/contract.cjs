@@ -33,8 +33,10 @@ function validate(file,value){
   demand(value.resource==='HP','attribution resource');for(const [id,r] of Object.entries(value.rules)){demand(/^\d+$/.test(id)&&object(r),'rule identity');if(r.rate!==undefined)demand(Number.isFinite(r.rate)&&r.rate>=0,'rule rate');if(r.maxStacks!==undefined)demand(Number.isInteger(r.maxStacks)&&r.maxStacks>0,'rule stacks');}
   for(const [id,r] of Object.entries(value.rules))if(r.creditProviderId){
    demand(r.creditProviderId.startsWith('mechanic:')&&value.mechanicProviders?.[r.creditProviderId]?.ruleIds?.includes(id),'mechanic provider mapping');
-   demand(r.requiresResourceSuccess===true&&Number.isInteger(r.resourceChangeResource),'mechanic activation condition');
+   demand((r.requiresResourceSuccess===true&&Number.isInteger(r.resourceChangeResource))||
+    (r.activation==='observed-buff'&&r.requiresResourceSuccess===undefined&&r.resourceChangeResource===undefined&&r.pool==='damage'&&r.maxStacks===1),'mechanic activation condition');
   }
+  for(const [hash,ids] of Object.entries(value.compatibleWithoutRules??{}))demand(/^[a-f0-9]{64}$/.test(hash)&&Array.isArray(ids)&&ids.length>0&&new Set(ids).size===ids.length&&ids.every(id=>value.rules[id]?.activation==='observed-buff'),'compatible attribution revision');
  }
  if(file==='config/overlay-buffs.json'){
   demand(new Set(value.slots).size===value.slots.length&&value.slots.every(s=>typeof s==='string'),'buff slots');

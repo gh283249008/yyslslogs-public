@@ -4,6 +4,30 @@
   "entries": [
     {
       "match": {
+        "dungeonSid": 251,
+        "dungeonGameId": 594,
+        "npcTemplateNo": 18500021,
+        "customValueId": 185000212,
+        "serialId": 1,
+        "dungeonSerialId": 1,
+        "statisticNpcNo": 150
+      },
+      "bossName": "陆狰（挑战模式）",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-11-01 challenge mode; complete saved identity tuple",
+      "provenance": {
+        "sourceSessionId": "42bf07ab7e5cbf67d30ed06a",
+        "battle": "ee22de21d266e78d37fb",
+        "evidence": "docs/knowledge/pohe-20261101.json"
+      },
+      "requirements": [
+        "All match fields must equal; no statisticNpcNo-only fallback.",
+        "NPC must belong to the same observed dungeon.npcs membership.",
+        "Unknown schema or changed identity tuple remains unknown."
+      ]
+    },
+    {
+      "match": {
         "dungeonSid": 156,
         "dungeonGameId": 413,
         "npcTemplateNo": 92000001,
@@ -17,7 +41,7 @@
       "nameSource": "user-confirmed sample catalog; not plaintext NPC name from packet",
       "provenance": {
         "sourceSessionId": "19e5c3f94da19be22870c9fc",
-        "capture": "party-retest-20261018-032238/frozen/transport.private.tsv",
+        "capture": "Saved-record verification",
         "bossActorHash": "b5d25aedab0a908a",
         "spaceHash": "38da96c33edab805",
         "npcCreateRecord": 2247,
@@ -42,7 +66,7 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-19; scoped captured identity",
       "provenance": {
-        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-18",
+        "capture": "Saved-record verification",
         "evidence": "evidence/p2/incident-20261019"
       }
     },
@@ -59,7 +83,7 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-19; scoped captured identity",
       "provenance": {
-        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-18",
+        "capture": "Saved-record verification",
         "evidence": "evidence/p2/incident-20261019"
       }
     },
@@ -78,7 +102,7 @@
       "nameSource": "user-confirmed 2026-10-20: 148 茧中老人; scoped captured identity, not plaintext packet name",
       "provenance": {
         "confirmation": "用户本次直接确认：148 茧中老人，149 愁铃客",
-        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-20T15-24-08-018Z-28200/capture/battles/1ddfce7d0bd7c3c6f033/battle.json",
+        "capture": "Saved-record verification",
         "recoveredCapture": "evidence/p2/incident-20261020-client-variant/emergency-recovery/replay-final/battles",
         "evidence": "evidence/p1/encounter-retest/scoped-names-20261020-verification.json",
         "bindingBasis": "The user labels the encounter statistic number. The complete observed SpaceData/Npc tuple scopes that label; no Chinese NPC name was decoded."
@@ -104,7 +128,7 @@
       "nameSource": "user-confirmed 2026-10-20: 149 愁铃客; scoped captured identity, not plaintext packet name",
       "provenance": {
         "confirmation": "用户本次直接确认：148 茧中老人，149 愁铃客",
-        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-20T15-24-08-018Z-28200/capture/battles/2096812ef4d8d02c6f82/battle.json",
+        "capture": "Saved-record verification",
         "evidence": "evidence/p1/encounter-retest/scoped-names-20261020-verification.json",
         "bindingBasis": "The user labels the encounter statistic number. The complete observed SpaceData/Npc tuple scopes that label; no Chinese NPC name was decoded."
       },
@@ -128,7 +152,7 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-25 challenge mode; complete saved identity tuple",
       "provenance": {
-        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-24T13-10-09-312Z-19808/capture/battles",
+        "capture": "Saved-record verification",
         "confirmation": "用户2026-10-25确认148茧中老人（挑战模式）、149愁铃客（挑战模式）"
       },
       "requirements": [
@@ -151,13 +175,35 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-25 challenge mode; complete saved identity tuple",
       "provenance": {
-        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-24T13-10-09-312Z-19808/capture/battles",
+        "capture": "Saved-record verification",
         "confirmation": "用户2026-10-25确认148茧中老人（挑战模式）、149愁铃客（挑战模式）"
       },
       "requirements": [
         "All match fields must equal; no statisticNpcNo-only fallback.",
         "NPC must belong to the same observed SpaceData dungeon.npcs membership.",
         "An unobserved dungeonGameId or changed NPC tuple remains unknown."
+      ]
+    },
+    {
+      "match": {
+        "dungeonSid": 244,
+        "dungeonGameId": 594,
+        "npcTemplateNo": 6930092,
+        "customValueId": 69300922,
+        "serialId": 1,
+        "dungeonSerialId": 1,
+        "statisticNpcNo": 147
+      },
+      "bossName": "青瓶居士（挑战模式）",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-11-01 challenge mode; complete saved identity tuple",
+      "provenance": {
+        "confirmation": "用户指定青瓶居士（挑战模式）",
+        "capture": "Saved-record verification"
+      },
+      "requirements": [
+        "All match fields must equal; no statisticNpcNo-only fallback.",
+        "NPC must belong to the same observed SpaceData dungeon.npcs membership."
       ]
     }
   ]
