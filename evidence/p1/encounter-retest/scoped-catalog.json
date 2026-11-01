@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "preset": 10012,
+  "entries": [
+    {
+      "match": {
+        "dungeonSid": 156,
+        "dungeonGameId": 413,
+        "npcTemplateNo": 92000001,
+        "customValueId": 6930037,
+        "serialId": 2,
+        "dungeonSerialId": 2,
+        "statisticNpcNo": 77
+      },
+      "bossName": "寄棺主",
+      "dungeonName": "沉棺泊梦",
+      "nameSource": "user-confirmed sample catalog; not plaintext NPC name from packet",
+      "provenance": {
+        "sourceSessionId": "19e5c3f94da19be22870c9fc",
+        "capture": "party-retest-20261018-032238/frozen/transport.private.tsv",
+        "bossActorHash": "b5d25aedab0a908a",
+        "spaceHash": "38da96c33edab805",
+        "npcCreateRecord": 2247,
+        "spaceCreateRecord": 2248
+      },
+      "requirements": [
+        "All match fields must equal; no npcNo77-only fallback.",
+        "NPC must belong to the same SpaceData dungeon.npcs membership.",
+        "A new unrecognized tuple remains unknown."
+      ]
+    },
+    {
+      "match": {
+        "dungeonSid": 242,
+        "dungeonGameId": 592,
+        "npcTemplateNo": 6930092,
+        "serialId": 1,
+        "dungeonSerialId": 1,
+        "statisticNpcNo": 147
+      },
+      "bossName": "青瓶居士",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-10-19; scoped captured identity",
+      "provenance": {
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-18",
+        "evidence": "evidence/p2/incident-20261019"
+      }
+    },
+    {
+      "match": {
+        "dungeonSid": 253,
+        "dungeonGameId": 592,
+        "npcTemplateNo": 18500021,
+        "serialId": 1,
+        "dungeonSerialId": 1,
+        "statisticNpcNo": 150
+      },
+      "bossName": "陆铮",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-10-19; scoped captured identity",
+      "provenance": {
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-18",
+        "evidence": "evidence/p2/incident-20261019"
+      }
+    },
+    {
+      "match": {
+        "dungeonSid": 246,
+        "dungeonGameId": 571,
+        "npcTemplateNo": 24800009,
+        "customValueId": 248000093,
+        "serialId": 2,
+        "dungeonSerialId": 2,
+        "statisticNpcNo": 148
+      },
+      "bossName": "茧中老人",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-10-20: 148 茧中老人; scoped captured identity, not plaintext packet name",
+      "provenance": {
+        "confirmation": "用户本次直接确认：148 茧中老人，149 愁铃客",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-20T15-24-08-018Z-28200/capture/battles/1ddfce7d0bd7c3c6f033/battle.json",
+        "recoveredCapture": "evidence/p2/incident-20261020-client-variant/emergency-recovery/replay-final/battles",
+        "evidence": "evidence/p1/encounter-retest/scoped-names-20261020-verification.json",
+        "bindingBasis": "The user labels the encounter statistic number. The complete observed SpaceData/Npc tuple scopes that label; no Chinese NPC name was decoded."
+      },
+      "requirements": [
+        "All match fields must equal; no statisticNpcNo-only fallback.",
+        "NPC must belong to the same observed SpaceData dungeon.npcs membership.",
+        "An unobserved dungeonGameId or changed NPC tuple remains unknown."
+      ]
+    },
+    {
+      "match": {
+        "dungeonSid": 248,
+        "dungeonGameId": 571,
+        "npcTemplateNo": 22800004,
+        "customValueId": 228000043,
+        "serialId": 2,
+        "dungeonSerialId": 2,
+        "statisticNpcNo": 149
+      },
+      "bossName": "愁铃客",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-10-20: 149 愁铃客; scoped captured identity, not plaintext packet name",
+      "provenance": {
+        "confirmation": "用户本次直接确认：148 茧中老人，149 愁铃客",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-20T15-24-08-018Z-28200/capture/battles/2096812ef4d8d02c6f82/battle.json",
+        "evidence": "evidence/p1/encounter-retest/scoped-names-20261020-verification.json",
+        "bindingBasis": "The user labels the encounter statistic number. The complete observed SpaceData/Npc tuple scopes that label; no Chinese NPC name was decoded."
+      },
+      "requirements": [
+        "All match fields must equal; no statisticNpcNo-only fallback.",
+        "NPC must belong to the same observed SpaceData dungeon.npcs membership.",
+        "An unobserved dungeonGameId or changed NPC tuple remains unknown."
+      ]
+    },
+    {
+      "match": {
+        "dungeonSid": 249,
+        "dungeonGameId": 572,
+        "npcTemplateNo": 24800009,
+        "customValueId": 248000092,
+        "serialId": 2,
+        "dungeonSerialId": 2,
+        "statisticNpcNo": 148
+      },
+      "bossName": "茧中老人（挑战模式）",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-10-25 challenge mode; complete saved identity tuple",
+      "provenance": {
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-24T13-10-09-312Z-19808/capture/battles",
+        "confirmation": "用户2026-10-25确认148茧中老人（挑战模式）、149愁铃客（挑战模式）"
+      },
+      "requirements": [
+        "All match fields must equal; no statisticNpcNo-only fallback.",
+        "NPC must belong to the same observed SpaceData dungeon.npcs membership.",
+        "An unobserved dungeonGameId or changed NPC tuple remains unknown."
+      ]
+    },
+    {
+      "match": {
+        "dungeonSid": 250,
+        "dungeonGameId": 572,
+        "npcTemplateNo": 22800004,
+        "customValueId": 228000042,
+        "serialId": 2,
+        "dungeonSerialId": 2,
+        "statisticNpcNo": 149
+      },
+      "bossName": "愁铃客（挑战模式）",
+      "dungeonName": null,
+      "nameSource": "user-confirmed 2026-10-25 challenge mode; complete saved identity tuple",
+      "provenance": {
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-24T13-10-09-312Z-19808/capture/battles",
+        "confirmation": "用户2026-10-25确认148茧中老人（挑战模式）、149愁铃客（挑战模式）"
+      },
+      "requirements": [
+        "All match fields must equal; no statisticNpcNo-only fallback.",
+        "NPC must belong to the same observed SpaceData dungeon.npcs membership.",
+        "An unobserved dungeonGameId or changed NPC tuple remains unknown."
+      ]
+    }
+  ]
+}

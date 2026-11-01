@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; connect-src 'none'"><meta name="viewport" content="width=device-width, initial-scale=1"><title>燕云LOGS</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="app-header"><div class="brand"><img class="brand-logo" src="logo.svg" alt="" width="38" height="38"><div><strong>燕云<b>LOGS</b></strong><span class="brand-caption">记录工作台</span></div></div><div class="header-note"><i></i>本地记录 · 手动上传</div></header>
+<main>
+<div class="page-title"><div><span class="eyebrow">YOUR BATTLES, READY TO SHARE</span><h1>整理战斗，留存每一场。</h1><p>选择记录日期，生成上传包，再同步到你的报告库。</p></div><span class="version">采集器随附工具</span></div>
+<div class="workspace">
+<div class="library-column">
+<article class="panel library"><div class="panel-heading"><div><span class="step">01</span><h2>选择战斗记录</h2></div><button id="refresh" class="quiet">刷新列表</button></div>
+<div class="location"><div><span class="field-caption">记录来源</span><p id="source-path" class="path"></p></div><button id="source" class="text-button">更换目录</button></div>
+<div class="list-heading"><span>按日期选择 · 可多选</span><span id="selection-count">未选择</span></div><div id="list"></div>
+<div class="library-footer"><span class="hint-dot"></span>原始记录会保留；无需采集器正常退出。</div></article>
+<article class="panel export"><div class="panel-heading"><div><span class="step">02</span><h2>生成上传包</h2></div><button id="open" class="quiet">打开文件夹 ↗</button></div>
+<div class="location"><div><span class="field-caption">保存到</span><p id="output-path" class="path"></p></div><button id="destination" class="text-button">更换</button></div>
+<div class="export-action"><span>每个会话生成一个 <code>.yylogs</code> 文件</span><button id="generate" class="primary">生成所选压缩包 <span aria-hidden="true">→</span></button></div>
+<progress id="progress" value="0" max="100" aria-label="打包进度"></progress><pre id="status" class="status" role="status">勾选上方记录后，即可生成上传包。</pre></article>
+</div>
+<aside class="panel upload-panel"><div class="panel-heading"><div><span class="step">03</span><h2>同步到报告库</h2></div><span class="domain">ONLINE</span></div>
+<div class="account-card"><div class="account-heading"><img class="avatar" src="logo.svg" alt=""><div><strong>燕云LOGS 账号</strong><p id="account" role="status">未登录</p></div><button id="logout" class="text-button" disabled>退出</button></div>
+<div id="login-fields"><label class="field-label" for="username">用户名</label><input id="username" placeholder="输入网站用户名" autocomplete="username"><label class="field-label" for="password">密码</label><input id="password" type="password" placeholder="输入密码" autocomplete="current-password"><button id="login" class="secondary full">登录账号</button><p class="privacy-note">yylogs.dreemurr.net · 密码不保存在本机</p></div></div>
+<div class="upload-file-heading"><label class="field-label" for="packages">上传文件</label><button id="select-package" class="text-button">选择已有包 ＋</button></div><select id="packages"><option value="" disabled selected>生成或选择一个 yylogs 文件</option></select><p class="file-help">生成的文件会自动加入此列表。</p>
+<div class="transfer-card"><div class="transfer-heading"><span id="transfer-label">等待上传</span><strong id="transfer-percent">—</strong></div><progress id="upload-progress" value="0" max="100" aria-label="上传进度"></progress><div class="transfer-metrics"><span id="transfer-size">尚未传输</span><span id="transfer-speed">— MiB/s</span></div></div>
+<button id="upload" class="primary full" disabled>上传所选包 <span aria-hidden="true">↑</span></button><button id="stop-upload" class="danger full" disabled>停止上传并清理</button><pre id="upload-status" class="status upload-status" role="status">登录后手动上传。断线后可重新选择同一个包继续。</pre><div id="task-panel" hidden><div class="upload-file-heading"><span class="field-label">账号上传任务</span><button id="refresh-tasks" class="text-button">刷新</button></div><div id="task-list"></div></div><div class="upload-note"><span>只在你点击上传后传输</span><span>不会后台自动上传</span></div></aside>
+</div></main><footer>燕云LOGS <span>让每一次战斗都有迹可循</span></footer><script src="renderer.js"></script></body></html>

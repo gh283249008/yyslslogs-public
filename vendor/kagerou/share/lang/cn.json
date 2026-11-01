@@ -1,0 +1,335 @@
+{
+  "general": {
+    "left": "左",
+    "center": "中",
+    "right": "右"
+  },
+  "ui": {
+    "header": {
+      "in-develop": "开发中/不稳定",
+      "waiting-data": "等待战斗",
+      "no-data-yet": "还没有数据",
+      "please-do-combat": "请先开始战斗"
+    },
+    "menu": {
+      "merge-pet-on": "开启宠物合并",
+      "merge-pet-off": "关闭宠物合并",
+      "nameblur-on": "模糊名字",
+      "nameblur-off": "取消模糊名字",
+      "end-encounter": "分离计数器",
+      "settings": "设置",
+      "reload": "重载",
+      "fullscreen": "切换全屏",
+      "screenshot": "截屏",
+      "donate": "捐助"
+    },
+    "config": {
+      "_": "设置",
+      "save": "保存",
+      "execute": "执行",
+      "dialog": {
+        "really": "确定初始化设置？",
+        "apply": "应用设置？",
+        "undone": "该操作无法撤销！",
+        "yes": "是",
+        "no": "否",
+        "manual-reload": {
+          "title": "无法重载！",
+          "content": "请手动重载。"
+        }
+      },
+      "general": {
+        "_": "通常",
+        "combine_pet": "宠物合并",
+        "split-by-comma": "用半角逗号','分隔多个名字",
+        "basic": "基本",
+        "footer-visibility": {
+          "_": "页脚",
+          "show": "显示",
+          "use-header-instead": "在顶部显示",
+          "hide": "不显示"
+        },
+        "footer": {
+          "_": "页脚元素",
+          "rank": "我的排名",
+          "rdps": "总体DPS",
+          "rhps": "总体HPS",
+          "recover": "总治疗获得/伤害承受 🔄"
+        },
+        "reset": "重置",
+        "reset-this": "重置全部"
+      },
+      "style": {
+        "_": "样式",
+        "reset-this": "重置样式",
+        "css-help": [
+          "使用CSS值，可由其他带分号的标签扩展",
+          "使用半透明颜色：<code>rgba(Red, Green, Blue, Alpha)</code>. <br /> Alpha 的范围为从0到1.",
+          "使用图片背景：<code>url('Image URL')</code>"
+        ],
+        "image": {
+          "_": "背景图片",
+          "help": "背景图片优先级高于背景颜色，半透明像素除外。图片地址按照<code>url('图片URL')</code>的形式填写。",
+          "color": "填充",
+          "image": "图片",
+          "opacity": "透明度",
+          "filter": "CSS过滤器(高级)",
+          "default": "默认: "
+        },
+        "layout": "布局",
+        "background": "背景",
+        "foreground": "前景",
+        "width-applied-only": "只适用于每行单元格数不是1的情形。",
+        "element": {
+          "nav": "导航栏",
+          "dropdown": "下拉菜单",
+          "my-row": "你的数据",
+          "header": "表头",
+          "table": "表格",
+          "cell": "单元格"
+        },
+        "shadow": "阴影"
+      },
+      "color": {
+        "_": "计量条颜色",
+        "reset-this": "重置颜色",
+        "etc": "其他",
+        "pet-buddy": "宠物/伙伴"
+      },
+      "width": {
+        "_": "列宽",
+        "reset-this": "重置宽度",
+        "css-help": [
+          "默认为16px，且会随UI缩放而改变。",
+          "窗口宽度缩短时'名字'栏会首先被缩短。"
+        ]
+      },
+      "tab": {
+        "_": "标签",
+        "title": "标题",
+        "width": "每行单元格数",
+        "sortby": "排序方式",
+        "available": "可用数据列",
+        "configured": "显示数据列",
+        "widths": [0, 1, 2, 3]
+      },
+      "i/e": {
+        "_": "导入/导出",
+        "import": "导入",
+        "export": "导出",
+        "copy-this": "复制下面所有内容：",
+        "paste-here": "粘贴获取的内容：",
+        "save-first": "请先保存！！",
+        "export-help": "某些值以及与默认值相同的值将不会被导出。",
+        "config-to-export": "配置导出",
+        "all": "全部",
+        "data-fault": "数据不正确或损坏。",
+        "content-count": "列数",
+        "open-prompt": "打开提示"
+      },
+      "etc": {
+        "_": "更多",
+        "others": {
+          "_": "其他",
+          "skill-aliases-help": "对过长的技能名使用缩写，例如'通灵之术·大虾蟆'。",
+          "filter": "过滤器",
+          "filter-help": [
+            "FF14插件不能鉴别敌我，所以这些选项将尽力不将敌人显示出来。",
+            "如果出现任何错误，请禁用下面所有选项。"
+          ],
+          "unusual-spaces": "不是宠物名字却包含空格(仅限韩服，国服也许可用，因为中国服名字也不含空格)",
+          "jobless": "职业为空",
+          "not-combatant": "不是战斗精英或魔法导师"
+        },
+        "css": "CSS"
+      },
+      "info": {
+        "_": "关于",
+        "created-by": "作者：",
+        "servers": "Rhamu @ Elemental / Carbuncle @ KR / Chocobo @ KR",
+        "hibiya": "hibiya inemuri / kuriyama hibiya",
+        "support": "支持",
+        "license": "许可证",
+        "icon-files": "所有文件都在 share/img/class 目录下,",
+        "privacy": {
+          "_": "隐私政策",
+          "list": [
+            "如果操作本程序时出现错误,<br />用于定位问题的信息将会发送到服务器。",
+            "仅会在最低限度下收集用于诊断问题的信息:",
+            "* 程序版本<br />* 最后战斗数据<br />* 其他由 ravenjs 收集的数据"
+          ]
+        }
+      }
+    }
+  },
+  "config": {
+    "style": {
+      "_": "样式",
+      "resize-factor": "UI缩放",
+      "body-margin": "透明外边框宽度",
+      "body-font": "字体",
+      "nav-opacity": "失焦时导航栏透明度",
+      "accent-color": "强调",
+      "shadow-card": "窗口",
+      "shadow-text": "文字",
+      "content-align": "文字对齐",
+      "font-size-small": "小字字号",
+      "gauge-height": "计量条高度",
+      "graph-height": "表格行高"
+    },
+    "color": {
+      "_": "计量条颜色",
+      "gauge-default": "默认",
+      "gauge-opacity": "透明度",
+      "position-tank": "坦克",
+      "position-deal": "输出",
+      "position-heal": "治疗",
+      "pld": "骑士(剑术师)",
+      "war": "战士(斧术师)",
+      "drk": "黑暗骑士",
+      "gnb": "绝枪战士",
+      "mnk": "武僧(格斗家)",
+      "drg": "龙骑士(枪术师)",
+      "brd": "吟游诗人(弓箭手)",
+      "nin": "忍者(双剑士)",
+      "smn": "召唤师(秘术师)",
+      "blm": "黑魔法师(咒术师)",
+      "mch": "机工士",
+      "sam": "武士",
+      "rpr": "Reaper",
+      "rdm": "赤魔法师",
+      "vpr": "Viper",
+      "pct": "Pictomancer",
+      "blu": "青魔法师",
+      "dnc": "舞者",
+      "whm": "白魔法师(幻术师)",
+      "sch": "学者",
+      "ast": "占星术士",
+      "sge": "Sage",
+      "smn-pet": "召唤师(秘术师)宝石兽",
+      "sch-pet": "学者小仙女",
+      "mch-pet": "机工士炮塔",
+      "chocobo": "陆行鸟",
+      "limit-break": "极限技"
+    },
+    "format": {
+      "language": "Language",
+      "significant_digit": {
+        "_": "小数点精度",
+        "dps": "DPS",
+        "damage": "Damage",
+        "hps": "HPS",
+        "accuracy": "命中率",
+        "critical": "伤害和治疗百分比"
+      },
+      "thousands_separator": {
+        "_": "千位分隔符",
+        "none": "无",
+        "period": "点 (.)",
+        "comma": "逗号 (,)",
+        "space": "空格"
+      },
+      "myname": "自己的名字",
+      "use_short_name": "玩家名字表示方法（国服无效）",
+      "use_skill_aliases": "使用技能名缩写",
+      "numbers": "数字格式",
+      "use_tailing_pct": "在百分比数值后显示百分号",
+      "small_lower_numbers": "小于1000的数字以小字体显示",
+      "number_abbreviation": "省略以1000为单位的数字"
+    },
+    "element": {
+      "narrow_nav": "紧凑的顶栏"
+    }
+  },
+  "col": {
+    "i": {
+      "_": "信息",
+      "icon": [" ", "职业图标"],
+      "rank": ["#", "Rank"],
+      "class": ["职业", "职业/特职"],
+      "owner": ["主人", "所有者"],
+      "name": ["名字", "名字"]
+    },
+    "deal": {
+      "_": "输出",
+      "per_second": ["DPS", "每秒输出"],
+      "pct": ["D%", "百分比%"],
+      "total": ["总输出", "总伤害"],
+      "failure": ["丢失%", "丢失率"],
+      "accuracy": ["命中%", "命中率"],
+      "swing": ["次数", "攻击次数"],
+      "miss": ["Miss", "未命中次数"],
+      "hitfail": ["HitFail", "Hitfail次数"],
+      "critical": ["暴%", "暴击率%"],
+      "direct": ["直%", "直击率%"],
+      "crit_direct": ["直暴!!", "直击暴击率%(!!!)"],
+      "crittypes": ["直/暴/直暴", "直击/暴击/直暴击次数"],
+      "critpcts": ["直/暴/直暴", "直击率/暴击率/直暴率%"],
+      "max": ["最高伤害", "最高伤害（无技能名）"],
+      "maxskill": ["最高伤害", "最高伤害（仅技能名）"],
+      "maxhit": ["最高伤害", "最高伤害带技能名"],
+      "last10": ["10s", "10秒内DPS"],
+      "last30": ["30s", "30秒内DPS"],
+      "last60": ["1m", "1分钟内DPS"],
+      "last180": ["3m", "3分钟内DPS(测试)"]
+    },
+    "tank": {
+      "_": "坦克",
+      "damage": ["受伤", "承受伤害量"],
+      "heal": ["被治疗", "收到的治疗量"],
+      "parry": ["招架%", "招架率"],
+      "block": ["格挡%", "格挡率"],
+      "threat_delta": ["∆仇恨", "三角仇恨"]
+    },
+    "heal": {
+      "_": "治疗",
+      "per_second": ["HPS", "每秒治疗量"],
+      "pct": ["H%", "治疗比率%"],
+      "total": ["总治疗", "总治疗量"],
+      "over": ["过量%", "过量治疗"],
+      "swing": ["次数", "治疗次数"],
+      "critical": ["H暴%", "治疗暴击率%"],
+      "cure": ["驱散", "减益效果驱散次数"],
+      "max": ["最高治疗", "最高治疗（无技能名）"],
+      "maxskill": ["最高治疗", "最高治疗（仅技能名）"],
+      "maxhit": ["最高治疗", "最高治疗带技能名"]
+    },
+    "etc": {
+      "_": "其他",
+      "powerdrain": ["被吸蓝", "魔力被吸收量"],
+      "powerheal": ["回蓝", "魔力吸收量（醒神、河流不算）"],
+      "death": ["死", "死亡次数"]
+    }
+  },
+  "zone": {
+    "unknown": {
+      "2b3": "欧米茄时空狭缝 德尔塔幻境1",
+      "2b4": "欧米茄时空狭缝 德尔塔幻境2",
+      "2b5": "欧米茄时空狭缝 德尔塔幻境3",
+      "2b6": "欧米茄时空狭缝 德尔塔幻境4",
+      "2b7": "欧米茄零式时空狭缝 德尔塔幻境1",
+      "2b8": "欧米茄零式时空狭缝 德尔塔幻境2",
+      "2b9": "欧米茄零式时空狭缝 德尔塔幻境3",
+      "2ba": "欧米茄零式时空狭缝 德尔塔幻境4"
+    }
+  },
+  "skill": {
+    "alias": {
+      "鼓舞激励之策": "鼓舞",
+      "士气高扬之策": "士气高扬",
+      "不屈不挠之策": "不屈不挠",
+      "深谋远虑之策": "深谋远虑",
+      "通灵之术·大虾蟆": "大虾蟆",
+      "必杀剑·晓天": "晓天",
+      "必杀剑·九天": "九天",
+      "必杀剑·星眼": "星眼",
+      "必杀剑·红莲": "红莲",
+      "必杀剑·震天": "震天",
+      "贤者的叙事谣": "贤者谣",
+      "魔人的安魂曲": "魔人曲",
+      "军神的赞美歌": "军神歌",
+      "放浪神的小步舞曲": "放浪神"
+    }
+  },
+  "_author": "Chihaya Gunzo"
+}

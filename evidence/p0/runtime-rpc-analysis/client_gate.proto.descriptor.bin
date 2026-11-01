@@ -1,0 +1,56 @@
+
+client_gate.protomobile.server.luacommon.proto"#
+EncryptString
+
+encryptstr ("C
+SessionSeed
+seed (
+crypto (:0
+enable_zstd ("ì
+
+SessionKey
+random_padding_header (
+session_key (
+seed (
+random_padding_tail (
+crypto (:0
+enable_zstd ("#
+CtrlMsg
+typ (
+cmd (2°
+IGateService@
+seed_request.mobile.server.lua.Void.mobile.server.lua.VoidH
+session_key .mobile.server.lua.EncryptString.mobile.server.lua.VoidR
+connect_server'.mobile.server.lua.ConnectServerRequest.mobile.server.lua.VoidK
+entity_message .mobile.server.lua.EntityMessage.mobile.server.lua.VoidG
+reg_md5_index.mobile.server.lua.Md5OrIndex.mobile.server.lua.VoidM
+update_pos_info!.mobile.server.lua.ForwardPosInfo.mobile.server.lua.VoidP
+interest_entity.mobile.server.lua.InterestInfo.mobile.server.lua.Void"àD
+
+traceroute.mobile.server.lua.TraceRoute.mobile.server.lua.VoidC
+ctrl_message.mobile.server.lua.CtrlMsg.mobile.server.lua.VoidG
+echo_message.mobile.server.lua.OutBandInfo.mobile.server.lua.VoidY
+connect_server_second'.mobile.server.lua.ConnectServerRequest.mobile.server.lua.VoidK
+close_second_connection.mobile.server.lua.Void.mobile.server.lua.Void2è
+IGateClientE
+
+seed_reply.mobile.server.lua.SessionSeed.mobile.server.lua.VoidB
+session_key_ok.mobile.server.lua.Void.mobile.server.lua.VoidO
+connect_reply%.mobile.server.lua.ConnectServerReply.mobile.server.lua.VoidG
+create_entity.mobile.server.lua.EntityInfo.mobile.server.lua.VoidH
+destroy_entity.mobile.server.lua.EntityInfo.mobile.server.lua.VoidK
+entity_message .mobile.server.lua.EntityMessage.mobile.server.lua.VoidI
+chat_to_client.mobile.server.lua.OutBandInfo.mobile.server.lua.VoidG
+reg_md5_index.mobile.server.lua.Md5OrIndex.mobile.server.lua.VoidF
+update_aoi_info.mobile.server.lua.AoiInfo.mobile.server.lua.VoidF
+update_aoi_guid.mobile.server.lua.AoiGuid.mobile.server.lua.VoidG
+update_aoi_props.mobile.server.lua.AoiProp.mobile.server.lua.VoidH
+entity_method.mobile.server.lua.AreaMessage.mobile.server.lua.VoidU
+area_create_entity&.mobile.server.lua.AreaCreateEntityMsg.mobile.server.lua.VoidO
+filter_entity_method.mobile.server.lua.AreaMessage.mobile.server.lua.VoidG
+set_space_data.mobile.server.lua.SpaceData.mobile.server.lua.VoidD
+
+traceroute.mobile.server.lua.TraceRoute.mobile.server.lua.Void8
+ping.mobile.server.lua.Ping.mobile.server.lua.VoidO
+spectate_message".mobile.server.lua.SpectateMessage.mobile.server.lua.VoidK
+switch_first_connection.mobile.server.lua.Void.mobile.server.lua.VoidB	Äê¯

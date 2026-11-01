@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "activeProfileId": "cn-115-20261018-v1",
+  "profiles": {
+    "cn-115-20261018-v1": {
+      "label": "国服115阶版本毕业基准",
+      "revision": 1,
+      "authorizedOn": "2026-10-18",
+      "source": "用户明确指定：外功穿透63.78、属性穿透30，每版本由用户更新一次",
+      "physicalPenetration": 63.78,
+      "attributePenetration": 30,
+      "semantics": "effective-penetration-baseline",
+      "mode": "version-baseline-estimate"
+    }
+  }
+}

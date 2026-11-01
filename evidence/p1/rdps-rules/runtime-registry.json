@@ -1,0 +1,3306 @@
+{
+  "schemaVersion": 1,
+  "id": "yysls-cn-rdps-static-2026-10-18-v1",
+  "buildFingerprint": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+  "createdAt": "2026-10-18T06:07:49.191Z",
+  "liveEnabled": false,
+  "validation": "static-only",
+  "rules": {
+    "109710": {
+      "id": "109710",
+      "buffId": 109710,
+      "name": "惊神",
+      "group": "jingshen",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "7a079ff727c70e2b4d3e7f4a7d798279de78325395716597d902c74b89f8fafd",
+      "sourceRef": {
+        "key": 109710,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2302,
+        "slot": 409,
+        "file": 1,
+        "page": 1854,
+        "offset": 1696,
+        "length": 128
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 18,
+      "tableMaxStacks": 5,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          1097101,
+          1097102
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 1097101,
+          "rowSha256": "50bf07288f770d64e5d7f45cf82f3684b609ce0b69bfdf6edb37be6b30559a12",
+          "sourceRef": {
+            "key": 1097101,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2723,
+            "slot": 283,
+            "file": 1,
+            "page": 2414,
+            "offset": 13008,
+            "length": 48
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              2
+            ],
+            "effect_event": [
+              [
+                1,
+                0.05
+              ]
+            ],
+            "passive_id": 1097101,
+            "trigger": 3
+          }
+        },
+        {
+          "id": 1097102,
+          "rowSha256": "b046fb3ffa8523e8d078454c12127277230932689d8195d964660ba1eeed4f06",
+          "sourceRef": {
+            "key": 1097102,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2724,
+            "slot": 394,
+            "file": 1,
+            "page": 2414,
+            "offset": 13056,
+            "length": 64
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              1
+            ],
+            "cond_target": [
+              [
+                22,
+                2038006
+              ]
+            ],
+            "effect_event": [
+              [
+                1,
+                0.05
+              ]
+            ],
+            "passive_id": 1097102,
+            "trigger": 3
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "109711": {
+      "id": "109711",
+      "buffId": 109711,
+      "name": "惊神",
+      "group": "jingshen",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "a234c8336d0d8e4467dc792b075dae8607ef8d41b22d45e540483f33a7c573ee",
+      "sourceRef": {
+        "key": 109711,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2310,
+        "slot": 321,
+        "file": 1,
+        "page": 1854,
+        "offset": 1824,
+        "length": 160
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 18,
+      "tableMaxStacks": 5,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          1097111,
+          1097112,
+          1097113
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 1097111,
+          "rowSha256": "85d87e756daa138bae5d8a8fabaa6c90006b0d8a090d388a65fcac88f09d94d0",
+          "sourceRef": {
+            "key": 1097111,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2723,
+            "slot": 128,
+            "file": 1,
+            "page": 2414,
+            "offset": 13120,
+            "length": 48
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              2
+            ],
+            "effect_event": [
+              [
+                1,
+                0.05
+              ]
+            ],
+            "passive_id": 1097111,
+            "trigger": 3
+          }
+        },
+        {
+          "id": 1097112,
+          "rowSha256": "2e46a046a82ba20790a9c69948ab4618df8126453595e310f8bd46882c31c387",
+          "sourceRef": {
+            "key": 1097112,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2733,
+            "slot": 199,
+            "file": 1,
+            "page": 2414,
+            "offset": 13168,
+            "length": 64
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              1
+            ],
+            "cond_target": [
+              [
+                22,
+                2038006
+              ]
+            ],
+            "effect_event": [
+              [
+                1,
+                0.1
+              ]
+            ],
+            "passive_id": 1097112,
+            "trigger": 3
+          }
+        },
+        {
+          "id": 1097113,
+          "rowSha256": "3d88218c996650ca50cab0ebac63d6e04e466bfa149fa27b8c67316686a7e98a",
+          "sourceRef": {
+            "key": 1097113,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2724,
+            "slot": 233,
+            "file": 1,
+            "page": 2414,
+            "offset": 13232,
+            "length": 64
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              2
+            ],
+            "cond_target": [
+              [
+                24,
+                10101,
+                10201
+              ]
+            ],
+            "effect_event": [
+              [
+                1,
+                0.05
+              ]
+            ],
+            "passive_id": 1097113,
+            "trigger": 3
+          }
+        }
+      ],
+      "dispels": [
+        [
+          109710
+        ]
+      ],
+      "immuneTo": [
+        [
+          109710
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "109802": {
+      "id": "109802",
+      "buffId": 109802,
+      "name": "裁云触发上下文",
+      "group": "caiyun-context",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "b4a4c3fe3293f57d629c1899962d4669f6fbf6e4819b8f15a3707c9d5157ac4b",
+      "sourceRef": {
+        "key": 109802,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2264,
+        "slot": 165,
+        "file": 1,
+        "page": 1854,
+        "offset": 3264,
+        "length": 112
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": {
+        "otherBuff": 109803,
+        "otherValue": 0.02,
+        "selfBuff": 109804,
+        "selfValue": 0.06,
+        "selfExternalCredit": false
+      },
+      "baseDurationSeconds": -1,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          1098021,
+          1098022
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 1098021,
+          "rowSha256": "61491baa7a6d33273cd12f61800616703817fe41855eacccbf4506a49331fbe5",
+          "sourceRef": {
+            "key": 1098021,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2723,
+            "slot": 385,
+            "file": 1,
+            "page": 2414,
+            "offset": 14064,
+            "length": 80
+          },
+          "value": {
+            "cond_attack": [
+              2,
+              0,
+              1
+            ],
+            "cond_self": [
+              [
+                24,
+                20602
+              ],
+              [
+                21,
+                20602101
+              ]
+            ],
+            "effect_normal": [
+              [
+                106,
+                109804,
+                1
+              ]
+            ],
+            "passive_id": 1098021,
+            "trigger": 5
+          }
+        },
+        {
+          "id": 1098022,
+          "rowSha256": "9122e10f7600790d0e82cfdc1c6c381e7f4609f69daa2b86f4d3878600e9d2d0",
+          "sourceRef": {
+            "key": 1098022,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2724,
+            "slot": 202,
+            "file": 1,
+            "page": 2414,
+            "offset": 14144,
+            "length": 80
+          },
+          "value": {
+            "cond_attack": [
+              2,
+              0,
+              1
+            ],
+            "cond_self": [
+              [
+                21,
+                20602101
+              ]
+            ],
+            "effect_event": [
+              [
+                4,
+                109803,
+                1
+              ]
+            ],
+            "passive_id": 1098022,
+            "trigger": 2
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "109803": {
+      "id": "109803",
+      "buffId": 109803,
+      "name": "裁云",
+      "group": "caiyun",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "2f6d03b7239d1f67da1d0bf5b029cc6a74263a1caa9da7988a2f4596fe37a42a",
+      "sourceRef": {
+        "key": 109803,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 621,
+        "slot": 39,
+        "file": 1001,
+        "page": 113,
+        "offset": 2640,
+        "length": 368
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "otherBuff": 109803,
+        "otherValue": 0.02,
+        "selfBuff": 109804,
+        "selfValue": 0.06,
+        "selfExternalCredit": false
+      },
+      "baseDurationSeconds": 15,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [
+          "W_ATK_SCALE",
+          "W_HEAL_SCALE",
+          "PRO_ATK_A_SCALE",
+          "PRO_ATK_B_SCALE",
+          "PRO_ATK_C_SCALE",
+          "PRO_ATK_D_SCALE",
+          "PRO_ATK_E_SCALE",
+          "PRO_HEAL_SCALE"
+        ],
+        "values": [
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "109804": {
+      "id": "109804",
+      "buffId": 109804,
+      "name": "裁云",
+      "group": "caiyun",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "96172428b00c8153d48a1f11aa6f140b1cc57be2b940529f5e36c6ed1faa616a",
+      "sourceRef": {
+        "key": 109804,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 620,
+        "slot": 54,
+        "file": 1001,
+        "page": 113,
+        "offset": 3008,
+        "length": 416
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "provider-only",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "otherBuff": 109803,
+        "otherValue": 0.02,
+        "selfBuff": 109804,
+        "selfValue": 0.06,
+        "selfExternalCredit": false
+      },
+      "baseDurationSeconds": 15,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [
+          "W_ATK_SCALE",
+          "W_HEAL_SCALE",
+          "PRO_ATK_A_SCALE",
+          "PRO_ATK_B_SCALE",
+          "PRO_ATK_C_SCALE",
+          "PRO_ATK_D_SCALE",
+          "PRO_ATK_E_SCALE",
+          "PRO_HEAL_SCALE"
+        ],
+        "values": [
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          109803,
+          21071010
+        ]
+      ],
+      "immuneTo": [
+        [
+          109803,
+          21071010
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200100": {
+      "id": "200100",
+      "buffId": 200100,
+      "name": "八方风雷枪易伤",
+      "group": "yishang",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP",
+        "zhenqi"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "857447a24a6625358f1047ae571d4c1e02ed9285cd6bf68f213df88120b0c931",
+      "sourceRef": {
+        "key": 200100,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 649,
+        "slot": 1,
+        "file": 1001,
+        "page": 113,
+        "offset": 9584,
+        "length": 256
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-damage-sum",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 16,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [
+          [
+            10,
+            0.08
+          ],
+          [
+            12,
+            0.04
+          ]
+        ],
+        "passiveIds": [
+          2001001
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 2001001,
+          "rowSha256": "c9e0c06d0af677097beab3a500dc24a08b99f167e2e2ae720914ab20240a7e30",
+          "sourceRef": {
+            "key": 2001001,
+            "kind": "overlay",
+            "indexFile": "index1001",
+            "indexPage": 835,
+            "slot": 1,
+            "file": 1001,
+            "page": 142,
+            "offset": 3872,
+            "length": 96
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              0
+            ],
+            "cond_target": [
+              [
+                24,
+                20401,
+                20103
+              ]
+            ],
+            "effect_event": [
+              [
+                1,
+                0.1
+              ],
+              [
+                12,
+                2,
+                0.04
+              ]
+            ],
+            "passive_id": 2001001,
+            "trigger": 3
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200176": {
+      "id": "200176",
+      "buffId": 200176,
+      "name": "惧刃",
+      "group": "juren",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "0b571c949f6468419028114ab5633f3377d02c91db92af674de90c21910ac7d9",
+      "sourceRef": {
+        "key": 200176,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2295,
+        "slot": 18,
+        "file": 1,
+        "page": 1859,
+        "offset": 3648,
+        "length": 240
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 15,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [
+          "PRO_DEF_A",
+          "PRO_DEF_B",
+          "PRO_DEF_C",
+          "PRO_DEF_D",
+          "PRO_DEF_E"
+        ],
+        "values": [
+          -16,
+          -16,
+          -16,
+          -16,
+          -16
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          2001761
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 2001761,
+          "rowSha256": "4e2cdaf8d6703788eb7c78c0f625c15fd2a58b6d11eb476dcae9312d7603a1b3",
+          "sourceRef": {
+            "key": 2001761,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2726,
+            "slot": 32,
+            "file": 1,
+            "page": 2416,
+            "offset": 4880,
+            "length": 64
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              0
+            ],
+            "cond_target": [
+              [
+                24,
+                20402,
+                20801
+              ]
+            ],
+            "effect_event": [
+              [
+                1,
+                0.08
+              ]
+            ],
+            "passive_id": 2001761,
+            "trigger": 3
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200209": {
+      "id": "200209",
+      "buffId": 200209,
+      "name": "扶风",
+      "group": "fufeng",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "4774b103883945ff881bd3484c237237a1397383cd8ac7d440b46a4f78cea0f4",
+      "sourceRef": {
+        "key": 200209,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 608,
+        "slot": 12,
+        "file": 1001,
+        "page": 113,
+        "offset": 10176,
+        "length": 608
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊只给状态附加者额外+6%属性攻击。",
+        "tableConsistentPairs": [
+          {
+            "base": 200209,
+            "baseRate": 0.03,
+            "providerEnhancedCandidate": 200226,
+            "enhancedRate": 0.09
+          },
+          {
+            "base": 200225,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200227,
+            "enhancedRate": 0.12
+          }
+        ],
+        "pairingStatus": "数值与文案支持候选配对，最终施放分支未解。",
+        "rule": "基础/武学强化与来源本人额外6%必须分开；后一部分不生成对队友的Given。"
+      },
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.03,
+          0.03,
+          0.03,
+          0.03,
+          0.03,
+          0.03,
+          0.03,
+          0.03,
+          0.03,
+          0.03
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200216": {
+      "id": "200216",
+      "buffId": 200216,
+      "name": "烁鼓",
+      "group": "shuogu",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "da4f2ce02614df0266a1192a3c2259a4e9ef2798807806365840ddfb49708a7f",
+      "sourceRef": {
+        "key": 200216,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 620,
+        "slot": 0,
+        "file": 1001,
+        "page": 113,
+        "offset": 10784,
+        "length": 752
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊仅使状态附加者额外+6%所有类型攻击；这6%不是队友增益。",
+        "tableConsistentPairs": [
+          {
+            "base": 200216,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200229,
+            "enhancedRate": 0.12
+          },
+          {
+            "base": 200228,
+            "baseRate": 0.12,
+            "providerEnhancedCandidate": 200230,
+            "enhancedRate": 0.18
+          }
+        ],
+        "pairingStatus": "表值/结束追加/刷新字段与截图相符，但未解施放脚本的最终分支；ID到个人/团队角色配对仍为候选。",
+        "rule": "不能将所有12%烁鼓统一认定队友收益或统一认定本人强化；必须区分200228与200229及来源是否等于持有者。"
+      },
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_W_ATK_RATE",
+          "MAX_W_ATK_RATE",
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200225": {
+      "id": "200225",
+      "buffId": 200225,
+      "name": "扶风",
+      "group": "fufeng",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "79783a96ca8261afc06917ba68c30224fed366e89f8a67265a3d7602d016a7c7",
+      "sourceRef": {
+        "key": 200225,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 612,
+        "slot": 22,
+        "file": 1001,
+        "page": 113,
+        "offset": 11600,
+        "length": 624
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊只给状态附加者额外+6%属性攻击。",
+        "tableConsistentPairs": [
+          {
+            "base": 200209,
+            "baseRate": 0.03,
+            "providerEnhancedCandidate": 200226,
+            "enhancedRate": 0.09
+          },
+          {
+            "base": 200225,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200227,
+            "enhancedRate": 0.12
+          }
+        ],
+        "pairingStatus": "数值与文案支持候选配对，最终施放分支未解。",
+        "rule": "基础/武学强化与来源本人额外6%必须分开；后一部分不生成对队友的Given。"
+      },
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200209,
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200209,
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200226": {
+      "id": "200226",
+      "buffId": 200226,
+      "name": "扶风",
+      "group": "fufeng",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "806ed0afbe556315fd3631bf15ed05d1b9e3ccb2d4382dc0945d8ab3fc8d354a",
+      "sourceRef": {
+        "key": 200226,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 610,
+        "slot": 49,
+        "file": 1001,
+        "page": 113,
+        "offset": 12224,
+        "length": 624
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊只给状态附加者额外+6%属性攻击。",
+        "tableConsistentPairs": [
+          {
+            "base": 200209,
+            "baseRate": 0.03,
+            "providerEnhancedCandidate": 200226,
+            "enhancedRate": 0.09
+          },
+          {
+            "base": 200225,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200227,
+            "enhancedRate": 0.12
+          }
+        ],
+        "pairingStatus": "数值与文案支持候选配对，最终施放分支未解。",
+        "rule": "基础/武学强化与来源本人额外6%必须分开；后一部分不生成对队友的Given。"
+      },
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200209,
+          200225,
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200209,
+          200225,
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200227": {
+      "id": "200227",
+      "buffId": 200227,
+      "name": "扶风",
+      "group": "fufeng",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "ce5025d9639eabbac6789c4e95ccc3993bd49421e3db83abfcc55669a62c3aed",
+      "sourceRef": {
+        "key": 200227,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 629,
+        "slot": 91,
+        "file": 1001,
+        "page": 113,
+        "offset": 12848,
+        "length": 640
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊只给状态附加者额外+6%属性攻击。",
+        "tableConsistentPairs": [
+          {
+            "base": 200209,
+            "baseRate": 0.03,
+            "providerEnhancedCandidate": 200226,
+            "enhancedRate": 0.09
+          },
+          {
+            "base": 200225,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200227,
+            "enhancedRate": 0.12
+          }
+        ],
+        "pairingStatus": "数值与文案支持候选配对，最终施放分支未解。",
+        "rule": "基础/武学强化与来源本人额外6%必须分开；后一部分不生成对队友的Given。"
+      },
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200209,
+          200225,
+          200226,
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200209,
+          200225,
+          200226,
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200228": {
+      "id": "200228",
+      "buffId": 200228,
+      "name": "烁鼓",
+      "group": "shuogu",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "fea3026b045bc7b12f8cc78f02394369743cdaad9d761d193e8a81f8c4189dd9",
+      "sourceRef": {
+        "key": 200228,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 638,
+        "slot": 23,
+        "file": 1001,
+        "page": 113,
+        "offset": 13488,
+        "length": 784
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊仅使状态附加者额外+6%所有类型攻击；这6%不是队友增益。",
+        "tableConsistentPairs": [
+          {
+            "base": 200216,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200229,
+            "enhancedRate": 0.12
+          },
+          {
+            "base": 200228,
+            "baseRate": 0.12,
+            "providerEnhancedCandidate": 200230,
+            "enhancedRate": 0.18
+          }
+        ],
+        "pairingStatus": "表值/结束追加/刷新字段与截图相符，但未解施放脚本的最终分支；ID到个人/团队角色配对仍为候选。",
+        "rule": "不能将所有12%烁鼓统一认定队友收益或统一认定本人强化；必须区分200228与200229及来源是否等于持有者。"
+      },
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_W_ATK_RATE",
+          "MAX_W_ATK_RATE",
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200216,
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200216,
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200229": {
+      "id": "200229",
+      "buffId": 200229,
+      "name": "烁鼓",
+      "group": "shuogu",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "6b76c3ce6986ed04cb408505e4e936529fd77144e43b111a8f28cb4778f862fc",
+      "sourceRef": {
+        "key": 200229,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 637,
+        "slot": 17,
+        "file": 1001,
+        "page": 113,
+        "offset": 14272,
+        "length": 768
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊仅使状态附加者额外+6%所有类型攻击；这6%不是队友增益。",
+        "tableConsistentPairs": [
+          {
+            "base": 200216,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200229,
+            "enhancedRate": 0.12
+          },
+          {
+            "base": 200228,
+            "baseRate": 0.12,
+            "providerEnhancedCandidate": 200230,
+            "enhancedRate": 0.18
+          }
+        ],
+        "pairingStatus": "表值/结束追加/刷新字段与截图相符，但未解施放脚本的最终分支；ID到个人/团队角色配对仍为候选。",
+        "rule": "不能将所有12%烁鼓统一认定队友收益或统一认定本人强化；必须区分200228与200229及来源是否等于持有者。"
+      },
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_W_ATK_RATE",
+          "MAX_W_ATK_RATE",
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200216,
+          200228,
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200216,
+          200228,
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200230": {
+      "id": "200230",
+      "buffId": 200230,
+      "name": "烁鼓",
+      "group": "shuogu",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "0f7c3e4d50487a2061d034f5e1edb1237fab172e172f6cb71c639705522f7069",
+      "sourceRef": {
+        "key": 200230,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 634,
+        "slot": 45,
+        "file": 1001,
+        "page": 113,
+        "offset": 15040,
+        "length": 800
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊仅使状态附加者额外+6%所有类型攻击；这6%不是队友增益。",
+        "tableConsistentPairs": [
+          {
+            "base": 200216,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200229,
+            "enhancedRate": 0.12
+          },
+          {
+            "base": 200228,
+            "baseRate": 0.12,
+            "providerEnhancedCandidate": 200230,
+            "enhancedRate": 0.18
+          }
+        ],
+        "pairingStatus": "表值/结束追加/刷新字段与截图相符，但未解施放脚本的最终分支；ID到个人/团队角色配对仍为候选。",
+        "rule": "不能将所有12%烁鼓统一认定队友收益或统一认定本人强化；必须区分200228与200229及来源是否等于持有者。"
+      },
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_W_ATK_RATE",
+          "MAX_W_ATK_RATE",
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18,
+          0.18
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200216,
+          200228,
+          200229,
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "immuneTo": [
+        [
+          200216,
+          200228,
+          200229,
+          200209,
+          200225,
+          200226,
+          200227,
+          200237,
+          200238
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200237": {
+      "id": "200237",
+      "buffId": 200237,
+      "name": "扶风",
+      "group": "fufeng",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "5492362848db61df8747aba7bdb6b7e83dc8a8925cf45a341454cc246a937ea2",
+      "sourceRef": {
+        "key": 200237,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 606,
+        "slot": 1,
+        "file": 1001,
+        "page": 114,
+        "offset": 0,
+        "length": 560
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊只给状态附加者额外+6%属性攻击。",
+        "tableConsistentPairs": [
+          {
+            "base": 200209,
+            "baseRate": 0.03,
+            "providerEnhancedCandidate": 200226,
+            "enhancedRate": 0.09
+          },
+          {
+            "base": 200225,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200227,
+            "enhancedRate": 0.12
+          }
+        ],
+        "pairingStatus": "数值与文案支持候选配对，最终施放分支未解。",
+        "rule": "基础/武学强化与来源本人额外6%必须分开；后一部分不生成对队友的Given。"
+      },
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "200238": {
+      "id": "200238",
+      "buffId": 200238,
+      "name": "扶风",
+      "group": "fufeng",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "d89273ce58adde4e60fc465c5570ec3ad45e1c8cb6782dbefed5cda7fd07ff07",
+      "sourceRef": {
+        "key": 200238,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 638,
+        "slot": 41,
+        "file": 1001,
+        "page": 114,
+        "offset": 560,
+        "length": 592
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": {
+        "confirmedByUserScreenshot": "牵丝·翊只给状态附加者额外+6%属性攻击。",
+        "tableConsistentPairs": [
+          {
+            "base": 200209,
+            "baseRate": 0.03,
+            "providerEnhancedCandidate": 200226,
+            "enhancedRate": 0.09
+          },
+          {
+            "base": 200225,
+            "baseRate": 0.06,
+            "providerEnhancedCandidate": 200227,
+            "enhancedRate": 0.12
+          }
+        ],
+        "pairingStatus": "数值与文案支持候选配对，最终施放分支未解。",
+        "rule": "基础/武学强化与来源本人额外6%必须分开；后一部分不生成对队友的Given。"
+      },
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "MIN_PRO_ATK_A_RATE",
+          "MAX_PRO_ATK_A_RATE",
+          "MIN_PRO_ATK_B_RATE",
+          "MAX_PRO_ATK_B_RATE",
+          "MIN_PRO_ATK_C_RATE",
+          "MAX_PRO_ATK_C_RATE",
+          "MIN_PRO_ATK_E_RATE",
+          "MAX_PRO_ATK_E_RATE",
+          "MIN_PRO_ATK_D_RATE",
+          "MAX_PRO_ATK_D_RATE"
+        ],
+        "values": [
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          200237
+        ]
+      ],
+      "immuneTo": [
+        [
+          200237
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "221004": {
+      "id": "221004",
+      "buffId": 221004,
+      "name": "离猎步乱联动上下文",
+      "group": "lilie-context",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "41d31fce00c57941d8540c92aef0b7da976f650dbddde13494ed39e6c0cd458f",
+      "sourceRef": {
+        "key": 221004,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2266,
+        "slot": 486,
+        "file": 1,
+        "page": 1860,
+        "offset": 6912,
+        "length": 112
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 20,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          2210041
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 2210041,
+          "rowSha256": "71410eca903f80be3f757e5455e23acb9695551d8f3ec5b75466c345e2377f48",
+          "sourceRef": {
+            "key": 2210041,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2723,
+            "slot": 240,
+            "file": 1,
+            "page": 2416,
+            "offset": 7872,
+            "length": 64
+          },
+          "value": {
+            "cond_self": [
+              [
+                1,
+                221005
+              ]
+            ],
+            "effect_normal": [
+              [
+                129,
+                3,
+                20
+              ]
+            ],
+            "passive_id": 2210041,
+            "trigger": 145
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "221005": {
+      "id": "221005",
+      "buffId": 221005,
+      "name": "离猎",
+      "group": "lilie",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "ba6a8a4b940920cfdaf4eaa08eef3e4e7d6807dc46eb91136154c56f3cfa8c4c",
+      "sourceRef": {
+        "key": 221005,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2274,
+        "slot": 71,
+        "file": 1,
+        "page": 1860,
+        "offset": 7024,
+        "length": 112
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 20,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          2210051
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 2210051,
+          "rowSha256": "776c94c450fbc8f76ed836cd84f6fc15efd70c808845f5fadb307ce23de11918",
+          "sourceRef": {
+            "key": 2210051,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2732,
+            "slot": 364,
+            "file": 1,
+            "page": 2416,
+            "offset": 7936,
+            "length": 272
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              0
+            ],
+            "effect_snapshot": [
+              [
+                "PRO_ATK_A_SCALE",
+                1,
+                0.02,
+                0
+              ],
+              [
+                "PRO_ATK_B_SCALE",
+                1,
+                0.02,
+                0
+              ],
+              [
+                "PRO_ATK_C_SCALE",
+                1,
+                0.02,
+                0
+              ],
+              [
+                "PRO_ATK_D_SCALE",
+                1,
+                0.02,
+                0
+              ],
+              [
+                "PRO_ATK_E_SCALE",
+                1,
+                0.02,
+                0
+              ],
+              [
+                "W_ATK_SCALE",
+                1,
+                0.02,
+                0
+              ]
+            ],
+            "passive_id": 2210051,
+            "trigger": 3
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "1058031": {
+      "id": "1058031",
+      "buffId": 1058031,
+      "name": "一念浮生/千香引魂蛊上下文",
+      "group": "lin-context",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "55df2787be4466a6c466401aed3d1ffa8bc4b3ddd470d92e63affd025f74d1e5",
+      "sourceRef": {
+        "key": 1058031,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 606,
+        "slot": 28,
+        "file": 1001,
+        "page": 121,
+        "offset": 6416,
+        "length": 288
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [
+          [
+            10,
+            0.1
+          ]
+        ],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "1058032": {
+      "id": "1058032",
+      "buffId": 1058032,
+      "name": "增伤·霖",
+      "group": "lin",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "b31f57be73940b7d17a92085818efe05cfcd77f514703342331854a27aa84289",
+      "sourceRef": {
+        "key": 1058032,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 648,
+        "slot": 57,
+        "file": 1001,
+        "page": 121,
+        "offset": 6704,
+        "length": 320
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-damage-sum",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 12,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [
+          [
+            10,
+            0.24
+          ]
+        ],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          1058031
+        ]
+      ],
+      "immuneTo": [
+        [
+          1058031
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "3115011": {
+      "id": "3115011",
+      "buffId": 3115011,
+      "name": "一念浮生/千香引魂蛊上下文",
+      "group": "lin-context",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "d82fc78d3b23073030939d60e21069a62d5a57afaa7c1b34f596325077f9e504",
+      "sourceRef": {
+        "key": 3115011,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2295,
+        "slot": 427,
+        "file": 1,
+        "page": 1955,
+        "offset": 5120,
+        "length": 128
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "provider-only",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": -1,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          31150111,
+          31150113
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 31150111,
+          "rowSha256": "9bcc51efc3153c05c22d07d6b1a4ae8c7689d6eec69e0e38631629fc4eea7fa7",
+          "sourceRef": {
+            "key": 31150111,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2735,
+            "slot": 181,
+            "file": 1,
+            "page": 2422,
+            "offset": 8240,
+            "length": 64
+          },
+          "value": {
+            "cond_attack": [
+              2,
+              0,
+              0
+            ],
+            "cond_self": [
+              [
+                21,
+                20602101
+              ]
+            ],
+            "effect_event": [
+              [
+                4,
+                3115012
+              ]
+            ],
+            "passive_id": 31150111,
+            "trigger": 2
+          }
+        },
+        {
+          "id": 31150113,
+          "rowSha256": "081d910ddc54a8b9ac8fc9c8cb329ab57ecf936dfdc8374c77dd0f81e9524a57",
+          "sourceRef": {
+            "key": 31150113,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2736,
+            "slot": 492,
+            "file": 1,
+            "page": 2422,
+            "offset": 8368,
+            "length": 128
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              0
+            ],
+            "cond_self": [
+              [
+                9,
+                2
+              ],
+              [
+                32,
+                20602
+              ],
+              [
+                32,
+                10301
+              ]
+            ],
+            "effect_event": [
+              [
+                1,
+                0.2
+              ]
+            ],
+            "effect_snapshot": [
+              [
+                "ABR_AVOID_PROB",
+                1,
+                1,
+                0
+              ]
+            ],
+            "passive_id": 31150113,
+            "trigger": 1
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "3115012": {
+      "id": "3115012",
+      "buffId": 3115012,
+      "name": "一念浮生/千香引魂蛊上下文",
+      "group": "lin-context",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "dc67106e02dabddc3edda38a152aa8dbe8d8d073530d545ebcd53638f3a9b83e",
+      "sourceRef": {
+        "key": 3115012,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2292,
+        "slot": 198,
+        "file": 1,
+        "page": 1955,
+        "offset": 5248,
+        "length": 112
+      },
+      "placement": "source-buff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 5,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          31150112
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 31150112,
+          "rowSha256": "4052325c636a0961ce21922af403481b6e88d824f97d5eab661ddf16f12012c6",
+          "sourceRef": {
+            "key": 31150112,
+            "kind": "primary",
+            "indexFile": "index1",
+            "indexPage": 2720,
+            "slot": 458,
+            "file": 1,
+            "page": 2422,
+            "offset": 8304,
+            "length": 64
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              0
+            ],
+            "cond_target": [
+              [
+                4
+              ]
+            ],
+            "effect_event": [
+              [
+                1,
+                0.05
+              ]
+            ],
+            "passive_id": 31150112,
+            "trigger": 1
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10204211": {
+      "id": "10204211",
+      "buffId": 10204211,
+      "name": "青衣魅",
+      "group": "qingyimei",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "bb103e26832967933bbee9ae8eb037179751d76834a6d7002f63a002e02fbd78",
+      "sourceRef": {
+        "key": 10204211,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2293,
+        "slot": 336,
+        "file": 1,
+        "page": 1956,
+        "offset": 11328,
+        "length": 256
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 5,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10204212": {
+      "id": "10204212",
+      "buffId": 10204212,
+      "name": "青衣魅",
+      "group": "qingyimei",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "ceff2162a26feb9b9e86f60bfb4c5f1f861689a68344751c97c8adfc9757ed72",
+      "sourceRef": {
+        "key": 10204212,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2302,
+        "slot": 65,
+        "file": 1,
+        "page": 1956,
+        "offset": 11584,
+        "length": 240
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 5,
+      "coefficientFacts": {
+        "attributes": [
+          "W_DEF_RATE"
+        ],
+        "values": [
+          -0.01
+        ],
+        "stackScaling": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ],
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10204214": {
+      "id": "10204214",
+      "buffId": 10204214,
+      "name": "青衣魅",
+      "group": "qingyimei",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "3bc24434efb754728819a1ae721dfbdd64c314d725835b57566ee49d2916c096",
+      "sourceRef": {
+        "key": 10204214,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2280,
+        "slot": 67,
+        "file": 1,
+        "page": 1956,
+        "offset": 11952,
+        "length": 272
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 5,
+      "coefficientFacts": {
+        "attributes": [
+          "W_DEF_RATE"
+        ],
+        "values": [
+          -0.012
+        ],
+        "stackScaling": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ],
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          10204212
+        ]
+      ],
+      "immuneTo": [
+        [
+          10204212
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10204218": {
+      "id": "10204218",
+      "buffId": 10204218,
+      "name": "青衣魅",
+      "group": "qingyimei",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "c920b07a0c4c58cac21af2c2aa7234aed730688bdcf9b3c752fdc06f2b2520b4",
+      "sourceRef": {
+        "key": 10204218,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2266,
+        "slot": 56,
+        "file": 1,
+        "page": 1956,
+        "offset": 12608,
+        "length": 352
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 5,
+      "coefficientFacts": {
+        "attributes": [
+          "W_DEF_RATE",
+          "W_ATK_PEN_RDC"
+        ],
+        "values": [
+          -0.012,
+          -10
+        ],
+        "stackScaling": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [
+        [
+          10204212,
+          10204214
+        ]
+      ],
+      "immuneTo": [
+        [
+          10204212,
+          10204214
+        ]
+      ],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10245460": {
+      "id": "10245460",
+      "buffId": 10245460,
+      "name": "断石（扫千军减防）",
+      "group": "saoqianjun",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "d582b4dd871470ae9c7f7361e28d1617c41323c91e6df2cec6c30ca9dbe03a1b",
+      "sourceRef": {
+        "key": 10245460,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2269,
+        "slot": 229,
+        "file": 1,
+        "page": 1959,
+        "offset": 16176,
+        "length": 160
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "W_DEF_RATE"
+        ],
+        "values": [
+          -0.25
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10245461": {
+      "id": "10245461",
+      "buffId": 10245461,
+      "name": "断石（扫千军减防）",
+      "group": "saoqianjun",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "deb0ed26194f7422f9eb8a6a08b34447813df6cad6f4c3f07d8901f581ec769e",
+      "sourceRef": {
+        "key": 10245461,
+        "kind": "primary",
+        "indexFile": "index1",
+        "indexPage": 2269,
+        "slot": 359,
+        "file": 1,
+        "page": 1960,
+        "offset": 0,
+        "length": 160
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 1,
+      "coefficientFacts": {
+        "attributes": [
+          "W_DEF_RATE"
+        ],
+        "values": [
+          -0.05
+        ],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10250131": {
+      "id": "10250131",
+      "buffId": 10250131,
+      "name": "幻鸣",
+      "group": "huanming",
+      "selectedForAttribution": true,
+      "contextOnly": false,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "eac36a8f3cbb3911a746cffdb89d73d390b0851033494a5e118dfaa6b0fd29bc",
+      "sourceRef": {
+        "key": 10250131,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 628,
+        "slot": 13,
+        "file": 1001,
+        "page": 135,
+        "offset": 15008,
+        "length": 256
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "attribute-transform",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 5.1,
+      "tableMaxStacks": 5,
+      "coefficientFacts": {
+        "attributes": [
+          "W_ATK_PEN_RDC"
+        ],
+        "values": [
+          -2
+        ],
+        "stackScaling": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ],
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          102501311
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 102501311,
+          "rowSha256": "0d80c8e4a0896b3fe4df33471141c0b4f389011f34a959883177e56bba8efd2a",
+          "sourceRef": {
+            "key": 102501311,
+            "kind": "overlay",
+            "indexFile": "index1001",
+            "indexPage": 823,
+            "slot": 1,
+            "file": 1001,
+            "page": 143,
+            "offset": 8240,
+            "length": 128
+          },
+          "value": {
+            "active_space": 4,
+            "cond_attack": [
+              1,
+              0,
+              0
+            ],
+            "cond_target": [
+              [
+                1,
+                10250130
+              ],
+              [
+                16,
+                10250133
+              ],
+              [
+                21,
+                20603102
+              ]
+            ],
+            "effect_event": [
+              [
+                35,
+                10250134,
+                1,
+                10250133
+              ]
+            ],
+            "effect_normal": [
+              [
+                111
+              ]
+            ],
+            "passive_id": 102501311,
+            "trigger": 3
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10250133": {
+      "id": "10250133",
+      "buffId": 10250133,
+      "name": "幻鸣",
+      "group": "huanming",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "a98b21af449002c49168ccae38b04439a21f7b9850dcbe0b0a2b301ac859e594",
+      "sourceRef": {
+        "key": 10250133,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 601,
+        "slot": 14,
+        "file": 1001,
+        "page": 135,
+        "offset": 15264,
+        "length": 64
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 19.9,
+      "tableMaxStacks": null,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": []
+      },
+      "passiveRules": [],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    },
+    "10250134": {
+      "id": "10250134",
+      "buffId": 10250134,
+      "name": "幻鸣",
+      "group": "huanming",
+      "selectedForAttribution": false,
+      "contextOnly": true,
+      "validation": "static-only",
+      "liveEnabled": false,
+      "gameBuild": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+      "resources": [
+        "HP"
+      ],
+      "resourceScopeStatus": "static-candidate-not-validated",
+      "evidence": "evidence/p1/rdps-rules/buff-rows.json",
+      "rowSha256": "915b81019099f387bdd1f19d993772ecdf4095145823f59b7b0d21e1928c99f7",
+      "sourceRef": {
+        "key": 10250134,
+        "kind": "overlay",
+        "indexFile": "index1001",
+        "indexPage": 635,
+        "slot": 30,
+        "file": 1001,
+        "page": 135,
+        "offset": 15328,
+        "length": 144
+      },
+      "placement": "target-debuff",
+      "beneficiaryScope": "unverified",
+      "kind": "conditional-passive",
+      "providerRecipientSplit": null,
+      "baseDurationSeconds": 10,
+      "tableMaxStacks": 5,
+      "coefficientFacts": {
+        "attributes": [],
+        "values": [],
+        "stackScaling": null,
+        "cause": [],
+        "suffer": [],
+        "passiveIds": [
+          102501341
+        ]
+      },
+      "passiveRules": [
+        {
+          "id": 102501341,
+          "rowSha256": "06ad1265cbea409c5e9d88e2752b5fff096d9f6cb8d814039813f80fe3c466a4",
+          "sourceRef": {
+            "key": 102501341,
+            "kind": "overlay",
+            "indexFile": "index1001",
+            "indexPage": 830,
+            "slot": 21,
+            "file": 1001,
+            "page": 143,
+            "offset": 8368,
+            "length": 112
+          },
+          "value": {
+            "cond_attack": [
+              1,
+              0,
+              0
+            ],
+            "cond_self": [
+              [
+                21,
+                20603102
+              ]
+            ],
+            "effect_event": [
+              [
+                16,
+                2060310204,
+                1
+              ]
+            ],
+            "effect_normal": [
+              [
+                111,
+                0,
+                1
+              ]
+            ],
+            "passive_id": 102501341,
+            "trigger": 1
+          }
+        }
+      ],
+      "dispels": [],
+      "immuneTo": [],
+      "calculation": {
+        "status": "blocked-until-validated",
+        "requires": [
+          "effective-source-and-stack-ownership",
+          "same-clock-hit-and-buff-interval",
+          "complete-personal-baseline",
+          "resolved-conditions",
+          "validated-counterfactual-model"
+        ],
+        "noDirectStatToDamageConversion": true
+      }
+    }
+  },
+  "sources": [
+    {
+      "path": "evidence/p1/rdps-rules/buff-rows.json",
+      "sha256": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd"
+    },
+    {
+      "path": "evidence/p1/rdps-rules/buff_passive_data-rows.json",
+      "sha256": "f5abea6e6dda1d63c7fc0f5512c9c132031b31200826b1873c95adfeaf2c62b2"
+    },
+    {
+      "path": "evidence/p1/rdps-rules/selected-buff-scope.json",
+      "sha256": "cef6b822aa094082398c526d07f6f2b707772b079efb36e2345184770cd0caf6"
+    },
+    {
+      "path": "evidence/p1/rdps-rules/user-buff-supplement-review.json",
+      "sha256": "be43321e480862665929cb5b5a4fa02bff9f6bbc57595e23f33f249625892aa4"
+    },
+    {
+      "path": "evidence/p1/rdps-rules/resource-mapping.json",
+      "sha256": "858500a8595cfbe8afe5d51892b7eaec88c866f8e3fafcbd1045dcca36942e8c"
+    },
+    {
+      "path": "evidence/p1/rdps-rules/saoqianjun-review.json",
+      "sha256": "a746ac745e095eb82931936f4b5bf7c5b70a3226163641dfbce453569c3f6bd4"
+    }
+  ],
+  "resources": {
+    "HP": 0,
+    "zhenqi": 2
+  },
+  "formula": "rDPS = raw DPS - DPS TAKEN + DPS GIVEN",
+  "allocationPolicy": "additive-within-resolved-pool; log-weight-between-independent-positive-pools",
+  "limits": [
+    "Registry entries preserve table coefficients, not final damage multipliers.",
+    "Selected scope limits credit; all other effects remain required personal/target baseline context.",
+    "This is a selected-rule register with known companion context, NOT proof that all game effects or workbook supplementary candidates are covered.",
+    "3115012 target-exhaustion +5% and 3115011 personal conditional +20% are separate context; neither is silently folded into 24% Lin.",
+    "Shuogu/Fufeng provider +6% pair mappings are candidates; do not assign their personal bonus as external credit.",
+    "Game-specific pool mapping, stat transforms, party visibility and hit timing have not been validated.",
+    "Source-only effects and self-applied gains never transfer external credit.",
+    "No observed rDPS enabled by this registry."
+  ]
+}

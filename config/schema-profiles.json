@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "legacyReplayProfileId": "legacy-preset10012",
+  "byClientSha256": {
+    "2cff32efe14b24ecbde8916bcccd63559379d3ba50dec4e9ca56faf89fc93f42": "legacy-preset10012",
+    "0bbf657adc2d9f959ec1cd938a108593e973f50e9186192a39e327d40056f7b6": "legacy-preset10012",
+    "4483a00721a7b08a21f3cfb666eb6a8858dacf2e3830956be98c569bac746d1b": "cn-20261021-r64304-preset10207"
+  },
+  "profiles": {
+    "legacy-preset10012": {
+      "count": 10012,
+      "file": "evidence/p1/encounter-retest/index-names.json",
+      "sha256": "b274d7be7fecfdd1fa94532d818c07ccdba1d56d35f2e6bd9845a41fa9f052d6"
+    },
+    "cn-20261021-r64304-preset10207": {
+      "count": 10207,
+      "file": "config/schema-index-cn-20261021-r64304.json",
+      "sha256": "4d3b124cba0fd07edeebb5b6ba67609721b4d71c16cf3341166c7fb9866b4e5d"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+#yysls-panel{color:#dbe7ec;background:rgba(22,28,33,.96);font:12px 'Segoe UI','Microsoft YaHei',sans-serif;margin:.25rem .25rem 0;border-radius:5px 5px 0 0;border-top:2px solid #26c6da}
+#yysls-panel.replay{border-top-color:#efb953}
+.yysls-drag{display:flex;align-items:center;gap:12px;padding:8px 10px;-webkit-app-region:drag;user-select:none}
+.yysls-drag b{font-weight:600;color:#e9f7fb;white-space:nowrap}
+#yysls-mode{font-size:11px;color:#8cdde7;flex:1;white-space:nowrap}
+.replay #yysls-mode{color:#efc778}
+.host-buttons{display:flex;gap:4px;-webkit-app-region:no-drag}
+.host-buttons button{color:#dbe7ec;font-size:11px;border:0;background:#ffffff10;border-radius:3px;padding:3px 7px;cursor:pointer}
+.host-buttons button:hover{background:#ffffff28}
+#yysls-status{padding:0 10px 6px;color:#bacbd2;font-size:11px}
+.yysls-notice{padding:5px 10px;background:#0003;color:#96a8af;font-size:11px}
+body{background:transparent!important}
+#yysls-panel{display:none}
+nav .history{ -webkit-app-region:drag }
+nav .buttons,nav button,nav .history-button{-webkit-app-region:no-drag}
+#history-icon{-webkit-app-region:no-drag}
+body{display:flex;flex-direction:column}
+#yysls-panel,nav{flex-shrink:0}
+body main{flex:1;min-height:0;height:auto!important;max-height:none!important}
+.flex-column-yysls-rdps{width:4rem;flex-shrink:0}
+.flex-column-yysls-given,.flex-column-yysls-taken{width:5rem;flex-shrink:0}
+.flex-column-yysls-rdps,.flex-column-yysls-given,.flex-column-yysls-taken{box-sizing:border-box;padding-right:.4rem;text-align:right}
+.flex-column-deal-total,.flex-column-deal-per-second{flex-shrink:0}
+#header,#table>li{display:grid!important;grid-template-columns:6% 22% 20% repeat(4,13%)}
+#header>.flex-column,#table>li>.flex-column{width:100%;min-width:0;box-sizing:border-box;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:.4rem}
+.footer-rank{display:none!important}
+nav{margin-top:0!important}
+#init-menu .button[data-button=donate],#dropdown-more [data-button=merge-pet],#dropdown-more [data-button=end-encounter],#dropdown-more [data-button=fullscreen],#dropdown-more [data-button=capture]{display:none!important}
+.footer-rdps > small{margin-left:5px}
+.gauge{transition:width .2s linear}

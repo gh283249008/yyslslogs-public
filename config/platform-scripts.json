@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "scripts": {
+    "p1-live-session-watch": {
+      "file": "scripts/windows/p1-live-session-watch.ps1",
+      "maxArgs": 2,
+      "minArgs": 1
+    },
+    "p2-discover": {
+      "file": "scripts/windows/p2-discover.ps1",
+      "maxArgs": 0,
+      "minArgs": 0
+    },
+    "probe-runtime-access": {
+      "file": "scripts/windows/probe-runtime-access.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    },
+    "read-game-code-sections": {
+      "file": "scripts/windows/read-game-code-sections.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    },
+    "read-game-image-ranges": {
+      "file": "scripts/windows/read-game-image-ranges.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    },
+    "read-game-selected-queue": {
+      "file": "scripts/windows/read-game-selected-queue.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    },
+    "read-resistance-schema-names": {
+      "file": "scripts/windows/read-resistance-schema-names.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    },
+    "record-network-health": {
+      "file": "scripts/windows/record-network-health.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    },
+    "start-p0-sample": {
+      "file": "scripts/windows/start-p0-sample.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    },
+    "verify-capture-interface": {
+      "file": "scripts/windows/verify-capture-interface.ps1",
+      "maxArgs": 16,
+      "minArgs": 0
+    }
+  }
+}

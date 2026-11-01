@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "legacyPolicy": "Null schemaVersion describes an existing unversioned document; preserve original bytes and hashes. New configuration must declare schemaVersion.",
+  "entries": {
+    "config/attribution-baselines.json": {
+      "domain": "attribution",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "activeProfileId": "string",
+        "profiles": "object"
+      }
+    },
+    "config/client-build.json": {
+      "domain": "client",
+      "schemaVersion": null,
+      "required": {
+        "id": "string",
+        "imageSha256": "string",
+        "stateOffsets": "object",
+        "profiles": "array"
+      }
+    },
+    "config/kungfu-attribute-channels.json": {
+      "domain": "attribution",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "id": "string",
+        "basis": "string",
+        "byLiupai": "object",
+        "byKungfu": "object",
+        "bySkill": "object",
+        "byCalcpoint": "object",
+        "placeholderKungfuIds": "array"
+      }
+    },
+    "config/overlay-schools.json": {
+      "domain": "presentation",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "basis": "string",
+        "schools": "object",
+        "skills": "object"
+      }
+    },
+    "config/personal-buff-baselines.json": {
+      "domain": "attribution",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "id": "string",
+        "rules": "object",
+        "calcpointFields": "array",
+        "calcpoints": "object"
+      }
+    },
+    "config/rdps-simple-v1.json": {
+      "domain": "attribution",
+      "schemaVersion": null,
+      "required": {
+        "id": "string",
+        "enabled": "boolean",
+        "label": "string",
+        "resource": "string",
+        "defenseModel": "string",
+        "timingModel": "string",
+        "unobservedDamagePolicy": "string",
+        "allocationPolicy": "string",
+        "rules": "object",
+        "gapReconstruction": "object",
+        "personalBuffBaseline": "object",
+        "kungfuAttributeChannels": "object",
+        "fixedEncounterSchool": "object"
+      }
+    },
+    "config/schema-index-cn-20261021-r64304.json": {
+      "domain": "client",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "count": "number",
+        "clientBuildSha256": "string",
+        "rows": "array"
+      }
+    },
+    "config/schema-profiles.json": {
+      "domain": "client",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "legacyReplayProfileId": "string",
+        "byClientSha256": "object",
+        "profiles": "object"
+      }
+    },
+    "config/platform-scripts.json": {
+      "domain": "platform",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "scripts": "object"
+      }
+    },
+    "config/runtime-io.json": {
+      "domain": "storage",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "rawReadChunkBytes": "number",
+        "rawLineLimitBytes": "number",
+        "pumpBudgetMs": "number",
+        "pumpIntervalMs": "number",
+        "maxPendingProto": "number",
+        "ledgerFlushIntervalMs": "number",
+        "ledgerFlushBytes": "number"
+      }
+    },
+    "config/worker-protocol.json": {
+      "domain": "parsing",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "maxBatchJobs": "number",
+        "maxBatchBytes": "number"
+      }
+    },
+    "config/overlay-buffs.json": {
+      "domain": "presentation",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "slots": "array",
+        "buffs": "object"
+      }
+    },
+    "package-generator/upload-client.json": {
+      "domain": "desktop-upload",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "origin": "string",
+        "concurrency": "number",
+        "attempts": "number",
+        "requestTimeoutMs": "number",
+        "pollMs": "number"
+      }
+    }
+  }
+}

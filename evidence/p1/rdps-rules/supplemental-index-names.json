@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "schemaPreset": 10012,
+  "rows": [
+    {
+      "index": 29,
+      "name": "ATK_PEN_CORRECT_PARA"
+    },
+    {
+      "index": 55,
+      "name": "CORRECTABLE_W_ATK_PEN"
+    },
+    {
+      "index": 56,
+      "name": "CORRECTABLE_W_ATK_PEN_RDC"
+    }
+  ],
+  "pid": 17340,
+  "processStartUtc": "2026-10-18T07:13:00.0698264Z",
+  "observedAt": "2026-10-18T12:52:46.3746255Z",
+  "build": {
+    "fingerprint": "b5c66fe24e5cff21f08980b7be44ca1a5084d881606bc2008ca8492fc18ee6dd",
+    "fingerprintBasis": "saved buff database table; not an executable hash",
+    "modulePath": "D:\\yysls\\yysls_medium\\Engine\\Binaries\\Win64rh\\yysls.exe",
+    "imageBase": "0x140000000",
+    "moduleBytes": 220983296
+  },
+  "baseIndexNamesSha256": "b274d7be7fecfdd1fa94532d818c07ccdba1d56d35f2e6bd9845a41fa9f052d6",
+  "sameSessionId": "8971d8046c54244329a3abe6",
+  "nameEvidence": "exact static schema string bytes; current root and headers read twice unchanged",
+  "sources": [
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/manifest.json",
+      "sha256": "7336a42482cdb3a06f0090ad6cd668c818fb16579251a6fdb1fdf9792b5e616c"
+    },
+    {
+      "path": "evidence/p1/live-pipeline/party-recovery-20261018-v1/manifest.json",
+      "sha256": "f6df9e40d9ce2f6a64a4080c192fafb6581a0b88a680f470ba1ef6ac82d861c6"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/00.bin",
+      "sha256": "40f5225ccee59ae73c233898aaaf93b3f8163dee95653120bfc0042cf6e28edb"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/01.bin",
+      "sha256": "1ef97efeb1c2cd81caff3609cda3a6cb5f059e78b74c43b7417be8701cccffb8"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/02.bin",
+      "sha256": "edb21daafa521053a46ac0f44c711eb917a00d7dab70fde11bf5fafafd6b6a14"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/03.bin",
+      "sha256": "8b137842103fe4215069afe1a3c3d67767f4ec2f1b24715b9483467102132d68"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/04.bin",
+      "sha256": "e6a65b15e47a8ad93c5db07e93bc69704794c069bb2efb39ab724a1fd1396efe"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/05.bin",
+      "sha256": "4dad54bb5c008b1d51d7b8859c1aaa70f4f5f631f98d5cc09b27c633c63f1000"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/06.bin",
+      "sha256": "525fd2a51393088a22ec0931fa05783961a2cffa6aa513ec295e75294b105e66"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/07.bin",
+      "sha256": "40f5225ccee59ae73c233898aaaf93b3f8163dee95653120bfc0042cf6e28edb"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/08.bin",
+      "sha256": "1ef97efeb1c2cd81caff3609cda3a6cb5f059e78b74c43b7417be8701cccffb8"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/09.bin",
+      "sha256": "edb21daafa521053a46ac0f44c711eb917a00d7dab70fde11bf5fafafd6b6a14"
+    },
+    {
+      "path": "evidence/p0/resistance-schema-20261018-205238/10.bin",
+      "sha256": "8b137842103fe4215069afe1a3c3d67767f4ec2f1b24715b9483467102132d68"
+    }
+  ],
+  "scope": "Names only. Incoming historical values decoded separately from saved same-PID/start-time session; no current entity attribute values read.",
+  "limits": [
+    "Read is non-atomic; root/header stability checked across all 306 bytes.",
+    "Current schema name bytes applied to earlier packets from the same process lifetime; no captured schema reload event was observed, but absence is not a general cross-build guarantee.",
+    "Supplement must not be applied across an unknown schema/build without validation."
+  ]
+}

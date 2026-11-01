@@ -1,0 +1,10 @@
+node_modules/
+release/
+*.yylogs
+*.pcap
+*.pcapng
+*.private.*
+.env
+sessions/
+*.sqlite*
+__pycache__/

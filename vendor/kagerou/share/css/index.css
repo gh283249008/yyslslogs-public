@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+body {
+  font-family: var(--body-font);
+  margin: 0 !important;
+  height: 100%;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+body.overlay {
+  margin: 0.5rem 0.25rem 0.25rem 0.25rem !important;
+  height: calc(100% - 0.25rem) !important;
+}
+/* Resize handle */
+body.overlay::after {
+  display: block;
+  content: '';
+
+  position: fixed;
+  right: 0;
+  bottom: 0;
+
+  width: 8px; /* OverlayPlugin decide this */
+  height: 8px;
+
+  background: rgba(0, 0, 0, 0.001);
+}
+body.collapsed::after {
+  display: none !important;
+}
+
+/* Client Restrictors */
+body.legacy-plugin .supports-end {
+  display: none !important;
+}
+body:not(.overlay) .overlay-only {
+  display: none !important;
+}
+body.overlay .browser-only {
+  display: none !important;
+}
+body:not(.ws) .ws-only {
+  display: none !important;
+}
+body.https .unsecure-only {
+  display: none !important;
+}
+
+/* Shared classes */
+
+.text-right.text-right {
+  text-align: right;
+}
+.hidden.hidden {
+  display: none;
+}
+
+mark {
+  background: none;
+  color: var(--color-accent);
+}
+a {
+  color: var(--color-accent);
+}
+
+/* Locale */
+
+.lang {
+  display: none;
+}
+
+html.ko .lang.ko,
+html.ja .lang.ja,
+html.en .lang.en,
+html.de .lang.de,
+html.cn .lang.cn,
+html.fr .lang.fr {
+  display: block;
+}
+
+html.ko span.lang.ko,
+html.ja span.lang.ja,
+html.en span.lang.en,
+html.de span.lang.de,
+html.cn span.lang.cn,
+html.fr span.lang.fr {
+  display: inline;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+  background: none;
+
+  margin-right: calc(var(--body-margin) * -1);
+}
+::-webkit-scrollbar-track {
+  background: none;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 63, 0.5);
+  border-radius: 0;
+}
+::-webkit-scrollbar-corner {
+  background: none;
+}

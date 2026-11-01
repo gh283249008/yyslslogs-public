@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buff 提示</title>
+<style>
+:root{color-scheme:dark;font-family:"Microsoft YaHei UI",system-ui,sans-serif}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:transparent;overflow:hidden}body{padding:7px;color:#fff}.panel{display:flex;gap:8px;min-height:132px;padding:7px;border:1px solid #ffffff38;border-radius:12px;background:rgba(12,14,20,.84);box-shadow:0 6px 22px #0006;-webkit-app-region:drag}.buff{--accent:#e8bd69;width:106px;min-height:116px;display:flex;align-items:center;flex-direction:column;gap:4px;border-radius:8px;border:1px solid #ffffff24;background:linear-gradient(155deg,#3d3324,#191a20);text-align:center}.buff.lin{--accent:#81b9ff;background:linear-gradient(155deg,#273f60,#171e2d)}.buff.bengjie{--accent:#e69b7c;background:linear-gradient(155deg,#4a302a,#21191c)}.buff.xueji{--accent:#f087a1;background:linear-gradient(155deg,#592b3b,#24171f)}.buff.xueji.phase-pending,.buff.xueji.phase-unknown{--accent:#b9aeb4;background:linear-gradient(155deg,#383238,#201d24)}.buff.xueji.phase-active{border-color:#ff8ab0;box-shadow:0 0 12px #ff5a994d}.buff.hidden{display:none}.name{padding-top:4px;font-size:15px;font-weight:800;text-shadow:0 1px 3px #000}.variant{font-size:10px;color:var(--accent);padding-bottom:3px}.dial{position:relative;isolation:isolate;width:68px;height:68px;display:grid;place-items:center;border-radius:50%;border:1px solid #ffffff35;background:#11151e;box-shadow:inset 0 0 10px #0009,0 1px 6px #0007}.dial:before{content:"";position:absolute;inset:3px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--progress,0)*360deg),#ffffff08 0);opacity:.62;z-index:-1}.dial:after{content:"";position:absolute;inset:1px;border-radius:50%;background:repeating-conic-gradient(#ffffffa0 0deg 1.5deg,transparent 1.5deg 30deg);mask:radial-gradient(transparent 58%,#000 60%);pointer-events:none}.time{font-variant-numeric:tabular-nums;font-size:25px;line-height:1;font-weight:800;text-shadow:0 1px 4px #000,0 0 7px #000}.soon{border-color:#efb656}.urgent{border-color:#f27676;animation:pulse .6s infinite alternate}@keyframes pulse{to{box-shadow:0 0 10px #f0705044}}.empty{display:grid;place-items:center;width:336px;color:#c9cdd7;font-size:12px}.drag-note{position:fixed;right:10px;bottom:3px;font-size:9px;color:#9ea7b7;opacity:.55;pointer-events:none}.locked .drag-note{display:none}
+.locked .panel{background:transparent;border-color:transparent;box-shadow:none;-webkit-app-region:no-drag}
+.locked .empty{visibility:hidden}
+</style>
+</head>
+<body>
+<div class="panel" id="panel"><div class="empty" id="empty">等待自身 Buff 状态</div>
+<div class="buff hidden" id="shuogu"><div class="name">烁鼓</div><div class="dial"><div class="time">--</div></div><div class="variant"></div></div>
+<div class="buff lin hidden" id="lin"><div class="name">增伤·霖</div><div class="dial"><div class="time">--</div></div><div class="variant"></div></div>
+<div class="buff bengjie hidden" id="bengjie"><div class="name">崩解</div><div class="dial"><div class="time">--</div></div><div class="variant"></div></div>
+<div class="buff xueji hidden" id="xueji"><div class="name">血祭</div><div class="dial"><div class="time">--</div></div><div class="variant"></div></div></div>
+<div class="drag-note">拖动调整位置 · 锁定后鼠标穿透</div>
+<script>
+'use strict';
+let state={buffs:[],locked:false},receivedAt=Date.now();
+const slots=['shuogu','lin','bengjie','xueji'];
+const render=()=>{
+  document.body.classList.toggle('locked',state.locked);
+  let visible=0;
+  slots.forEach((slot,index)=>{
+    const row=state.buffs?.[index],node=document.getElementById(slot);
+    if(!row){node.className=`buff ${slot} hidden`;return;}
+    visible++;const remaining=(typeof row.remainingSeconds==='number'?Math.max(0,row.remainingSeconds-(Date.now()-receivedAt)/1000):NaN),time=Number.isFinite(remaining)?Math.max(0,remaining).toFixed(1):'--';
+    node.className=`buff ${slot} ${row.phase?'phase-'+row.phase:''} ${Number.isFinite(remaining)&&remaining<=2?'urgent':Number.isFinite(remaining)&&remaining<=4?'soon':''}`;
+    const progress=Number.isFinite(remaining)&&row.durationSeconds>0?Math.min(1,Math.max(0,remaining/row.durationSeconds)):0;
+    node.style.setProperty('--progress',String(progress));
+    node.querySelector('.name').textContent=row.name;node.querySelector('.variant').textContent=row.variant;node.querySelector('.time').textContent=time;
+  });
+  document.getElementById('empty').style.display=visible?'none':'grid';
+};
+window.yysls.subscribeBuff(next=>{state=next||state;receivedAt=Date.now();render();});
+setInterval(render,100);
+render();
+</script>
+</body>
+</html>

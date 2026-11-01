@@ -1,0 +1,14 @@
+{
+  "name": "yysls-logs",
+  "productName": "燕云 Logs",
+  "version": "0.3.2",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "main": "entry.cjs",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "44.9.0"
+  }
+}

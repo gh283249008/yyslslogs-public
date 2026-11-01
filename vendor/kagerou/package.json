@@ -1,0 +1,27 @@
+{
+  "name": "kagerou",
+  "packageManager": "yarn@4.1.1",
+  "scripts": {
+    "dev": "parcel serve",
+    "build": "parcel build --public-url /kagerou/"
+  },
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "2.16.4",
+    "@types/node": "^20.11.25",
+    "parcel": "2.16.4",
+    "typescript": "^5.4.2"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  },
+  "browserslist": "Chrome 103",
+  "source": [
+    "overlay/index.html",
+    "config/index.html"
+  ],
+  "dependencies": {
+    "sortablejs": "^1.15.2"
+  }
+}

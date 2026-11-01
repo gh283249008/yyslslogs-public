@@ -1,0 +1,388 @@
+
+/* Column width defines */
+.flex-column {
+  text-align: var(--content-align);
+}
+.flex-column-i-icon {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: var(--graph-height);
+}
+.flex-column-i-name, .flex-column-i-owner {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  text-align: left;
+
+  flex-grow: 10;
+  flex-basis: 0%;
+}
+.flex-column-i-class            { width: var(--_i-class)rem; } /* replace-hack only */
+.flex-column-i-rank             { width: var(--_i-rank)rem; }
+.flex-column-i-owner            { width: var(--_i-owner)rem; }
+.flex-column-i-name             { width: var(--_i-name)rem; }
+.flex-column-deal-total         { width: var(--_deal-total)rem; }
+.flex-column-deal-per-second    { width: var(--_deal-per_second)rem; }
+.flex-column-deal-pct           { width: var(--_deal-pct)rem; }
+.flex-column-deal-failure       { width: var(--_deal-failure)rem; }
+.flex-column-deal-accuracy      { width: var(--_deal-accuracy)rem; }
+.flex-column-deal-swing         { width: var(--_deal-swing)rem; }
+.flex-column-deal-miss          { width: var(--_deal-miss)rem; }
+.flex-column-deal-hitfail       { width: var(--_deal-hitfail)rem; }
+.flex-column-deal-critical      { width: var(--_deal-critical)rem; }
+.flex-column-deal-direct        { width: var(--_deal-direct)rem; }
+.flex-column-deal-crit-direct   { width: var(--_deal-crit_direct)rem; }
+.flex-column-deal-crittypes     { width: var(--_deal-crittypes)rem; }
+.flex-column-deal-critpcts      { width: var(--_deal-critpcts)rem; }
+.flex-column-deal-max           { width: var(--_deal-max)rem; }
+.flex-column-deal-maxhit        { width: var(--_deal-maxhit)rem; }
+.flex-column-deal-maxskill      { width: var(--_deal-maxskill)rem; }
+.flex-column-deal-last10        { width: var(--_deal-last10)rem; }
+.flex-column-deal-last30        { width: var(--_deal-last30)rem; }
+.flex-column-deal-last60        { width: var(--_deal-last60)rem; }
+.flex-column-deal-last180       { width: var(--_deal-last180)rem; }
+.flex-column-tank-damage        { width: var(--_tank-damage)rem; }
+.flex-column-tank-parry         { width: var(--_tank-parry)rem; }
+.flex-column-tank-heal          { width: var(--_tank-heal)rem; }
+.flex-column-tank-block         { width: var(--_tank-block)rem; }
+.flex-column-tank-threat-delta  { width: var(--_tank-threat_delta)rem; }
+.flex-column-heal-per-second    { width: var(--_heal-per_second)rem; }
+.flex-column-heal-pct           { width: var(--_heal-pct)rem; }
+.flex-column-heal-total         { width: var(--_heal-total)rem; }
+.flex-column-heal-swing         { width: var(--_heal-swing)rem; }
+.flex-column-heal-over          { width: var(--_heal-over)rem; }
+.flex-column-heal-cure          { width: var(--_heal-cure)rem; }
+.flex-column-heal-critical      { width: var(--_heal-critical)rem; }
+.flex-column-heal-max           { width: var(--_heal-max)rem; }
+.flex-column-heal-maxhit        { width: var(--_heal-maxhit)rem; }
+.flex-column-heal-maxskill      { width: var(--_heal-maxskill)rem; }
+.flex-column-etc-powerdrain     { width: var(--_etc-powerdrain)rem; }
+.flex-column-etc-death          { width: var(--_etc-death)rem; }
+.flex-column-etc-powerheal      { width: var(--_etc-powerheal)rem; }
+
+.pet-merged .flex-column-i-owner {
+  display: none !important;
+}
+.nameblur #table li:not(.me):not(.class-limit-break) .flex-column-i-name,
+.nameblur #table li:not(.me):not(.class-limit-break) .flex-column-i-owner {
+  filter: blur(0.2rem) -webkit-blur(0.2rem);
+  -webkit-filter: blur(0.2rem);
+
+  margin-left: -0.3rem;
+  padding-left: 0.3rem;
+}
+.zero {
+  opacity: 0.75;
+}
+.flex-column > small:not(.lower), .smaller-lower-numbers .flex-column > small.with-larger-digits {
+  font-size: 0.75em;
+}
+.flex-column > small.dps {
+  font-size: 1em;
+}
+
+/* Colors */
+.gauge {
+  background: var(--gauge-default);
+  opacity: var(--gauge-opacity);
+}
+.class-gld .gauge,
+.class-gla .gauge, .class-pld .gauge { background: var(--pld); }
+.class-mrd .gauge, .class-war .gauge { background: var(--war); }
+.class-drk .gauge { background: var(--drk); }
+.class-gnb .gauge { background: var(--gnb); }
+
+.class-pgl .gauge, .class-mnk .gauge { background: var(--mnk); }
+.class-lnc .gauge, .class-drg .gauge { background: var(--drg); }
+.class-rpr .gauge { background: var(--rpr); }
+.class-sge .gauge { background: var(--sge); }
+.class-vpr .gauge { background: var(--vpr); }
+.class-pct .gauge { background: var(--pct); }
+.class-arc .gauge, .class-brd .gauge { background: var(--brd); }
+.class-rog .gauge, .class-nin .gauge { background: var(--nin); }
+.class-acn .gauge, .class-smn .gauge { background: var(--smn); }
+.class-thm .gauge, .class-blm .gauge { background: var(--blm); }
+.class-mch .gauge { background: var(--mch); }
+.class-sam .gauge { background: var(--sam); }
+.class-rdm .gauge { background: var(--rdm); }
+.class-blu .gauge { background: var(--blu); }
+.class-dnc .gauge { background: var(--dnc); }
+
+.class-cnj .gauge, .class-whm .gauge { background: var(--whm); }
+.class-sch .gauge { background: var(--sch); }
+.class-ast .gauge { background: var(--ast); }
+
+/* pets */
+.class-acn-pet .gauge,
+.class-garuda .gauge, .class-titan .gauge, .class-ifrit .gauge { /* acn/smn */
+  background: var(--smn-pet);
+}
+.class-eos .gauge, .class-selene .gauge { /* sch */
+  background: var(--sch-pet);
+}
+.class-rook .gauge, .class-bishop .gauge { /* mch */
+  background: var(--mch-pet);
+}
+
+.class-limit-break .gauge {
+  background: var(--limit-break);
+}
+
+main {
+  font-size: var(--font-size-small);
+
+  position: relative;
+  height: 100%;
+  max-height: calc(100% - 2.5rem);
+
+  margin: 0;
+
+  box-shadow: 0 -0.25rem 0 rgba(0, 0, 0, 0.01), var(--shadow-card);
+  text-shadow: var(--shadow-text);
+
+  transition: height 200ms ease;
+
+  z-index: 0;
+}
+.overlay main {
+  max-height: calc(100% - 3rem);
+}
+.narrow-nav main {
+  max-height: calc(100% - 1.75rem);
+}
+.overlay.narrow-nav main {
+  max-height: calc(100% - 2.25rem);
+}
+
+main > ul {
+  height: 100%;
+
+  color: var(--content-fg);
+  fill: var(--content-fg);
+
+  line-height: 1.125rem;
+  overflow-y: auto;
+}
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+
+  background: var(--content-bg);
+  background-color: var(--content-bg-color);
+  background-size: cover;
+  background-position: center;
+
+  opacity: var(--content-bg-opacity);
+  -webkit-filter: var(--content-bg-filter);
+  filter: var(--content-bg-filter);
+}
+#patchnote {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  background: none !important;
+  height: auto;
+  word-break: keep-all;
+  text-align: center;
+}
+#patchnote h3 {
+  background: rgba(255, 255, 255, 0.1);
+}
+#patchnote p {
+  padding: 0 0.5rem;
+}
+#init-menu {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  height: 1.5rem;
+  background: var(--header-bg) !important;
+}
+#init-menu > ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+}
+#init-menu > ul li {
+  position: relative;
+  /* width: 5rem; */
+
+  padding: 0 0.375rem 0 0.5rem;
+
+  overflow: hidden;
+}
+#init-menu > ul li.button {
+  background: var(--header-bg);
+  text-align: right;
+  cursor: pointer;
+  margin-right: 0.25rem;
+  padding-left: 1.625rem;
+}
+#init-menu > ul > li.text {
+  flex-grow: 1;
+  background: transparent;
+  line-height: 1.5rem;
+}
+#init-menu > ul li .icon {
+  width: 1rem !important;
+  height: 1rem !important;
+  position: absolute;
+  left: 0.25rem;
+  top: 0.25rem;
+}
+#header, footer {
+  display: flex;
+  width: 100%;
+
+  color: var(--content-fg);
+  background: var(--header-bg);
+  background-size: cover;
+  background-position: center;
+  text-shadow: var(--shadow-text);
+  z-index: 5;
+}
+#header {
+  position: relative;
+}
+#header > .flex-column-i-icon {
+  background: none;
+}
+#table {
+  padding-bottom: 1.5rem;
+}
+.hide-footer #table {
+  padding-bottom: 0.2rem;
+}
+#table > li {
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+  position: relative;
+}
+#table > li.me {
+  color: var(--my-row-fg);
+}
+#table[data-width='2'], #table[data-width='3'] {
+  flex-direction: row;
+}
+#table[data-width='2'] > li, #table[data-width='3'] > li {
+  display: inline-flex;
+  margin: 0 0.125rem;
+  background: var(--cell-bg);
+}
+#table[data-width='2'] > li {
+  width: calc(50% - 0.25rem);
+}
+#table[data-width='3'] > li {
+  width: calc((100% / 3) - 0.25rem);
+}
+
+main li {
+  height: var(--graph-height);
+  line-height: var(--graph-height);
+  overflow: hidden;
+
+  transition: width 200ms ease, height 200ms ease, background 100ms ease;
+}
+.clsicon {
+  max-width: 100%;
+  max-height: 100%;
+}
+main .clsicon { /* workaround */
+  width: var(--graph-height);
+  height: var(--graph-height);
+}
+
+.gauge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: var(--gauge-height);
+  z-index: -1;
+}
+
+[class^='flex-column'] {
+  display: inline-block;
+}
+
+
+footer {
+  width: 100%;
+  height: 1.5rem;
+  line-height: 1.5rem;
+
+  position: absolute;
+  bottom: 0;
+}
+.hide-footer footer {
+  display: none;
+}
+.tabs {
+  padding: 0 !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0;
+}
+.tabs span {
+  display: inline-block;
+  padding: 0 0.5rem;
+  border-right: 0.1rem solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+.tabs span.active {
+  color: var(--color-accent);
+}
+
+.footer-notify, .footer-stat {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.footer-stat {
+  text-align: right;
+}
+.footer-stat > * {
+  display: inline-block;
+  padding: 0 0.25rem;
+  border-left: 0.1rem solid rgba(255, 255, 255, 0.5);
+}
+.footer-stat small:not(.lower),
+body.smaller-lower-numbers .footer-stat small.with-larger-digits {
+  font-size: 0.75em;
+}
+.footer-stat.dps {
+  font-size: 1em;
+}
+
+.collapsed main {
+  height: calc(var(--graph-height) * 2);
+}
+.hide-footer.collapsed main {
+  height: calc(var(--graph-height) + 0.2rem);
+}
+.collapsed #table {
+  height: var(--graph-height);
+  overflow-y: hidden;
+}
+.collapsed #header,
+.standby #header,
+.collapsed #table > li:not(.me) {
+  height: 0;
+}
+.collapsed #table[data-width='2'] > li:not(.me),
+.collapsed #table[data-width='3'] > li:not(.me) {
+  width: 0;
+  margin: 0;
+}
+.collapsed #table[data-width='2'] > li.me,
+.collapsed #table[data-width='3'] > li.me {
+  background: none;
+  width: 100%;
+  margin: 0;
+}

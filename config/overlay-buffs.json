@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "slots": [
+    "shuogu",
+    "lin",
+    "bengjie",
+    "xueji"
+  ],
+  "buffs": {
+    "200216": {
+      "slot": "shuogu",
+      "name": "烁鼓",
+      "variant": "+6% 攻击"
+    },
+    "200228": {
+      "slot": "shuogu",
+      "name": "烁鼓",
+      "variant": "+12% 攻击"
+    },
+    "200229": {
+      "slot": "shuogu",
+      "name": "烁鼓",
+      "variant": "自身强化 +12% 攻击"
+    },
+    "200230": {
+      "slot": "shuogu",
+      "name": "烁鼓",
+      "variant": "自身强化 +18% 攻击"
+    },
+    "1058032": {
+      "slot": "lin",
+      "name": "增伤·霖",
+      "variant": "+24% 增伤"
+    },
+    "1870156": {
+      "slot": "xueji",
+      "name": "血祭",
+      "variant": "+25% 独立增伤",
+      "requiresResourceSuccess": true
+    },
+    "10245311": {
+      "slot": "bengjie",
+      "name": "崩解",
+      "variant": "",
+      "maxStacks": 3
+    },
+    "10245321": {
+      "slot": "bengjie",
+      "name": "崩解",
+      "variant": "",
+      "maxStacks": 3
+    },
+    "10245331": {
+      "slot": "bengjie",
+      "name": "崩解",
+      "variant": "",
+      "maxStacks": 5
+    },
+    "10245332": {
+      "slot": "bengjie",
+      "name": "崩解",
+      "variant": "",
+      "maxStacks": 5
+    }
+  }
+}

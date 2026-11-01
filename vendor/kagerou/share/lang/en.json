@@ -1,0 +1,327 @@
+{
+  "general": {
+    "left": "Left",
+    "center": "Center",
+    "right": "Right"
+  },
+  "ui": {
+    "header": {
+      "in-develop": "Develop/Unstable",
+      "waiting-data": "Awaiting combat",
+      "no-data-yet": "No data yet",
+      "please-do-combat": "Please initiate combat first"
+    },
+    "menu": {
+      "merge-pet-on": "Turn on pet-merging",
+      "merge-pet-off": "Turn off pet-merging",
+      "nameblur-on": "Blur name",
+      "nameblur-off": "Unblur name",
+      "end-encounter": "Split encounter",
+      "settings": "Settings",
+      "reload": "Reload overlay",
+      "fullscreen": "Toggle fullscreen",
+      "screenshot": "Take screenshot",
+      "donate": "Donate"
+    },
+    "config": {
+      "_": "Settings",
+      "save": "Save",
+      "execute": "Execute",
+      "dialog": {
+        "really": "Really reset these settings?",
+        "apply": "Apply this settings?",
+        "undone": "This cannot be undone!",
+        "yes": "Yes",
+        "no": "No",
+        "manual-reload": {
+          "title": "Cannot reload overlay!",
+          "content": "Please reload overlay manually."
+        }
+      },
+      "general": {
+        "_": "General",
+        "combine_pet": "Pet merging",
+        "split-by-comma": "Divide multiple names by ','",
+        "basic": "Basic",
+        "footer-visibility": {
+          "_": "Footer",
+          "show": "Show as normal",
+          "use-header-instead": "Use header, for elements instead",
+          "hide": "Hide"
+        },
+        "footer": {
+          "_": "Footer elements",
+          "rank": "Current rank",
+          "rdps": "RDPS",
+          "rhps": "RHPS",
+          "recover": "Total Healing Received / Damage Taken 🔄"
+        },
+        "reset": "Reset",
+        "reset-this": "Reset All"
+      },
+      "style": {
+        "_": "Style",
+        "reset-this": "Reset style",
+        "css-help": [
+          "Use CSS values. Can be extended with other attributes with semicolon.",
+          "Use semi-transparent color with <code>rgba(Red, Green, Blue, Alpha)</code>. <br /> Alpha is 0 to 1.",
+          "Use image background with <code>url('Image URL')</code>"
+        ],
+        "image": {
+          "_": "Background image",
+          "help": "The background image takes precedence over specified background color, except transparent pixels. Image URL should be wrapped in <code>url('Image URL')</code>.",
+          "color": "Fill",
+          "image": "Image",
+          "opacity": "Opacity",
+          "filter": "CSS Filter (Advanced)",
+          "default": "Default: "
+        },
+        "layout": "Layout",
+        "background": "Background",
+        "foreground": "Foreground",
+        "width-applied-only": "Only for tabs setted 'Cell per line' other than 1.",
+        "element": {
+          "nav": "Navbar",
+          "dropdown": "Dropdown menu",
+          "my-row": "My data",
+          "header": "Table header",
+          "table": "Table",
+          "cell": "Cell"
+        },
+        "shadow": "Shadow"
+      },
+      "color": {
+        "_": "Gauge Colors",
+        "reset-this": "Reset Colors",
+        "etc": "Etc",
+        "pet-buddy": "Pet/Buddy"
+      },
+      "width": {
+        "_": "Column Width",
+        "reset-this": "Reset Widths",
+        "css-help": [
+          "Unit is default 16px, and changed by UI scale.",
+          "The 'Name' column is the first to decrease when the window width decreases."
+        ]
+      },
+      "tab": {
+        "_": "Tab",
+        "title": "Title",
+        "width": "Cell per line",
+        "sortby": "Sort by",
+        "available": "Available columns",
+        "configured": "Configured columns",
+        "widths": [ 0, 1, 2, 3 ]
+      },
+      "i/e": {
+        "_": "Import/Export",
+        "import": "Import",
+        "export": "Export",
+        "copy-this": "Copy everything below:",
+        "paste-here": "Paste the fetched value below:",
+        "save-first": "Save First!!",
+        "export-help": "Some values and values that are the same as the default are not exported.",
+        "config-to-export": "Config to export",
+        "all": "All",
+        "data-fault": "Data is incorrect or broken.",
+        "content-count": "Column count",
+        "open-prompt": "Use prompt()"
+      },
+      "etc": {
+        "_": "More",
+        "others": {
+          "_": "Others",
+          "skill-aliases-help": "Use shorter abbreviations for long skill names like 'The Forbidden Chakra'.",
+          "filter": "Filter",
+          "filter-help": [
+            "FFXIV_Plugin does not identify friends or foe, so these options will try not to display enemies in any way.",
+            "If something is wrong, try disabling all of the options below."
+          ],
+          "unusual-spaces": "Name contains space, but not a pet (Korea Server Only)",
+          "jobless": "Class/Job is empty",
+          "not-combatant": "Not a Disciple of War/Magic"
+        },
+        "css": "CSS"
+      },
+      "info": {
+        "_": "About",
+        "created-by": "Created by",
+        "servers": "Rhamu @ Elemental / Carbuncle @ KR / Chocobo @ KR",
+        "hibiya": "hibiya inemuri / kuriyama hibiya",
+        "support": "Support",
+        "license": "License",
+        "icon-files": "All files under share/img/class,",
+        "privacy": {
+          "_": "Privacy Policy",
+          "list": [
+            "If a problem occurs during operation of this program,<br />information for troubleshooting can be sent to the server.",
+            "Collected information is limited to a minimum amount needed to identify the problem:",
+            "* Program Version<br />* Last Combatant Data<br />* Other information collected by ravenjs"
+          ]
+        }
+      }
+    }
+  },
+  "config": {
+    "style": {
+      "_": "Style",
+      "resize-factor": "UI scale",
+      "body-margin": "Outer margin",
+      "body-font": "Font family",
+      "nav-opacity": "Navbar opacity when inactive",
+      "accent-color": "Accent",
+      "shadow-card": "Window",
+      "shadow-text": "Text",
+      "content-align": "Content text alignment",
+      "font-size-small": "'Small' fontsize",
+      "gauge-height": "Gauge height",
+      "graph-height": "Table line height"
+    },
+    "color": {
+      "_": "Guage Color",
+      "gauge-default": "Default",
+      "gauge-opacity": "Opacity",
+      "position-tank": "Tank",
+      "position-deal": "DPS",
+      "position-heal": "Heal",
+      "pld": "Paladin (Gladiator)",
+      "war": "Warrior (Marauder)",
+      "drk": "Dark Knight",
+      "gnb": "Gunbreaker",
+      "mnk": "Monk (Pugilist)",
+      "drg": "Dragoon (Lancer)",
+      "brd": "Bard (Archer)",
+      "nin": "Ninja (Rogue)",
+      "smn": "Summoner (Arcanist)",
+      "blm": "Black Mage (Thaumaturge)",
+      "mch": "Machinist",
+      "sam": "Samurai",
+      "rpr": "Reaper",
+      "rdm": "Red Mage",
+      "vpr": "Viper",
+      "pct": "Pictomancer",
+      "blu": "Blue Mage",
+      "dnc": "Dancer",
+      "whm": "White Mage (Conjurer)",
+      "sch": "Scholar",
+      "ast": "Astrologian",
+      "sge": "Sage",
+      "smn-pet": "Summoner (Arcanist) Carbuncle/Egi",
+      "sch-pet": "Scholar Egi",
+      "mch-pet": "Machinist Turret",
+      "chocobo": "Chocobo",
+      "limit-break": "Limit Break"
+    },
+    "format": {
+      "language": "Language",
+      "significant_digit": {
+        "_": "Decimal accuracy",
+        "dps": "DPS",
+        "damage": "Damage",
+        "hps": "HPS",
+        "accuracy": "Failure (Miss / Swing)",
+        "critical": "% of Critical hits/heals"
+      },
+      "thousands_separator": {
+        "_": "Thousands separator",
+        "none": "None",
+        "comma": "Comma (,)",
+        "period": "Period (.)",
+        "space": "Space"
+      },
+      "myname": "My name",
+      "use_short_name": "Player Name Appearance",
+      "use_skill_aliases": "Use skillname aliases",
+      "numbers": "Formats",
+      "use_tailing_pct": "Display % after percentage value",
+      "small_lower_numbers": "Smaller font for under-k digits of DPS",
+      "number_abbreviation": "Abbreviate numbers using -k"
+    },
+    "element": {
+      "narrow_nav": "Narrower Top navigation bar"
+    }
+  },
+  "col": {
+    "i": {
+      "_": "Info",
+      "icon": [" ", "Class Icon"],
+      "rank": ["#", "Rank"],
+      "class": ["Cls", "Class/Job"],
+      "owner": ["Owner", "Owner"],
+      "name": ["Name", "Name"]
+    },
+    "deal": {
+      "_": "DPS",
+      "per_second": ["DPS", "per Second"],
+      "pct": ["D%", "Deal %"],
+      "total": ["D.Tot", "Total"],
+      "failure": ["Fail", "Failure (Miss / Swing)"],
+      "accuracy": ["Acc.", "Accuracy (1 - Miss / Swing)"],
+      "swing": ["Hit", "Hits"],
+      "miss": ["Miss", "Misses"],
+      "hitfail": ["HitF", "Hitfail"],
+      "critical": ["CH", "Critical Hit%"],
+      "direct": ["DH", "Direct Hit%"],
+      "crit_direct": ["!!!", "Critical Direct Hit% (!!!)"],
+      "crittypes": ["D/!/!!!", "Direct/Critical/!!! Count"],
+      "critpcts": ["Crits%", "Direct/Critical/!!! %"],
+      "max": ["Max", "Maxhit (w/o skillname)"],
+      "maxskill": ["Max", "Maxhit (skillname only)"],
+      "maxhit": ["Maxhit", "Maxhit"],
+      "last10": ["10s", "DPS for Last 10s"],
+      "last30": ["30s", "DPS for Last 30s"],
+      "last60": ["1m", "DPS for Last 1min"],
+      "last180": ["3m", "DPS for Last 3min (Beta)"]
+    },
+    "tank": {
+      "_": "Tank",
+      "damage": ["TakenD", "Damage taken"],
+      "heal": ["HealR", "Healing Received"],
+      "parry": ["Parry", "Parry"],
+      "block": ["Block", "Block"],
+      "threat_delta": ["Th∆", "Threat Delta"]
+    },
+    "heal": {
+      "_": "Heal",
+      "per_second": ["HPS", "per Second"],
+      "pct": ["H%", "Heal %"],
+      "total": ["H.Tot", "Total"],
+      "over": ["OvH%", "Overheal"],
+      "swing": ["Swing", "Swings"],
+      "critical": ["HCrit", "Critical%"],
+      "cure": ["Cure", "Cures"],
+      "max": ["MaxH", "Maxhit (w/o skillname)"],
+      "maxskill": ["MaxHS", "Maxhit (skillname only)"],
+      "maxhit": ["MaxHeal", "Maxhit"]
+    },
+    "etc": {
+      "_": "Etc",
+      "powerdrain": ["PDrn", "Powerdrain"],
+      "powerheal": ["PHeal", "Powerheal"],
+      "death": ["Dead", "Deathcount"]
+    }
+  },
+  "zone": {
+    "unknown": {}
+  },
+  "skill": {
+    "alias": {
+      "The Forbidden Chakra": "Forb.Chakra",
+      "Spineshatter Dive": "Spine-Dive",
+      "Midare Setsugekka": "Midare",
+      "Hissatsu: Guren": "Guren",
+      "Enchanted Redoublement": "E.Redoubl",
+      "Refulgent Arrow": "Ref.Arrow",
+      "Technical Finish": "Tech Fin",
+      "Single Technical Finish": "1x Tech Fin",
+      "Double Technical Finish": "2x Tech Fin",
+      "Triple Technical Finish": "3x Tech Fin",
+      "Quadruple Technical Finish": "4x Tech Fin",
+      "Standard Finish": "Std Fin",
+      "Single Standard Finish": "1x Std Fin",
+      "Double Standard Finish": "2x Std Fin",
+      "Reverse Cascade": "Rev.Cascade",
+      "Rising Windmill": "Ris.Wndmill"
+    }
+  }
+}

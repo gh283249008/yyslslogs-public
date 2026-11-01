@@ -1,0 +1,578 @@
+PROTO	main	lines=0-0	code=224	constants=56	children=18
+LOCAL	main	0	_M	start=3	end=224
+LOCAL	main	1	Property	start=7	end=224
+LOCAL	main	2	CustomMapType	start=11	end=224
+LOCAL	main	3	CustomListType	start=15	end=224
+LOCAL	main	4	buff_consts	start=18	end=224
+LOCAL	main	5	portable	start=21	end=224
+LOCAL	main	6	base	start=24	end=224
+LOCAL	main	7	util	start=27	end=224
+LOCAL	main	8	buff_misc	start=30	end=224
+LOCAL	main	9	_flag_db	start=34	end=224
+LOCAL	main	10	_flag_server_only	start=35	end=224
+LOCAL	main	11	BuffBase	start=39	end=224
+LOCAL	main	12	BuffOptFunc	start=122	end=224
+LOCAL	main	13	BuffOC	start=146	end=224
+LOCAL	main	14	BuffAC	start=161	end=224
+LOCAL	main	15	BuffItem	start=176	end=224
+LOCAL	main	16	BuffCallback	start=184	end=214
+LOCAL	main	17	fake_custom	start=217	end=224
+UPVALUE	main	0	_ENV	instack=true	idx=0
+K	main	0	"require"
+K	main	1	"common.classutils"
+K	main	2	"Property"
+K	main	3	"CustomMapType"
+K	main	4	"CustomListType"
+K	main	5	"hexm.common.consts.buff_consts"
+K	main	6	"hexm.common.portable"
+K	main	7	"hexm.common.container.base"
+K	main	8	"hexm.common.util.util"
+K	main	9	"hexm.common.misc.buff_misc"
+K	main	10	"PERSISTENT"
+K	main	11	"SERVER_ONLY"
+K	main	12	"class"
+K	main	13	"BuffBase"
+K	main	14	"Base"
+K	main	15	"C_EVENT_NAME"
+K	main	16	"Buff"
+K	main	17	"ID"
+K	main	18	""
+K	main	19	"No"
+K	main	20	"level"
+K	main	21	"duration"
+K	main	22	"start_ts"
+K	main	23	"charge_level"
+K	main	24	"fromid"
+K	main	25	"skill_id"
+K	main	26	"runtimes"
+K	main	27	"ex"
+K	main	28	"get_sys_d"
+K	main	29	"get_duration"
+K	main	30	"get_start_ts"
+K	main	31	"get_end_ts"
+K	main	32	"is_control"
+K	main	33	"is_silence"
+K	main	34	"is_invisible"
+K	main	35	"is_invisible_new"
+K	main	36	"is_magnet"
+K	main	37	"BuffOptFunc"
+K	main	38	"get_sys_d"
+K	main	39	"BuffOC"
+K	main	40	"inheritclass"
+K	main	41	"merge_property"
+K	main	42	"OWN_CLIENT"
+K	main	43	"BuffAC"
+K	main	44	"ALL_CLIENTS"
+K	main	45	"BuffItem"
+K	main	46	"is_server"
+K	main	47	"BuffCallback"
+K	main	48	"cb_name"
+K	main	49	"cb_args"
+K	main	50	"func_type"
+K	main	51	"persistent"
+K	main	52	"rm_callback"
+K	main	53	"hexm.common.container.fake_custom"
+K	main	54	"FakeCustomMap"
+K	main	55	"merge_class"
+CODE	main	1	00000060	op7=96	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	2	0000001d	op7=29	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	3	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	4	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main	5	00008103	op7=3	A=2	k=1	B=0	C=0	Bx=1
+CODE	main	6	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main	7	02010091	op7=17	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main	8	0000010c	op7=12	A=2	k=0	B=0	C=0	Bx=0
+CODE	main	9	00008183	op7=3	A=3	k=1	B=0	C=0	Bx=1
+CODE	main	10	02020152	op7=82	A=2	k=0	B=2	C=2	Bx=1028
+CODE	main	11	03020111	op7=17	A=2	k=0	B=2	C=3	Bx=1540
+CODE	main	12	0000018c	op7=12	A=3	k=0	B=0	C=0	Bx=0
+CODE	main	13	00008203	op7=3	A=4	k=1	B=0	C=0	Bx=1
+CODE	main	14	020201d2	op7=82	A=3	k=0	B=2	C=2	Bx=1028
+CODE	main	15	04030191	op7=17	A=3	k=0	B=3	C=4	Bx=2054
+CODE	main	16	0000020c	op7=12	A=4	k=0	B=0	C=0	Bx=0
+CODE	main	17	00028283	op7=3	A=5	k=1	B=2	C=0	Bx=5
+CODE	main	18	02020252	op7=82	A=4	k=0	B=2	C=2	Bx=1028
+CODE	main	19	0000028c	op7=12	A=5	k=0	B=0	C=0	Bx=0
+CODE	main	20	00030303	op7=3	A=6	k=0	B=3	C=0	Bx=6
+CODE	main	21	020202d2	op7=82	A=5	k=0	B=2	C=2	Bx=1028
+CODE	main	22	0000030c	op7=12	A=6	k=0	B=0	C=0	Bx=0
+CODE	main	23	00038383	op7=3	A=7	k=1	B=3	C=0	Bx=7
+CODE	main	24	02020352	op7=82	A=6	k=0	B=2	C=2	Bx=1028
+CODE	main	25	0000038c	op7=12	A=7	k=0	B=0	C=0	Bx=0
+CODE	main	26	00040403	op7=3	A=8	k=0	B=4	C=0	Bx=8
+CODE	main	27	020203d2	op7=82	A=7	k=0	B=2	C=2	Bx=1028
+CODE	main	28	0000040c	op7=12	A=8	k=0	B=0	C=0	Bx=0
+CODE	main	29	00048483	op7=3	A=9	k=1	B=4	C=0	Bx=9
+CODE	main	30	02020452	op7=82	A=8	k=0	B=2	C=2	Bx=1028
+CODE	main	31	0a010491	op7=17	A=9	k=0	B=1	C=10	Bx=5122
+CODE	main	32	0b010511	op7=17	A=10	k=0	B=1	C=11	Bx=5634
+CODE	main	33	0a0904b8	op7=56	A=9	k=0	B=9	C=10	Bx=5138
+CODE	main	34	0f0a04bc	op7=60	A=9	k=0	B=10	C=15	Bx=7700
+CODE	main	35	0b010511	op7=17	A=10	k=0	B=1	C=11	Bx=5634
+CODE	main	36	0c00058c	op7=12	A=11	k=0	B=0	C=12	Bx=6144
+CODE	main	37	00068603	op7=3	A=12	k=1	B=6	C=0	Bx=13
+CODE	main	38	0e060691	op7=17	A=13	k=0	B=6	C=14	Bx=7180
+CODE	main	39	020305d2	op7=82	A=11	k=0	B=3	C=2	Bx=1030
+CODE	main	40	100f8598	op7=24	A=11	k=1	B=15	C=16	Bx=8223
+CODE	main	41	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	42	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	43	00088703	op7=3	A=14	k=1	B=8	C=0	Bx=17
+CODE	main	44	00090783	op7=3	A=15	k=0	B=9	C=0	Bx=18
+CODE	main	45	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	46	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	47	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	48	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	49	00098703	op7=3	A=14	k=1	B=9	C=0	Bx=19
+CODE	main	50	7fff8781	op7=1	A=15	k=1	B=255	C=127	Bx=65535
+CODE	main	51	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	52	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	53	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	54	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	55	000a0703	op7=3	A=14	k=0	B=10	C=0	Bx=20
+CODE	main	56	80000781	op7=1	A=15	k=0	B=0	C=128	Bx=65536
+CODE	main	57	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	58	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	59	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	60	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	61	000a8703	op7=3	A=14	k=1	B=10	C=0	Bx=21
+CODE	main	62	800e8782	op7=2	A=15	k=1	B=14	C=128	Bx=65565
+CODE	main	63	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	64	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	65	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	66	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	67	000b0703	op7=3	A=14	k=0	B=11	C=0	Bx=22
+CODE	main	68	7fff8782	op7=2	A=15	k=1	B=255	C=127	Bx=65535
+CODE	main	69	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	70	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	71	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	72	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	73	000b8703	op7=3	A=14	k=1	B=11	C=0	Bx=23
+CODE	main	74	80000781	op7=1	A=15	k=0	B=0	C=128	Bx=65536
+CODE	main	75	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	76	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	77	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	78	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	79	000c0703	op7=3	A=14	k=0	B=12	C=0	Bx=24
+CODE	main	80	00090783	op7=3	A=15	k=0	B=9	C=0	Bx=18
+CODE	main	81	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	82	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	83	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	84	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	85	000c8703	op7=3	A=14	k=1	B=12	C=0	Bx=25
+CODE	main	86	7fff8781	op7=1	A=15	k=1	B=255	C=127	Bx=65535
+CODE	main	87	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	88	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	89	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	90	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	91	000d0703	op7=3	A=14	k=0	B=13	C=0	Bx=26
+CODE	main	92	00020780	op7=0	A=15	k=0	B=2	C=0	Bx=4
+CODE	main	93	0b010811	op7=17	A=16	k=0	B=1	C=11	Bx=5634
+CODE	main	94	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	95	00010600	op7=0	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	96	000b0680	op7=0	A=13	k=0	B=11	C=0	Bx=22
+CODE	main	97	000d8703	op7=3	A=14	k=1	B=13	C=0	Bx=27
+CODE	main	98	00020780	op7=0	A=15	k=0	B=2	C=0	Bx=4
+CODE	main	99	00090800	op7=0	A=16	k=0	B=9	C=0	Bx=18
+CODE	main	100	01050652	op7=82	A=12	k=0	B=5	C=1	Bx=522
+CODE	main	101	0000065e	op7=94	A=12	k=0	B=0	C=0	Bx=0
+CODE	main	102	0c1c0598	op7=24	A=11	k=0	B=28	C=12	Bx=6200
+CODE	main	103	0000865e	op7=94	A=12	k=1	B=0	C=0	Bx=1
+CODE	main	104	0c1d0598	op7=24	A=11	k=0	B=29	C=12	Bx=6202
+CODE	main	105	0001065e	op7=94	A=12	k=0	B=1	C=0	Bx=2
+CODE	main	106	0c1e0598	op7=24	A=11	k=0	B=30	C=12	Bx=6204
+CODE	main	107	0001865e	op7=94	A=12	k=1	B=1	C=0	Bx=3
+CODE	main	108	0c1f0598	op7=24	A=11	k=0	B=31	C=12	Bx=6206
+CODE	main	109	0002065e	op7=94	A=12	k=0	B=2	C=0	Bx=4
+CODE	main	110	0c200598	op7=24	A=11	k=0	B=32	C=12	Bx=6208
+CODE	main	111	0002865e	op7=94	A=12	k=1	B=2	C=0	Bx=5
+CODE	main	112	0c210598	op7=24	A=11	k=0	B=33	C=12	Bx=6210
+CODE	main	113	0003065e	op7=94	A=12	k=0	B=3	C=0	Bx=6
+CODE	main	114	0c220598	op7=24	A=11	k=0	B=34	C=12	Bx=6212
+CODE	main	115	0003865e	op7=94	A=12	k=1	B=3	C=0	Bx=7
+CODE	main	116	0c230598	op7=24	A=11	k=0	B=35	C=12	Bx=6214
+CODE	main	117	0004065e	op7=94	A=12	k=0	B=4	C=0	Bx=8
+CODE	main	118	0c240598	op7=24	A=11	k=0	B=36	C=12	Bx=6216
+CODE	main	119	0b0d0018	op7=24	A=0	k=0	B=13	C=11	Bx=5658
+CODE	main	120	0c00060c	op7=12	A=12	k=0	B=0	C=12	Bx=6144
+CODE	main	121	00128683	op7=3	A=13	k=1	B=18	C=0	Bx=37
+CODE	main	122	02020652	op7=82	A=12	k=0	B=2	C=2	Bx=1028
+CODE	main	123	100f8618	op7=24	A=12	k=1	B=15	C=16	Bx=8223
+CODE	main	124	000486de	op7=94	A=13	k=1	B=4	C=0	Bx=9
+CODE	main	125	0d260618	op7=24	A=12	k=0	B=38	C=13	Bx=6732
+CODE	main	126	000506de	op7=94	A=13	k=0	B=5	C=0	Bx=10
+CODE	main	127	0d1d0618	op7=24	A=12	k=0	B=29	C=13	Bx=6714
+CODE	main	128	000586de	op7=94	A=13	k=1	B=5	C=0	Bx=11
+CODE	main	129	0d1e0618	op7=24	A=12	k=0	B=30	C=13	Bx=6716
+CODE	main	130	000606de	op7=94	A=13	k=0	B=6	C=0	Bx=12
+CODE	main	131	0d1f0618	op7=24	A=12	k=0	B=31	C=13	Bx=6718
+CODE	main	132	000686de	op7=94	A=13	k=1	B=6	C=0	Bx=13
+CODE	main	133	0d200618	op7=24	A=12	k=0	B=32	C=13	Bx=6720
+CODE	main	134	000706de	op7=94	A=13	k=0	B=7	C=0	Bx=14
+CODE	main	135	0d210618	op7=24	A=12	k=0	B=33	C=13	Bx=6722
+CODE	main	136	000786de	op7=94	A=13	k=1	B=7	C=0	Bx=15
+CODE	main	137	0d220618	op7=24	A=12	k=0	B=34	C=13	Bx=6724
+CODE	main	138	000806de	op7=94	A=13	k=0	B=8	C=0	Bx=16
+CODE	main	139	0d230618	op7=24	A=12	k=0	B=35	C=13	Bx=6726
+CODE	main	140	000886de	op7=94	A=13	k=1	B=8	C=0	Bx=17
+CODE	main	141	0d240618	op7=24	A=12	k=0	B=36	C=13	Bx=6728
+CODE	main	142	0c250018	op7=24	A=0	k=0	B=37	C=12	Bx=6218
+CODE	main	143	0c00068c	op7=12	A=13	k=0	B=0	C=12	Bx=6144
+CODE	main	144	00138703	op7=3	A=14	k=1	B=19	C=0	Bx=39
+CODE	main	145	0e060791	op7=17	A=15	k=0	B=6	C=14	Bx=7180
+CODE	main	146	020306d2	op7=82	A=13	k=0	B=3	C=2	Bx=1030
+CODE	main	147	2800070c	op7=12	A=14	k=0	B=0	C=40	Bx=20480
+CODE	main	148	000d0780	op7=0	A=15	k=0	B=13	C=0	Bx=26
+CODE	main	149	000c0800	op7=0	A=16	k=0	B=12	C=0	Bx=24
+CODE	main	150	01030752	op7=82	A=14	k=0	B=3	C=1	Bx=518
+CODE	main	151	29070711	op7=17	A=14	k=0	B=7	C=41	Bx=21006
+CODE	main	152	000d0780	op7=0	A=15	k=0	B=13	C=0	Bx=26
+CODE	main	153	000b0800	op7=0	A=16	k=0	B=11	C=0	Bx=22
+CODE	main	154	2a010891	op7=17	A=17	k=0	B=1	C=42	Bx=21506
+CODE	main	155	00090900	op7=0	A=18	k=0	B=9	C=0	Bx=18
+CODE	main	156	01050752	op7=82	A=14	k=0	B=5	C=1	Bx=522
+CODE	main	157	0d270018	op7=24	A=0	k=0	B=39	C=13	Bx=6734
+CODE	main	158	0c00070c	op7=12	A=14	k=0	B=0	C=12	Bx=6144
+CODE	main	159	00158783	op7=3	A=15	k=1	B=21	C=0	Bx=43
+CODE	main	160	0e060811	op7=17	A=16	k=0	B=6	C=14	Bx=7180
+CODE	main	161	02030752	op7=82	A=14	k=0	B=3	C=2	Bx=1030
+CODE	main	162	2800078c	op7=12	A=15	k=0	B=0	C=40	Bx=20480
+CODE	main	163	000e0800	op7=0	A=16	k=0	B=14	C=0	Bx=28
+CODE	main	164	000c0880	op7=0	A=17	k=0	B=12	C=0	Bx=24
+CODE	main	165	010307d2	op7=82	A=15	k=0	B=3	C=1	Bx=518
+CODE	main	166	29070791	op7=17	A=15	k=0	B=7	C=41	Bx=21006
+CODE	main	167	000e0800	op7=0	A=16	k=0	B=14	C=0	Bx=28
+CODE	main	168	000b0880	op7=0	A=17	k=0	B=11	C=0	Bx=22
+CODE	main	169	2c010911	op7=17	A=18	k=0	B=1	C=44	Bx=22530
+CODE	main	170	00090980	op7=0	A=19	k=0	B=9	C=0	Bx=18
+CODE	main	171	010507d2	op7=82	A=15	k=0	B=5	C=1	Bx=522
+CODE	main	172	0e2b0018	op7=24	A=0	k=0	B=43	C=14	Bx=7254
+CODE	main	173	0c00078c	op7=12	A=15	k=0	B=0	C=12	Bx=6144
+CODE	main	174	00168803	op7=3	A=16	k=1	B=22	C=0	Bx=45
+CODE	main	175	000b0880	op7=0	A=17	k=0	B=11	C=0	Bx=22
+CODE	main	176	020307d2	op7=82	A=15	k=0	B=3	C=2	Bx=1030
+CODE	main	177	2e050811	op7=17	A=16	k=0	B=5	C=46	Bx=23562
+CODE	main	178	02010852	op7=82	A=16	k=0	B=1	C=2	Bx=1026
+CODE	main	179	00000850	op7=80	A=16	k=0	B=0	C=0	Bx=0
+CODE	main	180	800010c6	op7=70	A=33	k=0	B=0	C=128	Bx=65536
+CODE	main	181	0c00080c	op7=12	A=16	k=0	B=0	C=12	Bx=6144
+CODE	main	182	00178883	op7=3	A=17	k=1	B=23	C=0	Bx=47
+CODE	main	183	0e060911	op7=17	A=18	k=0	B=6	C=14	Bx=7180
+CODE	main	184	02030852	op7=82	A=16	k=0	B=3	C=2	Bx=1030
+CODE	main	185	00010880	op7=0	A=17	k=0	B=1	C=0	Bx=2
+CODE	main	186	00100900	op7=0	A=18	k=0	B=16	C=0	Bx=32
+CODE	main	187	00180983	op7=3	A=19	k=0	B=24	C=0	Bx=48
+CODE	main	188	00090a03	op7=3	A=20	k=0	B=9	C=0	Bx=18
+CODE	main	189	00090a80	op7=0	A=21	k=0	B=9	C=0	Bx=18
+CODE	main	190	010508d2	op7=82	A=17	k=0	B=5	C=1	Bx=522
+CODE	main	191	00010880	op7=0	A=17	k=0	B=1	C=0	Bx=2
+CODE	main	192	00100900	op7=0	A=18	k=0	B=16	C=0	Bx=32
+CODE	main	193	00188983	op7=3	A=19	k=1	B=24	C=0	Bx=49
+CODE	main	194	00030a00	op7=0	A=20	k=0	B=3	C=0	Bx=6
+CODE	main	195	00090a80	op7=0	A=21	k=0	B=9	C=0	Bx=18
+CODE	main	196	010508d2	op7=82	A=17	k=0	B=5	C=1	Bx=522
+CODE	main	197	00010880	op7=0	A=17	k=0	B=1	C=0	Bx=2
+CODE	main	198	00100900	op7=0	A=18	k=0	B=16	C=0	Bx=32
+CODE	main	199	00190983	op7=3	A=19	k=0	B=25	C=0	Bx=50
+CODE	main	200	7fff8a01	op7=1	A=20	k=1	B=255	C=127	Bx=65535
+CODE	main	201	00090a80	op7=0	A=21	k=0	B=9	C=0	Bx=18
+CODE	main	202	010508d2	op7=82	A=17	k=0	B=5	C=1	Bx=522
+CODE	main	203	00010880	op7=0	A=17	k=0	B=1	C=0	Bx=2
+CODE	main	204	000f0900	op7=0	A=18	k=0	B=15	C=0	Bx=30
+CODE	main	205	00198983	op7=3	A=19	k=1	B=25	C=0	Bx=51
+CODE	main	206	7fff8a01	op7=1	A=20	k=1	B=255	C=127	Bx=65535
+CODE	main	207	00090a80	op7=0	A=21	k=0	B=9	C=0	Bx=18
+CODE	main	208	010508d2	op7=82	A=17	k=0	B=5	C=1	Bx=522
+CODE	main	209	00010880	op7=0	A=17	k=0	B=1	C=0	Bx=2
+CODE	main	210	000f0900	op7=0	A=18	k=0	B=15	C=0	Bx=30
+CODE	main	211	001a0983	op7=3	A=19	k=0	B=26	C=0	Bx=52
+CODE	main	212	00100a00	op7=0	A=20	k=0	B=16	C=0	Bx=32
+CODE	main	213	00090a80	op7=0	A=21	k=0	B=9	C=0	Bx=18
+CODE	main	214	010508d2	op7=82	A=17	k=0	B=5	C=1	Bx=522
+CODE	main	215	0000080c	op7=12	A=16	k=0	B=0	C=0	Bx=0
+CODE	main	216	001a8883	op7=3	A=17	k=1	B=26	C=0	Bx=53
+CODE	main	217	02020852	op7=82	A=16	k=0	B=2	C=2	Bx=1028
+CODE	main	218	36100891	op7=17	A=17	k=0	B=16	C=54	Bx=27680
+CODE	main	219	37110891	op7=17	A=17	k=0	B=17	C=55	Bx=28194
+CODE	main	220	000f0900	op7=0	A=18	k=0	B=15	C=0	Bx=30
+CODE	main	221	010208d2	op7=82	A=17	k=0	B=2	C=1	Bx=516
+CODE	main	222	0f2d0018	op7=24	A=0	k=0	B=45	C=15	Bx=7770
+CODE	main	223	01028054	op7=84	A=0	k=1	B=2	C=1	Bx=517
+CODE	main	224	010188d4	op7=84	A=17	k=1	B=1	C=1	Bx=515
+PROTO	main/0	lines=34-36	code=6	constants=3	children=0
+LOCAL	main/0	0	self	start=0	end=6
+UPVALUE	main/0	0	buff_misc	instack=true	idx=8
+K	main/0	0	"get_buff_sys_d"
+K	main/0	1	"No"
+K	main/0	2	"level"
+CODE	main/0	1	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/0	2	01000111	op7=17	A=2	k=0	B=0	C=1	Bx=512
+CODE	main/0	3	02000191	op7=17	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main/0	4	000300d3	op7=83	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/0	5	000000d4	op7=84	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/0	6	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/1	lines=38-40	code=3	constants=1	children=0
+LOCAL	main/1	0	self	start=0	end=3
+K	main/1	0	"duration"
+CODE	main/1	1	00000090	op7=16	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/1	2	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/1	3	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/2	lines=42-44	code=3	constants=1	children=0
+LOCAL	main/2	0	self	start=0	end=3
+K	main/2	0	"start_ts"
+CODE	main/2	1	00000090	op7=16	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/2	2	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/2	3	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/3	lines=46-52	code=12	constants=2	children=0
+LOCAL	main/3	0	self	start=0	end=12
+K	main/3	0	"duration"
+K	main/3	1	"start_ts"
+CODE	main/3	1	00000090	op7=16	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/3	2	007f00ce	op7=78	A=1	k=0	B=127	C=0	Bx=254
+CODE	main/3	3	800002c6	op7=70	A=5	k=0	B=0	C=128	Bx=65536
+CODE	main/3	4	01000091	op7=17	A=1	k=0	B=0	C=1	Bx=512
+CODE	main/3	5	00000111	op7=17	A=2	k=0	B=0	C=0	Bx=0
+CODE	main/3	6	020100b0	op7=48	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main/3	7	070200bc	op7=60	A=1	k=0	B=2	C=7	Bx=3588
+CODE	main/3	8	000080d0	op7=80	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/3	9	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/3	10	7fff0081	op7=1	A=1	k=0	B=255	C=127	Bx=65534
+CODE	main/3	11	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/3	12	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/4	lines=54-58	code=9	constants=4	children=0
+LOCAL	main/4	0	self	start=0	end=9
+UPVALUE	main/4	0	_ENV	instack=false	idx=0
+K	main/4	0	"bool"
+K	main/4	1	"get_sys_d"
+K	main/4	2	"get"
+K	main/4	3	"buff_control_type"
+CODE	main/4	1	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/4	2	01008122	op7=34	A=2	k=1	B=0	C=1	Bx=513
+CODE	main/4	3	02020152	op7=82	A=2	k=0	B=2	C=2	Bx=1028
+CODE	main/4	4	02028122	op7=34	A=2	k=1	B=2	C=2	Bx=1029
+CODE	main/4	5	00018203	op7=3	A=4	k=1	B=1	C=0	Bx=3
+CODE	main/4	6	00030152	op7=82	A=2	k=0	B=3	C=0	Bx=6
+CODE	main/4	7	000000d3	op7=83	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/4	8	000000d4	op7=84	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/4	9	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/5	lines=60-64	code=11	constants=4	children=0
+LOCAL	main/5	0	self	start=0	end=11
+K	main/5	0	"get_sys_d"
+K	main/5	1	"get"
+K	main/5	2	"buff_silence_mode"
+K	main/5	3	nil
+CODE	main/5	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/5	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/5	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/5	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/5	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/5	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/5	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/5	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/5	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/5	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/5	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/6	lines=66-70	code=11	constants=4	children=0
+LOCAL	main/6	0	self	start=0	end=11
+K	main/6	0	"get_sys_d"
+K	main/6	1	"get"
+K	main/6	2	"invisible"
+K	main/6	3	nil
+CODE	main/6	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/6	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/6	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/6	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/6	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/6	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/6	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/6	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/6	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/6	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/6	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/7	lines=72-74	code=11	constants=4	children=0
+LOCAL	main/7	0	self	start=0	end=11
+K	main/7	0	"get_sys_d"
+K	main/7	1	"get"
+K	main/7	2	"invisible_new"
+K	main/7	3	nil
+CODE	main/7	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/7	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/7	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/7	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/7	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/7	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/7	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/7	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/7	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/7	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/7	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/8	lines=76-80	code=11	constants=4	children=0
+LOCAL	main/8	0	self	start=0	end=11
+K	main/8	0	"get_sys_d"
+K	main/8	1	"get"
+K	main/8	2	"magnet_pos"
+K	main/8	3	nil
+CODE	main/8	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/8	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/8	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/8	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/8	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/8	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/8	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/8	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/8	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/8	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/8	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/9	lines=88-99	code=12	constants=4	children=0
+LOCAL	main/9	0	self	start=0	end=12
+LOCAL	main/9	1	res	start=9	end=12
+UPVALUE	main/9	0	buff_misc	instack=true	idx=8
+K	main/9	0	"_sys_d"
+K	main/9	1	"get_buff_sys_d"
+K	main/9	2	"No"
+K	main/9	3	"level"
+CODE	main/9	1	00000090	op7=16	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/9	2	000000d0	op7=80	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/9	3	800000c6	op7=70	A=1	k=0	B=0	C=128	Bx=65536
+CODE	main/9	4	00000091	op7=17	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/9	5	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/9	6	0100008c	op7=12	A=1	k=0	B=0	C=1	Bx=512
+CODE	main/9	7	02000111	op7=17	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main/9	8	03000191	op7=17	A=3	k=0	B=0	C=3	Bx=1536
+CODE	main/9	9	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/9	10	01000018	op7=24	A=0	k=0	B=0	C=1	Bx=512
+CODE	main/9	11	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/9	12	00010155	op7=85	A=2	k=0	B=1	C=0	Bx=2
+PROTO	main/10	lines=101-103	code=5	constants=2	children=0
+LOCAL	main/10	0	self	start=0	end=5
+K	main/10	0	"duration"
+K	main/10	1	0.1
+CODE	main/10	1	00000090	op7=16	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/10	2	010100a6	op7=38	A=1	k=0	B=1	C=1	Bx=514
+CODE	main/10	3	090100be	op7=62	A=1	k=0	B=1	C=9	Bx=4610
+CODE	main/10	4	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/10	5	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/11	lines=105-107	code=8	constants=3	children=0
+LOCAL	main/11	0	self	start=0	end=8
+UPVALUE	main/11	0	buff_consts	instack=true	idx=4
+K	main/11	0	"start_ts"
+K	main/11	1	0.1
+K	main/11	2	"TS_BASE"
+CODE	main/11	1	00000090	op7=16	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/11	2	010100a6	op7=38	A=1	k=0	B=1	C=1	Bx=514
+CODE	main/11	3	090100be	op7=62	A=1	k=0	B=1	C=9	Bx=4610
+CODE	main/11	4	0200010c	op7=12	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main/11	5	020100b0	op7=48	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main/11	6	070200bc	op7=60	A=1	k=0	B=2	C=7	Bx=3588
+CODE	main/11	7	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/11	8	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/12	lines=109-112	code=19	constants=4	children=0
+LOCAL	main/12	0	self	start=0	end=19
+UPVALUE	main/12	0	buff_consts	instack=true	idx=4
+K	main/12	0	"duration"
+K	main/12	1	"start_ts"
+K	main/12	2	0.1
+K	main/12	3	"TS_BASE"
+CODE	main/12	1	00000090	op7=16	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/12	2	007f00ce	op7=78	A=1	k=0	B=127	C=0	Bx=254
+CODE	main/12	3	80000646	op7=70	A=12	k=0	B=0	C=128	Bx=65536
+CODE	main/12	4	01000090	op7=16	A=1	k=0	B=0	C=1	Bx=512
+CODE	main/12	5	020100a6	op7=38	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main/12	6	090200be	op7=62	A=1	k=0	B=2	C=9	Bx=4612
+CODE	main/12	7	0300010c	op7=12	A=2	k=0	B=0	C=3	Bx=1536
+CODE	main/12	8	020100b0	op7=48	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main/12	9	070200bc	op7=60	A=1	k=0	B=2	C=7	Bx=3588
+CODE	main/12	10	00000110	op7=16	A=2	k=0	B=0	C=0	Bx=0
+CODE	main/12	11	02020126	op7=38	A=2	k=0	B=2	C=2	Bx=1028
+CODE	main/12	12	0902013e	op7=62	A=2	k=0	B=2	C=9	Bx=4612
+CODE	main/12	13	020100b0	op7=48	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main/12	14	070200bc	op7=60	A=1	k=0	B=2	C=7	Bx=3588
+CODE	main/12	15	000080d0	op7=80	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/12	16	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/12	17	7fff0081	op7=1	A=1	k=0	B=255	C=127	Bx=65534
+CODE	main/12	18	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/12	19	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/13	lines=114-118	code=9	constants=4	children=0
+LOCAL	main/13	0	self	start=0	end=9
+UPVALUE	main/13	0	_ENV	instack=false	idx=0
+K	main/13	0	"bool"
+K	main/13	1	"get_sys_d"
+K	main/13	2	"get"
+K	main/13	3	"buff_control_type"
+CODE	main/13	1	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/13	2	01008122	op7=34	A=2	k=1	B=0	C=1	Bx=513
+CODE	main/13	3	02020152	op7=82	A=2	k=0	B=2	C=2	Bx=1028
+CODE	main/13	4	02028122	op7=34	A=2	k=1	B=2	C=2	Bx=1029
+CODE	main/13	5	00018203	op7=3	A=4	k=1	B=1	C=0	Bx=3
+CODE	main/13	6	00030152	op7=82	A=2	k=0	B=3	C=0	Bx=6
+CODE	main/13	7	000000d3	op7=83	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/13	8	000000d4	op7=84	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/13	9	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/14	lines=120-124	code=11	constants=4	children=0
+LOCAL	main/14	0	self	start=0	end=11
+K	main/14	0	"get_sys_d"
+K	main/14	1	"get"
+K	main/14	2	"buff_silence_mode"
+K	main/14	3	nil
+CODE	main/14	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/14	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/14	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/14	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/14	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/14	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/14	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/14	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/14	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/14	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/14	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/15	lines=126-130	code=11	constants=4	children=0
+LOCAL	main/15	0	self	start=0	end=11
+K	main/15	0	"get_sys_d"
+K	main/15	1	"get"
+K	main/15	2	"invisible"
+K	main/15	3	nil
+CODE	main/15	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/15	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/15	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/15	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/15	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/15	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/15	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/15	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/15	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/15	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/15	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/16	lines=132-134	code=11	constants=4	children=0
+LOCAL	main/16	0	self	start=0	end=11
+K	main/16	0	"get_sys_d"
+K	main/16	1	"get"
+K	main/16	2	"invisible_new"
+K	main/16	3	nil
+CODE	main/16	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/16	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/16	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/16	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/16	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/16	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/16	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/16	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/16	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/16	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/16	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/17	lines=136-140	code=11	constants=4	children=0
+LOCAL	main/17	0	self	start=0	end=11
+K	main/17	0	"get_sys_d"
+K	main/17	1	"get"
+K	main/17	2	"magnet_pos"
+K	main/17	3	nil
+CODE	main/17	1	000080a2	op7=34	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/17	2	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/17	3	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/17	4	00010183	op7=3	A=3	k=0	B=1	C=0	Bx=2
+CODE	main/17	5	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/17	6	000300ca	op7=74	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/17	7	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/17	8	00000086	op7=6	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/17	9	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/17	10	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/17	11	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+CONSUMED	4037	TOTAL	4037

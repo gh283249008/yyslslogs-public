@@ -1,0 +1,295 @@
+{
+  "id": "yysls-cn-simple-rdps-20261031-v9",
+  "enabled": true,
+  "label": "rDPS 简化估算",
+  "resource": "HP",
+  "authorization": "用户要求首版简化：幻鸣作用整条伤害，攻击按1+百分比，减防近似。随后明确同区个人增益与霖加算、移除团辅时保留个人项；气竭5%为独立5秒条件增益，与霖同区加算。",
+  "defenseModel": "defense-without-external / defense-with-external",
+  "timingModel": "packet-reception-order",
+  "unobservedDamagePolicy": "statistic-jump-buff-snapshot-estimate-with-separate-ledger",
+  "allocationPolicy": "yysls-additive-within-pool-log-between-pools-v1",
+  "allocationReference": "evidence/p1/fflogs-algorithm-20261019/findings.json",
+  "damagePoolEvidence": "evidence/p1/rdps-rules/pure-damage-identifiability-review.json",
+  "rules": {
+    "109710": {
+      "name": "惊神",
+      "holder": "target",
+      "family": "jingshen",
+      "pool": "damage",
+      "rate": 0,
+      "dotRatePerStack": 0.05,
+      "specialCalcpointId": 2038006,
+      "specialRatePerStack": 0.05,
+      "maxStacks": 5,
+      "durationSeconds": 18,
+      "priority": 1,
+      "evidence": "evidence/p1/rdps-rules/school-20261023/conditional-buffs-review.json",
+      "validation": "static-client-conditions-plus-synthetic-and-saved-replay; not new live combat"
+    },
+    "109711": {
+      "name": "惊神",
+      "holder": "target",
+      "family": "jingshen",
+      "pool": "damage",
+      "rate": 0,
+      "dotRatePerStack": 0.05,
+      "dotConditionalRatePerStack": 0.05,
+      "kungfu": [
+        10101,
+        10201
+      ],
+      "conditionalSchoolIds": [
+        6
+      ],
+      "specialCalcpointId": 2038006,
+      "specialRatePerStack": 0.1,
+      "maxStacks": 5,
+      "durationSeconds": 18,
+      "priority": 2,
+      "evidence": "evidence/p1/rdps-rules/school-20261023/conditional-buffs-review.json",
+      "validation": "static-client-conditions-plus-synthetic-and-saved-replay; not new live combat"
+    },
+    "109803": {
+      "name": "裁云",
+      "holder": "source",
+      "family": "caiyun",
+      "rate": 0.02,
+      "priority": 1
+    },
+    "109804": {
+      "name": "裁云·翊",
+      "holder": "source",
+      "family": "caiyun",
+      "rate": 0.06,
+      "priority": 2,
+      "providerOnly": true
+    },
+    "200100": {
+      "name": "易伤",
+      "holder": "target",
+      "family": "yishang",
+      "pool": "damage",
+      "rate": 0.08,
+      "conditionalRate": 0.1,
+      "kungfu": [
+        20401,
+        20103
+      ],
+      "priority": 1,
+      "conditionalSchoolIds": [
+        7
+      ]
+    },
+    "200176": {
+      "name": "惧刃",
+      "holder": "target",
+      "family": "juren",
+      "pool": "damage",
+      "rate": 0,
+      "conditionalRate": 0.08,
+      "kungfu": [
+        20402,
+        20801
+      ],
+      "attributeResistanceReduction": 16,
+      "durationSeconds": 15,
+      "priority": 1,
+      "attributeDamageScope": "whole-hp-estimate",
+      "attributeResistanceChannelPolicy": "skill-school-observed-resistance-with-explicit-five-channel-fallback",
+      "authorization": "用户2026-10-21整条气血减抗简化口径保留，属性穿透基准30；2026-10-23按具体流派对应抗性，并按本场固定流派补指定武学8%。具体通道抗性未观测不补零，整场流派未知保留五系最小增幅回退。",
+      "evidence": "evidence/p1/rdps-rules/juren-jingshen-locale.json#200176",
+      "conditionalSchoolIds": [
+        2
+      ]
+    },
+    "200209": {
+      "name": "扶风",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.03,
+      "priority": 1
+    },
+    "200216": {
+      "name": "烁鼓",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.06,
+      "priority": 2
+    },
+    "200225": {
+      "name": "扶风",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.06,
+      "priority": 1
+    },
+    "200226": {
+      "name": "扶风·自身强化",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.09,
+      "priority": 1,
+      "providerOnly": true
+    },
+    "200227": {
+      "name": "扶风·自身强化",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.12,
+      "priority": 1,
+      "providerOnly": true
+    },
+    "200228": {
+      "name": "烁鼓",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.12,
+      "priority": 2
+    },
+    "200229": {
+      "name": "烁鼓·自身强化",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.12,
+      "priority": 2,
+      "providerOnly": true
+    },
+    "200230": {
+      "name": "烁鼓·自身强化",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.18,
+      "priority": 2,
+      "providerOnly": true
+    },
+    "200237": {
+      "name": "扶风",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.06,
+      "priority": 1
+    },
+    "200238": {
+      "name": "扶风·自身强化",
+      "holder": "source",
+      "family": "attack",
+      "rate": 0.12,
+      "priority": 1,
+      "providerOnly": true
+    },
+    "221005": {
+      "name": "离猎",
+      "holder": "target",
+      "family": "lilie",
+      "rate": 0.02,
+      "priority": 1
+    },
+    "1058031": {
+      "name": "增伤",
+      "holder": "source",
+      "family": "lin",
+      "pool": "damage",
+      "rate": 0.1,
+      "priority": 1
+    },
+    "1058032": {
+      "name": "增伤·霖",
+      "holder": "source",
+      "family": "lin",
+      "pool": "damage",
+      "rate": 0.24,
+      "priority": 2
+    },
+    "1870156": {
+      "name": "血祭",
+      "holder": "source",
+      "family": "xueji",
+      "rate": 0.25,
+      "priority": 1,
+      "requiresResourceSuccess": true,
+      "creditProviderId": "mechanic:xueji",
+      "evidence": "docs/knowledge/xueji-20261031.json",
+      "validation": "observed resource-success required; independent multiplier from user screenshot and saved client config",
+      "resourceChangeResource": -2
+    },
+    "3115012": {
+      "name": "一念浮生·气竭增伤",
+      "holder": "source",
+      "family": "lin-weak",
+      "pool": "damage",
+      "rate": 0.05,
+      "requiresWeak": true,
+      "maxStacks": 1
+    },
+    "10204212": {
+      "name": "青衣魅",
+      "holder": "target",
+      "family": "qingyimei",
+      "defensePerStack": 0.01,
+      "maxStacks": 5
+    },
+    "10204214": {
+      "name": "青衣魅",
+      "holder": "target",
+      "family": "qingyimei",
+      "defensePerStack": 0.012,
+      "maxStacks": 5
+    },
+    "10204218": {
+      "name": "青衣魅",
+      "holder": "target",
+      "family": "qingyimei",
+      "defensePerStack": 0.012,
+      "maxStacks": 5,
+      "fullStackResistance": 10
+    },
+    "10245461": {
+      "name": "断石",
+      "holder": "target",
+      "family": "duanshi",
+      "defensePerStack": 0.05,
+      "maxStacks": 1
+    },
+    "10250131": {
+      "name": "幻鸣",
+      "holder": "target",
+      "family": "huanming",
+      "resistancePerStack": 2,
+      "maxStacks": 5
+    }
+  },
+  "gapReconstruction": {
+    "version": 2,
+    "authorization": "用户2026-10-23批准缺口伤害按统计跳变时冻结的buff估算；区间内buff变化单独标记估算，迟到逐击撤回缺口，避免重复归因。",
+    "timing": "statistic-jump frozen buff snapshot; interval buff changes flagged; late notifications retract recent residual windows",
+    "unknownTarget": "skip-target-rules-unless-single-same-actor-same-interval-captured-target",
+    "unknownSkillConditions": "skip",
+    "incompleteHistory": "do-not-reconstruct",
+    "syntheticHits": false
+  },
+  "personalBuffBaseline": {
+    "file": "config/personal-buff-baselines.json",
+    "sha256": "22ed88fd43a233816ab430d651ec2245ec873370020eeafc88956f8aa1b82c9c",
+    "completeness": "observed-audited-effects-only"
+  },
+  "kungfuAttributeChannels": {
+    "file": "config/kungfu-attribute-channels.json",
+    "sha256": "1c1dde18e376f7ed3108f77d1e9d0b7cab42bd4ad20913f7a4b7997a915e4029",
+    "evidence": "evidence/p1/rdps-rules/school-20261023/review.json"
+  },
+  "fixedEncounterSchool": {
+    "enabled": true,
+    "unknownHpDamageType": "normal-damage-estimate",
+    "authorization": "用户2026-10-23明确说明战斗中不可切换流派；一旦本场已采命中识别具体流派，整场沿用，补齐惧刃8%、裂石威易伤10%等指定武学条件，包括漏采气血缺口。其他持续伤害/特定技能条件仍单独判断。",
+    "sourcePolicy": "confirmed captured hits in same encounter and latest cutoff; conflicting concrete schools remain unknown",
+    "evidence": "evidence/p1/rdps-rules/school-20261023/conditional-buffs-review.json"
+  },
+  "mechanicProviders": {
+    "mechanic:xueji": {
+      "name": "血祭",
+      "ruleIds": [
+        "1870156"
+      ]
+    }
+  }
+}

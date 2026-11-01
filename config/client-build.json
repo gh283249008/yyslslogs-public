@@ -1,0 +1,116 @@
+{
+  "id": "cn-20261013",
+  "imageSha256": "2cff32efe14b24ecbde8916bcccd63559379d3ba50dec4e9ca56faf89fc93f42",
+  "evidence": "Saved REA exact Lua G.net._asio_gate_client / inbound RC4 chain; bounded reads and schema alignment required",
+  "stateOffsets": {
+    "rc4VtableRva": "0x5b7ff98",
+    "luaRootRva": "0x836b748",
+    "wrapperVtableRva": "0x5b83bc8"
+  },
+  "profiles": [
+    {
+      "id": "cn-20261016-r64109-win64r",
+      "imageSha256": "0bbf657adc2d9f959ec1cd938a108593e973f50e9186192a39e327d40056f7b6",
+      "build": "2026-10-16/r64109",
+      "stateOffsets": {
+        "luaRootRva": "0x83753b8",
+        "wrapperVtableRva": "0x5b8ba48",
+        "rc4VtableRva": "0x5b87e18"
+      },
+      "validation": {
+        "status": "static-chain-validated-current-session-decode-pending",
+        "authority": "Saved REA semantics plus current bounded module snapshots and offline Capstone byte/reference comparison",
+        "comparison": "evidence\\p2\\incident-20261020-client-variant\\current-chain\\native-chain-comparison.json",
+        "proofs": [
+          {
+            "finding": "Lua root selected by unique seed_reply caller, with exact identifying string",
+            "seedReply": "0x1430093f0",
+            "rootCallSite": "0x1430094a4",
+            "rootAccessor": "0x141d9a770",
+            "rootStaticObject": "0x1483753b8",
+            "rootStatePointerOffset": 8
+          },
+          {
+            "finding": "Unique wrapper constructor calls unique cipher constructor and wrapper base constructor; same object member offsets",
+            "wrapperCtor": "0x143087400",
+            "cipherCtor": "0x143004a20",
+            "wrapperBaseCtor": "0x143005bb0",
+            "wrapperVtable": "0x145b8ba48",
+            "cipherVtable": "0x145b87e18"
+          },
+          {
+            "finding": "Unique transform constructor calls same wrapper constructor for outbound and inbound; inbound offset remains 0x10",
+            "transformCtor": "0x143086c80"
+          },
+          {
+            "finding": "Unique cipher constructor calls uniquely matched RC4 KSA; RC4 PRGA independently matches",
+            "ksa": "0x144c17810",
+            "prga": "0x144c17c20"
+          },
+          {
+            "finding": "rpc_handler native extraction selected by exact rpc_handler string among template-like candidates; userdata extraction independently unique",
+            "rpcHandlerFromLua": "0x141d965f0",
+            "customUserdata": "0x144e774f0"
+          }
+        ],
+        "limitations": [
+          "Current-session field-chain checks, RC4 permutation checks and unique captured-traffic alignment remain required before use.",
+          "Lua table internals are not exhaustively compared; bounded exact-key lookup must retain all existing checks.",
+          "This profile does not claim live combat completeness or session reconnect success."
+        ]
+      }
+    },
+    {
+      "id": "cn-20261021-r64304-win64r",
+      "imageSha256": "4483a00721a7b08a21f3cfb666eb6a8858dacf2e3830956be98c569bac746d1b",
+      "build": "2026-10-21/r64304",
+      "stateOffsets": {
+        "luaRootRva": "0x83754b8",
+        "wrapperVtableRva": "0x5b8ba68",
+        "rc4VtableRva": "0x5b87e38"
+      },
+      "validation": {
+        "status": "static-chain-validated-current-session-decode-pending",
+        "authority": "Saved REA semantics plus current bounded module snapshots and offline Capstone byte/reference comparison",
+        "comparison": "outputs\\client-update-030\\native-chain\\native-chain-comparison.json",
+        "proofs": [
+          {
+            "finding": "Lua root selected by unique seed_reply caller, with exact identifying string",
+            "seedReply": "0x143009af0",
+            "rootCallSite": "0x143009ba4",
+            "rootAccessor": "0x141d9ad40",
+            "rootStaticObject": "0x1483754b8",
+            "rootStatePointerOffset": 8
+          },
+          {
+            "finding": "Unique wrapper constructor calls unique cipher constructor and wrapper base constructor; same object member offsets",
+            "wrapperCtor": "0x143087b00",
+            "cipherCtor": "0x143005120",
+            "wrapperBaseCtor": "0x1430062b0",
+            "wrapperVtable": "0x145b8ba68",
+            "cipherVtable": "0x145b87e38"
+          },
+          {
+            "finding": "Unique transform constructor calls same wrapper constructor for outbound and inbound; inbound offset remains 0x10",
+            "transformCtor": "0x143087380"
+          },
+          {
+            "finding": "Unique cipher constructor calls uniquely matched RC4 KSA; RC4 PRGA independently matches",
+            "ksa": "0x144c17f00",
+            "prga": "0x144c18310"
+          },
+          {
+            "finding": "rpc_handler native extraction selected by exact rpc_handler string among template-like candidates; userdata extraction independently unique",
+            "rpcHandlerFromLua": "0x141d96bc0",
+            "customUserdata": "0x144e77be0"
+          }
+        ],
+        "limitations": [
+          "Current-session field-chain checks, RC4 permutation checks and unique captured-traffic alignment remain required before use.",
+          "Lua table internals are not exhaustively compared; bounded exact-key lookup must retain all existing checks.",
+          "This profile does not claim live combat completeness or session reconnect success."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+Electron 44.9.0: https://github.com/electron/electron (LICENSE and LICENSES.chromium.html)
+Node.js is supplied by Electron; no separate Node installation is needed.
+CPython 3.12: https://www.python.org/ (resources/runtime/python/LICENSE.txt)
+Wireshark / tshark / dumpcap: https://www.wireshark.org/ (resources/runtime/wireshark/COPYING.txt)
+Wireshark release source archives: https://www.wireshark.org/download/src/
+Kagerou: https://github.com/hibiyasleep/kagerou (LICENSE-Kagerou.txt; modified frontend source in source/)
+Protocol Buffers: https://github.com/protocolbuffers/protobuf (pydeps distribution license)
+MessagePack: https://github.com/msgpack/msgpack-javascript (resources/tools/node_modules/@msgpack/msgpack/LICENSE)
+Npcap is NOT bundled; downloaded directly from https://npcap.com/ only when requested by the user.

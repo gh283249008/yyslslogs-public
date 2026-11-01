@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "rawReadChunkBytes": 65536,
+  "rawLineLimitBytes": 16777216,
+  "pumpBudgetMs": 8,
+  "pumpIntervalMs": 10,
+  "maxPendingProto": 512,
+  "ledgerFlushIntervalMs": 250,
+  "ledgerFlushBytes": 65536
+}

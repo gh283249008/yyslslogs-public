@@ -1,0 +1,1429 @@
+PROTO	main	lines=0-0	code=982	constants=315	children=6
+LOCAL	main	0	_M	start=3	end=982
+LOCAL	main	1	events	start=701	end=982
+UPVALUE	main	0	_ENV	instack=true	idx=0
+K	main	0	"_reload_all"
+K	main	1	true
+K	main	2	"TS_BASE"
+K	main	3	1576080000
+K	main	4	"genID"
+K	main	5	"SAME_TH_IGNORE"
+K	main	6	0
+K	main	7	"SAME_TH_COUNT"
+K	main	8	1
+K	main	9	"SAME_TH_ADD"
+K	main	10	2
+K	main	11	"SAME_TH_MUL"
+K	main	12	4
+K	main	13	"SAME_TH_NEW"
+K	main	14	16
+K	main	15	"SAME_TH_MIN"
+K	main	16	32
+K	main	17	"TH_DICT_FLAG"
+K	main	18	8
+K	main	19	"SAME_TH_DICT_COUNT"
+K	main	20	"SAME_TH_DICT_ADD"
+K	main	21	"SAME_TH_DICT_MUL"
+K	main	22	"SAME_TH_DICT_MIN"
+K	main	23	"TH_COMMON_MAP"
+K	main	24	"buff_control_type"
+K	main	25	"oc_flags"
+K	main	26	"disable_walk_flag"
+K	main	27	"sneak_dis_add"
+K	main	28	"immune_all_controlbuff"
+K	main	29	"ac_flags"
+K	main	30	"invisible"
+K	main	31	"buff_hide_model"
+K	main	32	"flags"
+K	main	33	"force_df_jm"
+K	main	34	"ignore_behit_type"
+K	main	35	"ban_skill"
+K	main	36	"forbid_chat"
+K	main	37	"forbid_interact"
+K	main	38	"abr_correct_pro"
+K	main	39	"enter_speed_mode"
+K	main	40	"hide_no"
+K	main	41	"duration_change_by_group"
+K	main	42	"duration_change_by_buff_tag"
+K	main	43	"fromer_duration_change_by_buff_tag"
+K	main	44	"percentage_duration_change_by_buff_tag"
+K	main	45	"skill_threat_magnification_modify"
+K	main	46	"dodge_time_change"
+K	main	47	"defuse_time_change"
+K	main	48	"arrow_charge_speed_rate"
+K	main	49	"rowing_speed_change_rate"
+K	main	50	"forbid_jm_det_flag"
+K	main	51	"change_resource_by_stuff"
+K	main	52	"buff_disable_add_resource"
+K	main	53	"co_attack_time"
+K	main	54	"immune_disease"
+K	main	55	"shield_potent"
+K	main	56	"life_steal_modify_rate"
+K	main	57	"life_steal_modify_value"
+K	main	58	"df_hp_rate_change"
+K	main	59	"zhanhuo_extra_cost"
+K	main	60	"quick_run_cost_change"
+K	main	61	"fyzb_cost_change"
+K	main	62	"swim_cost_change"
+K	main	63	"quick_swim_cost_change"
+K	main	64	"sand_skiing_cost_change"
+K	main	65	"buff_estimate_type"
+K	main	66	"shield_behit_potent"
+K	main	67	"forbid_switch_kongfu"
+K	main	68	"interact_add_speed"
+K	main	69	"shrink_no"
+K	main	70	"younger_no"
+K	main	71	"npc_scale"
+K	main	72	"parry_initiator_rep_no"
+K	main	73	"parry_target_rep_no"
+K	main	74	"buff_limit_parry_calcpoint_id"
+K	main	75	"zzq_blind"
+K	main	76	"zzq_immune_normal_atk"
+K	main	77	"change_neigong_practice_speed"
+K	main	78	"change_resource_cost"
+K	main	79	"skill_charge_resource_cost_change"
+K	main	80	"self_resource_unnatural_recover_change"
+K	main	81	"relive_hp_percent_change"
+K	main	82	"caiji_baoji"
+K	main	83	"disease_get_pro_change"
+K	main	84	"amity_up"
+K	main	85	"research_up"
+K	main	86	"composite_material_cost"
+K	main	87	"change_building_resource_cost"
+K	main	88	"unlock_telekinesis_temp"
+K	main	89	"K_HUMANPRO_MAX"
+K	main	90	"ADD_humanpro_%d_max"
+K	main	91	"K_HUMANPRO_MAX_RATE"
+K	main	92	"ADD_humanpro_%d_max_rate"
+K	main	93	"DURATION_CHANGE"
+K	main	94	"duration_change"
+K	main	95	"SHIELD_VALUE"
+K	main	96	"shield_value"
+K	main	97	"SPEC_JUDGE_ST"
+K	main	98	"specify_judge_status"
+K	main	99	"SPEC_JUDGE_BY_CLS"
+K	main	100	"specify_judge_by_cls"
+K	main	101	"SPEC_JUDGE_BY_JM"
+K	main	102	"specify_judge_by_jm"
+K	main	103	"ABR_CORR_PRO"
+K	main	104	"HIT_NUM_AFFECT"
+K	main	105	"hit_num_affect"
+K	main	106	"UNLOCK_COMBO_LEVEL"
+K	main	107	"unlock_combo_level"
+K	main	108	"RES_MAX_R"
+K	main	109	"res_max_r"
+K	main	110	"RES_MAX_V"
+K	main	111	"res_max_v"
+K	main	112	"CHANGE_FACE"
+K	main	113	"change_face_id"
+K	main	114	"CALC_CAUSE_CHANGE_SUM"
+K	main	115	"calc_cause_change_sum"
+K	main	116	"CALC_CAUSE_CHANGE_MUL"
+K	main	117	"calc_cause_change_mul"
+K	main	118	"CALC_SUFFER_CHANGE_SUM"
+K	main	119	"calc_suffer_change_sum"
+K	main	120	"CALC_SUFFER_CHANGE_MUL"
+K	main	121	"calc_suffer_change_mul"
+K	main	122	"SELF_RESOURCE_COST_CHANGE"
+K	main	123	"self_resource_cost_change"
+K	main	124	"SELF_RESOURCE_LOCK_LOWER_LIMIT"
+K	main	125	"self_resource_lock_lower_limit"
+K	main	126	"IMPACT_HIT_LIST"
+K	main	127	"impact_hit_list"
+K	main	128	"REMOVE_KONGFU_DELETE"
+K	main	129	"remove_kongfu_delete"
+K	main	130	"REMOVE_PASSIVE_DELETE"
+K	main	131	"remove_passive_delete"
+K	main	132	"SELF_RESOURCE_LOCK_UPPER_LIMIT"
+K	main	133	"self_resource_lock_upper_limit"
+K	main	134	"TH_RUNTIME_MAP"
+K	main	135	"add_wanfa_resource_cost_rate"
+K	main	136	"string"
+K	main	137	"format"
+K	main	138	".attr.humanpro"
+K	main	139	"change_spd_rate"
+K	main	140	"carry_graph_var_rate"
+K	main	141	"disable_skill_no"
+K	main	142	"qishu_cost_buff_no"
+K	main	143	"qishu_cost_change"
+K	main	144	"cal_rep_map"
+K	main	145	"shield_end_recover"
+K	main	146	"shield_end_recover_pvp"
+K	main	147	"change_resource_recover_speed"
+K	main	148	"actionline_global_speed"
+K	main	149	"get_th_flag_bag"
+K	main	150	"get_th_flag_config"
+K	main	151	"TH_FAKE_MODE_LOCAL"
+K	main	152	"forbid_buff_op_deque"
+K	main	153	"is_client_buff"
+K	main	154	"is_fake_remove_buff_mark"
+K	main	155	"D_BUFF_SPD_CHANGE"
+K	main	156	"d_buff_spd_change"
+K	main	157	"D_BUFF_AL_GLOBAL_SPEED_CHANGE"
+K	main	158	"d_buff_al_global_speed_change"
+K	main	159	"require"
+K	main	160	"hexm.common.consts.events"
+K	main	161	"TH_EXTRA_EVENTS"
+K	main	162	"E_BUFF_CHANGE_SPEED_MODE"
+K	main	163	"Feature"
+K	main	164	"IMMUNE_DIRECT_DMG"
+K	main	165	"IMMUNE_DOT"
+K	main	166	"AVOID_DIRECT_DMG"
+K	main	167	"AVOID_DOT"
+K	main	168	"TARGET_FORBID"
+K	main	169	"HIT_SIDEWAYS"
+K	main	170	"SUPER_GM"
+K	main	171	2147483648
+K	main	172	"IMMUNE_DMG"
+K	main	173	"AVOID_DMG"
+K	main	174	"MAX_BUFF_NUM"
+K	main	175	200
+K	main	176	"MIN_DURATION"
+K	main	177	0.01
+K	main	178	"SHOW_SERVER_ONLY"
+K	main	179	"SHOW_OWN_CLIENT"
+K	main	180	"SHOW_ALL_CLIENTS"
+K	main	181	"SHOW_FROMER_CLIENT"
+K	main	182	3
+K	main	183	"SHOW_OWNER_FROMER_CLIENTS"
+K	main	184	"SHOW_ALL_IF_AIAVT_ELSE_OWN"
+K	main	185	5
+K	main	186	"BUFF_CONTROL_CAN_JIE"
+K	main	187	"BUFF_CONTROL_CANNOT_JIE"
+K	main	188	"IMMUNE_BY_NO"
+K	main	189	"IMMUNE_BY_GROUP"
+K	main	190	"IMMUNE_BY_CONTROL"
+K	main	191	"IMMUNE_CONTROL_BOSS"
+K	main	192	"IMMUNE_CONTROL_BY_STATE"
+K	main	193	10
+K	main	194	"IMMUNE_BY_CONTROL_PROTECT"
+K	main	195	11
+K	main	196	"IMMUNE_BY_CONTROL_PRIORITY"
+K	main	197	12
+K	main	198	"IMMUNE_BY_WANFA"
+K	main	199	21
+K	main	200	"ERR_OK"
+K	main	201	"ERR_ADD_NOT_READY"
+K	main	202	100
+K	main	203	"ERR_ADD_SYS_D"
+K	main	204	101
+K	main	205	"ERR_ADD_DEAD"
+K	main	206	102
+K	main	207	"ERR_ADD_PROB"
+K	main	208	103
+K	main	209	"ERR_ADD_IMMUNE"
+K	main	210	104
+K	main	211	"ERR_ADD_ARG_DURATION"
+K	main	212	105
+K	main	213	"ERR_ADD_CONTROL"
+K	main	214	106
+K	main	215	"ERR_ADD_ZERO_DURATION"
+K	main	216	107
+K	main	217	"RTYPE_NORMAL"
+K	main	218	"RTYPE_CANCEL"
+K	main	219	"RTYPE_TIME_END"
+K	main	220	"RTYPE_DESTROY_EV"
+K	main	221	"DESTROY_COND_EVENT_WITH_EXPR"
+K	main	222	"REFRESH_DURATION_MODE_EXTEND"
+K	main	223	"REFRESH_DURATION_MODE_LONGEST"
+K	main	224	"JUDGE_MODE_OWNER"
+K	main	225	"SHOW_EX_RAND_ATTR"
+K	main	226	"rand_attr"
+K	main	227	"PASSIVE_CLEAR_LEAVE_BATTLE"
+K	main	228	"PASSIVE_CLEAR_DEAD"
+K	main	229	"PASSIVE_CLEAR_TRANSFER"
+K	main	230	"PASSIVE_CLEAR_LEAVE_SPACE"
+K	main	231	6
+K	main	232	"PASSIVE_CLEAR_RM_BUFF"
+K	main	233	7
+K	main	234	"PASSIVE_CLEAR_DEFAULT"
+K	main	235	"PASSIVE_MARK_MODE_REPLACE"
+K	main	236	"PASSIVE_MARK_MODE_EXTEND"
+K	main	237	"PROP_PATH"
+K	main	238	"HP_SHIELD"
+K	main	239	"buffs_data"
+K	main	240	"hp_shield"
+K	main	241	"SELF_HP_SHIELD"
+K	main	242	"self_hp_shield"
+K	main	243	"HEAL_ABSORB"
+K	main	244	"heal_absorb"
+K	main	245	"BNO_INVINCIBLE"
+K	main	246	30358
+K	main	247	"BNO_TRANSFER_LOADING"
+K	main	248	380013
+K	main	249	"BNO_REVIVE"
+K	main	250	70141
+K	main	251	"BNO_COMBAT_COMMON_INVINCIBLE"
+K	main	252	30029
+K	main	253	"BNO_COMBAT_COMMON_INVINCIBLE_NEW"
+K	main	254	10507
+K	main	255	"LOADING_OVER_CLEAR_BUFFS"
+K	main	256	"BNO_VANISH"
+K	main	257	108001
+K	main	258	"BNO_TRANS_TO_DONKEY"
+K	main	259	450046
+K	main	260	"BNO_SNOWMAN"
+K	main	261	24000013
+K	main	262	"BNO_WEALTH_GOD"
+K	main	263	11200016
+K	main	264	"BNO_TYB_BING_1"
+K	main	265	1790007
+K	main	266	"BNO_TYB_BING_2"
+K	main	267	1790008
+K	main	268	"BNO_TYB_BING_3"
+K	main	269	1790009
+K	main	270	"BNO_TYB_BING_4"
+K	main	271	1790010
+K	main	272	"BNO_TYB_BING_5"
+K	main	273	1790011
+K	main	274	"BNO_TYB_BURGER_HIDE"
+K	main	275	1790012
+K	main	276	"BNO_PASSIVE_END_CONTROL_ICON"
+K	main	277	200201
+K	main	278	"BNO_PASSIVE_END_CONTROL"
+K	main	279	200202
+K	main	280	"BNO_PASSIVE_END_CONTROL_CHIJI"
+K	main	281	200222
+K	main	282	"BNO_PASSIVE_END_CONTROL_YANKOV"
+K	main	283	950194
+K	main	284	"BNO_RES_PAUSE_BEHIT_GAP"
+K	main	285	200236
+K	main	286	"BNO_PVP_SGY_CARRIER"
+K	main	287	130208
+K	main	288	"BNO_PVP_SGY_USED"
+K	main	289	130234
+K	main	290	"FAKE_REMOVE_FIRST"
+K	main	291	"GM_BNO_INVINCIBLE"
+K	main	292	70063
+K	main	293	"GM_BNO_IMMORTAL"
+K	main	294	200031
+K	main	295	"BUFF_SHOW_LIMIT_PLAYER"
+K	main	296	"BUFF_SHOW_LIMIT_BOSS"
+K	main	297	"BUFF_SHOW_LIMIT_MULTI_BOSS"
+K	main	298	"BUFF_SHOW_LIMIT_MONSTER"
+K	main	299	"RMCB_FUNC_TYPE_OWNER"
+K	main	300	"RMCB_FUNC_TYPE_COMP"
+K	main	301	"BUFF_HIGH_RISK_REASON"
+K	main	302	"LONG_DURATION"
+K	main	303	"FREELY_REMOVABLE_BUFFS"
+K	main	304	"CUTSCENE_BLOCK_MAKEUP_BUFF"
+K	main	305	1010016
+K	main	306	"CUTSCENE_DISABLE_BUFFS"
+K	main	307	"DIALOGS_DISABLE_BUFFS"
+K	main	308	"BILL_CONTROL_TYPE"
+K	main	309	"SHOW_UI_NODE"
+K	main	310	"PLAY_VX"
+K	main	311	"LOCK_MOVE_LEVEL"
+K	main	312	"NONE"
+K	main	313	"NORMAL_BEHIT"
+K	main	314	"ALL"
+CODE	main	1	00000060	op7=96	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	2	0000001d	op7=29	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	3	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	4	01008018	op7=24	A=0	k=1	B=0	C=1	Bx=513
+CODE	main	5	03028018	op7=24	A=0	k=1	B=2	C=3	Bx=1541
+CODE	main	6	000000de	op7=94	A=1	k=0	B=0	C=0	Bx=0
+CODE	main	7	01040018	op7=24	A=0	k=0	B=4	C=1	Bx=520
+CODE	main	8	06058018	op7=24	A=0	k=1	B=5	C=6	Bx=3083
+CODE	main	9	08078018	op7=24	A=0	k=1	B=7	C=8	Bx=4111
+CODE	main	10	0a098018	op7=24	A=0	k=1	B=9	C=10	Bx=5139
+CODE	main	11	0c0b8018	op7=24	A=0	k=1	B=11	C=12	Bx=6167
+CODE	main	12	0e0d8018	op7=24	A=0	k=1	B=13	C=14	Bx=7195
+CODE	main	13	100f8018	op7=24	A=0	k=1	B=15	C=16	Bx=8223
+CODE	main	14	12118018	op7=24	A=0	k=1	B=17	C=18	Bx=9251
+CODE	main	15	11000091	op7=17	A=1	k=0	B=0	C=17	Bx=8704
+CODE	main	16	07000111	op7=17	A=2	k=0	B=0	C=7	Bx=3584
+CODE	main	17	020100b8	op7=56	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main	18	0f0200bc	op7=60	A=1	k=0	B=2	C=15	Bx=7684
+CODE	main	19	01130018	op7=24	A=0	k=0	B=19	C=1	Bx=550
+CODE	main	20	11000091	op7=17	A=1	k=0	B=0	C=17	Bx=8704
+CODE	main	21	09000111	op7=17	A=2	k=0	B=0	C=9	Bx=4608
+CODE	main	22	020100b8	op7=56	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main	23	0f0200bc	op7=60	A=1	k=0	B=2	C=15	Bx=7684
+CODE	main	24	01140018	op7=24	A=0	k=0	B=20	C=1	Bx=552
+CODE	main	25	11000091	op7=17	A=1	k=0	B=0	C=17	Bx=8704
+CODE	main	26	0b000111	op7=17	A=2	k=0	B=0	C=11	Bx=5632
+CODE	main	27	020100b8	op7=56	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main	28	0f0200bc	op7=60	A=1	k=0	B=2	C=15	Bx=7684
+CODE	main	29	01150018	op7=24	A=0	k=0	B=21	C=1	Bx=554
+CODE	main	30	11000091	op7=17	A=1	k=0	B=0	C=17	Bx=8704
+CODE	main	31	0f000111	op7=17	A=2	k=0	B=0	C=15	Bx=7680
+CODE	main	32	020100b8	op7=56	A=1	k=0	B=1	C=2	Bx=1026
+CODE	main	33	0f0200bc	op7=60	A=1	k=0	B=2	C=15	Bx=7684
+CODE	main	34	01160018	op7=24	A=0	k=0	B=22	C=1	Bx=556
+CODE	main	35	0007009f	op7=31	A=1	k=0	B=7	C=0	Bx=14
+CODE	main	36	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	37	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	38	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	39	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	40	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	41	02180098	op7=24	A=1	k=0	B=24	C=2	Bx=1072
+CODE	main	42	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	43	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	44	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	45	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	46	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	47	021a0098	op7=24	A=1	k=0	B=26	C=2	Bx=1076
+CODE	main	48	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	49	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	50	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	51	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	52	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	53	021b0098	op7=24	A=1	k=0	B=27	C=2	Bx=1078
+CODE	main	54	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	55	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	56	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	57	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	58	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	59	021c0098	op7=24	A=1	k=0	B=28	C=2	Bx=1080
+CODE	main	60	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	61	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	62	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	63	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	64	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	65	021e0098	op7=24	A=1	k=0	B=30	C=2	Bx=1084
+CODE	main	66	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	67	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	68	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	69	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	70	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	71	021f0098	op7=24	A=1	k=0	B=31	C=2	Bx=1086
+CODE	main	72	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	73	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	74	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	75	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	76	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	77	02210098	op7=24	A=1	k=0	B=33	C=2	Bx=1090
+CODE	main	78	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	79	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	80	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	81	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	82	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	83	02220098	op7=24	A=1	k=0	B=34	C=2	Bx=1092
+CODE	main	84	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	85	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	86	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	87	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	88	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	89	02230098	op7=24	A=1	k=0	B=35	C=2	Bx=1094
+CODE	main	90	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	91	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	92	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	93	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	94	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	95	02240098	op7=24	A=1	k=0	B=36	C=2	Bx=1096
+CODE	main	96	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	97	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	98	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	99	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	100	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	101	02250098	op7=24	A=1	k=0	B=37	C=2	Bx=1098
+CODE	main	102	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	103	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	104	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	105	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	106	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	107	02260098	op7=24	A=1	k=0	B=38	C=2	Bx=1100
+CODE	main	108	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	109	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	110	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	111	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	112	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	113	02270098	op7=24	A=1	k=0	B=39	C=2	Bx=1102
+CODE	main	114	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	115	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	116	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	117	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	118	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	119	02280098	op7=24	A=1	k=0	B=40	C=2	Bx=1104
+CODE	main	120	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	121	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	122	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	123	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	124	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	125	02290098	op7=24	A=1	k=0	B=41	C=2	Bx=1106
+CODE	main	126	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	127	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	128	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	129	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	130	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	131	022a0098	op7=24	A=1	k=0	B=42	C=2	Bx=1108
+CODE	main	132	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	133	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	134	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	135	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	136	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	137	022b0098	op7=24	A=1	k=0	B=43	C=2	Bx=1110
+CODE	main	138	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	139	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	140	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	141	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	142	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	143	022c0098	op7=24	A=1	k=0	B=44	C=2	Bx=1112
+CODE	main	144	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	145	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	146	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	147	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	148	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	149	022d0098	op7=24	A=1	k=0	B=45	C=2	Bx=1114
+CODE	main	150	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	151	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	152	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	153	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	154	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	155	022e0098	op7=24	A=1	k=0	B=46	C=2	Bx=1116
+CODE	main	156	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	157	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	158	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	159	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	160	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	161	022f0098	op7=24	A=1	k=0	B=47	C=2	Bx=1118
+CODE	main	162	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	163	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	164	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	165	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	166	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	167	02300098	op7=24	A=1	k=0	B=48	C=2	Bx=1120
+CODE	main	168	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	169	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	170	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	171	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	172	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	173	02310098	op7=24	A=1	k=0	B=49	C=2	Bx=1122
+CODE	main	174	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	175	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	176	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	177	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	178	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	179	02320098	op7=24	A=1	k=0	B=50	C=2	Bx=1124
+CODE	main	180	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	181	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	182	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	183	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	184	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	185	02330098	op7=24	A=1	k=0	B=51	C=2	Bx=1126
+CODE	main	186	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	187	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	188	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	189	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	190	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	191	02340098	op7=24	A=1	k=0	B=52	C=2	Bx=1128
+CODE	main	192	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	193	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	194	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	195	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	196	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	197	02350098	op7=24	A=1	k=0	B=53	C=2	Bx=1130
+CODE	main	198	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	199	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	200	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	201	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	202	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	203	02360098	op7=24	A=1	k=0	B=54	C=2	Bx=1132
+CODE	main	204	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	205	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	206	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	207	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	208	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	209	02370098	op7=24	A=1	k=0	B=55	C=2	Bx=1134
+CODE	main	210	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	211	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	212	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	213	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	214	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	215	02380098	op7=24	A=1	k=0	B=56	C=2	Bx=1136
+CODE	main	216	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	217	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	218	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	219	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	220	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	221	02390098	op7=24	A=1	k=0	B=57	C=2	Bx=1138
+CODE	main	222	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	223	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	224	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	225	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	226	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	227	023a0098	op7=24	A=1	k=0	B=58	C=2	Bx=1140
+CODE	main	228	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	229	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	230	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	231	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	232	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	233	023b0098	op7=24	A=1	k=0	B=59	C=2	Bx=1142
+CODE	main	234	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	235	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	236	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	237	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	238	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	239	023c0098	op7=24	A=1	k=0	B=60	C=2	Bx=1144
+CODE	main	240	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	241	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	242	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	243	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	244	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	245	023d0098	op7=24	A=1	k=0	B=61	C=2	Bx=1146
+CODE	main	246	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	247	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	248	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	249	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	250	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	251	023e0098	op7=24	A=1	k=0	B=62	C=2	Bx=1148
+CODE	main	252	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	253	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	254	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	255	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	256	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	257	023f0098	op7=24	A=1	k=0	B=63	C=2	Bx=1150
+CODE	main	258	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	259	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	260	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	261	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	262	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	263	02400098	op7=24	A=1	k=0	B=64	C=2	Bx=1152
+CODE	main	264	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	265	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	266	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	267	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	268	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	269	02410098	op7=24	A=1	k=0	B=65	C=2	Bx=1154
+CODE	main	270	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	271	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	272	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	273	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	274	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	275	02420098	op7=24	A=1	k=0	B=66	C=2	Bx=1156
+CODE	main	276	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	277	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	278	05000191	op7=17	A=3	k=0	B=0	C=5	Bx=2560
+CODE	main	279	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	280	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	281	02430098	op7=24	A=1	k=0	B=67	C=2	Bx=1158
+CODE	main	282	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	283	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	284	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	285	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	286	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	287	02440098	op7=24	A=1	k=0	B=68	C=2	Bx=1160
+CODE	main	288	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	289	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	290	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	291	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	292	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	293	02450098	op7=24	A=1	k=0	B=69	C=2	Bx=1162
+CODE	main	294	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	295	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	296	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	297	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	298	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	299	02460098	op7=24	A=1	k=0	B=70	C=2	Bx=1164
+CODE	main	300	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	301	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	302	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	303	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	304	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	305	02470098	op7=24	A=1	k=0	B=71	C=2	Bx=1166
+CODE	main	306	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	307	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	308	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	309	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	310	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	311	02480098	op7=24	A=1	k=0	B=72	C=2	Bx=1168
+CODE	main	312	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	313	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	314	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	315	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	316	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	317	02490098	op7=24	A=1	k=0	B=73	C=2	Bx=1170
+CODE	main	318	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	319	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	320	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	321	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	322	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	323	024a0098	op7=24	A=1	k=0	B=74	C=2	Bx=1172
+CODE	main	324	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	325	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	326	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	327	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	328	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	329	024b0098	op7=24	A=1	k=0	B=75	C=2	Bx=1174
+CODE	main	330	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	331	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	332	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	333	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	334	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	335	024c0098	op7=24	A=1	k=0	B=76	C=2	Bx=1176
+CODE	main	336	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	337	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	338	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	339	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	340	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	341	024d0098	op7=24	A=1	k=0	B=77	C=2	Bx=1178
+CODE	main	342	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	343	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	344	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	345	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	346	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	347	024e0098	op7=24	A=1	k=0	B=78	C=2	Bx=1180
+CODE	main	348	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	349	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	350	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	351	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	352	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	353	024f0098	op7=24	A=1	k=0	B=79	C=2	Bx=1182
+CODE	main	354	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	355	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	356	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	357	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	358	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	359	02500098	op7=24	A=1	k=0	B=80	C=2	Bx=1184
+CODE	main	360	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	361	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	362	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	363	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	364	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	365	02510098	op7=24	A=1	k=0	B=81	C=2	Bx=1186
+CODE	main	366	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	367	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	368	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	369	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	370	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	371	02520098	op7=24	A=1	k=0	B=82	C=2	Bx=1188
+CODE	main	372	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	373	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	374	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	375	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	376	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	377	02530098	op7=24	A=1	k=0	B=83	C=2	Bx=1190
+CODE	main	378	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	379	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	380	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	381	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	382	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	383	02540098	op7=24	A=1	k=0	B=84	C=2	Bx=1192
+CODE	main	384	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	385	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	386	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	387	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	388	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	389	02550098	op7=24	A=1	k=0	B=85	C=2	Bx=1194
+CODE	main	390	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	391	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	392	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	393	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	394	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	395	02560098	op7=24	A=1	k=0	B=86	C=2	Bx=1196
+CODE	main	396	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	397	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	398	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	399	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	400	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	401	02570098	op7=24	A=1	k=0	B=87	C=2	Bx=1198
+CODE	main	402	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	403	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	404	07000191	op7=17	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	405	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	406	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	407	02580098	op7=24	A=1	k=0	B=88	C=2	Bx=1200
+CODE	main	408	01170018	op7=24	A=0	k=0	B=23	C=1	Bx=558
+CODE	main	409	5a598018	op7=24	A=0	k=1	B=89	C=90	Bx=46259
+CODE	main	410	5c5b8018	op7=24	A=0	k=1	B=91	C=92	Bx=47287
+CODE	main	411	5e5d8018	op7=24	A=0	k=1	B=93	C=94	Bx=48315
+CODE	main	412	605f8018	op7=24	A=0	k=1	B=95	C=96	Bx=49343
+CODE	main	413	62618018	op7=24	A=0	k=1	B=97	C=98	Bx=50371
+CODE	main	414	64638018	op7=24	A=0	k=1	B=99	C=100	Bx=51399
+CODE	main	415	66658018	op7=24	A=0	k=1	B=101	C=102	Bx=52427
+CODE	main	416	26678018	op7=24	A=0	k=1	B=103	C=38	Bx=19663
+CODE	main	417	69688018	op7=24	A=0	k=1	B=104	C=105	Bx=53969
+CODE	main	418	6b6a8018	op7=24	A=0	k=1	B=106	C=107	Bx=54997
+CODE	main	419	6d6c8018	op7=24	A=0	k=1	B=108	C=109	Bx=56025
+CODE	main	420	6f6e8018	op7=24	A=0	k=1	B=110	C=111	Bx=57053
+CODE	main	421	71708018	op7=24	A=0	k=1	B=112	C=113	Bx=58081
+CODE	main	422	73728018	op7=24	A=0	k=1	B=114	C=115	Bx=59109
+CODE	main	423	75748018	op7=24	A=0	k=1	B=116	C=117	Bx=60137
+CODE	main	424	77768018	op7=24	A=0	k=1	B=118	C=119	Bx=61165
+CODE	main	425	79788018	op7=24	A=0	k=1	B=120	C=121	Bx=62193
+CODE	main	426	7b7a8018	op7=24	A=0	k=1	B=122	C=123	Bx=63221
+CODE	main	427	7d7c8018	op7=24	A=0	k=1	B=124	C=125	Bx=64249
+CODE	main	428	7f7e8018	op7=24	A=0	k=1	B=126	C=127	Bx=65277
+CODE	main	429	81808018	op7=24	A=0	k=1	B=128	C=129	Bx=66305
+CODE	main	430	83828018	op7=24	A=0	k=1	B=130	C=131	Bx=67333
+CODE	main	431	85848018	op7=24	A=0	k=1	B=132	C=133	Bx=68361
+CODE	main	432	0007009f	op7=31	A=1	k=0	B=7	C=0	Bx=14
+CODE	main	433	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	434	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	435	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	436	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	437	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	438	02870098	op7=24	A=1	k=0	B=135	C=2	Bx=1294
+CODE	main	439	8800010c	op7=12	A=2	k=0	B=0	C=136	Bx=69632
+CODE	main	440	89020111	op7=17	A=2	k=0	B=2	C=137	Bx=70148
+CODE	main	441	59000191	op7=17	A=3	k=0	B=0	C=89	Bx=45568
+CODE	main	442	80000201	op7=1	A=4	k=0	B=0	C=128	Bx=65536
+CODE	main	443	02030152	op7=82	A=2	k=0	B=3	C=2	Bx=1030
+CODE	main	444	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	445	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	446	09000211	op7=17	A=4	k=0	B=0	C=9	Bx=4608
+CODE	main	447	00450283	op7=3	A=5	k=0	B=69	C=0	Bx=138
+CODE	main	448	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	449	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	450	8800010c	op7=12	A=2	k=0	B=0	C=136	Bx=69632
+CODE	main	451	89020111	op7=17	A=2	k=0	B=2	C=137	Bx=70148
+CODE	main	452	59000191	op7=17	A=3	k=0	B=0	C=89	Bx=45568
+CODE	main	453	80018201	op7=1	A=4	k=1	B=1	C=128	Bx=65539
+CODE	main	454	02030152	op7=82	A=2	k=0	B=3	C=2	Bx=1030
+CODE	main	455	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	456	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	457	09000211	op7=17	A=4	k=0	B=0	C=9	Bx=4608
+CODE	main	458	00450283	op7=3	A=5	k=0	B=69	C=0	Bx=138
+CODE	main	459	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	460	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	461	8800010c	op7=12	A=2	k=0	B=0	C=136	Bx=69632
+CODE	main	462	89020111	op7=17	A=2	k=0	B=2	C=137	Bx=70148
+CODE	main	463	5b000191	op7=17	A=3	k=0	B=0	C=91	Bx=46592
+CODE	main	464	80000201	op7=1	A=4	k=0	B=0	C=128	Bx=65536
+CODE	main	465	02030152	op7=82	A=2	k=0	B=3	C=2	Bx=1030
+CODE	main	466	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	467	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	468	09000211	op7=17	A=4	k=0	B=0	C=9	Bx=4608
+CODE	main	469	00450283	op7=3	A=5	k=0	B=69	C=0	Bx=138
+CODE	main	470	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	471	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	472	8800010c	op7=12	A=2	k=0	B=0	C=136	Bx=69632
+CODE	main	473	89020111	op7=17	A=2	k=0	B=2	C=137	Bx=70148
+CODE	main	474	5b000191	op7=17	A=3	k=0	B=0	C=91	Bx=46592
+CODE	main	475	80018201	op7=1	A=4	k=1	B=1	C=128	Bx=65539
+CODE	main	476	02030152	op7=82	A=2	k=0	B=3	C=2	Bx=1030
+CODE	main	477	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	478	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	479	09000211	op7=17	A=4	k=0	B=0	C=9	Bx=4608
+CODE	main	480	00450283	op7=3	A=5	k=0	B=69	C=0	Bx=138
+CODE	main	481	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	482	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	483	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	484	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	485	15000191	op7=17	A=3	k=0	B=0	C=21	Bx=10752
+CODE	main	486	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	487	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	488	028b0098	op7=24	A=1	k=0	B=139	C=2	Bx=1302
+CODE	main	489	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	490	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	491	15000191	op7=17	A=3	k=0	B=0	C=21	Bx=10752
+CODE	main	492	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	493	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	494	028c0098	op7=24	A=1	k=0	B=140	C=2	Bx=1304
+CODE	main	495	5d000111	op7=17	A=2	k=0	B=0	C=93	Bx=47616
+CODE	main	496	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	497	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	498	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	499	00100283	op7=3	A=5	k=0	B=16	C=0	Bx=32
+CODE	main	500	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	501	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	502	5f000111	op7=17	A=2	k=0	B=0	C=95	Bx=48640
+CODE	main	503	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	504	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	505	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	506	00100283	op7=3	A=5	k=0	B=16	C=0	Bx=32
+CODE	main	507	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	508	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	509	6c000111	op7=17	A=2	k=0	B=0	C=108	Bx=55296
+CODE	main	510	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	511	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	512	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	513	000c8283	op7=3	A=5	k=1	B=12	C=0	Bx=25
+CODE	main	514	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	515	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	516	6e000111	op7=17	A=2	k=0	B=0	C=110	Bx=56320
+CODE	main	517	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	518	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	519	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	520	000c8283	op7=3	A=5	k=1	B=12	C=0	Bx=25
+CODE	main	521	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	522	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	523	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	524	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	525	13000191	op7=17	A=3	k=0	B=0	C=19	Bx=9728
+CODE	main	526	00100203	op7=3	A=4	k=0	B=16	C=0	Bx=32
+CODE	main	527	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	528	028d0098	op7=24	A=1	k=0	B=141	C=2	Bx=1306
+CODE	main	529	7e000111	op7=17	A=2	k=0	B=0	C=126	Bx=64512
+CODE	main	530	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	531	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	532	05000211	op7=17	A=4	k=0	B=0	C=5	Bx=2560
+CODE	main	533	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	534	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	535	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	536	61000111	op7=17	A=2	k=0	B=0	C=97	Bx=49664
+CODE	main	537	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	538	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	539	09000211	op7=17	A=4	k=0	B=0	C=9	Bx=4608
+CODE	main	540	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	541	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	542	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	543	63000111	op7=17	A=2	k=0	B=0	C=99	Bx=50688
+CODE	main	544	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	545	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	546	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	547	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	548	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	549	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	550	65000111	op7=17	A=2	k=0	B=0	C=101	Bx=51712
+CODE	main	551	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	552	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	553	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	554	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	555	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	556	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	557	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	558	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	559	0d000191	op7=17	A=3	k=0	B=0	C=13	Bx=6656
+CODE	main	560	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	561	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	562	028e0098	op7=24	A=1	k=0	B=142	C=2	Bx=1308
+CODE	main	563	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	564	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	565	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	566	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	567	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	568	028f0098	op7=24	A=1	k=0	B=143	C=2	Bx=1310
+CODE	main	569	68000111	op7=17	A=2	k=0	B=0	C=104	Bx=53248
+CODE	main	570	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	571	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	572	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	573	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	574	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	575	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	576	6a000111	op7=17	A=2	k=0	B=0	C=106	Bx=54272
+CODE	main	577	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	578	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	579	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	580	000c8283	op7=3	A=5	k=1	B=12	C=0	Bx=25
+CODE	main	581	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	582	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	583	70000111	op7=17	A=2	k=0	B=0	C=112	Bx=57344
+CODE	main	584	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	585	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	586	0d000211	op7=17	A=4	k=0	B=0	C=13	Bx=6656
+CODE	main	587	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	588	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	589	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	590	72000111	op7=17	A=2	k=0	B=0	C=114	Bx=58368
+CODE	main	591	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	592	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	593	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	594	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	595	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	596	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	597	74000111	op7=17	A=2	k=0	B=0	C=116	Bx=59392
+CODE	main	598	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	599	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	600	15000211	op7=17	A=4	k=0	B=0	C=21	Bx=10752
+CODE	main	601	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	602	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	603	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	604	76000111	op7=17	A=2	k=0	B=0	C=118	Bx=60416
+CODE	main	605	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	606	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	607	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	608	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	609	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	610	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	611	78000111	op7=17	A=2	k=0	B=0	C=120	Bx=61440
+CODE	main	612	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	613	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	614	15000211	op7=17	A=4	k=0	B=0	C=21	Bx=10752
+CODE	main	615	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	616	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	617	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	618	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	619	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	620	05000191	op7=17	A=3	k=0	B=0	C=5	Bx=2560
+CODE	main	621	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	622	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	623	02900098	op7=24	A=1	k=0	B=144	C=2	Bx=1312
+CODE	main	624	7a000111	op7=17	A=2	k=0	B=0	C=122	Bx=62464
+CODE	main	625	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	626	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	627	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	628	000c8283	op7=3	A=5	k=1	B=12	C=0	Bx=25
+CODE	main	629	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	630	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	631	7c000111	op7=17	A=2	k=0	B=0	C=124	Bx=63488
+CODE	main	632	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	633	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	634	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	635	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	636	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	637	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	638	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	639	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	640	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	641	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	642	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	643	02910098	op7=24	A=1	k=0	B=145	C=2	Bx=1314
+CODE	main	644	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	645	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	646	09000191	op7=17	A=3	k=0	B=0	C=9	Bx=4608
+CODE	main	647	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	648	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	649	02920098	op7=24	A=1	k=0	B=146	C=2	Bx=1316
+CODE	main	650	80000111	op7=17	A=2	k=0	B=0	C=128	Bx=65536
+CODE	main	651	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	652	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	653	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	654	000c8283	op7=3	A=5	k=1	B=12	C=0	Bx=25
+CODE	main	655	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	656	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	657	82000111	op7=17	A=2	k=0	B=0	C=130	Bx=66560
+CODE	main	658	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	659	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	660	14000211	op7=17	A=4	k=0	B=0	C=20	Bx=10240
+CODE	main	661	000c8283	op7=3	A=5	k=1	B=12	C=0	Bx=25
+CODE	main	662	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	663	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	664	84000111	op7=17	A=2	k=0	B=0	C=132	Bx=67584
+CODE	main	665	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	666	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	667	16000211	op7=17	A=4	k=0	B=0	C=22	Bx=11264
+CODE	main	668	000e8283	op7=3	A=5	k=1	B=14	C=0	Bx=29
+CODE	main	669	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	670	03020095	op7=21	A=1	k=0	B=2	C=3	Bx=1540
+CODE	main	671	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	672	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	673	14000191	op7=17	A=3	k=0	B=0	C=20	Bx=10240
+CODE	main	674	000c8203	op7=3	A=4	k=1	B=12	C=0	Bx=25
+CODE	main	675	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	676	02930098	op7=24	A=1	k=0	B=147	C=2	Bx=1318
+CODE	main	677	0200011e	op7=30	A=2	k=0	B=0	C=2	Bx=1024
+CODE	main	678	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	679	0b000191	op7=17	A=3	k=0	B=0	C=11	Bx=5632
+CODE	main	680	000e8203	op7=3	A=4	k=1	B=14	C=0	Bx=29
+CODE	main	681	0002015d	op7=93	A=2	k=0	B=2	C=0	Bx=4
+CODE	main	682	02940098	op7=24	A=1	k=0	B=148	C=2	Bx=1320
+CODE	main	683	01860018	op7=24	A=0	k=0	B=134	C=1	Bx=780
+CODE	main	684	000080de	op7=94	A=1	k=1	B=0	C=0	Bx=1
+CODE	main	685	01950018	op7=24	A=0	k=0	B=149	C=1	Bx=810
+CODE	main	686	000100de	op7=94	A=1	k=0	B=1	C=0	Bx=2
+CODE	main	687	01960018	op7=24	A=0	k=0	B=150	C=1	Bx=812
+CODE	main	688	0001009f	op7=31	A=1	k=0	B=1	C=0	Bx=2
+CODE	main	689	06188098	op7=24	A=1	k=1	B=24	C=6	Bx=3121
+CODE	main	690	01970018	op7=24	A=0	k=0	B=151	C=1	Bx=814
+CODE	main	691	000180de	op7=94	A=1	k=1	B=1	C=0	Bx=3
+CODE	main	692	01980018	op7=24	A=0	k=0	B=152	C=1	Bx=816
+CODE	main	693	000200de	op7=94	A=1	k=0	B=2	C=0	Bx=4
+CODE	main	694	01990018	op7=24	A=0	k=0	B=153	C=1	Bx=818
+CODE	main	695	000280de	op7=94	A=1	k=1	B=2	C=0	Bx=5
+CODE	main	696	019a0018	op7=24	A=0	k=0	B=154	C=1	Bx=820
+CODE	main	697	9c9b8018	op7=24	A=0	k=1	B=155	C=156	Bx=80183
+CODE	main	698	9e9d8018	op7=24	A=0	k=1	B=157	C=158	Bx=81211
+CODE	main	699	9f00008c	op7=12	A=1	k=0	B=0	C=159	Bx=81408
+CODE	main	700	00500103	op7=3	A=2	k=0	B=80	C=0	Bx=160
+CODE	main	701	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main	702	0003011f	op7=31	A=2	k=0	B=3	C=0	Bx=6
+CODE	main	703	9b000191	op7=17	A=3	k=0	B=0	C=155	Bx=79360
+CODE	main	704	038b0118	op7=24	A=2	k=0	B=139	C=3	Bx=1814
+CODE	main	705	a2010191	op7=17	A=3	k=0	B=1	C=162	Bx=82946
+CODE	main	706	03270118	op7=24	A=2	k=0	B=39	C=3	Bx=1614
+CODE	main	707	9d000191	op7=17	A=3	k=0	B=0	C=157	Bx=80384
+CODE	main	708	03940118	op7=24	A=2	k=0	B=148	C=3	Bx=1832
+CODE	main	709	02a10018	op7=24	A=0	k=0	B=161	C=2	Bx=1346
+CODE	main	710	0004011d	op7=29	A=2	k=0	B=4	C=0	Bx=8
+CODE	main	711	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	712	08a48118	op7=24	A=2	k=1	B=164	C=8	Bx=4425
+CODE	main	713	0aa58118	op7=24	A=2	k=1	B=165	C=10	Bx=5451
+CODE	main	714	0ca68118	op7=24	A=2	k=1	B=166	C=12	Bx=6477
+CODE	main	715	12a78118	op7=24	A=2	k=1	B=167	C=18	Bx=9551
+CODE	main	716	0ea88118	op7=24	A=2	k=1	B=168	C=14	Bx=7505
+CODE	main	717	10a98118	op7=24	A=2	k=1	B=169	C=16	Bx=8531
+CODE	main	718	abaa8118	op7=24	A=2	k=1	B=170	C=171	Bx=87893
+CODE	main	719	02a30018	op7=24	A=0	k=0	B=163	C=2	Bx=1350
+CODE	main	720	a3000111	op7=17	A=2	k=0	B=0	C=163	Bx=83456
+CODE	main	721	a3000191	op7=17	A=3	k=0	B=0	C=163	Bx=83456
+CODE	main	722	a4030191	op7=17	A=3	k=0	B=3	C=164	Bx=83974
+CODE	main	723	a3000211	op7=17	A=4	k=0	B=0	C=163	Bx=83456
+CODE	main	724	a5040211	op7=17	A=4	k=0	B=4	C=165	Bx=84488
+CODE	main	725	040301b8	op7=56	A=3	k=0	B=3	C=4	Bx=2054
+CODE	main	726	0f0401bc	op7=60	A=3	k=0	B=4	C=15	Bx=7688
+CODE	main	727	03ac0118	op7=24	A=2	k=0	B=172	C=3	Bx=1880
+CODE	main	728	a3000111	op7=17	A=2	k=0	B=0	C=163	Bx=83456
+CODE	main	729	a3000191	op7=17	A=3	k=0	B=0	C=163	Bx=83456
+CODE	main	730	a6030191	op7=17	A=3	k=0	B=3	C=166	Bx=84998
+CODE	main	731	a3000211	op7=17	A=4	k=0	B=0	C=163	Bx=83456
+CODE	main	732	a7040211	op7=17	A=4	k=0	B=4	C=167	Bx=85512
+CODE	main	733	040301b8	op7=56	A=3	k=0	B=3	C=4	Bx=2054
+CODE	main	734	0f0401bc	op7=60	A=3	k=0	B=4	C=15	Bx=7688
+CODE	main	735	03ad0118	op7=24	A=2	k=0	B=173	C=3	Bx=1882
+CODE	main	736	afae8018	op7=24	A=0	k=1	B=174	C=175	Bx=89949
+CODE	main	737	b1b08018	op7=24	A=0	k=1	B=176	C=177	Bx=90977
+CODE	main	738	0ab28018	op7=24	A=0	k=1	B=178	C=10	Bx=5477
+CODE	main	739	08b38018	op7=24	A=0	k=1	B=179	C=8	Bx=4455
+CODE	main	740	06b48018	op7=24	A=0	k=1	B=180	C=6	Bx=3433
+CODE	main	741	b6b58018	op7=24	A=0	k=1	B=181	C=182	Bx=93547
+CODE	main	742	0cb78018	op7=24	A=0	k=1	B=183	C=12	Bx=6511
+CODE	main	743	b9b88018	op7=24	A=0	k=1	B=184	C=185	Bx=95089
+CODE	main	744	08ba8018	op7=24	A=0	k=1	B=186	C=8	Bx=4469
+CODE	main	745	0abb8018	op7=24	A=0	k=1	B=187	C=10	Bx=5495
+CODE	main	746	08bc8018	op7=24	A=0	k=1	B=188	C=8	Bx=4473
+CODE	main	747	0abd8018	op7=24	A=0	k=1	B=189	C=10	Bx=5499
+CODE	main	748	b6be8018	op7=24	A=0	k=1	B=190	C=182	Bx=93565
+CODE	main	749	0cbf8018	op7=24	A=0	k=1	B=191	C=12	Bx=6527
+CODE	main	750	c1c08018	op7=24	A=0	k=1	B=192	C=193	Bx=99201
+CODE	main	751	c3c28018	op7=24	A=0	k=1	B=194	C=195	Bx=100229
+CODE	main	752	c5c48018	op7=24	A=0	k=1	B=196	C=197	Bx=101257
+CODE	main	753	c7c68018	op7=24	A=0	k=1	B=198	C=199	Bx=102285
+CODE	main	754	06c88018	op7=24	A=0	k=1	B=200	C=6	Bx=3473
+CODE	main	755	cac98018	op7=24	A=0	k=1	B=201	C=202	Bx=103827
+CODE	main	756	cccb8018	op7=24	A=0	k=1	B=203	C=204	Bx=104855
+CODE	main	757	cecd8018	op7=24	A=0	k=1	B=205	C=206	Bx=105883
+CODE	main	758	d0cf8018	op7=24	A=0	k=1	B=207	C=208	Bx=106911
+CODE	main	759	d2d18018	op7=24	A=0	k=1	B=209	C=210	Bx=107939
+CODE	main	760	d4d38018	op7=24	A=0	k=1	B=211	C=212	Bx=108967
+CODE	main	761	d6d58018	op7=24	A=0	k=1	B=213	C=214	Bx=109995
+CODE	main	762	d8d78018	op7=24	A=0	k=1	B=215	C=216	Bx=111023
+CODE	main	763	06d98018	op7=24	A=0	k=1	B=217	C=6	Bx=3507
+CODE	main	764	08da8018	op7=24	A=0	k=1	B=218	C=8	Bx=4533
+CODE	main	765	0adb8018	op7=24	A=0	k=1	B=219	C=10	Bx=5559
+CODE	main	766	0cdc8018	op7=24	A=0	k=1	B=220	C=12	Bx=6585
+CODE	main	767	0add8018	op7=24	A=0	k=1	B=221	C=10	Bx=5563
+CODE	main	768	0ade8018	op7=24	A=0	k=1	B=222	C=10	Bx=5565
+CODE	main	769	b6df8018	op7=24	A=0	k=1	B=223	C=182	Bx=93631
+CODE	main	770	0ae08018	op7=24	A=0	k=1	B=224	C=10	Bx=5569
+CODE	main	771	e2e18018	op7=24	A=0	k=1	B=225	C=226	Bx=116163
+CODE	main	772	b6e38018	op7=24	A=0	k=1	B=227	C=182	Bx=93639
+CODE	main	773	0ce48018	op7=24	A=0	k=1	B=228	C=12	Bx=6601
+CODE	main	774	b9e58018	op7=24	A=0	k=1	B=229	C=185	Bx=95179
+CODE	main	775	e7e68018	op7=24	A=0	k=1	B=230	C=231	Bx=118733
+CODE	main	776	e9e88018	op7=24	A=0	k=1	B=232	C=233	Bx=119761
+CODE	main	777	0004011f	op7=31	A=2	k=0	B=4	C=0	Bx=8
+CODE	main	778	e3000191	op7=17	A=3	k=0	B=0	C=227	Bx=116224
+CODE	main	779	06038115	op7=21	A=2	k=1	B=3	C=6	Bx=3079
+CODE	main	780	e4000191	op7=17	A=3	k=0	B=0	C=228	Bx=116736
+CODE	main	781	06038115	op7=21	A=2	k=1	B=3	C=6	Bx=3079
+CODE	main	782	e5000191	op7=17	A=3	k=0	B=0	C=229	Bx=117248
+CODE	main	783	08038115	op7=21	A=2	k=1	B=3	C=8	Bx=4103
+CODE	main	784	e6000191	op7=17	A=3	k=0	B=0	C=230	Bx=117760
+CODE	main	785	08038115	op7=21	A=2	k=1	B=3	C=8	Bx=4103
+CODE	main	786	e8000191	op7=17	A=3	k=0	B=0	C=232	Bx=118784
+CODE	main	787	06038115	op7=21	A=2	k=1	B=3	C=6	Bx=3079
+CODE	main	788	02ea0018	op7=24	A=0	k=0	B=234	C=2	Bx=1492
+CODE	main	789	08eb8018	op7=24	A=0	k=1	B=235	C=8	Bx=4567
+CODE	main	790	0aec8018	op7=24	A=0	k=1	B=236	C=10	Bx=5593
+CODE	main	791	0003011f	op7=31	A=2	k=0	B=3	C=0	Bx=6
+CODE	main	792	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	793	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	794	00778203	op7=3	A=4	k=1	B=119	C=0	Bx=239
+CODE	main	795	00780283	op7=3	A=5	k=0	B=120	C=0	Bx=240
+CODE	main	796	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	797	03ee0118	op7=24	A=2	k=0	B=238	C=3	Bx=2012
+CODE	main	798	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	799	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	800	00778203	op7=3	A=4	k=1	B=119	C=0	Bx=239
+CODE	main	801	00790283	op7=3	A=5	k=0	B=121	C=0	Bx=242
+CODE	main	802	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	803	03f10118	op7=24	A=2	k=0	B=241	C=3	Bx=2018
+CODE	main	804	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	805	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	806	00778203	op7=3	A=4	k=1	B=119	C=0	Bx=239
+CODE	main	807	007a0283	op7=3	A=5	k=0	B=122	C=0	Bx=244
+CODE	main	808	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	809	03f30118	op7=24	A=2	k=0	B=243	C=3	Bx=2022
+CODE	main	810	02ed0018	op7=24	A=0	k=0	B=237	C=2	Bx=1498
+CODE	main	811	f6f58018	op7=24	A=0	k=1	B=245	C=246	Bx=126443
+CODE	main	812	f8f78018	op7=24	A=0	k=1	B=247	C=248	Bx=127471
+CODE	main	813	faf98018	op7=24	A=0	k=1	B=249	C=250	Bx=128499
+CODE	main	814	fcfb8018	op7=24	A=0	k=1	B=251	C=252	Bx=129527
+CODE	main	815	fefd8018	op7=24	A=0	k=1	B=253	C=254	Bx=130555
+CODE	main	816	0300011e	op7=30	A=2	k=0	B=0	C=3	Bx=1536
+CODE	main	817	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	818	f5000191	op7=17	A=3	k=0	B=0	C=245	Bx=125440
+CODE	main	819	f7000211	op7=17	A=4	k=0	B=0	C=247	Bx=126464
+CODE	main	820	f9000291	op7=17	A=5	k=0	B=0	C=249	Bx=127488
+CODE	main	821	0003015d	op7=93	A=2	k=0	B=3	C=0	Bx=6
+CODE	main	822	02ff0018	op7=24	A=0	k=0	B=255	C=2	Bx=1534
+CODE	main	823	00800103	op7=3	A=2	k=0	B=128	C=0	Bx=256
+CODE	main	824	00808183	op7=3	A=3	k=1	B=128	C=0	Bx=257
+CODE	main	825	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	826	00810103	op7=3	A=2	k=0	B=129	C=0	Bx=258
+CODE	main	827	00818183	op7=3	A=3	k=1	B=129	C=0	Bx=259
+CODE	main	828	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	829	00820103	op7=3	A=2	k=0	B=130	C=0	Bx=260
+CODE	main	830	00828183	op7=3	A=3	k=1	B=130	C=0	Bx=261
+CODE	main	831	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	832	00830103	op7=3	A=2	k=0	B=131	C=0	Bx=262
+CODE	main	833	00838183	op7=3	A=3	k=1	B=131	C=0	Bx=263
+CODE	main	834	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	835	00840103	op7=3	A=2	k=0	B=132	C=0	Bx=264
+CODE	main	836	00848183	op7=3	A=3	k=1	B=132	C=0	Bx=265
+CODE	main	837	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	838	00850103	op7=3	A=2	k=0	B=133	C=0	Bx=266
+CODE	main	839	00858183	op7=3	A=3	k=1	B=133	C=0	Bx=267
+CODE	main	840	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	841	00860103	op7=3	A=2	k=0	B=134	C=0	Bx=268
+CODE	main	842	00868183	op7=3	A=3	k=1	B=134	C=0	Bx=269
+CODE	main	843	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	844	00870103	op7=3	A=2	k=0	B=135	C=0	Bx=270
+CODE	main	845	00878183	op7=3	A=3	k=1	B=135	C=0	Bx=271
+CODE	main	846	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	847	00880103	op7=3	A=2	k=0	B=136	C=0	Bx=272
+CODE	main	848	00888183	op7=3	A=3	k=1	B=136	C=0	Bx=273
+CODE	main	849	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	850	00890103	op7=3	A=2	k=0	B=137	C=0	Bx=274
+CODE	main	851	00898183	op7=3	A=3	k=1	B=137	C=0	Bx=275
+CODE	main	852	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	853	008a0103	op7=3	A=2	k=0	B=138	C=0	Bx=276
+CODE	main	854	008a8183	op7=3	A=3	k=1	B=138	C=0	Bx=277
+CODE	main	855	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	856	008b0103	op7=3	A=2	k=0	B=139	C=0	Bx=278
+CODE	main	857	008b8183	op7=3	A=3	k=1	B=139	C=0	Bx=279
+CODE	main	858	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	859	008c0103	op7=3	A=2	k=0	B=140	C=0	Bx=280
+CODE	main	860	008c8183	op7=3	A=3	k=1	B=140	C=0	Bx=281
+CODE	main	861	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	862	008d0103	op7=3	A=2	k=0	B=141	C=0	Bx=282
+CODE	main	863	008d8183	op7=3	A=3	k=1	B=141	C=0	Bx=283
+CODE	main	864	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	865	008e0103	op7=3	A=2	k=0	B=142	C=0	Bx=284
+CODE	main	866	008e8183	op7=3	A=3	k=1	B=142	C=0	Bx=285
+CODE	main	867	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	868	008f0103	op7=3	A=2	k=0	B=143	C=0	Bx=286
+CODE	main	869	008f8183	op7=3	A=3	k=1	B=143	C=0	Bx=287
+CODE	main	870	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	871	00900103	op7=3	A=2	k=0	B=144	C=0	Bx=288
+CODE	main	872	00908183	op7=3	A=3	k=1	B=144	C=0	Bx=289
+CODE	main	873	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	874	00910103	op7=3	A=2	k=0	B=145	C=0	Bx=290
+CODE	main	875	0003019f	op7=31	A=3	k=0	B=3	C=0	Bx=6
+CODE	main	876	93938201	op7=1	A=4	k=1	B=147	C=147	Bx=75559
+CODE	main	877	01048195	op7=21	A=3	k=1	B=4	C=1	Bx=521
+CODE	main	878	fb000211	op7=17	A=4	k=0	B=0	C=251	Bx=128512
+CODE	main	879	01048195	op7=21	A=3	k=1	B=4	C=1	Bx=521
+CODE	main	880	fd000211	op7=17	A=4	k=0	B=0	C=253	Bx=129536
+CODE	main	881	01048195	op7=21	A=3	k=1	B=4	C=1	Bx=521
+CODE	main	882	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	883	00918103	op7=3	A=2	k=1	B=145	C=0	Bx=291
+CODE	main	884	00920183	op7=3	A=3	k=0	B=146	C=0	Bx=292
+CODE	main	885	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	886	00928103	op7=3	A=2	k=1	B=146	C=0	Bx=293
+CODE	main	887	00930183	op7=3	A=3	k=0	B=147	C=0	Bx=294
+CODE	main	888	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	889	00938103	op7=3	A=2	k=1	B=147	C=0	Bx=295
+CODE	main	890	0a028015	op7=21	A=0	k=1	B=2	C=10	Bx=5125
+CODE	main	891	00940103	op7=3	A=2	k=0	B=148	C=0	Bx=296
+CODE	main	892	b9028015	op7=21	A=0	k=1	B=2	C=185	Bx=94725
+CODE	main	893	00948103	op7=3	A=2	k=1	B=148	C=0	Bx=297
+CODE	main	894	0a028015	op7=21	A=0	k=1	B=2	C=10	Bx=5125
+CODE	main	895	00950103	op7=3	A=2	k=0	B=149	C=0	Bx=298
+CODE	main	896	0c028015	op7=21	A=0	k=1	B=2	C=12	Bx=6149
+CODE	main	897	00958103	op7=3	A=2	k=1	B=149	C=0	Bx=299
+CODE	main	898	08028015	op7=21	A=0	k=1	B=2	C=8	Bx=4101
+CODE	main	899	00960103	op7=3	A=2	k=0	B=150	C=0	Bx=300
+CODE	main	900	0a028015	op7=21	A=0	k=1	B=2	C=10	Bx=5125
+CODE	main	901	00968103	op7=3	A=2	k=1	B=150	C=0	Bx=301
+CODE	main	902	0001019d	op7=29	A=3	k=0	B=1	C=0	Bx=2
+CODE	main	903	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	904	00970203	op7=3	A=4	k=0	B=151	C=0	Bx=302
+CODE	main	905	08048195	op7=21	A=3	k=1	B=4	C=8	Bx=4105
+CODE	main	906	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	907	00978103	op7=3	A=2	k=1	B=151	C=0	Bx=303
+CODE	main	908	0200019e	op7=30	A=3	k=0	B=0	C=2	Bx=1024
+CODE	main	909	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	910	00810203	op7=3	A=4	k=0	B=129	C=0	Bx=258
+CODE	main	911	0400020e	op7=14	A=4	k=0	B=0	C=4	Bx=2048
+CODE	main	912	00800283	op7=3	A=5	k=0	B=128	C=0	Bx=256
+CODE	main	913	0500028e	op7=14	A=5	k=0	B=0	C=5	Bx=2560
+CODE	main	914	000201dd	op7=93	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	915	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	916	00980103	op7=3	A=2	k=0	B=152	C=0	Bx=304
+CODE	main	917	00988183	op7=3	A=3	k=1	B=152	C=0	Bx=305
+CODE	main	918	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	919	00990103	op7=3	A=2	k=0	B=153	C=0	Bx=306
+CODE	main	920	0a00019e	op7=30	A=3	k=0	B=0	C=10	Bx=5120
+CODE	main	921	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	922	00810203	op7=3	A=4	k=0	B=129	C=0	Bx=258
+CODE	main	923	0400020e	op7=14	A=4	k=0	B=0	C=4	Bx=2048
+CODE	main	924	00800283	op7=3	A=5	k=0	B=128	C=0	Bx=256
+CODE	main	925	0500028e	op7=14	A=5	k=0	B=0	C=5	Bx=2560
+CODE	main	926	00820303	op7=3	A=6	k=0	B=130	C=0	Bx=260
+CODE	main	927	0600030e	op7=14	A=6	k=0	B=0	C=6	Bx=3072
+CODE	main	928	00830383	op7=3	A=7	k=0	B=131	C=0	Bx=262
+CODE	main	929	0700038e	op7=14	A=7	k=0	B=0	C=7	Bx=3584
+CODE	main	930	00840403	op7=3	A=8	k=0	B=132	C=0	Bx=264
+CODE	main	931	0800040e	op7=14	A=8	k=0	B=0	C=8	Bx=4096
+CODE	main	932	00850483	op7=3	A=9	k=0	B=133	C=0	Bx=266
+CODE	main	933	0900048e	op7=14	A=9	k=0	B=0	C=9	Bx=4608
+CODE	main	934	00860503	op7=3	A=10	k=0	B=134	C=0	Bx=268
+CODE	main	935	0a00050e	op7=14	A=10	k=0	B=0	C=10	Bx=5120
+CODE	main	936	00870583	op7=3	A=11	k=0	B=135	C=0	Bx=270
+CODE	main	937	0b00058e	op7=14	A=11	k=0	B=0	C=11	Bx=5632
+CODE	main	938	00880603	op7=3	A=12	k=0	B=136	C=0	Bx=272
+CODE	main	939	0c00060e	op7=14	A=12	k=0	B=0	C=12	Bx=6144
+CODE	main	940	00890683	op7=3	A=13	k=0	B=137	C=0	Bx=274
+CODE	main	941	0d00068e	op7=14	A=13	k=0	B=0	C=13	Bx=6656
+CODE	main	942	000a01dd	op7=93	A=3	k=0	B=10	C=0	Bx=20
+CODE	main	943	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	944	00998103	op7=3	A=2	k=1	B=153	C=0	Bx=307
+CODE	main	945	0700019e	op7=30	A=3	k=0	B=0	C=7	Bx=3584
+CODE	main	946	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	947	00800203	op7=3	A=4	k=0	B=128	C=0	Bx=256
+CODE	main	948	0400020e	op7=14	A=4	k=0	B=0	C=4	Bx=2048
+CODE	main	949	00840283	op7=3	A=5	k=0	B=132	C=0	Bx=264
+CODE	main	950	0500028e	op7=14	A=5	k=0	B=0	C=5	Bx=2560
+CODE	main	951	00850303	op7=3	A=6	k=0	B=133	C=0	Bx=266
+CODE	main	952	0600030e	op7=14	A=6	k=0	B=0	C=6	Bx=3072
+CODE	main	953	00860383	op7=3	A=7	k=0	B=134	C=0	Bx=268
+CODE	main	954	0700038e	op7=14	A=7	k=0	B=0	C=7	Bx=3584
+CODE	main	955	00870403	op7=3	A=8	k=0	B=135	C=0	Bx=270
+CODE	main	956	0800040e	op7=14	A=8	k=0	B=0	C=8	Bx=4096
+CODE	main	957	00880483	op7=3	A=9	k=0	B=136	C=0	Bx=272
+CODE	main	958	0900048e	op7=14	A=9	k=0	B=0	C=9	Bx=4608
+CODE	main	959	00890503	op7=3	A=10	k=0	B=137	C=0	Bx=274
+CODE	main	960	0a00050e	op7=14	A=10	k=0	B=0	C=10	Bx=5120
+CODE	main	961	000701dd	op7=93	A=3	k=0	B=7	C=0	Bx=14
+CODE	main	962	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	963	009a0103	op7=3	A=2	k=0	B=154	C=0	Bx=308
+CODE	main	964	0002019d	op7=29	A=3	k=0	B=2	C=0	Bx=4
+CODE	main	965	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	966	009a8203	op7=3	A=4	k=1	B=154	C=0	Bx=309
+CODE	main	967	08048195	op7=21	A=3	k=1	B=4	C=8	Bx=4105
+CODE	main	968	009b0203	op7=3	A=4	k=0	B=155	C=0	Bx=310
+CODE	main	969	0a048195	op7=21	A=3	k=1	B=4	C=10	Bx=5129
+CODE	main	970	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	971	009b8103	op7=3	A=2	k=1	B=155	C=0	Bx=311
+CODE	main	972	0003019d	op7=29	A=3	k=0	B=3	C=0	Bx=6
+CODE	main	973	00000061	op7=97	A=0	k=0	B=0	C=0	Bx=0
+CODE	main	974	009c0203	op7=3	A=4	k=0	B=156	C=0	Bx=312
+CODE	main	975	06048195	op7=21	A=3	k=1	B=4	C=6	Bx=3081
+CODE	main	976	009c8203	op7=3	A=4	k=1	B=156	C=0	Bx=313
+CODE	main	977	08048195	op7=21	A=3	k=1	B=4	C=8	Bx=4105
+CODE	main	978	009d0203	op7=3	A=4	k=0	B=157	C=0	Bx=314
+CODE	main	979	0a048195	op7=21	A=3	k=1	B=4	C=10	Bx=5129
+CODE	main	980	03020015	op7=21	A=0	k=0	B=2	C=3	Bx=1540
+CODE	main	981	01028054	op7=84	A=0	k=1	B=2	C=1	Bx=517
+CODE	main	982	01018154	op7=84	A=2	k=1	B=1	C=1	Bx=515
+PROTO	main/0	lines=7-11	code=10	constants=3	children=0
+LOCAL	main/0	0	buff_no	start=0	end=10
+LOCAL	main/0	1	fromid	start=0	end=10
+K	main/0	0	""
+K	main/0	1	"%s_%s"
+K	main/0	2	"format"
+CODE	main/0	1	000080d0	op7=80	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/0	2	80000046	op7=70	A=0	k=0	B=0	C=128	Bx=65536
+CODE	main/0	3	00000083	op7=3	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/0	4	00008103	op7=3	A=2	k=1	B=0	C=0	Bx=1
+CODE	main/0	5	02028122	op7=34	A=2	k=1	B=2	C=2	Bx=1029
+CODE	main/0	6	00010200	op7=0	A=4	k=0	B=1	C=0	Bx=2
+CODE	main/0	7	00000280	op7=0	A=5	k=0	B=0	C=0	Bx=0
+CODE	main/0	8	00040153	op7=83	A=2	k=0	B=4	C=0	Bx=8
+CODE	main/0	9	00000154	op7=84	A=2	k=0	B=0	C=0	Bx=0
+CODE	main/0	10	00010155	op7=85	A=2	k=0	B=1	C=0	Bx=2
+PROTO	main/1	lines=186-196	code=18	constants=4	children=0
+LOCAL	main/1	0	th	start=0	end=18
+LOCAL	main/1	1	res	start=10	end=18
+UPVALUE	main/1	0	_M	instack=true	idx=0
+K	main/1	0	"TH_COMMON_MAP"
+K	main/1	1	"get"
+K	main/1	2	"TH_RUNTIME_MAP"
+K	main/1	3	"oc_flags"
+CODE	main/1	1	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/1	2	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/1	3	00000180	op7=0	A=3	k=0	B=0	C=0	Bx=0
+CODE	main/1	4	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/1	5	000080d0	op7=80	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/1	6	800001c6	op7=70	A=3	k=0	B=0	C=128	Bx=65536
+CODE	main/1	7	0200008c	op7=12	A=1	k=0	B=0	C=2	Bx=1024
+CODE	main/1	8	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/1	9	00000180	op7=0	A=3	k=0	B=0	C=0	Bx=0
+CODE	main/1	10	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/1	11	000000d0	op7=80	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/1	12	80000146	op7=70	A=2	k=0	B=0	C=128	Bx=65536
+CODE	main/1	13	0201010f	op7=15	A=2	k=0	B=1	C=2	Bx=1026
+CODE	main/1	14	00020156	op7=86	A=2	k=0	B=2	C=0	Bx=4
+CODE	main/1	15	800000c6	op7=70	A=1	k=0	B=0	C=128	Bx=65536
+CODE	main/1	16	00018103	op7=3	A=2	k=1	B=1	C=0	Bx=3
+CODE	main/1	17	00020156	op7=86	A=2	k=0	B=2	C=0	Bx=4
+CODE	main/1	18	00010155	op7=85	A=2	k=0	B=1	C=0	Bx=2
+PROTO	main/2	lines=198-208	code=19	constants=3	children=0
+LOCAL	main/2	0	th	start=0	end=19
+LOCAL	main/2	1	res	start=10	end=19
+UPVALUE	main/2	0	_M	instack=true	idx=0
+K	main/2	0	"TH_COMMON_MAP"
+K	main/2	1	"get"
+K	main/2	2	"TH_RUNTIME_MAP"
+CODE	main/2	1	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/2	2	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/2	3	00000180	op7=0	A=3	k=0	B=0	C=0	Bx=0
+CODE	main/2	4	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/2	5	000080d0	op7=80	A=1	k=1	B=0	C=0	Bx=1
+CODE	main/2	6	800001c6	op7=70	A=3	k=0	B=0	C=128	Bx=65536
+CODE	main/2	7	0200008c	op7=12	A=1	k=0	B=0	C=2	Bx=1024
+CODE	main/2	8	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/2	9	00000180	op7=0	A=3	k=0	B=0	C=0	Bx=0
+CODE	main/2	10	020300d2	op7=82	A=1	k=0	B=3	C=2	Bx=1030
+CODE	main/2	11	000000d0	op7=80	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/2	12	800001c6	op7=70	A=3	k=0	B=0	C=128	Bx=65536
+CODE	main/2	13	0101010f	op7=15	A=2	k=0	B=1	C=1	Bx=514
+CODE	main/2	14	0201018f	op7=15	A=3	k=0	B=1	C=2	Bx=1026
+CODE	main/2	15	00030154	op7=84	A=2	k=0	B=3	C=0	Bx=6
+CODE	main/2	16	800000c6	op7=70	A=1	k=0	B=0	C=128	Bx=65536
+CODE	main/2	17	00010108	op7=8	A=2	k=0	B=1	C=0	Bx=2
+CODE	main/2	18	00030154	op7=84	A=2	k=0	B=3	C=0	Bx=6
+CODE	main/2	19	00010155	op7=85	A=2	k=0	B=1	C=0	Bx=2
+PROTO	main/3	lines=215-220	code=12	constants=1	children=0
+LOCAL	main/3	0	sys_d	start=0	end=12
+UPVALUE	main/3	0	_M	instack=true	idx=0
+K	main/3	0	"is_client_buff"
+CODE	main/3	1	00000050	op7=80	A=0	k=0	B=0	C=0	Bx=0
+CODE	main/3	2	80000346	op7=70	A=6	k=0	B=0	C=128	Bx=65536
+CODE	main/3	3	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/3	4	00000100	op7=0	A=2	k=0	B=0	C=0	Bx=0
+CODE	main/3	5	020200d2	op7=82	A=1	k=0	B=2	C=2	Bx=1028
+CODE	main/3	6	000000d0	op7=80	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/3	7	800000c6	op7=70	A=1	k=0	B=0	C=128	Bx=65536
+CODE	main/3	8	00000087	op7=7	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/3	9	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/3	10	00000085	op7=5	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/3	11	000200d6	op7=86	A=1	k=0	B=2	C=0	Bx=4
+CODE	main/3	12	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+PROTO	main/4	lines=222-233	code=18	constants=3	children=0
+LOCAL	main/4	0	sys_d	start=0	end=18
+LOCAL	main/4	1	(for state)	start=3	end=15
+LOCAL	main/4	2	(for state)	start=3	end=15
+LOCAL	main/4	3	(for state)	start=3	end=15
+LOCAL	main/4	4	(for state)	start=3	end=15
+LOCAL	main/4	5	(for state)	start=3	end=15
+LOCAL	main/4	6	k	start=4	end=12
+LOCAL	main/4	7	default	start=4	end=12
+UPVALUE	main/4	0	_ENV	instack=false	idx=0
+UPVALUE	main/4	1	_M	instack=true	idx=0
+K	main/4	0	"pairs"
+K	main/4	1	"TH_FAKE_MODE_LOCAL"
+K	main/4	2	"get"
+CODE	main/4	1	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/4	2	0101010c	op7=12	A=2	k=0	B=1	C=1	Bx=514
+CODE	main/4	3	060200d2	op7=82	A=1	k=0	B=2	C=6	Bx=3076
+CODE	main/4	4	000400d9	op7=89	A=1	k=0	B=4	C=0	Bx=8
+CODE	main/4	5	02008422	op7=34	A=8	k=1	B=0	C=2	Bx=1025
+CODE	main/4	6	00060500	op7=0	A=10	k=0	B=6	C=0	Bx=12
+CODE	main/4	7	00070580	op7=0	A=11	k=0	B=7	C=0	Bx=14
+CODE	main/4	8	02040452	op7=82	A=8	k=0	B=4	C=2	Bx=1032
+CODE	main/4	9	00078447	op7=71	A=8	k=1	B=7	C=0	Bx=15
+CODE	main/4	10	800000c6	op7=70	A=1	k=0	B=0	C=128	Bx=65536
+CODE	main/4	11	00000407	op7=7	A=8	k=0	B=0	C=0	Bx=0
+CODE	main/4	12	00028454	op7=84	A=8	k=1	B=2	C=0	Bx=5
+CODE	main/4	13	020000da	op7=90	A=1	k=0	B=0	C=2	Bx=1024
+CODE	main/4	14	000500db	op7=91	A=1	k=0	B=5	C=0	Bx=10
+CODE	main/4	15	000000c4	op7=68	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/4	16	00000085	op7=5	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/4	17	000280d4	op7=84	A=1	k=1	B=2	C=0	Bx=5
+CODE	main/4	18	000180d4	op7=84	A=1	k=1	B=1	C=0	Bx=3
+PROTO	main/5	lines=235-237	code=6	constants=2	children=0
+LOCAL	main/5	0	buff_no	start=0	end=6
+UPVALUE	main/5	0	_M	instack=true	idx=0
+K	main/5	0	"FAKE_REMOVE_FIRST"
+K	main/5	1	"get"
+CODE	main/5	1	0000008c	op7=12	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/5	2	010180a2	op7=34	A=1	k=1	B=1	C=1	Bx=515
+CODE	main/5	3	00000180	op7=0	A=3	k=0	B=0	C=0	Bx=0
+CODE	main/5	4	000300d3	op7=83	A=1	k=0	B=3	C=0	Bx=6
+CODE	main/5	5	000000d4	op7=84	A=1	k=0	B=0	C=0	Bx=0
+CODE	main/5	6	000100d5	op7=85	A=1	k=0	B=1	C=0	Bx=2
+CONSUMED	11501	TOTAL	11501

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title> kagerou overlay </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="index.js" type="module"></script>
+  </head>
+  <body style="overflow:hidden" class="standby">
+    <div class="splash">
+      <div>
+        Failed to load - 초기화 실패
+        <br />
+        See <a href="../outdated/index.html">here</a> for more info.
+        <br /><br />
+        <button onclick="location.reload()">
+          재시도/Retry
+        </button>
+        <button onclick="localStorage.setItem('kagerou_config','');location.reload()">
+          초기화/Reset
+        </button>
+        <button onclick="window.open('../config/','kagerou - Settings','width=800,height=600')">
+          설정/Settings
+        </button>
+      </div>
+    </div>
+    <nav>
+      <div class="container">
+        <div class="history enabled">
+          <span class="icon-container dropdown-trigger" id="history-icon" data-dropdown="history">
+            <span class="icon-overflow-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="46"
+                   viewBox="0 0 24 46" class="icon icon-transition"
+                   style="top: -1.375rem;">
+                <path d="M15,1H9v2h6V1z M11,14h2V8h-2V14z M19,7.4L20.4,6
+                C20,5.5,19.5,5,19,4.6L17.6,6c-1.5-1.2-3.5-2-5.6-2c-5,0-9,4-9,9
+                s4,9,9,9s9-4,9-9C21,10.9,20.3,8.9,19,7.4z M12,20c-3.9,0-7-3.1-7-7
+                s3.1-7,7-7s7,3.1,7,7S15.9,20,12,20z"/>
+                <path d="M13,25c-5,0-9,4-9,9H1l3.9,3.9L5,38l4-4H6c0-3.9,3.1-7,7-7
+                s7,3.1,7,7s-3.1,7-7,7c-1.9,0-3.7-0.8-4.9-2.1l-1.4,1.4
+                C8.3,42,10.5,43,13,43c5,0,9-4,9-9S18,25,13,25z M12,30v5l4.3,2.5
+                l0.7-1.2l-3.5-2.1V30H12z"/>
+              </svg>
+            </span>
+            <!--img id="hots" width="1.5rem" height="1.5rem" /-->
+            <mark id="history-time">
+              kagerou <span class="version"> ??? </span>
+            </mark>
+          </span>
+          <span id="history-mob" class="codename"></span>
+          <span id="history-region"></span>
+        </div>
+        <ul class="buttons">
+          <li class="button" data-button="toggle-detail"
+              data-active-by="image">
+            <span class="icon-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="35"
+                   viewBox="0 0 16 35" class="icon icon-transition icon-w16"
+                   style="top: -0.6875rem">
+                <path d="M8,29.2L4.8,26l-1.4,1.4L8,32l4.6-4.6L11.2,26
+                L8,29.2z M8,16.8l3.2,3.2l1.4-1.4L8,14l-4.6,4.6L4.8,20
+                L8,16.8z M8,7.2L4.8,4 L3.4,5.4L8,10l4.6-4.6L11.2,4L8,7.2z"
+                 />
+              </svg>
+            </span>
+          </li><!--
+       --><li class="button dropdown-wrapper dropdown-trigger"
+              data-dropdown="more">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24"
+                 viewBox="4 0 16 24" class="icon icon-w16">
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2
+              c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2
+              s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="dropdown dropdown-list dropdown-history" id="dropdown-history">
+        <li class="empty" style="height: unset">
+          <mark class="version"> ?.?.? </mark> <span class="codename">Unknown Release</span>
+          <br />
+          <span class="history-region description"> </span>
+          <br />
+          <span class="history-region"> </span>
+        </li>
+        <li class="empty">
+          <mark> 0.8.14 </mark> <span> minne </span>
+          <br />
+          <span class="history-region"> その旋律は紡がれ受け継がれていく </span>
+        </li>
+        <li class="empty">
+          <mark> 0.8.13 </mark> <span> viator in vitro </span>
+          <br />
+          <span class="history-region"> すべての旅人たちの 記憶はここに集う </span>
+        </li>
+        <li class="empty">
+          <mark> 0.8.12 </mark> <span> Supersymmetry </span>
+          <br />
+          <span class="history-region"> 最も美しいパラドックスは対称性である。 </span>
+        </li>
+        <li class="empty">
+          <mark> 0.8.11 </mark> <span> save your tears, save your dreams </span>
+          <br />
+          <span class="history-region"> ささやかな幻よ、煌け！ </span>
+        </li>
+        <li class="empty">
+          <mark> 0.8.10 </mark> <span> City of Mirrors </span>
+          <br />
+          <span class="history-region"> なんびとの心も映す鏡の如きヴォカリーズ曲 </span>
+        </li>
+        <li class="empty">
+          <mark> 0.8.9 </mark> <span> Northen Cross </span>
+          <br />
+          <span class="history-region"> 燦然とピアノを照らす もうひとつの十字星 </span>
+        </li>
+        <li class="empty">
+          <mark> 0.8.8 </mark> <span> Deprived World </span>
+          <br />
+          <span class="history-region"> …この儚くも美しい　「奪われた世界」を </span>
+        </li>
+      </ul>
+      <ul class="dropdown buttons right" id="dropdown-more">
+        <li data-button="merge-pet" data-active-by="label"
+            data-label="펫 합산 켜기" data-label-enabled="펫 합산 끄기"
+            data-locale="ui.menu.merge-pet-on=data-label|ui.menu.merge-pet-off=data-label-enabled">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" class="icon">
+            <g class="when-enabled">
+              <path d="M14 4l2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88
+              L20 10V4zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41
+              l-5.29-5.3z" />
+            </g>
+            <g class="when-disabled">
+              <path d="M17,20.4l1.4-1.4L15,15.6L13.6,17L17,20.4z M7.5,8
+              H11v5.6L5.6,19L7,20.4l6-6V8h3.5L12,3.5L7.5,8z" />
+            </g>
+          </svg>
+        </li><!--
+     --><li data-button="nameblur" data-active-by="label"
+            data-label="이름 가리기" data-label-enabled="이름 보이기"
+            data-locale="ui.menu.nameblur-on=data-label|ui.menu.nameblur-off=data-label-enabled">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" class="icon">
+            <g class="when-enabled">
+              <!-- Don't panic, it's just big icon -->
+              <path d="M14 7c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm-.2 4.48l.2.02c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5l.02.2c.09.67.61 1.19 1.28 1.28zM14 3.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zm-4 0c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zm11 7c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zM10 7c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm8 8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0-4c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0-4c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm-4 13.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zM2.5 5.27l3.78 3.78L6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1c0-.1-.03-.19-.06-.28l2.81 2.81c-.71.11-1.25.73-1.25 1.47 0 .83.67 1.5 1.5 1.5.74 0 1.36-.54 1.47-1.25l2.81 2.81c-.09-.03-.18-.06-.28-.06-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1c0-.1-.03-.19-.06-.28l3.78 3.78L20 20.23 3.77 4 2.5 5.27zM10 17c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm11-3.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zM3 9.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm7 11c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zM6 17c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-3-3.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5z" />
+            </g>
+            <g class="when-disabled">
+              <path d="M6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-3 .5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zM6 5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm15 5.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zM14 7c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0-3.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zm-11 10c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm7 7c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm0-17c.28 0 .5-.22.5-.5s-.22-.5-.5-.5-.5.22-.5.5.22.5.5.5zM10 7c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0 5.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm8 .5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm3 8.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zM14 17c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 3.5c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm-4-12c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0 8.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-4.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-4c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" />
+            </g>
+          </svg>
+        </li><!--
+     --><li class="supports-end"
+            data-button="end-encounter"
+            data-label="전투 집계 끊기"
+            data-locale="ui.menu.end-encounter=data-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" class="icon">
+            <path d="M12,20A7,7 0 0,1 5,13C5,11.72 5.35,10.5 5.95,9.5L15.5,19.04C14.5,19.65 13.28,20 12,20M3,4L1.75,5.27L4.5,8.03C3.55,9.45 3,11.16 3,13A9,9 0 0,0 12,22C13.84,22 15.55,21.45 17,20.5L19.5,23L20.75,21.73L13.04,14L3,4M11,9.44L13,11.44V8H11M15,1H9V3H15M19.04,4.55L17.62,5.97C16.07,4.74 14.12,4 12,4C10.17,4 8.47,4.55 7.05,5.5L8.5,6.94C9.53,6.35 10.73,6 12,6A7,7 0 0,1 19,13C19,14.27 18.65,15.47 18.06,16.5L19.5,17.94C20.45,16.53 21,14.83 21,13C21,10.88 20.26,8.93 19.03,7.39L20.45,5.97L19.04,4.55Z" />
+          </svg>
+        </li><!--
+     --><li data-button="settings"
+            data-label="설정"
+            data-locale="ui.menu.settings=data-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" class="icon">
+            <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" />
+          </svg>
+        </li><!--
+     --><li data-button="reload" onclick="location.reload()"
+            data-label="새로고침"
+            data-locale="ui.menu.reload=data-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" class="icon">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+          </svg>
+        </li><!--
+     --><li data-button="fullscreen"
+            class="browser-only"
+            data-label="전체화면 토글"
+            data-locale="ui.menu.fullscreen=data-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" class="icon">
+            <path d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z" />
+          </svg>
+        </li><!--
+     --><li data-button="capture"
+            class="overlay-only ws-only"
+            data-label="캡쳐"
+            data-locale="ui.menu.screenshot=data-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" class="icon">
+            <path d="M22,16V4A2,2 0 0,0 20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16M11,12L13.03,14.71L16,11L20,16H8M2,6V20A2,2 0 0,0 4,22H18V20H4V6" />
+          </svg>
+        </li>
+      </ul>
+      <label id="nav-label"> </label>
+    </nav>
+
+    <main>
+      <div id="background"> </div>
+      <ul>
+        <li id="header">
+          ..
+        </li>
+        <ul id="table">
+          <li id="init-menu">
+            <ul>
+              <li class="text">
+                - hibiyasleep
+              </li>
+              <li class="button" data-button="donate">
+                <label data-locale="ui.menu.donate">기부</label>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                     viewBox="0 0 24 24" class="icon">
+                  <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z" />
+                </svg>
+              </li>
+              <li class="button" data-button="settings">
+                <label data-locale="ui.menu.settings">설정</label>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                     viewBox="0 0 24 24" class="icon">
+                  <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" />
+                </svg>
+              </li>
+            </ul>
+          </li>
+          <li id="patchnote">
+            <h3> 0.8.15 'Audite Nostalgia' - 2024/07/01 </h3>
+
+            <p class="lang ko">- 7.0 직업 지원 추가</p>
+            <p class="lang en fr de">- 7.0 jobs added</p>
+            <p class="lang ja">- パッチ7.0のジョブに対応</p>
+            <p> fixed by @klotterc </p>
+
+            <div id="old_plugin_warning">
+              <script>
+                try {
+                  null?.a
+                  old_plugin_warning.parentNode.removeChild(old_plugin_warning)
+                } catch(e) {}
+              </script>
+              <br />
+              <p class="lang ko">
+                - OverlayPlugin 0.3, 예전 방식 웹소켓 오버레이는 더 이상 지원하지 않습니다.
+                <br />
+                ngld/OverlayPlugin으로 교체해 주십시오.
+              </p>
+              <p class="lang en fr de ja">
+                - Old OverlayPlugin (aka 'hibiyasleep version') is no longer supported!!
+                <br />
+                please get update from github.com/ngld/OverlayPlugin .
+              </p>
+              <br />
+            </div>
+
+            <h3> 0.8.14 'minne' - 2022/02/16 </h3>
+            <h3> 0.8.13 'viator in vitro' - 2021/12/08 </h3>
+
+          </li>
+        </ul>
+      </ul>
+      <footer>
+        <div class="tabs">
+          Loading tabs...
+        </div>
+        <span class="footer-stat">
+          <span class="footer-rank">
+            <span id="rank">0<small>/0</small></span>
+          </span><!--
+       --><span class="footer-rdps">
+            <span id="rdps">0</span><small>dps</small>
+          </span><!--
+       --><span class="footer-rhps">
+            <span id="rhps">0</span><small>hps</small>
+          </span>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html><meta charset=utf-8><title> kagerou - Outdated Browser </title><meta name=viewport content="width=device-width"><style>*{box-sizing:border-box}body{background:#fff;margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;font-weight:200}h1,h2,h3,h4,h5,h6,b{font-weight:500}nav,main{width:100%}.link{word-break:break-all}.mute{color:#00000080}a{color:inherit;text-decoration:none}nav{color:#fff;background-color:#000;place-content:center space-between;padding:1rem 0;display:flex}nav>h1{margin:0 1rem 0 0;font-size:1rem}main{max-width:32rem;margin:0 auto;padding:.5rem}header{text-align:right;border-bottom:.0625rem solid #00000080;margin-bottom:4rem;padding-bottom:2rem}article{margin-top:4rem}h3{margin-bottom:1rem}h3:after{content:"";background-color:#26c6da;width:6rem;height:.125rem;margin-top:1rem;display:block}section h4{border-left:.125rem solid #26c6da;padding:.5rem 0 .5rem .875rem}section h4~p{margin-left:1rem}.error{color:#f33}</style><script>window.addEventListener("load",function(){for(var e=document.querySelectorAll("[data-bind]"),t=0;t<len.length;++t){var n=e[t],a=n.getAttribute("data-bind"),r="";try{r=Function("a",a)(1)}catch(e){n.className="error",r=e.name+": "+e.message}n.textContent=r}});</script><body>
+    <nav>
+      <svg width=64 height=20 style=width:4rem;height:1.25rem viewBox="4 0 64 20"><path fill=#7f7f7f fill-opacity=.5 d="M58 20c-5.5 0-10-4.5-10-10S52.5 0 58 0s10 4.5 10 10-4.5 10-10 10m4.2-14.2L57 9v6h1.5V9.8L63 7.1Z"/><path fill=#fff d="M34 20c-5.5 0-10-4.5-10-10S28.5 0 34 0s10 4.5 10 10-4.5 10-10 10m4.2-14.2L33 9v6h1.5V9.8L39 7.1Z"/><path fill=#ff3455 fill-opacity=.5 d="M10 20C4.5 20 0 15.5 0 10S4.5 0 10 0s10 4.5 10 10-4.5 10-10 10m4.2-14.2L9 9v6h1.5V9.8L15 7.1Z"/></svg>
+      <h1>
+        kagerou overlay
+      </h1>
+    </nav>
+    <main>
+      <header>
+        <h2> kagerou failed to start </h2>
+        <p>
+          Your browser is outdated or not supported.
+          <br>
+          Scroll down for more info.
+        </p>
+      </header>
+      <article>
+        <h3> Why this happened? </h3>
+        <p> Current browser doesn't support some features that kagerou requires. </p>
+        <p> This may happen if you're in 'incognito' mode. </p>
+      </article>
+      <article>
+        <h3> What can I do? </h3>
+        <section>
+          <h4>OverlayPlugin</h4>
+          <p>
+            please update your plugin, kagerou requires v0.3.3.10 or newer.
+          </p>
+          <p>
+            Download at: <u class=link>https://github.com/hibiyasleep/OverlayPlugin/releases/latest</u>
+            <span class=mute> (open in your browser) </span>
+          </p>
+        </section>
+        <section>
+          <h4>macOS/iOS</h4>
+          <p> iOS/Safari 9 and older not supported. </p>
+        </section>
+        <section>
+          <h4>IE</h4>
+          <p> <i>please no</i>. IE will <i>never</i> supported. </p>
+        </section>
+        <section>
+          <h4>Android 4.x</h4>
+          <p> please use Chrome, Firefox, or other newer browser. </p>
+        </section>
+      </article>
+      <article>
+        <h3> More Info </h3>
+        <p> <b>User Agent</b>: <span data-bind="return navigator.userAgent">?</span></p>
+        <p> <b>Test</b>: <span data-bind="'use strict'; const b=(_=>`${_}`)(a); return b==='1'? 'pass':'fail'">?</span>
+      </article>
+      <article style=text-align:right>
+        <p>
+          <a href=/kagerou/overlay/index.html>return to overlay</a>
+        </p>
+        <p>
+          <a href=/kagerou/config/index.html>try config page</a>
+        </p>
+      </article>
+    </main>
+  
+
