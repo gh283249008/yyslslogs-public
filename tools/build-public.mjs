@@ -1,5 +1,5 @@
 import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {rcedit} from 'rcedit';import {nativeClosure} from './desktop-package-lib.mjs';
-const name=process.argv[2]||'YyslsLogs-0.3.3-public';if(!/^YyslsLogs-0\.3\.2-[a-z0-9-]+$/.test(name))throw Error('Invalid release name');
+const name=process.argv[2]||'YyslsLogs-0.3.3-public';if(!/^YyslsLogs-0\.3\.3-[a-z0-9-]+$/.test(name))throw Error('Invalid release name');
 const root=path.resolve(import.meta.dirname,'..'),out=path.join(root,'release',name),resources=path.join(out,'resources');
 if(fs.existsSync(out))throw Error('Use a fresh release directory');
 const python=process.env.YYSLS_BUILD_PYTHON,wireshark=process.env.YYSLS_BUILD_WIRESHARK;
