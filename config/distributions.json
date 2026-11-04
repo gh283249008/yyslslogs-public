@@ -52,7 +52,10 @@
       "package-generator/style.css",
       "package-generator/logo.svg",
       "package-generator/logo.png",
-      "package-generator/logo.ico"
+      "package-generator/logo.ico",
+      "config/rd-damage-composition.json",
+      "config/attack-source-weights.json",
+      "config/decoder-channel.json"
     ]
   }
 }

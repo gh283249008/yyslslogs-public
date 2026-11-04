@@ -1,0 +1,4 @@
+# Preserve bytes for content-addressed dictionaries and attribution policy.
+config/*.json -text
+config/decoder-profiles/*.json -text
+evidence/**/*.json -text

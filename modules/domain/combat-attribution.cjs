@@ -1,6 +1,7 @@
 'use strict';
 const {ACTIVE_PROFILE,F,POLICY,policySha256,registry,personalBuffs,kungfuChannels,finite,time}=require('./context.cjs');
 const {simpleHitCredit}=require('./hit-credit.cjs');
+const {resolveEncounterIdentity}=require('./encounter-catalog.cjs');
 class SimpleRdpsStream {
  constructor(source){this.source=source;this.buffRevisions=new Map();this.buffs=new Map();this.buffHistory=[];this.openBuffHistory=new Map();this.stateHistory=[];this.attrs=new Map();this.weak=new Map();this.npcs=new Set();this.current=null;this.pending=[];this.lastTime=0;this.seen=new Set();this.error=null;}
  // Lost transport bytes may hide buff removals and qi changes: active buffs and
@@ -8,16 +9,50 @@ class SimpleRdpsStream {
  // and stay uncredited; base attributes keyed by stable actor id are retained.
  // Until an actor's buffs are seen again in a full snapshot, its hits carry an
  // explicit unknown-state issue instead of silently counting as zero gain.
- markGap(gap){for(const key of this.openBuffHistory.keys())this.closeHistoryInterval(key,this.lastTime);this.buffs.clear();this.weak.clear();this.pending=[];for(const a of this.attrs.values())delete a.attributeResistanceWithEffects;this.resynced=new Set();if(this.current&&!this.current.endMs)this.current.transportGaps=(this.current.transportGaps||0)+1;this.gaps=(this.gaps||0)+1;this.lastGap=gap||null;}
+ markGap(gap){for(const key of this.openBuffHistory.keys())this.closeHistoryInterval(key,this.lastTime);this.buffs.clear();this.weak.clear();this.pending=[];for(const a of this.attrs.values())delete a.attributeResistanceWithEffects;this.clearNpcIdentity(this.lastTime);this.resynced=new Set();if(this.current&&!this.current.endMs)this.current.transportGaps=(this.current.transportGaps||0)+1;this.gaps=(this.gaps||0)+1;this.lastGap=gap||null;}
+ clearNpcIdentity(t){this.identityContext=null;for(const [target,a]of this.attrs){delete a.npcTemplateNo;delete a.isBoss;delete a.bossIdentityBasis;delete a.absentPersonalBuffs;delete a.hpPercent;delete a.finalEffectiveBashProbability;delete a.finalEffectiveCritProbability;delete a.selfShieldValue;delete a.totalShieldValue;delete a.combatResources;delete a.flying;delete a.controlled;delete a.beHit;delete a.absentOwnPersonalBuffs;delete a.currentHp;delete a.maxHp;this.stateHistory.push({t,target,attributes:{...a}});}}
+ notePersonalAbsence(buff,t){
+  if(buff&&personalBuffs.hasOwnAbsenceRule(buff.buffNo)&&buff.sourceActorHash===buff.targetActorHash){
+   const active=[...this.buffs.values()].some(b=>b.targetActorHash===buff.targetActorHash&&b.buffNo===buff.buffNo&&b.sourceActorHash===buff.targetActorHash&&b.expiresMs>t);
+   if(!active){const a={...this.attrs.get(buff.targetActorHash)};a.absentOwnPersonalBuffs=[...new Set([...(a.absentOwnPersonalBuffs||[]),buff.buffNo])];this.attrs.set(buff.targetActorHash,a);this.stateHistory.push({t,target:buff.targetActorHash,attributes:{...a}});}
+  }
+  if(!buff||!personalBuffs.hasAbsenceRule(buff.buffNo))return;
+  if([...this.buffs.values()].some(b=>b.targetActorHash===buff.targetActorHash&&b.buffNo===buff.buffNo&&b.expiresMs>t))return;
+  const a={...this.attrs.get(buff.targetActorHash)},ids=a.absentPersonalBuffs||[];if(ids.includes(buff.buffNo))return;
+  a.absentPersonalBuffs=[...ids,buff.buffNo];this.attrs.set(buff.targetActorHash,a);this.stateHistory.push({t,target:buff.targetActorHash,attributes:{...a}});
+ }
+ invalidateBossIdentity(actor,t){
+  if(this.identityContext)this.identityContext={...this.identityContext,npcs:(this.identityContext.npcs||[]).filter(n=>actor&&n.actorHash!==actor)};
+  for(const [id,a]of this.attrs)if(!actor||id===actor){delete a.isBoss;delete a.bossIdentityBasis;if(finite(t))this.stateHistory.push({t,target:id,attributes:{...a}});}
+ }
  observeAttribute(e){
   if(e.status==='invalidated'){
-   for(const [actor,a] of this.attrs)if(!e.targetActorHash||actor===e.targetActorHash){delete a.attributeResistanceWithEffects;if(finite(time(e)))this.stateHistory.push({t:time(e),target:actor,attributes:{...a}});}
+   this.invalidateBossIdentity(e.targetActorHash,time(e));
+   for(const [actor,a] of this.attrs)if(!e.targetActorHash||actor===e.targetActorHash){delete a.isBoss;delete a.bossIdentityBasis;delete a.attributeResistanceWithEffects;delete a.currentHp;delete a.maxHp;delete a.hpPercent;delete a.finalEffectiveBashProbability;delete a.finalEffectiveCritProbability;delete a.selfShieldValue;delete a.totalShieldValue;delete a.combatResources;delete a.flying;delete a.controlled;delete a.beHit;delete a.absentOwnPersonalBuffs;delete a.absentPersonalBuffs;if(finite(time(e)))this.stateHistory.push({t:time(e),target:actor,attributes:{...a}});}
    return;
   }
   const a=this.attrs.get(e.targetActorHash)||{};
-  if(e.saltGeneration!==undefined&&a.attributeSaltGeneration!==e.saltGeneration){delete a.attributeResistanceWithEffects;a.attributeSaltGeneration=e.saltGeneration;}
+  if(e.saltGeneration!==undefined&&a.attributeSaltGeneration!==e.saltGeneration){delete a.attributeResistanceWithEffects;delete a.currentHp;delete a.maxHp;delete a.hpPercent;delete a.finalEffectiveBashProbability;delete a.finalEffectiveCritProbability;delete a.selfShieldValue;delete a.totalShieldValue;delete a.combatResources;delete a.flying;delete a.controlled;delete a.beHit;delete a.absentOwnPersonalBuffs;a.attributeSaltGeneration=e.saltGeneration;}
   const property=/^PRO_DEF_([A-E])$/.exec(e.attribute||'');
-  if(property){
+  if(e.attribute==='TOTAL_HP_SHIELD'){
+   if(e.status==='decoded-observation'&&finite(e.value)&&e.value>=0)a.totalShieldValue=e.value;else delete a.totalShieldValue;
+  }else if(e.attribute==='CONTROLLED'){
+   if(e.status==='decoded-observation'&&[0,1].includes(e.value))a.controlled=e.value===1;else delete a.controlled;
+  }else if(e.attribute==='COMBAT_RESOURCE_53'){
+   a.combatResources={...a.combatResources};if(e.status==='decoded-observation'&&finite(e.value)&&e.value>=0)a.combatResources[53]=e.value;else delete a.combatResources[53];
+  }else if(e.attribute==='SELF_HP_SHIELD'){
+   if(e.status==='decoded-observation'&&finite(e.value)&&e.value>=0)a.selfShieldValue=e.value;else delete a.selfShieldValue;
+  }else if(e.attribute==='FINAL_EFFECTIVE_CRI_PROB'){
+   if(e.status==='decoded-observation'&&finite(e.value)&&e.value>=0&&e.value<=1)a.finalEffectiveCritProbability=e.value;else delete a.finalEffectiveCritProbability;
+  }else if(e.attribute==='FINAL_EFFECTIVE_BASH_PROB'){
+   if(e.status==='decoded-observation'&&finite(e.value)&&e.value>=0&&e.value<=1)a.finalEffectiveBashProbability=e.value;else delete a.finalEffectiveBashProbability;
+  }else if(e.attribute==='HP'||e.attribute==='HP_MAX'){
+   const field=e.attribute==='HP'?'currentHp':'maxHp';
+   if(e.status==='decoded-observation'&&finite(e.value)&&e.value>=0)a[field]=e.value;else delete a[field];
+   // Only same-generation observed numerator/denominator. No max-HP guess,
+   // cumulative-damage subtraction, clamping, or future-value backfill.
+   if(finite(a.currentHp)&&finite(a.maxHp)&&a.maxHp>0&&a.currentHp<=a.maxHp)a.hpPercent=a.currentHp/a.maxHp*100;else delete a.hpPercent;
+  }else if(property){
    const values={...a.attributeResistanceWithEffects};
    if(e.status==='decoded-observation'&&finite(e.value))values[property[1]]=e.value;else delete values[property[1]];
    a.attributeResistanceWithEffects=values;
@@ -31,20 +66,27 @@ class SimpleRdpsStream {
  }
  observeBuff(e){
   const t=time(e);if(!finite(t))return;this.lastTime=Math.max(t,this.lastTime);
+  if(/clear|aoi|leave/.test(e.kind||'')){
+   this.invalidateBossIdentity(e.targetActorHash,t);
+   for(const [actor,a]of this.attrs)if(!e.targetActorHash||actor===e.targetActorHash){delete a.selfShieldValue;delete a.totalShieldValue;delete a.combatResources;delete a.flying;delete a.controlled;delete a.beHit;delete a.absentOwnPersonalBuffs;delete a.finalEffectiveCritProbability;delete a.finalEffectiveBashProbability;this.stateHistory.push({t,target:actor,attributes:{...a}});}
+  }
   if(this.resynced&&e.targetActorHash&&(e.initial||e.kind==='snapshot'))this.resynced.add(e.targetActorHash);
-  if(!e.buffInstanceHash){if(/clear|aoi|leave/.test(e.kind||''))for(const[k,b]of this.buffs){if(b.targetActorHash===e.targetActorHash){this.closeHistoryInterval(k,t);this.buffs.delete(k);}}return;}
+  if(!e.buffInstanceHash){if(/clear|aoi|leave/.test(e.kind||'')){for(const[k,b]of this.buffs){if(b.targetActorHash===e.targetActorHash){this.closeHistoryInterval(k,t);this.buffs.delete(k);}}const a=this.attrs.get(e.targetActorHash);if(a)delete a.absentPersonalBuffs;}return;}
   const key=e.targetActorHash+':'+e.buffInstanceHash;
-  if(e.kind==='remove_candidate'||/clear|aoi|leave/.test(e.kind||'')){this.closeHistoryInterval(key,t);this.buffs.delete(key);return;}
-  if(!POLICY.rules[e.buffNo]&&!personalBuffs.hasPersonalRule(e.buffNo)&&!registry.rules[e.buffNo]?.selectedForAttribution)return;
+  if(e.kind==='remove_candidate'||/clear|aoi|leave/.test(e.kind||'')){const previous=this.buffs.get(key);this.closeHistoryInterval(key,t);this.buffs.delete(key);if(e.kind==='remove_candidate')this.notePersonalAbsence(previous||e,t);else {const a=this.attrs.get(e.targetActorHash);if(a)delete a.absentPersonalBuffs;}return;}
+  if(!POLICY.rules[e.buffNo]&&!personalBuffs.hasPersonalRule(e.buffNo)&&!personalBuffs.hasContextRule(e.buffNo)&&!registry.rules[e.buffNo]?.selectedForAttribution)return;
   const prior=this.buffs.get(key),duration=e.durationSeconds;
-  if(!finite(duration)||duration<=0)return;
+  const permanent=duration===-1&&(personalBuffs.hasPersonalRule(e.buffNo)||personalBuffs.hasContextRule(e.buffNo));
+  if(!permanent&&(!finite(duration)||duration<=0))return;
   const refresh=!prior||e.rawStartTimestamp!==prior.rawStartTimestamp||e.duration!==prior.duration;
   // Nominal server-clock timestamps are not mixed with local capture time.
-  const expiresMs=refresh?t+duration*1000:prior.expiresMs;
-  const next={...e,expiresMs,ambiguousStackOwner:!!(prior?.ambiguousStackOwner||(e.sourceChanged&&POLICY.rules[e.buffNo]?.maxStacks>1&&e.charge_level>1))};
+  const expiresMs=permanent?Number.MAX_SAFE_INTEGER:refresh?t+duration*1000:prior.expiresMs;
+  const next={...e,expiresMs,ambiguousStackOwner:!!(prior?.ambiguousStackOwner||(e.sourceChanged&&(POLICY.rules[e.buffNo]?.maxStacks>1||personalBuffs.hasSourceBoundStacks(e.buffNo))&&e.charge_level>1))};
   const changed=refresh||['buffNo','level','sourceActorHash','charge_level','ambiguousStackOwner','resourceChangeSuccess'].some(k=>prior?.[k]!==next[k]);
   if(changed)this.closeHistoryInterval(key,t);
   this.buffs.set(key,next);
+  if(personalBuffs.hasOwnAbsenceRule(e.buffNo)&&(e.sourceActorHash===e.targetActorHash||!e.sourceActorHash)){const a=this.attrs.get(e.targetActorHash);if(a?.absentOwnPersonalBuffs?.includes(e.buffNo)){a.absentOwnPersonalBuffs=a.absentOwnPersonalBuffs.filter(id=>id!==e.buffNo);this.stateHistory.push({t,target:e.targetActorHash,attributes:{...a}});}}
+  if(personalBuffs.hasAbsenceRule(e.buffNo)){const a=this.attrs.get(e.targetActorHash);if(a?.absentPersonalBuffs?.includes(e.buffNo)){a.absentPersonalBuffs=a.absentPersonalBuffs.filter(id=>id!==e.buffNo);this.stateHistory.push({t,target:e.targetActorHash,attributes:{...a}});}}
   if(changed)this.openHistoryInterval(key,next,t);
  }
  // Independent closed-interval ledger of past buff coverage, kept separately
@@ -58,13 +100,19 @@ class SimpleRdpsStream {
   if(e.kind==='target-qi-state'){this.weak.set(e.targetActorHash,e.weak);this.stateHistory.push({t,target:e.targetActorHash,weak:e.weak});return;}
   const context=e.identityContext||e;
   if(context.kind==='encounter-identity'||Array.isArray(context.npcs)){
-   if(e.initial&&context.spaceHash!==this.spaceHash){for(const key of this.openBuffHistory.keys())this.closeHistoryInterval(key,t);this.buffs.clear();this.npcs.clear();this.weak.clear();}
+   if(e.initial&&context.spaceHash!==this.spaceHash){for(const key of this.openBuffHistory.keys())this.closeHistoryInterval(key,t);this.buffs.clear();this.npcs.clear();this.weak.clear();this.schemaPreset=null;this.clearNpcIdentity(t);}
    this.spaceHash=context.spaceHash||this.spaceHash;
-   for(const n of context.npcs||[])if(n.entityClass==='Npc')this.npcs.add(n.actorHash);
+   for(const a of this.attrs.values()){delete a.isBoss;delete a.bossIdentityBasis;}
+   this.identityContext=structuredClone(context);
+   if(Number.isSafeInteger(context.preset)&&context.preset>0)this.schemaPreset=context.preset;
+   for(const n of context.npcs||[])if(n.entityClass==='Npc'){
+    this.npcs.add(n.actorHash);
+    if(Number.isSafeInteger(n.npcTemplateNo)&&n.npcTemplateNo>0){const a={...this.attrs.get(n.actorHash),npcTemplateNo:n.npcTemplateNo};this.attrs.set(n.actorHash,a);this.stateHistory.push({t,target:n.actorHash,attributes:{...a}});}
+   }
   }
   if(e.kind!=='boss-battle-state')return;
   if(e.active&&!e.initial&&e.previousActive===false){
-   this.current={startObservedAt:e.observedAt,startMs:t,endMs:null,spaceHash:e.spaceHash,hits:[],npcNo:null,counters:null,overflow:false};
+   this.current={startObservedAt:e.observedAt,startMs:t,endMs:null,spaceHash:e.spaceHash,schemaPreset:this.schemaPreset??null,hits:[],npcNo:null,counters:null,overflow:false};
    this.buffHistory=this.buffHistory.filter(iv=>iv.endMs>=t-1000);
    // Keep one state baseline per actor/field plus observations in this pull.
    const states=new Map();for(const row of this.stateHistory)states.set(row.target+('attributes' in row?':attributes':':weak'),row);
@@ -79,10 +127,10 @@ class SimpleRdpsStream {
   if(this.seen.has(id))return;this.seen.add(id);if(this.seen.size>200000)this.seen.delete(this.seen.values().next().value);
   if(e.sourceActorHash===e.targetActorHash||!this.npcs.has(e.targetActorHash))return;
   const effects=[];const unsupported=new Set();
-  for(const[k,b]of this.buffs){if(b.expiresMs<=t){this.buffs.delete(k);continue;}
-   if([e.sourceActorHash,e.targetActorHash].includes(b.targetActorHash)){effects.push(b);if(!POLICY.rules[b.buffNo]&&!personalBuffs.hasPersonalRule(b.buffNo))unsupported.add(b.buffNo);}
+  for(const[k,b]of this.buffs){if(b.expiresMs<=t){this.buffs.delete(k);this.notePersonalAbsence(b,t);continue;}
+   if([e.sourceActorHash,e.targetActorHash].includes(b.targetActorHash)){effects.push(b);if(!POLICY.rules[b.buffNo]&&!personalBuffs.hasPersonalRule(b.buffNo)&&!personalBuffs.hasContextRule(b.buffNo))unsupported.add(b.buffNo);}
   }
-  const hitInput={...e,effects,targetAttributes:{...this.attrs.get(e.targetActorHash)},targetWeak:this.weak.get(e.targetActorHash)??null};
+  const hitInput={...e,effects,schemaPreset:this.schemaPreset??null,sourceAbsentBuffs:[...(this.attrs.get(e.sourceActorHash)?.absentPersonalBuffs||[])],sourceAttributes:{...this.attrs.get(e.sourceActorHash)},targetAttributes:{...this.attrs.get(e.targetActorHash)},targetWeak:this.weak.get(e.targetActorHash)??null};
   const result=simpleHitCredit(hitInput);
   const gapUnknown=this.resynced&&[e.sourceActorHash,e.targetActorHash].some(a=>!this.resynced.has(a));
   const contextIssues=[...[...unsupported].map(n=>'unsupported_effect:'+n),...(gapUnknown?['buff_state_unknown_after_transport_gap']:[])];
@@ -101,7 +149,15 @@ class SimpleRdpsStream {
   // of the approved method: exact server-delta minus captured-delta per tick).
   if(!this.current.statHistory)this.current.statHistory=[];
   const t=Date.parse(s.observedAt);
-  if(finite(t))this.current.statHistory.push({t,transportRecordOrdinal:s.transportRecordOrdinal,actors:new Map(this.current.counters.actors.map(a=>[a.idHash,a.damage])),jump:{effects:[...this.buffs.values()].filter(b=>b.expiresMs>t).map(b=>({...b})),revisions:new Map(this.buffRevisions),attributes:new Map([...this.attrs].map(([k,v])=>[k,structuredClone(v)])),weak:new Map(this.weak)}});
+  // A boss-only personal branch needs the existing full scoped identity tuple.
+  // Never infer boss from every Npc, the PVE policy, or statistic npcNo alone.
+  // Only future hits/jumps use this observation; frozen earlier hits stay intact.
+  const identity=resolveEncounterIdentity(this.identityContext,s.npcNo);
+  if(identity&&finite(t)){
+   const target=identity.bossActorHash,a={...this.attrs.get(target),isBoss:true,bossIdentityBasis:'validated-scoped-encounter-tuple'};
+   this.attrs.set(target,a);this.stateHistory.push({t,target,attributes:{...a}});
+  }
+  if(finite(t))this.current.statHistory.push({t,transportRecordOrdinal:s.transportRecordOrdinal,actors:new Map(this.current.counters.actors.map(a=>[a.idHash,a.damage])),jump:{schemaPreset:this.schemaPreset??null,effects:[...this.buffs.values()].filter(b=>b.expiresMs>t).map(b=>({...b})),revisions:new Map(this.buffRevisions),attributes:new Map([...this.attrs].map(([k,v])=>[k,structuredClone(v)])),weak:new Map(this.weak)}});
   if(this.current.statHistory.length>20000){this.current.statHistory=this.current.statHistory.slice(-10000);this.current.historyIncomplete=true;}
  }
  snapshot(){
@@ -195,7 +251,7 @@ class SimpleRdpsStream {
   const totalDamage=actors.reduce((s,a)=>s+a.damage,0),totalAttributedDamage=actors.reduce((s,a)=>s+a.damage-a.externalGain+a.externalGiven,mechanicGiven);
   const conservation={unit:'damage',totalGiven,totalTaken,givenTakenError:totalGiven-totalTaken,rdpsDamageError:totalAttributedDamage-totalDamage};
   if(Object.values(conservation).some(v=>typeof v==='number'&&!finite(v))||Math.abs(conservation.givenTakenError)>1e-9*Math.max(1,totalGiven,totalTaken)||Math.abs(conservation.rdpsDamageError)>1e-9*Math.max(1,totalDamage))return {...meta,reasons:['estimate_not_conserved']};
-  return {...meta,status:'estimated',npcNo:c.npcNo,encounterAnchor:c.startObservedAt,spaceHash:c.spaceHash,throughObservedAt:s.observedAt,actors,mechanics:mechanics.filter(m=>m.externalGiven>0||this.buffHistory.some(b=>POLICY.mechanicProviders[m.id].ruleIds.includes(String(b.buffNo))&&roster.has(b.targetActorHash)&&b.startMs<=cutoff&&b.endMs>=Date.parse(c.startObservedAt))).map(m=>({...m,partial:POLICY.mechanicProviders[m.id].ruleIds.some(id=>issues.has('resource_success_unknown:'+id)||issues.has('gap:resource_success_unknown:'+id))})),transfers:[...transfers.values()],conservation,coverage:{encounterSchools:Object.fromEntries(encounterSchools),kind:'observed-hits-plus-gap-reconstruction',transportGaps:c.transportGaps||0,hits,deferredHits,hitsWithSkippedRules:uncreditedHits,personalBaselineKnownHits,personalBaselineUnknownHits:hits-personalBaselineKnownHits,observedPersonalBaselineHits,personalBuffBaseline:POLICY.personalBuffBaseline,reconstructedGapSeconds:reconstructedHits,reconstructedGain,gapSeconds,timingBasis:'statistic-jump-buff-snapshot-estimate',reconciliation:'cumulative-residual; late notifications retract most recent unmatched intervals',fullAttribution:false},reasons:[...issues.keys()],limitations:['首版简化倍率，不代表真实角色属性或精确游戏公式。','已采命中与缺口估算分开记账；缺口估算不增加命中次数、技能明细或原始伤害。','减防使用防御比值近似；幻鸣、惧刃减抗倍率按授权应用全部气血伤害。惧刃使用属性穿透版本基准30；按已采技能所属流派（或明确观测的当前武学）选择对应实测抗性；该通道缺测时不计入。流派未知时保留五系已观测最小增幅回退；缺口沿用本场固定流派，整场流派未知时仍用此回退，不猜伤害属性构成，整条气血近似仍可能高估。惧刃8%及易伤10%的指定武学按用户口径沿用整场固定具体流派；已知非普通伤害排除，缺少伤害类型的气血部分按普通伤害简化估算并标记。惊神仍要求确切持续伤害或高额流血判定点，不用固定流派代替这些条件。','霖、气竭5%与八方易伤同区加算；区内按增量比例、区间按对数权重分摊。','按已观察 buff 的等级、层数、有效区间和判定表条件纳入个人增伤及攻击区分母；个人基线覆盖仍不完整，未观察项不补造。易伤条件额外10%需武学与伤害适用条件均已知。','未支持的条件效果单独列出；自身增益不外转。','缺口按服务器累计与已收逐击的差额定位到接收区间（通常约1秒），后到逐击会撤回最近未匹配差额；这不是精确的服务器命中时刻。缺口使用统计跳变到达时冻结的增益及气竭状态；区间内buff变化单独标记估算，不按时间均摊；指定武学条件沿用本场固定具体流派，持续伤害等其他技能条件未知时不启用。目标仅在同期该玩家已采命中指向唯一目标时近似使用；否则跳过目标相关规则。首个统计前、传输断流或历史不全的缺口不补算。0估算增益不代表确认无增益。']};
+  return {...meta,status:'estimated',npcNo:c.npcNo,encounterAnchor:c.startObservedAt,spaceHash:c.spaceHash,throughObservedAt:s.observedAt,actors,mechanics:mechanics.filter(m=>m.externalGiven>0||this.buffHistory.some(b=>POLICY.mechanicProviders[m.id].ruleIds.includes(String(b.buffNo))&&roster.has(b.targetActorHash)&&b.startMs<=cutoff&&b.endMs>=Date.parse(c.startObservedAt))).map(m=>({...m,partial:POLICY.mechanicProviders[m.id].ruleIds.some(id=>issues.has('resource_success_unknown:'+id)||issues.has('gap:resource_success_unknown:'+id))})),transfers:[...transfers.values()],conservation,coverage:{encounterSchools:Object.fromEntries(encounterSchools),kind:'observed-hits-plus-gap-reconstruction',transportGaps:c.transportGaps||0,hits,deferredHits,hitsWithSkippedRules:uncreditedHits,personalBaselineKnownHits,personalBaselineUnknownHits:hits-personalBaselineKnownHits,observedPersonalBaselineHits,personalBuffBaseline:POLICY.personalBuffBaseline,reconstructedGapSeconds:reconstructedHits,reconstructedGain,gapSeconds,timingBasis:'statistic-jump-buff-snapshot-estimate',reconciliation:'cumulative-residual; late notifications retract most recent unmatched intervals',fullAttribution:false},reasons:[...issues.keys()],limitations:['首版简化倍率，不代表真实角色属性或精确游戏公式。','已采命中与缺口估算分开记账；缺口估算不增加命中次数、技能明细或原始伤害。','减防沿用每减少1点外防增加0.0155%伤害系数。穿透区保留原倍率和区间分摊，外抗减益原归因结果乘流派RD外功占比，属性抗性减益原归因结果乘RD属攻占比。RD占比是流派级近似，不代表逐击实际伤害类型；流派或属性抗性未知时跳过对应穿透归因。外穿基准63.78，属穿基准30，个人穿透保留在分母。惧刃8%及易伤10%的指定武学按用户口径沿用整场固定具体流派；已知非普通伤害排除，缺少伤害类型的气血部分按普通伤害简化估算并标记。惊神仍要求确切持续伤害或高额流血判定点，不用固定流派代替这些条件。','攻击区保留原倍率、个人攻击分母和区间分摊；按静态规则的外功、属攻生效通道拆分原归因，分别乘配置的外功系数和属攻系数后相加。破竹风为0.78+0.27，不归一化；扶风只作用属攻，烁鼓同时作用外功和属攻；个人攻击基线按已审计外功/属性通道分别进入分母，各通道先计算攻击区贡献再后置加权；非攻击区保留原参考分摊。霖、气竭5%与八方易伤同区加算；区内按增量比例、区间按对数权重分摊。','按已观察 buff 的等级、层数、有效区间和判定表条件纳入个人增伤及攻击区分母；个人基线覆盖仍不完整，未观察项不补造。易伤条件额外10%需武学与伤害适用条件均已知。','真气失衡气竭普通伤害10%进入独立区；鸣金系数按用户指定折算20点鸣金穿透，仅鸣金系按RD属攻分量归因。施加者未知或条件未知不补算；相同基线去重。未支持的条件效果单独列出；自身增益不外转。','缺口按服务器累计与已收逐击的差额定位到接收区间（通常约1秒），后到逐击会撤回最近未匹配差额；这不是精确的服务器命中时刻。缺口使用统计跳变到达时冻结的增益及气竭状态；区间内buff变化单独标记估算，不按时间均摊；指定武学条件沿用本场固定具体流派，持续伤害等其他技能条件未知时不启用。目标仅在同期该玩家已采命中指向唯一目标时近似使用；否则跳过目标相关规则。首个统计前、传输断流或历史不全的缺口不补算。0估算增益不代表确认无增益。']};
  }
 }
 

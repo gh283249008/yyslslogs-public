@@ -16,7 +16,7 @@ SUPPLEMENT_SHA='99d39fc6da4f13fb35bf976e74ba371e8eac29a09bce0e47a554c2652842f853
 FIELDS = frozenset(('W_DEF', 'W_ATK_PEN_RDC', 'W_ATK_PEN',
  'CORRECTABLE_W_ATK_PEN_RDC', 'CORRECTABLE_W_ATK_PEN', 'ATK_PEN_CORRECT_PARA',
  'MIN_W_ATK', 'MAX_W_ATK', 'W_ATK_IGR', 'W_ATK_IGR_RDC', 'W_ATK_SCALE', 'W_DEF_SCALE',
- 'PRO_DEF_A', 'PRO_DEF_B', 'PRO_DEF_C', 'PRO_DEF_D', 'PRO_DEF_E'))
+ 'PRO_DEF_A', 'PRO_DEF_B', 'PRO_DEF_C', 'PRO_DEF_D', 'PRO_DEF_E', 'HP', 'HP_MAX', 'SELF_HP_SHIELD', 'TOTAL_HP_SHIELD', 'COMBAT_RESOURCE_53', 'CONTROLLED', 'FINAL_EFFECTIVE_CRI_PROB', 'FINAL_EFFECTIVE_BASH_PROB'))
 
 def exact_int(value):
  if isinstance(value, dict): value=value.get('int64Decimal')
@@ -32,6 +32,11 @@ def decode_salted_float64(value, salt):
  return result
 
 class AttributeStream(BuffStream):
+ def value(self,v):
+  # This resource key is sent literally, outside both indexed dictionaries.
+  # Other byte strings retain the base parser's privacy-preserving hashes.
+  if v.HasField('svalue') and v.svalue in (b'self_hp_shield',b'hp_shield',b'53'):return v.svalue.decode('ascii')
+  return super().value(v)
  def __init__(self,max_actors=4096):
   super().__init__()
   supplement_bytes=SUPPLEMENT.read_bytes()
@@ -105,8 +110,16 @@ class AttributeStream(BuffStream):
     if m.path:path=[self.value(x) for x in m.path]
     if m.HasField('name'):path=path+[self.value(m.name)]
     path=[x for x in path if x is not None]
-    if path and path[0]=='attr' and len(path)<=2:
+    own_shield=path==['buffs_data','self_hp_shield']
+    direct_field='SELF_HP_SHIELD' if own_shield else 'TOTAL_HP_SHIELD' if path==['buffs_data','hp_shield'] else 'COMBAT_RESOURCE_53' if len(path)==3 and path[:2]==['attr','dynamic_attr'] and path[2] in ('53',53) else 'CONTROLLED' if path==['buffs_data','buff_ctrl','bid'] else None
+    if path==['buffs_data'] and not initial and not m.HasField('dict'):
+     for field in ('SELF_HP_SHIELD','TOTAL_HP_SHIELD','CONTROLLED'):rows.append({'targetActorHash':actor,'initial':False,'path':['attr',field],'oper':m.oper,'hasValue':False,'directResource':True})
+    if path in (['attr','dynamic_attr'],['buffs_data','buff_ctrl']) and not initial and not m.HasField('dict'):
+     field='COMBAT_RESOURCE_53' if path[0]=='attr' else 'CONTROLLED'
+     rows.append({'targetActorHash':actor,'initial':False,'path':['attr',field],'oper':m.oper,'hasValue':False,'directResource':True})
+    if direct_field or path and path[0]=='attr' and len(path)<=2:
      r={'targetActorHash':actor,'targetClass':self.classes.get(actor),'initial':initial,'path':path,'oper':m.oper,'hasValue':m.HasField('value')}
+     if direct_field:r.update(path=['attr',direct_field],directResource=True)
      if r['hasValue']:
       r['value']=self.value(m.value)
       r['wireValueKind']=next((f.name for f,v in m.value.ListFields()),None)
@@ -159,9 +172,21 @@ class AttributeStream(BuffStream):
    try:
     if state is None:raise ValueError('unknown_actor')
     if not r.get('hasValue'):raise ValueError('missing_property_value')
-    if r.get('oper') not in ((45,46) if r.get('initial') else (7,)):raise ValueError('unvalidated_property_operation')
+    allowed=(45,46) if r.get('initial') else (7,)
+    # Numeric buffs_data resources use opcode7 for integer assignments and
+    # opcode8 for float assignments, as in the existing resource projection.
+    # Keep this allowance scoped to the explicit buffs_data shield paths.
+    if field in ('SELF_HP_SHIELD','TOTAL_HP_SHIELD') and r.get('directResource') and r.get('wireValueKind') in ('fvalue','dvalue'):allowed=allowed+(8,)
+    if r.get('oper') not in allowed:raise ValueError('unvalidated_property_operation')
     kind=r.get('wireValueKind');raw=r['value']
-    if kind in ('fvalue','dvalue'):
+    if field=='CONTROLLED' and r.get('directResource'):
+     if kind!='svalue' or not isinstance(raw,dict) or not isinstance(raw.get('length'),int):raise ValueError('invalid_control_bid')
+     value=1 if raw['length']>0 else 0;codec='direct_buff_ctrl_bid_length'
+    elif field in ('SELF_HP_SHIELD','TOTAL_HP_SHIELD','COMBAT_RESOURCE_53') and r.get('directResource'):
+     if kind not in ('ivalue','fvalue','dvalue') or isinstance(raw,bool) or not isinstance(raw,(int,float)) or not math.isfinite(raw) or raw<0:raise ValueError('invalid_self_shield')
+     value=float(raw);codec='direct_buffs_data_self_hp_shield' if field=='SELF_HP_SHIELD' else 'direct_buffs_data_hp_shield' if field=='TOTAL_HP_SHIELD' else 'direct_dynamic_resource_53'
+    elif field in ('SELF_HP_SHIELD','TOTAL_HP_SHIELD','COMBAT_RESOURCE_53','CONTROLLED'):raise ValueError('unvalidated_direct_resource_path')
+    elif kind in ('fvalue','dvalue'):
      if isinstance(raw,bool) or not isinstance(raw,(int,float)) or not math.isfinite(raw):raise ValueError('invalid_direct_float')
      value=float(raw);codec='direct_protobuf_float'
     elif kind in (None,'ivalue'):

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "id": "yysls-attack-source-weights-20261103-v3",
+  "basis": "user-confirmed post-credit coefficients; wind uses its originally reported attribute coefficient 0.27 without normalization; other schools retain the prior complementary attribute coefficients",
+  "byLiupai": {
+    "1": {
+      "liupaiName": "鸣金虹",
+      "physical": 0.79,
+      "attribute": 0.21,
+      "reportedAttribute": 0.19
+    },
+    "2": {
+      "liupaiName": "裂石钧",
+      "physical": 0.74,
+      "attribute": 0.26,
+      "reportedAttribute": 0.26
+    },
+    "3": {
+      "liupaiName": "牵丝玉",
+      "physical": 0.76,
+      "attribute": 0.24,
+      "reportedAttribute": 0.22
+    },
+    "5": {
+      "liupaiName": "破竹风",
+      "physical": 0.78,
+      "attribute": 0.27,
+      "reportedAttribute": 0.27
+    },
+    "6": {
+      "liupaiName": "鸣金影",
+      "physical": 0.87,
+      "attribute": 0.13,
+      "reportedAttribute": 0.19
+    },
+    "7": {
+      "liupaiName": "裂石威",
+      "physical": 0.76,
+      "attribute": 0.24,
+      "reportedAttribute": 0.21
+    },
+    "8": {
+      "liupaiName": "牵丝霖",
+      "physical": 0.76,
+      "attribute": 0.24,
+      "reportedAttribute": 0.3
+    },
+    "10": {
+      "liupaiName": "破竹尘",
+      "physical": 0.75,
+      "attribute": 0.25,
+      "reportedAttribute": 0.26
+    },
+    "12": {
+      "liupaiName": "破竹鸢",
+      "physical": 0.76,
+      "attribute": 0.24,
+      "reportedAttribute": 0.25
+    },
+    "13": {
+      "liupaiName": "牵丝翊",
+      "physical": 0.75,
+      "attribute": 0.25,
+      "reportedAttribute": 0.24
+    },
+    "14": {
+      "liupaiName": "破竹樽",
+      "physical": 0.74,
+      "attribute": 0.26,
+      "reportedAttribute": 0.25
+    }
+  }
+}

@@ -5,6 +5,11 @@ LEGACY_INDEX_SHA='b274d7be7fecfdd1fa94532d818c07ccdba1d56d35f2e6bd9845a41fa9f052
 BUILD_SHA=os.environ.get('YYSLS_CLIENT_BUILD_SHA256','').lower()
 catalog=json.loads((ROOT/'config/schema-profiles.json').read_text(encoding='utf-8'))
 profile_id=catalog['byClientSha256'].get(BUILD_SHA)
+external=os.environ.get('YYSLS_VERIFIED_SCHEMA') if BUILD_SHA else None
+if profile_id is None and external:
+ spec=json.loads(external)
+ if spec['clientBuildSha256']!=BUILD_SHA:raise ValueError('Verified schema client mismatch')
+ profile_id=spec['id'];catalog['profiles'][profile_id]=spec
 if profile_id is None:
  if BUILD_SHA:raise ValueError('Unsupported client hash for property schema')
  profile_id=catalog['legacyReplayProfileId']

@@ -1,17 +1,21 @@
 {
-  "id": "yysls-cn-simple-rdps-20261101-v10",
+  "id": "yysls-cn-simple-rdps-20261104-v46",
   "enabled": true,
   "label": "rDPS 简化估算",
   "resource": "HP",
-  "authorization": "用户要求首版简化：幻鸣作用整条伤害，攻击按1+百分比，减防近似。随后明确同区个人增益与霖加算、移除团辅时保留个人项；气竭5%为独立5秒条件增益，与霖同区加算。",
-  "defenseModel": "defense-without-external / defense-with-external",
+  "authorization": "用户要求首版简化：幻鸣作用整条伤害，攻击按1+百分比。随后明确同区个人增益与霖加算、移除团辅时保留个人项；气竭5%为独立5秒条件增益，与霖同区加算。2026-11-03指定减防区每减少1点外防，伤害系数增加0.0155%。2026-11-03 穿透相关外抗减益及属性抗性减益按各流派RD外功/属攻伤害来源占比分量归因。2026-11-03 用户指定攻击区11流派外功与属攻系数，按原数值不归一化，分别计入对应伤害分量。2026-11-03 用户纠正：保留原攻击区/穿透区计算与区间分摊，仅对原归因结果加权，且加权后不得超过原结果。攻击权重为RD外功占比×所给外功系数+RD属攻占比×所给属攻系数。2026-11-03 用户最终示例确认：破竹风原攻击区归因1000，乘外功系数0.78得到780；属攻占比取1-外功系数，不二次相加。2026-11-03 用户最终选择：攻击区先按原倍率和原个人基线计算外功、属攻两份原归因，再分别乘所给外功系数和其互补属攻系数后相加；扶风仅属攻，烁鼓两区。暂不调整个人基线通道归属。2026-11-03 用户进一步指定破竹风属攻系数直接取原报0.27，与外功0.78不归一化；允许烁鼓等双通道效果后置归因大于原归因，仍保持given与taken对等。 2026-11-03 用户确认七项个人攻击基线按实际外功/属性通道分开，各通道先算原攻击区贡献再按线上权重加权；其他缺口搁置。 2026-11-03用户明确将真气失衡200200接入rDPS：气竭普通HP增伤10%走独立区；鸣金系数10%按20点鸣金穿透，仅鸣金系生效；施加者贡献与相同基线去重。 2026-11-04 用户要求步乱缺少独立技能次数、最小值、最大值校验时仍允许按模型、技能结算总量和唯一匹配的伤害缺口估算，并在归因明细标记估算。",
+  "defenseModel": "linear-damage-gain-per-defense-point-v1",
+  "defenseDamageGainPerPoint": 0.000155,
   "timingModel": "packet-reception-order",
   "unobservedDamagePolicy": "statistic-jump-buff-snapshot-estimate-with-separate-ledger",
-  "allocationPolicy": "yysls-additive-within-pool-log-between-pools-v1",
+  "allocationPolicy": "yysls-original-pool-credit-channel-post-weight-v5",
   "allocationReference": "evidence/p1/fflogs-algorithm-20261019/findings.json",
   "damagePoolEvidence": "evidence/p1/rdps-rules/pure-damage-identifiability-review.json",
   "compatibleWithoutRules": {
-    "3a23e6711142f3f5fc6033713ad8737a61f8d380e64448e067c186c4721966fa": ["1002148", "1002149"]
+    "3a23e6711142f3f5fc6033713ad8737a61f8d380e64448e067c186c4721966fa": [
+      "1002148",
+      "1002149"
+    ]
   },
   "rules": {
     "109710": {
@@ -97,34 +101,64 @@
       "attributeResistanceReduction": 16,
       "durationSeconds": 15,
       "priority": 1,
-      "attributeDamageScope": "whole-hp-estimate",
-      "attributeResistanceChannelPolicy": "skill-school-observed-resistance-with-explicit-five-channel-fallback",
-      "authorization": "用户2026-10-21整条气血减抗简化口径保留，属性穿透基准30；2026-10-23按具体流派对应抗性，并按本场固定流派补指定武学8%。具体通道抗性未观测不补零，整场流派未知保留五系最小增幅回退。",
+      "attributeDamageScope": "rd-school-attribute-share",
+      "attributeResistanceChannelPolicy": "identified-school-observed-resistance-only",
+      "authorization": "用户2026-10-21整条气血减抗简化口径保留，属性穿透基准30；2026-10-23按具体流派对应抗性，并按本场固定流派补指定武学8%。具体通道抗性未观测不补零，整场流派未知保留五系最小增幅回退。2026-11-03 改为仅对该流派RD属攻伤害来源占比分量生效；流派未知不计算穿透归因。",
       "evidence": "evidence/p1/rdps-rules/juren-jingshen-locale.json#200176",
       "conditionalSchoolIds": [
         2
       ]
+    },
+    "200200": {
+      "name": "真气失衡",
+      "holder": "target",
+      "family": "qi-imbalance",
+      "pool": "separate",
+      "rate": 0.1,
+      "priority": 1,
+      "levels": [
+        1
+      ],
+      "requiresWeak": true,
+      "requiresNormalDamage": true,
+      "replacesPersonalBaseline": true,
+      "attributePenetration": {
+        "channel": "A",
+        "points": 20
+      },
+      "authorization": "用户2026-11-03明确20点鸣金穿透折算；沿用服务器穿透区抗性函数、30基础属穿及RD属攻分量加权；普通伤害与气竭须有证据。",
+      "evidence": "outputs/qi-imbalance-review-20261103-r1/proof.json"
     },
     "200209": {
       "name": "扶风",
       "holder": "source",
       "family": "attack",
       "rate": 0.03,
-      "priority": 1
+      "priority": 1,
+      "attackChannels": [
+        "attribute"
+      ]
     },
     "200216": {
       "name": "烁鼓",
       "holder": "source",
       "family": "attack",
       "rate": 0.06,
-      "priority": 2
+      "priority": 2,
+      "attackChannels": [
+        "physical",
+        "attribute"
+      ]
     },
     "200225": {
       "name": "扶风",
       "holder": "source",
       "family": "attack",
       "rate": 0.06,
-      "priority": 1
+      "priority": 1,
+      "attackChannels": [
+        "attribute"
+      ]
     },
     "200226": {
       "name": "扶风·自身强化",
@@ -132,7 +166,10 @@
       "family": "attack",
       "rate": 0.09,
       "priority": 1,
-      "providerOnly": true
+      "providerOnly": true,
+      "attackChannels": [
+        "attribute"
+      ]
     },
     "200227": {
       "name": "扶风·自身强化",
@@ -140,14 +177,21 @@
       "family": "attack",
       "rate": 0.12,
       "priority": 1,
-      "providerOnly": true
+      "providerOnly": true,
+      "attackChannels": [
+        "attribute"
+      ]
     },
     "200228": {
       "name": "烁鼓",
       "holder": "source",
       "family": "attack",
       "rate": 0.12,
-      "priority": 2
+      "priority": 2,
+      "attackChannels": [
+        "physical",
+        "attribute"
+      ]
     },
     "200229": {
       "name": "烁鼓·自身强化",
@@ -155,7 +199,11 @@
       "family": "attack",
       "rate": 0.12,
       "priority": 2,
-      "providerOnly": true
+      "providerOnly": true,
+      "attackChannels": [
+        "physical",
+        "attribute"
+      ]
     },
     "200230": {
       "name": "烁鼓·自身强化",
@@ -163,14 +211,21 @@
       "family": "attack",
       "rate": 0.18,
       "priority": 2,
-      "providerOnly": true
+      "providerOnly": true,
+      "attackChannels": [
+        "physical",
+        "attribute"
+      ]
     },
     "200237": {
       "name": "扶风",
       "holder": "source",
       "family": "attack",
       "rate": 0.06,
-      "priority": 1
+      "priority": 1,
+      "attackChannels": [
+        "attribute"
+      ]
     },
     "200238": {
       "name": "扶风·自身强化",
@@ -178,7 +233,10 @@
       "family": "attack",
       "rate": 0.12,
       "priority": 1,
-      "providerOnly": true
+      "providerOnly": true,
+      "attackChannels": [
+        "attribute"
+      ]
     },
     "221005": {
       "name": "离猎",
@@ -186,22 +244,6 @@
       "family": "lilie",
       "rate": 0.02,
       "priority": 1
-    },
-    "1058031": {
-      "name": "增伤",
-      "holder": "source",
-      "family": "lin",
-      "pool": "damage",
-      "rate": 0.1,
-      "priority": 1
-    },
-    "1058032": {
-      "name": "增伤·霖",
-      "holder": "source",
-      "family": "lin",
-      "pool": "damage",
-      "rate": 0.24,
-      "priority": 2
     },
     "1002148": {
       "name": "破核·首控",
@@ -224,6 +266,22 @@
       "activation": "observed-buff",
       "creditProviderId": "mechanic:pohe",
       "evidence": "docs/knowledge/pohe-20261101.json"
+    },
+    "1058031": {
+      "name": "增伤",
+      "holder": "source",
+      "family": "lin",
+      "pool": "damage",
+      "rate": 0.1,
+      "priority": 1
+    },
+    "1058032": {
+      "name": "增伤·霖",
+      "holder": "source",
+      "family": "lin",
+      "pool": "damage",
+      "rate": 0.24,
+      "priority": 2
     },
     "1870156": {
       "name": "血祭",
@@ -294,7 +352,7 @@
   },
   "personalBuffBaseline": {
     "file": "config/personal-buff-baselines.json",
-    "sha256": "22ed88fd43a233816ab430d651ec2245ec873370020eeafc88956f8aa1b82c9c",
+    "sha256": "d0dadf0ad13887022b475c37d37bbc768c52b700f1d02c905c9ed9ee170fb422",
     "completeness": "observed-audited-effects-only"
   },
   "kungfuAttributeChannels": {
@@ -312,7 +370,10 @@
   "mechanicProviders": {
     "mechanic:pohe": {
       "name": "破核",
-      "ruleIds": ["1002148", "1002149"]
+      "ruleIds": [
+        "1002148",
+        "1002149"
+      ]
     },
     "mechanic:xueji": {
       "name": "血祭",
@@ -320,5 +381,129 @@
         "1870156"
       ]
     }
+  },
+  "recordedDamage": {
+    "id": "buluan-recorded-estimate-v11",
+    "enabled": true,
+    "allowMissingIndependentDetail": true,
+    "name": "步乱",
+    "buffNo": 221004,
+    "prerequisiteBuffNo": 221005,
+    "rate": 0.2,
+    "maxGapDelayMs": 2000,
+    "maxWindows": 10000,
+    "maxContextEvents": 100000,
+    "models": {
+      "431204": {
+        "name": "失魂落魄",
+        "skillId": "23700043",
+        "ratio": 0.12,
+        "normalDamageOnly": true,
+        "requiredSourceBuffs": [
+          10250242,
+          10250250
+        ],
+        "includeRemove": true,
+        "starts": [
+          {
+            "buffNo": 431203,
+            "cause": "seven-stack-conversion",
+            "order": "after",
+            "removalStacks": 7,
+            "includeApply": false
+          },
+          {
+            "buffNo": 431213,
+            "cause": "timed-reapplication",
+            "order": "before",
+            "durationSeconds": 0.1,
+            "requireParentRemoval": true,
+            "includeApply": true
+          }
+        ],
+        "excludedCalcpointTag": 1103
+      },
+      "10245231": {
+        "name": "鼠鼠追命",
+        "skillId": "23700033",
+        "ratio": 0.3,
+        "calcpointIds": [
+          2070000102,
+          2070000104,
+          2070000105,
+          2070000106,
+          2070000107
+        ],
+        "rejectBoundaryHits": true
+      },
+      "10270252": {
+        "name": "醉杀",
+        "skillId": "2050310511",
+        "ratio": 0.2,
+        "calcpointTag": 1121,
+        "prestart": {
+          "enabled": true,
+          "mode": "complete-in-battle-origins",
+          "maxOriginsPerWindow": 10000
+        }
+      }
+    },
+    "seriesModels": {
+      "10260255": {
+        "name": "天威",
+        "skillId": "20901210",
+        "ratio": 0.4,
+        "ticks": 3,
+        "tickIntervalMs": 1000,
+        "markerBuffNo": 10260257,
+        "markerDurationSeconds": 17,
+        "calcpointClass": 104,
+        "excludedCalcpointTag": 1104,
+        "maxRecordDistance": 1
+      }
+    },
+    "requiredValidation": "server-total-count-min-max-and-unique-exact-residual",
+    "unsupportedSkills": [],
+    "evidence": "docs/knowledge/history/37.md",
+    "partition": {
+      "enabled": true,
+      "mode": "observed-self-or-roster-hits",
+      "requireWholeFightClosure": true,
+      "maxExcludedHits": 100000
+    },
+    "wholeSource": {
+      "enabled": true,
+      "mode": "single-validated-model-complete-source",
+      "skillIds": [
+        "23700043"
+      ],
+      "maxOrigins": 100000,
+      "retainObservedExcluded": true
+    },
+    "pendingMembership": {
+      "enabled": true,
+      "mode": "independent-ordinary-skill-settlement",
+      "maxHits": 100000,
+      "maxPendingHits": 10000
+    }
+  },
+  "combatMode": "pve-only",
+  "penetrationPolicy": {
+    "mode": "version-baseline-plus-observed-personal",
+    "baselineFile": "config/attribution-baselines.json",
+    "scope": "original-pool-credit-post-weight",
+    "unknownResistance": "skip",
+    "authorization": "2026-11-03 用户指定春雷及后续穿透类统一参考幻鸣/惧刃，固定外功63.78、属性30。2026-11-03 根据用户表格RD行按流派拆分外功和属攻伤害来源占比，仅对应分量计算穿透区归因。2026-11-03 明确改为原归因结果后乘RD对应占比，不改原穿透倍率。",
+    "unknownSchool": "skip-penetration-credit"
+  },
+  "damageComposition": {
+    "file": "config/rd-damage-composition.json",
+    "sha256": "31b7159d6f3dcd5b46f5ad1a8a36d152ba102c6b5f8b8ed570a21fd952d29b11",
+    "basis": "workbook-汇总-RD"
+  },
+  "attackSourceWeights": {
+    "file": "config/attack-source-weights.json",
+    "sha256": "4154ec8141272b6d483be6fb809f5b1e67df06d6acff6e78bd03efc53b436560",
+    "basis": "original attack credit is split by supported attack channels, then physical and directly configured attribute weights are applied to their respective portions"
   }
 }

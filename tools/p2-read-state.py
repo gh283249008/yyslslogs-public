@@ -4,6 +4,9 @@ q=pathlib.Path(sys.argv[1]);module=json.loads((q/'module.json').read_text(encodi
 catalog=json.loads((pathlib.Path(__file__).resolve().parents[1]/'config/client-build.json').read_text(encoding='utf-8'))
 image_hash=hashlib.sha256(pathlib.Path(module['modulePath']).read_bytes()).hexdigest()
 profile=next((p for p in [catalog]+catalog.get('profiles',[]) if p['imageSha256']==image_hash),None)
+if profile is None:
+ supplied=json.load(sys.stdin) if not sys.stdin.isatty() else None
+ if isinstance(supplied,dict) and supplied.get('imageSha256')==image_hash:profile=supplied
 if profile is None:raise RuntimeError('Unsupported client build; state offsets not applied')
 offsets={k:int(v,0) for k,v in profile['stateOffsets'].items()}
 k=ctypes.WinDLL('kernel32',use_last_error=True);k.OpenProcess.restype=ctypes.c_void_p;k.OpenProcess.argtypes=[ctypes.c_uint32,ctypes.c_bool,ctypes.c_uint32];k.ReadProcessMemory.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_void_p,ctypes.c_size_t,ctypes.POINTER(ctypes.c_size_t)];k.CloseHandle.argtypes=[ctypes.c_void_p]

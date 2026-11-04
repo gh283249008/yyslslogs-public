@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "yysls-rd-damage-composition-20261103-v1",
+  "basis": "RD rows in 汇总; damage-source contribution approximation, not per-hit damage type",
+  "workbook": "各流派外功属攻伤害占比.xlsx",
+  "workbookSha256": "a9771927b427516d85e0bb53f685aba11479f8e2deb4eb0b6a380dd9aefe3f31",
+  "byLiupai": {
+    "1": {
+      "liupaiName": "鸣金虹",
+      "physical": 0.7633347544533945,
+      "attribute": 0.2366652455466054,
+      "workbookRow": 3
+    },
+    "2": {
+      "liupaiName": "裂石钧",
+      "physical": 0.6810345236147715,
+      "attribute": 0.31896547638522854,
+      "workbookRow": 19
+    },
+    "3": {
+      "liupaiName": "牵丝玉",
+      "physical": 0.7299228770865238,
+      "attribute": 0.27007712291347624,
+      "workbookRow": 15
+    },
+    "5": {
+      "liupaiName": "破竹风",
+      "physical": 0.7063074888771359,
+      "attribute": 0.2936925111228641,
+      "workbookRow": 23
+    },
+    "6": {
+      "liupaiName": "鸣金影",
+      "physical": 0.8019559316287949,
+      "attribute": 0.1980440683712052,
+      "workbookRow": 5
+    },
+    "7": {
+      "liupaiName": "裂石威",
+      "physical": 0.737791066895306,
+      "attribute": 0.262208933104694,
+      "workbookRow": 11
+    },
+    "8": {
+      "liupaiName": "牵丝霖",
+      "physical": 0.6835935847319471,
+      "attribute": 0.316406415268053,
+      "workbookRow": 13
+    },
+    "10": {
+      "liupaiName": "破竹尘",
+      "physical": 0.7090816844895081,
+      "attribute": 0.2909183155104919,
+      "workbookRow": 21
+    },
+    "12": {
+      "liupaiName": "破竹鸢",
+      "physical": 0.7095586945924637,
+      "attribute": 0.2904413054075364,
+      "workbookRow": 9
+    },
+    "13": {
+      "liupaiName": "牵丝翊",
+      "physical": 0.7185607734380904,
+      "attribute": 0.28143922656190956,
+      "workbookRow": 7
+    },
+    "14": {
+      "liupaiName": "破竹樽",
+      "physical": 0.7039307147588796,
+      "attribute": 0.29606928524112053,
+      "workbookRow": 17
+    }
+  }
+}

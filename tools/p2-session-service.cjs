@@ -19,12 +19,20 @@ function status(message,detail=''){const value={at:new Date().toISOString(),pid:
 function run(exe,args,{input=null,timeout=60000}={}){return new Promise((resolve,reject)=>{let stdout='',stderr='';const p=spawn(exe,args,{cwd:root,windowsHide:true,stdio:['pipe','pipe','pipe']});const timer=setTimeout(()=>p.kill(),timeout);p.stdout.on('data',b=>{stdout+=b;if(stdout.length>16*1024*1024)p.kill();});p.stderr.on('data',b=>stderr+=b);p.on('error',reject);p.on('close',code=>{clearTimeout(timer);if(code!==0)reject(Error(stderr.slice(-1500)||'子进程退出 '+code));else resolve(stdout);});p.stdin.end(input);});}
 async function discover(){return JSON.parse((await run(powershell,powershellScriptArgs(path.join(__dirname,'../scripts/windows/p2-discover.ps1')))).replace(/^\uFEFF/,''));}
 const key=m=>JSON.stringify([m.pid,m.processStartUtc,m.flows]);
+const resolver=new (require('./decoder-profiles.cjs').ProfileResolver)(data);let waitingHash=null,lastImage=null,flowRound=0;
 async function bootstrap(m){
  if(!m.flows?.length)throw Error('尚无游戏服务器连接，请进入角色');
  const catalog=require('./config-contract.cjs').load('config/client-build.json',root);
- const imageSha256=sha(fs.readFileSync(m.modulePath));
- const profile=[catalog,...(catalog.profiles||[])].find(p=>p.imageSha256===imageSha256);
- if(!profile)throw Error('客户端版本发生变化，当前解码配置不适用');
+ const st=fs.statSync(m.modulePath,{bigint:true}),stamp=[m.pid,m.processStartUtc,m.modulePath,st.ino,st.size,st.ctimeNs,st.mtimeNs].join('|');
+ const imageSha256=lastImage?.stamp===stamp?lastImage.hash:sha(fs.readFileSync(m.modulePath));lastImage={stamp,hash:imageSha256};
+ let approved=null,profile=[catalog,...(catalog.profiles||[])].find(p=>p.imageSha256===imageSha256);
+ if(!profile){let reason='尚无已验证的解码配置';try{approved=await resolver.resolve(imageSha256);}catch(e){reason=e.message;}profile=approved?.profile;
+  if(!profile){const detail=reason+'；客户端 SHA-256：'+imageSha256+'。将自动检查更新。';status('等待版本适配',detail);if(waitingHash!==imageSha256){fs.appendFileSync(path.join(data,'service-errors.log'),new Date().toISOString()+' '+detail+'\n');waitingHash=imageSha256;}await wait(15000);return;}
+ }
+ waitingHash=null;
+ // Validate exactly one discovered flow on its bound route per initialization.
+ if(m.flows.length>1){const f=[...m.flows].sort((a,b)=>a.serverAddress.localeCompare(b.serverAddress)||a.serverPort-b.serverPort||a.clientPort-b.clientPort)[flowRound++%m.flows.length];const devices=new Set((m.interfaceSelection||[]).filter(x=>['serverAddress','serverPort','clientAddress','clientPort'].every(k=>x.flow[k]===f[k])).map(x=>x.interface));if(devices.size!==1)throw Error('游戏连接对应网卡不唯一');m={...m,flows:[f],interfaces:[...devices]};}
+ if(m.interfaces?.length!==1)throw Error('游戏网卡不唯一');
  const session=path.join(data,'sessions',new Date().toISOString().replace(/[:.]/g,'-')+'-'+m.pid),boot=path.join(session,'initialization');fs.mkdirSync(boot,{recursive:true});fs.writeFileSync(path.join(boot,'module.json'),JSON.stringify(m));
  status('正在初始化当前登录会话','正在采集连接并校验解码状态；此时请勿开始战斗。');
  const list=await run(tshark,['-D']);const available=list.split(/\r?\n/).map(l=>l.match(/^\d+\. (\\Device\\NPF_\S+)/)?.[1]).filter(Boolean);
@@ -35,8 +43,9 @@ async function bootstrap(m){
  capture.once('spawn',()=>setWorkerPriority(capture.pid,'capture'));
  let err='';capture.stdout.pipe(stream);capture.stderr.on('data',b=>{err+=b;});
  const done=new Promise((res,rej)=>{capture.once('error',rej);capture.once('close',code=>stream.end(()=>code===0?res():rej(Error(err.slice(-1000)||'Capture failed'))));});done.catch(()=>{});
- try{await wait(6000);if(fs.existsSync(stopFile))throw Error('用户已关闭程序');await run(python,['-B','-X','utf8',path.join(__dirname,'p2-read-state.py'),boot]);await done;}catch(e){capture.kill();await done.catch(()=>{});throw e;}
+ try{await wait(6000);if(fs.existsSync(stopFile))throw Error('用户已关闭程序');await run(python,['-B','-X','utf8',path.join(__dirname,'p2-read-state.py'),boot],{input:JSON.stringify(approved?{id:profile.id,imageSha256,stateOffsets:profile.stateOffsets}:null)});await done;}catch(e){capture.kill();await done.catch(()=>{});throw e;}
  const recovery=JSON.parse(fs.readFileSync(path.join(boot,'rpc-state-recovery.json')));if(recovery.status!=='snapshot-ready')throw Error('解码状态尚未准备好：'+recovery.reason);
+ if(recovery.clientBuildSha256!==imageSha256)throw Error('初始化期间客户端文件发生变化');
  const rows=fs.readFileSync(log,'utf8').trim().split(/\r?\n/).filter(Boolean).map(l=>{const a=l.split('\t');return{time:+a[1],iface:+a[2],src:a[3],sport:+a[4],dst:a[5],dport:+a[6],seq:+a[7],len:+a[8],data:Buffer.from(a[12]||'','hex')};}).filter(r=>r.len&&r.data.length===r.len);
  const groups=new Map();for(const r of rows){const k=JSON.stringify([r.iface,r.src,r.sport,r.dst,r.dport]);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r);}
  let config=null,attempt=0;
@@ -50,7 +59,7 @@ async function bootstrap(m){
    const flow={serverAddress:first.src,serverPort:first.sport,clientAddress:first.dst,clientPort:first.dport};const align={stateFile:recovery.stateObject,expectedVtable:recovery.expectedVtable,cipherFile,minCursor,maxCursor,maxPrefix:256,python,outDir:path.join(dir,'aligned'),metadata:{pid:m.pid,flow,gaps:0,overlapsVerified:true,captureStartTcpSequence:origin,duplicateBytes:duplicates,sourceTsvSha256:sha(fs.readFileSync(log)),snapshotAtUtc:recovery.snapshotAtUtc,interface:interfaces[first.iface]}};
    const alignFile=path.join(dir,'align.private.json');fs.writeFileSync(alignFile,JSON.stringify(align));await run(node,[path.join(__dirname,'align-rc4-late-state.cjs'),alignFile],{timeout:120000});
    const report=path.join(align.outDir,'report.json'),r=JSON.parse(fs.readFileSync(report));if(!r.unique||!r.roundTrip)continue;
-   config={identityCacheFile:path.join(data,'identity-cache.json'),clientBuildSha256:profile.imageSha256,pid:m.pid,processStartUtc:m.processStartUtc,processPath:m.modulePath,flow,captureInterface:interfaces[first.iface],python,tshark,serverEncryptedOrigin:origin,initialStateFile:path.join(align.outDir,r.anchor.stateFile),initialStateSha256:r.anchor.stateSha256,cipherStateKind:'validated-midstream',cipherAnchorReport:report,cipherAnchorReportSha256:sha(fs.readFileSync(report)),gapTimeoutMs:3000,knownAcquisitionGaps:[{kind:'joined-existing-session',note:'Initialization is not a claim that earlier combat was captured.'}]};break;
+   config={identityCacheFile:path.join(data,'identity-cache.json'),clientBuildSha256:profile.imageSha256,...(approved?{decoderEnvelope:approved.envelope}:{}),pid:m.pid,processStartUtc:m.processStartUtc,processPath:m.modulePath,flow,captureInterface:interfaces[first.iface],python,tshark,serverEncryptedOrigin:origin,initialStateFile:path.join(align.outDir,r.anchor.stateFile),initialStateSha256:r.anchor.stateSha256,cipherStateKind:'validated-midstream',cipherAnchorReport:report,cipherAnchorReportSha256:sha(fs.readFileSync(report)),gapTimeoutMs:3000,knownAcquisitionGaps:[{kind:'joined-existing-session',note:'Initialization is not a claim that earlier combat was captured.'}]};break;
   }catch(e){fs.appendFileSync(path.join(boot,'alignment-errors.log'),e.message+'\n');}
  }
  if(!config)throw Error('未找到唯一通过协议校验的解码状态，证据已保留');

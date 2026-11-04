@@ -65,6 +65,7 @@
         "label": "string",
         "resource": "string",
         "defenseModel": "string",
+        "defenseDamageGainPerPoint": "number",
         "timingModel": "string",
         "unobservedDamagePolicy": "string",
         "allocationPolicy": "string",
@@ -72,6 +73,8 @@
         "gapReconstruction": "object",
         "personalBuffBaseline": "object",
         "kungfuAttributeChannels": "object",
+        "damageComposition": "object",
+        "attackSourceWeights": "object",
         "fixedEncounterSchool": "object"
       }
     },
@@ -145,6 +148,28 @@
         "attempts": "number",
         "requestTimeoutMs": "number",
         "pollMs": "number"
+      }
+    },
+    "config/attack-source-weights.json": {
+      "domain": "attribution",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "id": "string",
+        "basis": "string",
+        "byLiupai": "object"
+      }
+    },
+    "config/rd-damage-composition.json": {
+      "domain": "attribution",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "id": "string",
+        "basis": "string",
+        "workbook": "string",
+        "workbookSha256": "string",
+        "byLiupai": "object"
       }
     }
   }
