@@ -111,6 +111,20 @@
           "This profile does not claim live combat completeness or session reconnect success."
         ]
       }
+    },
+    {
+      "id": "cn-20261030-r64751-win64rh",
+      "imageSha256": "fe67929ca09a351709ec6a4f317ebac4f9ca7e541360c05383b18c51ce17aab8",
+      "build": "2026-10-30/r64751",
+      "stateOffsets": {
+        "luaRootRva": "0x84166b8",
+        "wrapperVtableRva": "0x5c14c38",
+        "rc4VtableRva": "0x5c10d78"
+      },
+      "rpcHandlerType": {
+        "registeredRva": "0x59825c4",
+        "expected": 21
+      }
     }
   ]
 }

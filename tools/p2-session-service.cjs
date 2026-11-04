@@ -43,7 +43,7 @@ async function bootstrap(m){
  capture.once('spawn',()=>setWorkerPriority(capture.pid,'capture'));
  let err='';capture.stdout.pipe(stream);capture.stderr.on('data',b=>{err+=b;});
  const done=new Promise((res,rej)=>{capture.once('error',rej);capture.once('close',code=>stream.end(()=>code===0?res():rej(Error(err.slice(-1000)||'Capture failed'))));});done.catch(()=>{});
- try{await wait(6000);if(fs.existsSync(stopFile))throw Error('用户已关闭程序');await run(python,['-B','-X','utf8',path.join(__dirname,'p2-read-state.py'),boot],{input:JSON.stringify(approved?{id:profile.id,imageSha256,stateOffsets:profile.stateOffsets}:null)});await done;}catch(e){capture.kill();await done.catch(()=>{});throw e;}
+ try{await wait(6000);if(fs.existsSync(stopFile))throw Error('用户已关闭程序');await run(python,['-B','-X','utf8',path.join(__dirname,'p2-read-state.py'),boot],{input:JSON.stringify(approved?{id:profile.id,imageSha256,stateOffsets:profile.stateOffsets,rpcHandlerType:profile.rpcHandlerType}:null)});await done;}catch(e){capture.kill();await done.catch(()=>{});throw e;}
  const recovery=JSON.parse(fs.readFileSync(path.join(boot,'rpc-state-recovery.json')));if(recovery.status!=='snapshot-ready')throw Error('解码状态尚未准备好：'+recovery.reason);
  if(recovery.clientBuildSha256!==imageSha256)throw Error('初始化期间客户端文件发生变化');
  const rows=fs.readFileSync(log,'utf8').trim().split(/\r?\n/).filter(Boolean).map(l=>{const a=l.split('\t');return{time:+a[1],iface:+a[2],src:a[3],sport:+a[4],dst:a[5],dport:+a[6],seq:+a[7],len:+a[8],data:Buffer.from(a[12]||'','hex')};}).filter(r=>r.len&&r.data.length===r.len);

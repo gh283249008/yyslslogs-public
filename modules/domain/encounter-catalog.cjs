@@ -5,7 +5,7 @@ const validatedPresets=new Set(Object.values(schemas.profiles).map(p=>p.count));
 const crypto=require('node:crypto'),channel=require('../../config/decoder-channel.json');let last=null;
 function approved(preset,proof){if(!proof||typeof proof.payload!=='string'||proof.payload.length>8192||typeof proof.signature!=='string'||proof.signature.length!==88)return false;
  if(last?.payload===proof.payload&&last.signature===proof.signature)return last.preset===preset;
- try{if(!crypto.verify(null,Buffer.from(proof.payload),channel.publicKey,Buffer.from(proof.signature,'base64')))return false;const p=JSON.parse(proof.payload);if(p.format!==1||p.decoderABI!=='yysls-034'||p.schema.count!==preset)return false;last={payload:proof.payload,signature:proof.signature,preset};return true;}catch{return false;}}
+ try{if(!crypto.verify(null,Buffer.from(proof.payload),channel.publicKey,Buffer.from(proof.signature,'base64')))return false;const p=JSON.parse(proof.payload);if(p.format!==1||!['yysls-034','yysls-034-typed'].includes(p.decoderABI)||p.schema.count!==preset)return false;last={payload:proof.payload,signature:proof.signature,preset};return true;}catch{return false;}}
 function resolveEncounterIdentity(context,statisticNpcNo){
  if(!context||(!validatedPresets.has(context.preset)&&!approved(context.preset,context.decoderProof))||!Array.isArray(context.npcs))return null;
  const matches=[];

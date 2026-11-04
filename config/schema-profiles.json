@@ -4,7 +4,8 @@
   "byClientSha256": {
     "2cff32efe14b24ecbde8916bcccd63559379d3ba50dec4e9ca56faf89fc93f42": "legacy-preset10012",
     "0bbf657adc2d9f959ec1cd938a108593e973f50e9186192a39e327d40056f7b6": "legacy-preset10012",
-    "4483a00721a7b08a21f3cfb666eb6a8858dacf2e3830956be98c569bac746d1b": "cn-20261021-r64304-preset10207"
+    "4483a00721a7b08a21f3cfb666eb6a8858dacf2e3830956be98c569bac746d1b": "cn-20261021-r64304-preset10207",
+    "fe67929ca09a351709ec6a4f317ebac4f9ca7e541360c05383b18c51ce17aab8": "cn-20261021-r64304-preset10207"
   },
   "profiles": {
     "legacy-preset10012": {

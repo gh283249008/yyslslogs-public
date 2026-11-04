@@ -10,7 +10,11 @@ function protocol(base=root){return descriptors.map(n=>sha(fs.readFileSync(path.
 function verify(envelope,image,base=root,key=channel.publicKey){
  if(!digest(image)||typeof envelope?.payload!=='string'||envelope.payload.length>8192||typeof envelope.signature!=='string'||!crypto.verify(null,Buffer.from(envelope.payload),key,Buffer.from(envelope.signature,'base64')))throw Error('解码配置签名无效');
  const p=JSON.parse(envelope.payload);
- if(p.format!==1||p.decoderABI!=='yysls-034' ||p.imageSha256!==image||!/^[-a-z0-9]{1,80}$/.test(p.id)||JSON.stringify(p.descriptors)!==JSON.stringify(protocol(base)))throw Error('解码配置与客户端或协议不符');
+ if(p.format!==1||!['yysls-034','yysls-034-typed'].includes(p.decoderABI) ||p.imageSha256!==image||!/^[-a-z0-9]{1,80}$/.test(p.id)||JSON.stringify(p.descriptors)!==JSON.stringify(protocol(base)))throw Error('解码配置与客户端或协议不符');
+ if(p.decoderABI==='yysls-034-typed'){
+  const type=p.rpcHandlerType;
+  if(!Number.isInteger(type?.expected)||type.expected<1||type.expected>65535||!/^0x[0-9a-f]{1,8}$/.test(type.registeredRva)||Number(type.registeredRva)<4096)throw Error('无效的连接对象类型配置');
+ }else if(p.rpcHandlerType!==undefined)throw Error('连接对象类型需要新版读取器');
  for(const k of ['luaRootRva','wrapperVtableRva','rc4VtableRva'])if(!/^0x[0-9a-f]{1,8}$/.test(p.stateOffsets?.[k])||Number(p.stateOffsets[k])<4096)throw Error('解码位置无效');
  if(!digest(p.schema?.sha256)||!Number.isSafeInteger(p.schema.count)||p.schema.count<1||p.schema.count>100000||!/^[-a-z0-9]{1,80}$/.test(p.schema.id))throw Error('字段字典配置无效');
  const local=JSON.parse(fs.readFileSync(path.join(base,'config/schema-profiles.json'))).profiles[p.schema.id];

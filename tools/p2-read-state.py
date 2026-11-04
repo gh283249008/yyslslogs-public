@@ -54,7 +54,18 @@ try:
  assert G and G[1]==0x45
  net=lookup(G[0],'net');assert net
  asio=lookup(net[0],'_asio_gate_client');assert asio and asio[1]==0x4c
- obj=read(asio[0],80,'Asio engineobject rpc_handler type19 and native pointer');assert obj[8]==12 and u64(obj,48)>=16 and struct.unpack_from('<H',obj,64)[0]==19
+ obj=read(asio[0],80,'Asio engineobject and native pointer')
+ expected_type=19  # Historical client profiles.
+ if 'rpcHandlerType' in profile:
+  rule=profile['rpcHandlerType']
+  expected_type=rule['expected']
+  rva=int(rule['registeredRva'],16)
+  if type(expected_type) is not int or not 0<expected_type<=65535 or not 4096<=rva<=0xffffffff:
+   raise ValueError('Invalid rpc_handler type profile')
+  registered=struct.unpack('<H',read(base+rva,2,'Registered rpc_handler type'))[0]
+  if registered!=expected_type:raise ValueError('Registered rpc_handler type mismatch')
+ if obj[8]!=12 or u64(obj,48)<16 or struct.unpack_from('<H',obj,64)[0]!=expected_type:
+  raise ValueError('Unexpected rpc_handler instance type')
  handler=read(u64(obj,72),32,'rpc_handler implementation pointer at+8')
  impl=read(u64(handler,8),144,'Native connection implementation, transform at+0x50')
  trans=read(u64(impl,80),48,'Connection cipher transform, inbound wrapper at+0x10')
