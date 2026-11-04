@@ -6,6 +6,8 @@
 
 当前 Windows x64 版本为 **0.3.4**。游戏更新后，采集器可自动获取对应版本已发布的签名解码配置。悬浮窗的 rDPS 计算已同步到网站 v46。
 
+已下载 0.3.4 的用户可切换到官网配置源。退出采集器，下载[官网配置源文件](https://yylogs.dreemurr.net/api/decoder-channel.json)，用它替换安装目录中的 `resources/config/decoder-channel.json`，再启动采集器。今后会向官网查询当前客户端的签名配置。
+
 在 [Releases](https://github.com/gh283249008/yyslslogs-public/releases) 下载 Windows x64 完整压缩包，解压后保留整个目录。
 
 - **燕云 Logs.exe**：采集和本地保存。

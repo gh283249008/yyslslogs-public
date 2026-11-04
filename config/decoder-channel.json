@@ -1,5 +1,5 @@
 {
   "schemaVersion": 1,
-  "baseUrl": "https://raw.githubusercontent.com/gh283249008/yyslslogs-public/main/config/decoder-profiles/",
+  "baseUrl": "https://yylogs.dreemurr.net/api/decoder-profiles/",
   "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAUNsDIDsZjw6GP/vnmFGZzQVemOorlGUdbCJTc1qYSBI=\n-----END PUBLIC KEY-----\n"
 }
