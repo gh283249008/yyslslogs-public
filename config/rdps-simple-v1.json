@@ -1,5 +1,5 @@
 {
-  "id": "yysls-cn-simple-rdps-20261104-v46",
+  "id": "yysls-cn-simple-rdps-20261106-v47",
   "enabled": true,
   "label": "rDPS 简化估算",
   "resource": "HP",
@@ -352,12 +352,12 @@
   },
   "personalBuffBaseline": {
     "file": "config/personal-buff-baselines.json",
-    "sha256": "d0dadf0ad13887022b475c37d37bbc768c52b700f1d02c905c9ed9ee170fb422",
+    "sha256": "0ef781c3305ca9b4965d575795678ae8e8343d69ac5da2c2c3dc82fce877802c",
     "completeness": "observed-audited-effects-only"
   },
   "kungfuAttributeChannels": {
     "file": "config/kungfu-attribute-channels.json",
-    "sha256": "1c1dde18e376f7ed3108f77d1e9d0b7cab42bd4ad20913f7a4b7997a915e4029",
+    "sha256": "396701eb6b73e5b14452ad4909f53edc1af074b5599a19d59ff13aaed8557ab2",
     "evidence": "evidence/p1/rdps-rules/school-20261023/review.json"
   },
   "fixedEncounterSchool": {
@@ -498,12 +498,17 @@
   },
   "damageComposition": {
     "file": "config/rd-damage-composition.json",
-    "sha256": "31b7159d6f3dcd5b46f5ad1a8a36d152ba102c6b5f8b8ed570a21fd952d29b11",
+    "sha256": "6e8d3290fa9ffc74607204d79fb298307c950a0c9439a8718c4645ad790c5964",
     "basis": "workbook-汇总-RD"
   },
   "attackSourceWeights": {
     "file": "config/attack-source-weights.json",
-    "sha256": "4154ec8141272b6d483be6fb809f5b1e67df06d6acff6e78bd03efc53b436560",
+    "sha256": "2b13aa383b88bf71ee3fa42e9fe8e1213e8ec989cbbed76198515202d6f81f73",
     "basis": "original attack credit is split by supported attack channels, then physical and directly configured attribute weights are applied to their respective portions"
+  },
+  "gameDataProfiles": {
+    "file": "config/game-data-profiles.json",
+    "sha256": "1d841ee91e0ffde4b0e13fb18bc8ad675b6cb63af2435b33ceb3a4e909a74ab4",
+    "basis": "Exact installed HD MANIFEST binding; original unversioned reports retain historical rule"
   }
 }

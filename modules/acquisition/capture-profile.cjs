@@ -9,4 +9,9 @@ const isLiveFieldCount=n=>n===fields.length||n===diagnosticFields.length;
 const decodeArgs=['-n','--only-protocols','eth,ethertype,vlan,arp,raw,null,sll,ppp,pppoes,pppoed,ip,ipv6,tcp,data','-o','tcp.desegment_tcp_streams:FALSE','-o','tcp.analyze_sequence_numbers:FALSE'];
 const fieldArgs=['-T','fields','-E','separator=/t','-E','occurrence=f',...fields.flatMap(f=>['-e',f])];
 function captureArgs(interfaces,filter,duration,diagnostics=false){return ['-l',...decodeArgs,'-p','-B','16',...interfaces.flatMap(i=>['-i',i]),'-f',filter,...(duration?['-a','duration:'+duration]:[]),'-s','0',...(diagnostics?diagnosticFieldArgs:fieldArgs)];}
-module.exports={fields,diagnosticFields,diagnosticFieldArgs,isLiveFieldCount,decodeArgs,fieldArgs,captureArgs};
+const udpFields=['frame.number','frame.time_epoch','frame.interface_id','ip.src','udp.srcport','ip.dst','udp.dstport','udp.payload'];
+function udpCaptureArgs(device,filter){
+ if(typeof device!=='string'||!device.startsWith('\\Device\\NPF_'))throw Error('Exactly one Npcap interface is required');
+ return ['-l','-n','--only-protocols','eth,ethertype,vlan,arp,raw,null,sll,ppp,pppoes,pppoed,ip,ipv6,udp,data','-p','-B','16','-i',device,'-f',filter,'-s','0','-T','fields','-E','separator=/t','-E','occurrence=f',...udpFields.flatMap(f=>['-e',f])];
+}
+module.exports={fields,diagnosticFields,diagnosticFieldArgs,isLiveFieldCount,decodeArgs,fieldArgs,captureArgs,udpFields,udpCaptureArgs};

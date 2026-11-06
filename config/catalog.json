@@ -2,6 +2,50 @@
   "schemaVersion": 1,
   "legacyPolicy": "Null schemaVersion describes an existing unversioned document; preserve original bytes and hashes. New configuration must declare schemaVersion.",
   "entries": {
+    "yanyun-logs/config/activity.json": {
+      "domain": "analyzer-activity",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "hitWindowMs": "number",
+        "rules": "array"
+      }
+    },
+    "yanyun-logs/web/mechanic-presentation.json": {
+      "domain": "analyzer-presentation",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "actors": "object",
+        "buffs": "object"
+      }
+    },
+    "yanyun-logs/config/cloud.json": {
+      "domain": "online-service",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "inviteLimit": "number",
+        "inviteDays": "number",
+        "sessionDays": "number",
+        "uploadBytes": "number",
+        "accountBytes": "number",
+        "storageBytes": "number",
+        "reserveDiskBytes": "number",
+        "userUploads": "number",
+        "globalUploads": "number",
+        "uploadHours": "number",
+        "workerTimeoutMs": "number",
+        "workerQueue": "number",
+        "rateWindowMs": "number",
+        "loginAttempts": "number",
+        "registerAttempts": "number",
+        "inviteAttempts": "number",
+        "backupKeep": "number",
+        "expandedUploadBytes": "number",
+        "chunkBytes": "number"
+      }
+    },
     "config/attribution-baselines.json": {
       "domain": "attribution",
       "schemaVersion": 1,
@@ -9,6 +53,16 @@
         "schemaVersion": "number",
         "activeProfileId": "string",
         "profiles": "object"
+      }
+    },
+    "config/attack-source-weights.json": {
+      "domain": "attribution",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "id": "string",
+        "basis": "string",
+        "byLiupai": "object"
       }
     },
     "config/client-build.json": {
@@ -56,6 +110,18 @@
         "calcpoints": "object"
       }
     },
+    "config/rd-damage-composition.json": {
+      "domain": "attribution",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "id": "string",
+        "basis": "string",
+        "workbook": "string",
+        "workbookSha256": "string",
+        "byLiupai": "object"
+      }
+    },
     "config/rdps-simple-v1.json": {
       "domain": "attribution",
       "schemaVersion": null,
@@ -98,6 +164,37 @@
         "profiles": "object"
       }
     },
+    "yanyun-logs/config/encounters.json": {
+      "domain": "analysis",
+      "schemaVersion": null,
+      "required": {
+        "encounters": "array"
+      }
+    },
+    "yanyun-logs/config/fight-outcomes.json": {
+      "domain": "analysis",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "confirmations": "array"
+      }
+    },
+    "yanyun-logs/config/sources.json": {
+      "domain": "analysis",
+      "schemaVersion": null,
+      "required": {
+        "extraCaptures": "array"
+      }
+    },
+    "config/distributions.json": {
+      "domain": "platform",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "desktop": "object",
+        "analyzer": "object"
+      }
+    },
     "config/platform-scripts.json": {
       "domain": "platform",
       "schemaVersion": 1,
@@ -138,6 +235,32 @@
         "buffs": "object"
       }
     },
+    "deploy/cloud/cloud-small-server.json": {
+      "domain": "online-service",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "inviteLimit": "number",
+        "inviteDays": "number",
+        "sessionDays": "number",
+        "uploadBytes": "number",
+        "accountBytes": "number",
+        "storageBytes": "number",
+        "reserveDiskBytes": "number",
+        "userUploads": "number",
+        "globalUploads": "number",
+        "uploadHours": "number",
+        "workerTimeoutMs": "number",
+        "workerQueue": "number",
+        "rateWindowMs": "number",
+        "loginAttempts": "number",
+        "registerAttempts": "number",
+        "inviteAttempts": "number",
+        "backupKeep": "number",
+        "expandedUploadBytes": "number",
+        "chunkBytes": "number"
+      }
+    },
     "package-generator/upload-client.json": {
       "domain": "desktop-upload",
       "schemaVersion": 1,
@@ -150,26 +273,24 @@
         "pollMs": "number"
       }
     },
-    "config/attack-source-weights.json": {
+    "config/game-data-profiles.json": {
       "domain": "attribution",
       "schemaVersion": 1,
       "required": {
         "schemaVersion": "number",
         "id": "string",
-        "basis": "string",
-        "byLiupai": "object"
+        "profiles": "object",
+        "versionedRuleIds": "array",
+        "legacyWithoutMarker": "string"
       }
     },
-    "config/rd-damage-composition.json": {
-      "domain": "attribution",
+    "yanyun-logs/web/school-presentation.json": {
+      "domain": "analyzer-presentation",
       "schemaVersion": 1,
       "required": {
         "schemaVersion": "number",
-        "id": "string",
-        "basis": "string",
-        "workbook": "string",
-        "workbookSha256": "string",
-        "byLiupai": "object"
+        "byName": "object",
+        "kungfuColors": "object"
       }
     }
   }

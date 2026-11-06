@@ -135,7 +135,7 @@ function reconstructGapJump(window, context={}){
  const signature=xs=>JSON.stringify(xs.filter(relevant).map(b=>[b.targetActorHash,b.buffInstanceHash,b.buffNo,b.sourceActorHash,b.charge_level,b.level]).sort());
  const holders=[sourceActorHash,targetActorHash].filter(Boolean);
  const buffChangedInInterval=!!previousJump&&(holders.some(a=>(jump.revisions.get(a)||0)!==(previousJump.revisions.get(a)||0))||signature(jump.effects)!==signature(previousJump.effects));
- const result=simpleHitCredit({amount:missingAmount,sourceActorHash,targetActorHash,effects,schemaPreset:jump.schemaPreset??null,sourceAttributes:jump.attributes.get(sourceActorHash)||{},targetAttributes:jump.attributes.get(targetActorHash)||{},targetWeak:jump.weak.get(targetActorHash)??null,...context});
+ const result=simpleHitCredit({amount:missingAmount,sourceActorHash,targetActorHash,effects,gameData:jump.gameData,schemaPreset:jump.schemaPreset??null,sourceAttributes:jump.attributes.get(sourceActorHash)||{},targetAttributes:jump.attributes.get(targetActorHash)||{},targetWeak:jump.weak.get(targetActorHash)??null,...context});
  return {...result,status:'reconstructed',issues:[...result.issues,...(buffChangedInInterval?['buff_changed_in_statistic_interval']:[])],reconstruction:{timingBasis:'statistic-jump-buff-snapshot-estimate',buffSnapshotAtMs:toMs,buffChangedInInterval,estimated:true,intervalStartMs:fromMs}};
 }
 module.exports={reconstructGapJump,reconstructGapSecond, buffsForSecond, overlapFraction, gapWindows, atOrBefore};

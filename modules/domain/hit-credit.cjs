@@ -1,6 +1,8 @@
 'use strict';
 const {ACTIVE_PROFILE,F,POLICY,policySha256,registry,personalBuffs,kungfuChannels,damageComposition,attackWeights,finite,time}=require('./context.cjs');
-function simpleHitCredit({amount,sourceActorHash,targetActorHash,effects,targetAttributes={},sourceAttributes={},sourceAbsentBuffs=[],currentKungfu=null,targetWeak=null,personalDamageBonus=null,conditionalDamageEligible=null,rawCalcpointId=null,rawSkillId=null,encounterSchool=null,schemaPreset=null,damageFlags=null}){
+const gameDataVersions=require('./game-data-version.cjs');
+gameDataVersions.validatePolicy(POLICY);
+function simpleHitCredit({gameData,amount,sourceActorHash,targetActorHash,effects,targetAttributes={},sourceAttributes={},sourceAbsentBuffs=[],currentKungfu=null,targetWeak=null,personalDamageBonus=null,conditionalDamageEligible=null,rawCalcpointId=null,rawSkillId=null,encounterSchool=null,schemaPreset=null,damageFlags=null}){
  if(!finite(amount)||amount<0||!Array.isArray(effects))throw Error('invalid_simple_hit');
  if(conditionalDamageEligible===null)conditionalDamageEligible=personalBuffs.normalDamageEligible(rawCalcpointId,schemaPreset);
  const issues=[],chosen=new Map();
@@ -11,8 +13,10 @@ function simpleHitCredit({amount,sourceActorHash,targetActorHash,effects,targetA
  const composition=school?damageComposition.byLiupai[school.liupaiId]:null;
  const attackWeight=school?attackWeights.byLiupai[school.liupaiId]:null;
  for(const effect of effects){
-  const rule=POLICY.rules[effect.buffNo];if(!rule)continue;
-  if(effect.targetActorHash!==(rule.holder==='source'?sourceActorHash:targetActorHash))continue;
+  const baseRule=POLICY.rules[effect.buffNo];if(!baseRule)continue;
+  if(effect.targetActorHash!==(baseRule.holder==='source'?sourceActorHash:targetActorHash))continue;
+  const rule=gameDataVersions.resolveRule(baseRule,effect.buffNo,gameData);
+  if(!rule){issues.push('game_data_version_unknown:'+effect.buffNo);continue;}
   if(rule.levels&&!rule.levels.includes(effect.level)){issues.push('unknown_level:'+effect.buffNo);continue;}
   if(rule.requiresNormalDamage){const eligible=personalBuffs.normalDamageEligible(rawCalcpointId,schemaPreset);if(eligible!==true){if(eligible===null)issues.push('normal_damage_unknown:'+effect.buffNo);continue;}}
   if(rule.requiresResourceSuccess&&effect.resourceChangeSuccess!==true){if(effect.resourceChangeSuccess!==false)issues.push('resource_success_unknown:'+effect.buffNo);continue;}

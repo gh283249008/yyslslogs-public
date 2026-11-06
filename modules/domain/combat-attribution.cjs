@@ -1,9 +1,10 @@
 'use strict';
 const {ACTIVE_PROFILE,F,POLICY,policySha256,registry,personalBuffs,kungfuChannels,finite,time}=require('./context.cjs');
 const {simpleHitCredit}=require('./hit-credit.cjs');
+const {normalizeGameData}=require('./game-data-version.cjs');
 const {resolveEncounterIdentity}=require('./encounter-catalog.cjs');
 class SimpleRdpsStream {
- constructor(source){this.source=source;this.buffRevisions=new Map();this.buffs=new Map();this.buffHistory=[];this.openBuffHistory=new Map();this.stateHistory=[];this.attrs=new Map();this.weak=new Map();this.npcs=new Set();this.current=null;this.pending=[];this.lastTime=0;this.seen=new Set();this.error=null;}
+ constructor(source){const gameData=normalizeGameData(source?.gameData);this.source=Object.freeze({...source,...(gameData!==undefined?{gameData}:{})});this.buffRevisions=new Map();this.buffs=new Map();this.buffHistory=[];this.openBuffHistory=new Map();this.stateHistory=[];this.attrs=new Map();this.weak=new Map();this.npcs=new Set();this.current=null;this.pending=[];this.lastTime=0;this.seen=new Set();this.error=null;}
  // Lost transport bytes may hide buff removals and qi changes: active buffs and
  // weak state restart from later observations. Hits inside the gap are absent
  // and stay uncredited; base attributes keyed by stable actor id are retained.
@@ -130,7 +131,7 @@ class SimpleRdpsStream {
   for(const[k,b]of this.buffs){if(b.expiresMs<=t){this.buffs.delete(k);this.notePersonalAbsence(b,t);continue;}
    if([e.sourceActorHash,e.targetActorHash].includes(b.targetActorHash)){effects.push(b);if(!POLICY.rules[b.buffNo]&&!personalBuffs.hasPersonalRule(b.buffNo)&&!personalBuffs.hasContextRule(b.buffNo))unsupported.add(b.buffNo);}
   }
-  const hitInput={...e,effects,schemaPreset:this.schemaPreset??null,sourceAbsentBuffs:[...(this.attrs.get(e.sourceActorHash)?.absentPersonalBuffs||[])],sourceAttributes:{...this.attrs.get(e.sourceActorHash)},targetAttributes:{...this.attrs.get(e.targetActorHash)},targetWeak:this.weak.get(e.targetActorHash)??null};
+  const hitInput={...e,effects,gameData:this.source.gameData,schemaPreset:this.schemaPreset??null,sourceAbsentBuffs:[...(this.attrs.get(e.sourceActorHash)?.absentPersonalBuffs||[])],sourceAttributes:{...this.attrs.get(e.sourceActorHash)},targetAttributes:{...this.attrs.get(e.targetActorHash)},targetWeak:this.weak.get(e.targetActorHash)??null};
   const result=simpleHitCredit(hitInput);
   const gapUnknown=this.resynced&&[e.sourceActorHash,e.targetActorHash].some(a=>!this.resynced.has(a));
   const contextIssues=[...[...unsupported].map(n=>'unsupported_effect:'+n),...(gapUnknown?['buff_state_unknown_after_transport_gap']:[])];
@@ -157,7 +158,7 @@ class SimpleRdpsStream {
    const target=identity.bossActorHash,a={...this.attrs.get(target),isBoss:true,bossIdentityBasis:'validated-scoped-encounter-tuple'};
    this.attrs.set(target,a);this.stateHistory.push({t,target,attributes:{...a}});
   }
-  if(finite(t))this.current.statHistory.push({t,transportRecordOrdinal:s.transportRecordOrdinal,actors:new Map(this.current.counters.actors.map(a=>[a.idHash,a.damage])),jump:{schemaPreset:this.schemaPreset??null,effects:[...this.buffs.values()].filter(b=>b.expiresMs>t).map(b=>({...b})),revisions:new Map(this.buffRevisions),attributes:new Map([...this.attrs].map(([k,v])=>[k,structuredClone(v)])),weak:new Map(this.weak)}});
+  if(finite(t))this.current.statHistory.push({t,transportRecordOrdinal:s.transportRecordOrdinal,actors:new Map(this.current.counters.actors.map(a=>[a.idHash,a.damage])),jump:{gameData:this.source.gameData,schemaPreset:this.schemaPreset??null,effects:[...this.buffs.values()].filter(b=>b.expiresMs>t).map(b=>({...b})),revisions:new Map(this.buffRevisions),attributes:new Map([...this.attrs].map(([k,v])=>[k,structuredClone(v)])),weak:new Map(this.weak)}});
   if(this.current.statHistory.length>20000){this.current.statHistory=this.current.statHistory.slice(-10000);this.current.historyIncomplete=true;}
  }
  snapshot(){

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "yysls-kungfu-attribute-channels-20261023-v1",
+  "id": "yysls-kungfu-attribute-channels-20261106-v2",
   "basis": "static-kungfu-liupai-and-WX_PRO_ATK-cross-check",
   "byLiupai": {
     "1": {
@@ -90,6 +90,14 @@
       "attributeName": "破竹",
       "attributeNo": 240,
       "rowSha256": "aa3fe578e732a7ad41eb6ce8f12ec65fa3645fc9c722dae52666d745cece58b4"
+    },
+    "15": {
+      "liupaiId": 15,
+      "liupaiName": "鸣金·霆",
+      "channel": "A",
+      "attributeName": "鸣金",
+      "attributeNo": 236,
+      "rowSha256": "638a60aa02f4069bbc58938466977a44e6d35b8535bc296d07cbbdbcac47a0f5"
     }
   },
   "byKungfu": {
@@ -148,6 +156,20 @@
       "liupaiId": 7,
       "channel": "B",
       "attributeName": "裂石"
+    },
+    "20204": {
+      "baseKungfuId": 20204,
+      "kungfuName": "鸣金·霆",
+      "liupaiId": 15,
+      "channel": "A",
+      "attributeName": "鸣金"
+    },
+    "20205": {
+      "baseKungfuId": 20205,
+      "kungfuName": "鸣金·霆",
+      "liupaiId": 15,
+      "channel": "A",
+      "attributeName": "鸣金"
     },
     "20304": {
       "baseKungfuId": 20304,
@@ -3633,6 +3655,219 @@
     "20202203": {
       "kungfuIds": [
         10101
+      ],
+      "channel": "A"
+    },
+    "20204001": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204002": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204003": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204004": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204005": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204006": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204007": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204008": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204101": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204105": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204106": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204110": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204201": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204202": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204203": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204204": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204205": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204301": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205001": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205002": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205003": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205004": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205005": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205006": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205007": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205008": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205101": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205102": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205105": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205110": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205201": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205202": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205301": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205401": {
+      "kungfuIds": [
+        20205
       ],
       "channel": "A"
     },
@@ -10277,6 +10512,66 @@
         20703
       ],
       "channel": "E"
+    },
+    "20205700301": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204700302": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20205700303": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204700303": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20204700301": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20205700302": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20205700300": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204700304": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "20205700304": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "20204700300": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
     }
   },
   "byCalcpoint": {
@@ -10319,6 +10614,430 @@
     "2038012": {
       "kungfuIds": [
         10101
+      ],
+      "channel": "A"
+    },
+    "2020400101": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400201": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400301": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400302": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400401": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400501": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400601": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400602": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400701": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400702": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400801": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400802": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400803": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020400804": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020410101": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020410102": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020410501": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020410502": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020411001": {
+      "kungfuIds": [
+        20204
+      ],
+      "channel": "A"
+    },
+    "2020420101": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420102": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420103": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420104": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420111": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420112": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420113": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420114": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420115": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420201": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420202": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420203": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420204": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420205": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420211": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420212": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420213": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420214": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420215": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420216": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420301": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420401": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020420501": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020500801": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020500802": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020510201": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020510202": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020510501": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020510502": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020510503": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020510504": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020511000": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020511001": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020511010": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020511020": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020511030": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020520101": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020520102": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020520201": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020520202": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020520203": {
+      "kungfuIds": [
+        20204,
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020540100": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020540101": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020540102": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020540110": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020540120": {
+      "kungfuIds": [
+        20205
+      ],
+      "channel": "A"
+    },
+    "2020540130": {
+      "kungfuIds": [
+        20205
       ],
       "channel": "A"
     },
@@ -10400,5 +11119,10 @@
     "No D-channel school appears among these decoded rows; D is not assigned a guessed name.",
     "Shared, missing, placeholder or conflicting skill associations remain unresolved.",
     "liupai_neigong_map_data is not an ordinary manifest table in the saved table set; attr_to_cn_name and attr_en_to_attr_no use an unsupported index layout and were not decoded."
-  ]
+  ],
+  "update040": {
+    "file": "client-table-review.json",
+    "sha256": "14239d394bbc7b0914fe12d2181a99f50df3130197fcc0c680cb81c95cfe2c9e",
+    "manifestSha256": "94a090d784fc4f1d5dd479ee818d024d3da0c1e6889f89a236da94cdb28f09d9"
+  }
 }

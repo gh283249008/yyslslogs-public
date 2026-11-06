@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "yysls-attack-source-weights-20261103-v3",
+  "id": "yysls-attack-source-weights-20261106-v4",
   "basis": "user-confirmed post-credit coefficients; wind uses its originally reported attribute coefficient 0.27 without normalization; other schools retain the prior complementary attribute coefficients",
   "byLiupai": {
     "1": {
@@ -68,6 +68,13 @@
       "physical": 0.74,
       "attribute": 0.26,
       "reportedAttribute": 0.25
+    },
+    "15": {
+      "liupaiName": "鸣金霆",
+      "physical": 0.75,
+      "attribute": 0.26,
+      "reportedAttribute": 0.26,
+      "source": "User explicitly confirmed 2026-11-06; do not normalize"
     }
   }
 }

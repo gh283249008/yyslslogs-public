@@ -15,6 +15,7 @@ function options(hex){
 }
 async function analyze(dir){
  const manifest=JSON.parse(fs.readFileSync(path.join(dir,'manifest.json'),'utf8')),flow=manifest.flow;
+ if(manifest.transportFormat?.transport==='kcp')throw Error('This diagnostic analyzes TCP ACK/window evidence; KCP recordings require KCP sequence analysis');
  const state=()=>({packets:0,payloadPackets:0,bytes:0,ackProgress:0,overlapOrReordered:0,sackPackets:0,lastAck:null,lastWindow:null,zeroWindow:null,lastPayload:null,high:null});
  const sides={client:state(),server:state()},episodes=[],zeros=[],ackStalls=[],hash=crypto.createHash('sha256');let first=null,last=null,rows=0,extended=0,invalid=0,omitted=0;
  const keep=(array,row)=>{if(array.length<10000)array.push(row);else omitted++;};

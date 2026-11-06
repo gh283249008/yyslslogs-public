@@ -41,7 +41,7 @@
       "nameSource": "user-confirmed sample catalog; not plaintext NPC name from packet",
       "provenance": {
         "sourceSessionId": "19e5c3f94da19be22870c9fc",
-        "capture": "Saved-record verification",
+        "capture": "party-retest-20261018-032238/frozen/transport.private.tsv",
         "bossActorHash": "b5d25aedab0a908a",
         "spaceHash": "38da96c33edab805",
         "npcCreateRecord": 2247,
@@ -66,7 +66,7 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-19; scoped captured identity",
       "provenance": {
-        "capture": "Saved-record verification",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-18",
         "evidence": "evidence/p2/incident-20261019"
       }
     },
@@ -83,7 +83,7 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-19; scoped captured identity",
       "provenance": {
-        "capture": "Saved-record verification",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-18",
         "evidence": "evidence/p2/incident-20261019"
       }
     },
@@ -102,7 +102,7 @@
       "nameSource": "user-confirmed 2026-10-20: 148 茧中老人; scoped captured identity, not plaintext packet name",
       "provenance": {
         "confirmation": "用户本次直接确认：148 茧中老人，149 愁铃客",
-        "capture": "Saved-record verification",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-20T15-24-08-018Z-28200/capture/battles/1ddfce7d0bd7c3c6f033/battle.json",
         "recoveredCapture": "evidence/p2/incident-20261020-client-variant/emergency-recovery/replay-final/battles",
         "evidence": "evidence/p1/encounter-retest/scoped-names-20261020-verification.json",
         "bindingBasis": "The user labels the encounter statistic number. The complete observed SpaceData/Npc tuple scopes that label; no Chinese NPC name was decoded."
@@ -128,7 +128,7 @@
       "nameSource": "user-confirmed 2026-10-20: 149 愁铃客; scoped captured identity, not plaintext packet name",
       "provenance": {
         "confirmation": "用户本次直接确认：148 茧中老人，149 愁铃客",
-        "capture": "Saved-record verification",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-20T15-24-08-018Z-28200/capture/battles/2096812ef4d8d02c6f82/battle.json",
         "evidence": "evidence/p1/encounter-retest/scoped-names-20261020-verification.json",
         "bindingBasis": "The user labels the encounter statistic number. The complete observed SpaceData/Npc tuple scopes that label; no Chinese NPC name was decoded."
       },
@@ -152,7 +152,7 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-25 challenge mode; complete saved identity tuple",
       "provenance": {
-        "capture": "Saved-record verification",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-24T13-10-09-312Z-19808/capture/battles",
         "confirmation": "用户2026-10-25确认148茧中老人（挑战模式）、149愁铃客（挑战模式）"
       },
       "requirements": [
@@ -175,7 +175,7 @@
       "dungeonName": null,
       "nameSource": "user-confirmed 2026-10-25 challenge mode; complete saved identity tuple",
       "provenance": {
-        "capture": "Saved-record verification",
+        "capture": "AppData/Roaming/YyslsLogs/sessions/2026-10-24T13-10-09-312Z-19808/capture/battles",
         "confirmation": "用户2026-10-25确认148茧中老人（挑战模式）、149愁铃客（挑战模式）"
       },
       "requirements": [
@@ -199,7 +199,7 @@
       "nameSource": "user-confirmed 2026-11-01 challenge mode; complete saved identity tuple",
       "provenance": {
         "confirmation": "用户指定青瓶居士（挑战模式）",
-        "capture": "Saved-record verification"
+        "capture": "saved report 5c212b7f2fce898c5b7a0d1981aa74a3 fight 6"
       },
       "requirements": [
         "All match fields must equal; no statisticNpcNo-only fallback.",

@@ -8,7 +8,7 @@
     },
     "p2-discover": {
       "file": "scripts/windows/p2-discover.ps1",
-      "maxArgs": 0,
+      "maxArgs": 4,
       "minArgs": 0
     },
     "probe-runtime-access": {

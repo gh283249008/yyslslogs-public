@@ -1,16 +1,12 @@
-# 燕云LOGS 0.3.4
+# 燕云LOGS 0.4.0
 
-燕云十六声本地采集器与手动上传工具。本仓库仅发布 0.3.4 公开版源码与下载包。
+燕云十六声本地采集器与手动上传工具。本仓库发布 0.4.0 公开版源码与下载包。
 
 ## 下载
 
-当前完整包支持 Win64rh r64751 和 Win64r r64304。Win64rh 修复包含新版连接对象类型检查，早先的 0.3.4 包需要更换完整包。
+[下载 Windows x64 完整包](https://github.com/gh283249008/yyslslogs-public/releases/tag/v0.4.0)，解压后保留整个目录。支持 Win64r、Win64rh，内置官网签名解码配置源。
 
-当前 Windows x64 版本为 **0.3.4**。游戏更新后，采集器可自动获取对应版本已发布的签名解码配置。悬浮窗的 rDPS 计算已同步到网站 v46。
-
-[下载 0.3.4 官网配置源修订版](https://github.com/gh283249008/yyslslogs-public/releases/tag/v0.3.4-win64rh)。完整包已内置官网配置源及 Win64r、Win64rh 的签名配置，解压即可使用。只有早先下载的 `0.3.4-final` 包需要手动更换配置源。 若要保留旧安装，退出采集器，下载[官网配置源文件](https://yylogs.dreemurr.net/api/decoder-channel.json)，用它替换安装目录中的 `resources/config/decoder-channel.json`，再启动采集器。今后会向官网查询当前客户端的签名配置。
-
-在 [Releases](https://github.com/gh283249008/yyslslogs-public/releases) 下载 Windows x64 完整压缩包，解压后保留整个目录。
+本次新增鸣金·霆识别和浅钢蓝配色，同步网站 rDPS 规则；断石按客户端数据版本采用对应数值，旧报告保持原口径。包含加速器连接支持。已确认的副本 Boss 自动显示名称，未知目标保留待确认提示。
 
 - **燕云 Logs.exe**：采集和本地保存。
 - **yylogs上传器.exe**：按日期生成 .yylogs 压缩包，登录后手动上传。
@@ -20,7 +16,7 @@
 
 ## 源码与构建
 
-本目录来自已验收的 0.3.4 交付成品。app 为采集器界面，package-generator 为生成/上传工具，modules 与 tools 为采集、存储和解析模块；config 及 evidence 中仅包含运行必需的版本化配置、字典和协议描述符，不含战斗记录。
+运行源码来自已验收的 0.4.0 成品。app 为采集器界面，package-generator 为生成/上传工具，modules 与 tools 为采集、存储和解析模块；config 及 evidence 仅含运行必需的版本化配置、字典和协议描述符，不含战斗记录。
 
 Windows x64、Node.js 24：
 
@@ -32,7 +28,7 @@ $env:YYSLS_BUILD_WIRESHARK = 'C:/Program Files/Wireshark'
 node tools/build-public.mjs
 ```
 
-Python 运行时需要 CPython 3.12、DLLs 及完整标准库；Wireshark 目录需有 tshark/dumpcap。构建产物使用随附运行库，最终用户无需安装 Node/Python/Wireshark。Npcap 驱动不捆绑，按程序引导从官方下载。
+Python 运行时需要 CPython 3.12、DLLs 及完整标准库；Wireshark 目录需有 tshark/dumpcap。最终用户无需安装 Node/Python/Wireshark。Npcap 驱动不捆绑，按程序引导从官方下载。
 
 ## 许可
 

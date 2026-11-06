@@ -22,16 +22,18 @@ const ledger=new (require('./p1-ledger-writer.cjs').LedgerWriter)();
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const state=require('./p1-cipher-anchor.cjs').loadCipherAnchor(c);
 const sessionId=hash(Buffer.from(JSON.stringify([c.pid,c.processStartUtc,c.flow,c.serverEncryptedOrigin,c.initialStateSha256]))).slice(0,24);
+const gameData=require('../modules/domain/game-data-version.cjs').normalizeGameData(c.gameData);
+const source=Object.freeze({mode,sessionId,...(gameData!==undefined?{gameData}:{})});
 const identities=new Map();
 const identityCache=new IdentityCache({file:c.identityCacheFile,clientBuildSha256:c.clientBuildSha256,names:identities});
 identityCache.recover({force:true});
 
 const rdpsObservation=new RdpsObservation({mode,sessionId});
-const simpleRdps=new SimpleRdpsStream({mode,sessionId});
+const simpleRdps=new SimpleRdpsStream(source);
 const {RecordedDamageTracker}=require('../modules/domain/recorded-damage.cjs');
 const recordedPolicy=require('./p1-simple-rdps.cjs').POLICY.recordedDamage;let recorded=new RecordedDamageTracker(recordedPolicy);
 function rdpsSnapshot(){return recorded.apply(simpleRdps,simpleRdps.snapshot());}
-const battleArchive=new (require('./p1-battle-archive.cjs').BattleArchive)(out,{mode,sessionId});
+const battleArchive=new (require('./p1-battle-archive.cjs').BattleArchive)(out,source);
 function estimateObserve(method,event,job){try{const row={...event,observedAt:job.observedAt,transportRecordOrdinal:job.recordOrdinal},prior=simpleRdps.current,count=prior?.hits.length??0;if(method==='observeBuff')recorded.observeBuff(row);const result=simpleRdps[method](row);if(method==='observeDamage')recorded.observeDamage(row,simpleRdps,simpleRdps.current===prior&&(simpleRdps.current?.hits.length??0)>count);if(method==='observeDamage'&&result){const {hitInput,contextIssues,schoolKey,...record}=result;ledger.append(path.join(out,'attribution-hit-estimates.jsonl'),JSON.stringify({...record,source:{mode,sessionId},model:require('./p1-simple-rdps.cjs').POLICY.id,policySha256:require('./p1-simple-rdps.cjs').policySha256})+'\n');}if(method==='observeStatistic'){const estimate=rdpsSnapshot();if(estimate.status==='estimated')ledger.append(path.join(out,'attribution-estimates.jsonl'),JSON.stringify(estimate)+'\n');return estimate;}}catch(e){simpleRdps.error=e.message;ledger.append(path.join(out,'attribution-errors.jsonl'),JSON.stringify({method,recordOrdinal:job.recordOrdinal,error:e.message})+'\n');}}
 let encounterClock=null;
 const settlementAudit=new SettlementAuditBuffer();
@@ -39,8 +41,9 @@ let rejectedEventCount=0,detailCount=0,auxiliaryEventCount=0,auxiliaryRejectedCo
 let buffEventCount=0,buffCoverage={schemaVersion:1,events:0,complete:false,attributionReady:false,timingValidated:false,sourceOwnershipValidated:false,snapshotValidated:false,privateBuffCoverageComplete:false,lifecycleOpcodesValidated:false,aoiClosureValidated:false,reason:'Waiting for validated buff property observations'};
 if(opts['identity-seed']){const seed=JSON.parse(fs.readFileSync(opts['identity-seed'],'utf8').replace(/^\uFEFF/,''));if(seed.source?.sessionId!==sessionId)throw Error('Identity seed session mismatch');for(const row of seed.names||[])if(/^[a-f0-9]{16}$/.test(row.idHash)&&typeof row.name==='string'&&['wire.match.players_data.nickname','wire.avatar.base.nickname','wire.combat_stat_detail.name'].includes(row.nameSource))identities.set(row.idHash,row);}
 let latest={schemaVersion:1,source:{mode,sessionId},observedAt:null,health:{status:'starting',gap:false,stale:true,session:mode==='live'?'pending':'recorded',reason:'Waiting for validated session and server statistics'},npcNo:null,timeCostSeconds:0,actors:[],sequence:0},lastStatWall=0,lastBindWall=0,lastBind=null,stopped=false,failed=false,capture=null,watcher=null,tick=null,startTimer=null,frames=0,statsCount=0,eventCount=0,protoCount=0,pending=new Map(),nextJob=0;
-const manifest={schemaVersion:1,startedAt:new Date().toISOString(),mode,sessionId,configPath,configSha256:hash(fs.readFileSync(configPath)),pid:c.pid,processStartUtc:c.processStartUtc,flow:c.flow,interface:c.captureInterface,serverEncryptedOrigin:c.serverEncryptedOrigin,initialStateSha256:c.initialStateSha256,code:['../modules/storage/raw-spool.cjs','../modules/storage/ledger-writer.cjs','../modules/acquisition/capture-profile.cjs','../modules/acquisition/capture-flags.cjs','../config/runtime-io.json','p1-capture-profile.cjs','p1-network-diagnostics.cjs','p1-process-priority.cjs','p1-battle-archive.cjs','p1_target_resource_stream.py','p1-capture-flags.cjs','p1_attribute_stream.py','p1-hp-text-evidence.cjs','p1-settlement-details.cjs','p1-snapshot-publisher.cjs','p1-simple-rdps.cjs','p1-gap-rdps-reconstruction.cjs','p1-version-baseline.cjs','p1-physical-resistance.cjs','p1-rdps-observation.cjs','p1-rdps-runtime.cjs','p1_buff_stream.py','p1_encounter_schema.py','p1_encounter_identity.py','p1-identity-names.cjs','p1-identity-cache.cjs','p1-live-core.cjs','p1-rdps-damage-batch.cjs','p1-live-pipeline.cjs','p1-live-proto.py','../scripts/windows/p1-live-session-watch.ps1'].map(n=>({file:n,sha256:hash(fs.readFileSync(path.join(__dirname,n)))})),limits:['Requires the recorded session-specific cipher state and sequence origin; no automatic re-login recovery.','Cumulative statistics and single/batch Behit notifications are decoded. Notifications include damage, healing and incoming damage; complete hostile events and buff attribution remain unverified.','Read-only packet capture. No game process memory access, modification or injected code.','Single configured capture interface. Startup may discard an incomplete initial frame after strict multiframe/schema validation.','Session bindings are polled once per second; SYN/FIN/RST end the bound connection, keeping data already captured.','Capture loss is bridged by exact RC4 advance and block resync; messages inside a gap are absent, logged in transport-gaps.jsonl, and stateful buff/attribute views restart after it.']};
-manifest.transportFormat={version:2,fields:require('./p1-capture-profile.cjs').diagnosticFields,appliesTo:mode==='live'?'this live capture':'replay input retains its original 8/13/21-field format',tcpAnalysis:'offline only',telemetryIntervalMs:5000};
+const manifest={schemaVersion:1,...(gameData!==undefined?{gameData}:{}),startedAt:new Date().toISOString(),mode,sessionId,configPath,configSha256:hash(fs.readFileSync(configPath)),pid:c.pid,processStartUtc:c.processStartUtc,flow:c.flow,interface:c.captureInterface,serverEncryptedOrigin:c.serverEncryptedOrigin,initialStateSha256:c.initialStateSha256,code:['../modules/acquisition/kcp-stream.cjs','../modules/acquisition/connection-candidates.cjs','../modules/storage/raw-spool.cjs','../modules/storage/ledger-writer.cjs','../modules/acquisition/capture-profile.cjs','../modules/acquisition/capture-flags.cjs','../config/runtime-io.json','p1-capture-profile.cjs','p1-network-diagnostics.cjs','p1-process-priority.cjs','p1-battle-archive.cjs','p1_target_resource_stream.py','p1-capture-flags.cjs','p1_attribute_stream.py','p1-hp-text-evidence.cjs','p1-settlement-details.cjs','p1-snapshot-publisher.cjs','p1-simple-rdps.cjs','p1-gap-rdps-reconstruction.cjs','p1-version-baseline.cjs','p1-physical-resistance.cjs','p1-rdps-observation.cjs','p1-rdps-runtime.cjs','p1_buff_stream.py','p1_encounter_schema.py','p1_encounter_identity.py','p1-identity-names.cjs','p1-identity-cache.cjs','p1-live-core.cjs','p1-rdps-damage-batch.cjs','p1-live-pipeline.cjs','p1-live-proto.py','../scripts/windows/p1-live-session-watch.ps1'].map(n=>({file:n,sha256:hash(fs.readFileSync(path.join(__dirname,n)))})),limits:['Requires the recorded session-specific cipher state and sequence origin; no automatic re-login recovery.','Cumulative statistics and single/batch Behit notifications are decoded. Notifications include damage, healing and incoming damage; complete hostile events and buff attribution remain unverified.','Read-only packet capture. No game process memory access, modification or injected code.','Single configured capture interface. Startup may discard an incomplete initial frame after strict multiframe/schema validation.','Session bindings are polled once per second; SYN/FIN/RST end the bound connection, keeping data already captured.','Capture loss is bridged by exact RC4 advance and block resync; messages inside a gap are absent, logged in transport-gaps.jsonl, and stateful buff/attribute views restart after it.']};
+manifest.transportFormat=c.transport==='kcp'?{version:3,transport:'kcp',fields:require('../modules/acquisition/capture-profile.cjs').udpFields,envelope:c.kcp.envelope,sequence:'KCP segments reassembled to cipher byte offsets; unknown gaps are not skipped',telemetryIntervalMs:5000}:{version:2,fields:require('./p1-capture-profile.cjs').diagnosticFields,appliesTo:mode==='live'?'this live capture':'replay input retains its original 8/13/21-field format',tcpAnalysis:'offline only',telemetryIntervalMs:5000};
+if(c.transport==='kcp')manifest.limits=[...manifest.limits.filter(s=>!s.startsWith('Session bindings')&&!s.startsWith('Capture loss')),'PID, start time, image path and selected UDP endpoint are verified once per second.','KCP conversation and relay destination are pinned; unresolved segment gaps stop decoding. Missing ciphertext lengths are never guessed.'];
 manifest.buffSchemaEvidence=['evidence/p1/encounter-retest/index-names.json','evidence/p1/rdps-rules/supplemental-index-names.json','evidence/p0/runtime-rpc-analysis/common.proto.descriptor.bin','evidence/p0/runtime-rpc-analysis/client_gate.proto.descriptor.bin','evidence/p1/event-validation/buff-item/LT21-3478.luac.tsv','evidence/p1/rdps-rules/resources/LT41-3348.luac.tsv'].map(file=>({file,sha256:hash(fs.readFileSync(path.resolve(__dirname,'..',file)))}));
 manifest.cipherAnchor={kind:c.cipherStateKind||'login-initial',report:c.cipherAnchorReport||null,reportSha256:c.cipherAnchorReportSha256||null,loaderSha256:hash(fs.readFileSync(path.join(__dirname,'p1-cipher-anchor.cjs')))};
 if(mode==='replay'){manifest.replayFile=path.resolve(opts.replay);manifest.replaySha256=hash(fs.readFileSync(opts.replay));}
@@ -65,7 +68,7 @@ const py=spawn(c.python,['-B','-X','utf8',path.join(__dirname,'p1-live-proto.py'
 py.once('spawn',()=>{if(mode==='live')workerPriorities.schema=setWorkerPriority(py.pid);});
 let rawSpool=null,pumpTimer=null,lastFrameWall=0,lastDecodedWall=0,lastTickWall=0,loopLagSkips=0;
 let lastDecodedCaptureAt=null,ingressBytes=0,ingressChunks=0,lastIngressAt=null,rawWriteMaxMs=0,loopLagMaxMs=0,lastNetworkSample=performance.now();
-function pumpRaw(){if(stopped||!rawSpool)return;try{rawSpool.pump(packet,()=>pending.size<=ioLimits.maxPendingProto);}catch(e){fail(e.message);}}
+function pumpRaw(){if(stopped||failed||!rawSpool)return;try{rawSpool.pump(packet,()=>pending.size<=ioLimits.maxPendingProto);}catch(e){fail(e.message);}}
 // Windows Python emits CRLF. A busy decoder can receive the two characters
 // more than 100 ms apart; they still delimit one JSON record, never a blank job.
 const workerWriter=new WorkerBatchWriter(py.stdin,{onError:e=>fail(e.message)});
@@ -116,7 +119,7 @@ const blocks=new BlockStream((body,meta)=>enqueue(meta,{body:body.toString('base
 // Capture loss is recorded and bridged: RC4 advances by the exact missing TCP
 // byte count, framing resyncs at the next validated block, stateful decoders
 // invalidate in stream order. Missing messages are never reconstructed.
-const gapRecovery=c.gapRecovery!==false;
+const gapRecovery=c.transport!=='kcp'&&c.gapRecovery!==false;
 function onGap(gap){
  const entry={kind:'tcp-gap',source:{mode,sessionId},index:ordered.gapCount,...gap,discardedPartialBytes:blocks.buf.length,nextRecordOrdinal:blocks.records};
  ledger.append(path.join(out,'transport-gaps.jsonl'),JSON.stringify(entry)+'\n');
@@ -124,13 +127,34 @@ function onGap(gap){
  enqueue({control:'transport_gap',gap:entry,recordOrdinal:entry.nextRecordOrdinal,observedAt:gap.resumeObservedAt},{control:'transport_gap'});
 }
 const ordered=new OrderedCipher(state,c.serverEncryptedOrigin,{onBytes:(bytes,meta)=>blocks.push(bytes,meta),onGap:gapRecovery?onGap:null,gapMs:c.gapTimeoutMs??3000,maxSkip:c.maxRc4SeekBytes??128*1024*1024});
+const kcp=c.transport==='kcp'?new (require('../modules/acquisition/kcp-stream.cjs').KcpStream)({...c.kcp,gapMs:c.gapTimeoutMs??3000,onBytes:(data,meta)=>{if(data.length){ordered.push({data,...meta});ordered.start();ordered.drain();}}}):null;
+let finishingKcp=false;
+process.on('message',message=>{if(message?.type==='kcp-capture-error')fail(message.message||'KCP capture failed');});
 function continuity(){return {recoveredGaps:ordered.gapCount,gapBytes:ordered.gapBytes,lateBytesDropped:ordered.lateBytes,resyncs:blocks.resyncs,resyncSkippedBytes:blocks.resyncSkippedBytes,discardedPartialBytes:blocks.discardedBytes,recovery:gapRecovery};}
 function fail(reason){if(stopped)return;failed=true;latest.health={status:'invalid',gap:reason.toLowerCase().includes('gap')?{reason}:false,stale:true,session:'invalid',reason};finish('invalid');}
 function finish(status='stopped'){
+ if(stopped||finishingKcp)return;
+ if(!kcp||mode!=='live'){finishNow(status);return;}
+ finishingKcp=true;clearInterval(tick);clearTimeout(startTimer);
+ (async()=>{
+  try{
+   if(process.connected)process.send({type:'stop-kcp-capture'},()=>{});
+   const deadline=Date.now()+30000;
+   while(!process.stdin.readableEnded&&Date.now()<deadline)await wait(10);
+   while(!failed&&(rawSpool?.hasPending||pending.size)&&Date.now()<deadline){pumpRaw();await wait(10);}
+   if(!failed){
+    ordered.start();ordered.drain();
+    if(!process.stdin.readableEnded||rawSpool?.hasPending||pending.size||kcp.pending.size||blocks.buf.length)throw Error('KCP stop has an incomplete transport tail or undrained queue');
+   }
+  }catch(e){failed=true;latest.health={status:'invalid',gap:{reason:e.message},stale:true,session:'invalid',reason:e.message};}
+  finishNow(failed?'invalid':status);if(process.connected)process.disconnect();
+ })().catch(e=>{failed=true;finishNow('invalid');if(process.connected)process.disconnect();});
+}
+function finishNow(status='stopped'){
  if(stopped)return;stopped=true;clearInterval(tick);clearInterval(pumpTimer);clearTimeout(startTimer);capture?.kill();watcher?.kill();workerWriter.close();py.kill();
  buffCoverage={...buffCoverage,streamEnded:true,attributionReady:false,complete:false};
  if(!failed&&status!=='connection-closed')latest.health={...latest.health,status,stale:mode==='live',reason:status==='replay-complete'?'Replay completed; no live connection claim':'Passive collector stopped'};
- publish();atomic(path.join(out,'completion.json'),{at:new Date().toISOString(),status,failed,packets:frames,blocks:protoCount,statistics:statsCount,incompleteTailBytes:blocks.buf.length,pendingPackets:ordered.pending.length,publication:snapshotPublisher.status()});
+ publish();atomic(path.join(out,'completion.json'),{at:new Date().toISOString(),status,failed,packets:frames,blocks:protoCount,statistics:statsCount,incompleteTailBytes:blocks.buf.length,pendingPackets:ordered.pending.length+(kcp?.pending.size||0),pendingMessages:pending.size,unparsedCaptureBytes:rawSpool?.backlogBytes||0,drainComplete:!(pending.size||rawSpool?.hasPending||kcp?.pending.size),publication:snapshotPublisher.status()});
  ledger.close();rawSpool?.close();
  Promise.all([snapshotPublisher.close(),networkDiagnostics?.close()]).then(async([publication])=>{
   if(mode==='live'&&fs.existsSync(path.join(out,'battles/index.jsonl'))){
@@ -142,12 +166,18 @@ function finish(status='stopped'){
  });
 }
 function packet(line,oldFormat=false){if(stopped)return;const a=line.split('\t');if(!line.trim())return;let p;
+ if(kcp){
+  p=require('../modules/acquisition/kcp-stream.cjs').parseRow(line,c.kcp.remoteEndpoint,c.kcp.envelope);const f=c.flow;
+  if(p.src!==f.serverAddress||p.sport!==f.serverPort||p.dst!==f.clientAddress||p.dport!==f.clientPort)throw Error('Unexpected KCP flow');
+  if(p.envelope!==c.kcp.envelope||p.iface!==0)throw Error('KCP envelope or capture interface changed');
+  frames++;lastFrameWall=Date.now();for(const segment of p.segments)kcp.push(segment,{frame:p.frame,observedAt:new Date(p.time*1000).toISOString()});return;
+ }
  if(oldFormat){if(a.length!==8)throw Error('Replay TSV requires8 fields');p={frame:+a[0],time:a[1],iface:a[2],src:a[3],sport:+a[4],seq:+a[5],len:+a[6],hex:a[7]};if(p.iface!==String(c.replayInterfaceId))throw Error('Unexpected replay interface');}
  else{if(!require('./p1-capture-profile.cjs').isLiveFieldCount(a.length))throw Error('Live TSV requires 13 or 21 fields');p={frame:+a[0],time:a[1],iface:a[2],src:a[3],sport:+a[4],dst:a[5],dport:+a[6],seq:+a[7],len:+a[8],syn:a[9],fin:a[10],rst:a[11],hex:a[12]};if(connectionBoundary(p)){closeConnection('Connection SYN/FIN/RST observed; prior captured data retained');return;}if(closing)return;if(p.src!==c.flow.serverAddress||p.sport!==c.flow.serverPort)return;if(p.dst!==c.flow.clientAddress||p.dport!==c.flow.clientPort)throw Error('Unexpected server flow');}
  if(p.src!==c.flow.serverAddress||p.sport!==c.flow.serverPort)return;const data=Buffer.from(p.hex||'','hex');if(data.length!==p.len)throw Error('Truncated capture payload');if(!data.length)return;frames++;lastFrameWall=Date.now();ordered.push({seq:p.seq,data,frame:p.frame,observedAt:new Date(Number(p.time)*1000).toISOString()});if(ordered.next!==null)ordered.drain();
 }
 function wait(ms){return new Promise(r=>setTimeout(r,ms));}
-function endReplay(){ordered.start();if(gapRecovery)ordered.finish();else{ordered.drain();if(ordered.pending.length)throw Error('Replay ends with unresolved TCP gap');}}
+function endReplay(){ordered.start();if(kcp?.pending.size)throw Error('Replay ends with unresolved KCP gap');if(gapRecovery)ordered.finish();else{ordered.drain();if(ordered.pending.length)throw Error('Replay ends with unresolved transport gap');}}
 // Three transport states, published separately from statistic freshness:
 // flowing (decoded recently), receiving (packets but no decoded block), no-data.
 function transportState(now=Date.now()){
@@ -180,11 +210,19 @@ process.on('SIGINT',()=>finish());process.on('SIGTERM',()=>finish());
  }
  if(mode==='replay'){const lines=fs.readFileSync(opts.replay,'utf8').replace(/^\uFEFF/,'').split(/\r?\n/);for(const line of lines){packet(line,line.split('\t').length===8);if(ordered.next===null&&ordered.pending.length>=8)ordered.start();if(pending.size>1024){while(pending.size>256&&!stopped)await wait(10);}if(stopped)return;}endReplay();while(pending.size&&!stopped)await wait(10);if(!stopped)finish('replay-complete');return;}
  if(!c.pid||!c.processStartUtc||!c.processPath||!c.captureInterface)throw Error('Missing live session binding');
- watcher=spawn(runtimePaths().powershell,powershellScriptArgs(path.join(__dirname,'../scripts/windows/p1-live-session-watch.ps1'),[configPath,out]),{windowsHide:true,stdio:['ignore','pipe','pipe']});readline.createInterface({input:watcher.stdout}).on('line',s=>{try{const row=JSON.parse(s);if(row.kind==='network-os'){networkDiagnostics?.write(row);return;}lastBind=row;lastBindWall=Date.now();if(!lastBind.valid)closeConnection(lastBind.reason);}catch(e){fail('Session watcher output invalid');}});watcher.stderr.on('data',b=>ledger.append(path.join(out,'session.stderr.txt'),b));watcher.on('error',e=>fail('Session watcher failed'));watcher.on('exit',()=>{if(!stopped)fail('Session watcher ended');});
+ watcher=spawn(runtimePaths().powershell,powershellScriptArgs(path.join(__dirname,'../scripts/windows/p1-live-session-watch.ps1'),[configPath,out]),{windowsHide:true,stdio:['ignore','pipe','pipe']});readline.createInterface({input:watcher.stdout}).on('line',s=>{try{const row=JSON.parse(s);if(row.kind==='network-os'){networkDiagnostics?.write(row);return;}lastBind=row;lastBindWall=Date.now();if(!lastBind.valid)closeConnection(lastBind.reason);}catch(e){fail('Session watcher output invalid');}});watcher.stderr.on('data',b=>ledger.append(path.join(out,'session.stderr.txt'),b));watcher.on('error',e=>fail('Session watcher failed'));watcher.on('exit',()=>{if(!stopped&&!closing&&!finishingKcp)fail('Session watcher ended');});
  for(let n=0;n<100&&!lastBind&&!stopped;n++)await wait(100);if(stopped)return;if(!lastBind?.valid)throw Error('Could not verify current process and flow');
  const f=c.flow,bpf=`tcp and host ${f.clientAddress} and host ${f.serverAddress} and port ${f.clientPort} and port ${f.serverPort}`;
 
- capture=spawn(c.tshark,require('./p1-capture-profile.cjs').captureArgs([c.captureInterface],bpf,undefined,true),{windowsHide:true,stdio:['ignore','pipe','pipe']});atomic(path.join(out,'collector.json'),{pid:capture.pid,pipelinePid:process.pid,schemaPid:py.pid,watcherPid:watcher.pid,interface:c.captureInterface,filter:bpf});capture.once('spawn',()=>{workerPriorities.capture=setWorkerPriority(capture.pid,'capture');});capture.stderr.on('data',b=>ledger.append(path.join(out,'capture.stderr.txt'),b));capture.on('error',e=>fail('Packet capture failed: '+e.message));capture.on('exit',code=>{if(!stopped)fail('Packet capture exited '+code);});rawSpool=new RawSpool(path.join(out,'transport.private.tsv'));capture.stdout.on('data',bytes=>{if(stopped)return;try{const start=performance.now();rawSpool.append(bytes);rawWriteMaxMs=Math.max(rawWriteMaxMs,performance.now()-start);ingressBytes+=bytes.length;ingressChunks++;lastIngressAt=new Date().toISOString();}catch(e){fail('Raw evidence write failed: '+e.message);}});pumpTimer=setInterval(pumpRaw,ioLimits.pumpIntervalMs);
+ let ingress;
+ if(kcp){
+  ingress=process.stdin;
+  process.stdin.on('end',()=>{if(!stopped&&!finishingKcp){if(fs.existsSync(path.join(out,'stop')))finish();else fail('KCP capture handoff closed');}});
+  atomic(path.join(out,'collector.json'),{pid:null,pipelinePid:process.pid,schemaPid:py.pid,watcherPid:watcher.pid,interface:c.captureInterface,transport:'kcp',captureOwner:'session-service'});
+ }else{
+ capture=spawn(c.tshark,require('./p1-capture-profile.cjs').captureArgs([c.captureInterface],bpf,undefined,true),{windowsHide:true,stdio:['ignore','pipe','pipe']});atomic(path.join(out,'collector.json'),{pid:capture.pid,pipelinePid:process.pid,schemaPid:py.pid,watcherPid:watcher.pid,interface:c.captureInterface,filter:bpf});capture.once('spawn',()=>{workerPriorities.capture=setWorkerPriority(capture.pid,'capture');});capture.stderr.on('data',b=>ledger.append(path.join(out,'capture.stderr.txt'),b));capture.on('error',e=>fail('Packet capture failed: '+e.message));capture.on('exit',code=>{if(!stopped)fail('Packet capture exited '+code);});ingress=capture.stdout;
+ }
+ rawSpool=new RawSpool(path.join(out,'transport.private.tsv'));ingress.on('data',bytes=>{if(stopped)return;try{const start=performance.now();rawSpool.append(bytes);rawWriteMaxMs=Math.max(rawWriteMaxMs,performance.now()-start);ingressBytes+=bytes.length;ingressChunks++;lastIngressAt=new Date().toISOString();}catch(e){fail('Raw evidence write failed: '+e.message);}});pumpTimer=setInterval(pumpRaw,ioLimits.pumpIntervalMs);
  startTimer=setTimeout(()=>{try{ordered.start();}catch(e){fail(e.message);}},1000);
  const began=Date.now();tick=setInterval(()=>{try{if(fs.existsSync(path.join(out,'stop'))||Date.now()-began>1000*Number(opts.duration??600)){finish();return;}if(closing)return;
   // After a blocked event loop, timers run before buffered watcher lines are
@@ -193,5 +231,5 @@ process.on('SIGINT',()=>finish());process.on('SIGTERM',()=>finish());
   loopLagMaxMs=Math.max(loopLagMaxMs,lag);
   const mono=performance.now();if(mono-lastNetworkSample>=5000){networkDiagnostics?.write({kind:'network-pipeline',at:new Date(now).toISOString(),intervalMs:mono-lastNetworkSample,cpuUsageUs:process.cpuUsage(),rssBytes:process.memoryUsage.rss(),pendingProto:pending.size,rawBacklogBytes:(rawSpool?.backlogBytes||0),ingressBytes,ingressChunks,lastIngressAt,rawWriteMaxMs,loopLagMaxMs,lastDecodedCaptureAt,lastDecodedAt:lastDecodedWall?new Date(lastDecodedWall).toISOString():null,publication:snapshotPublisher.status(),diagnostics:networkDiagnostics?.status()});lastNetworkSample=mono;rawWriteMaxMs=0;loopLagMaxMs=0;}
   if(lag>1000){loopLagSkips++;lastBindWall=Math.max(lastBindWall,now-1000);}
-  if(now-lastBindWall>8000)throw Error('Session binding verification stale');if(ordered.next===null)ordered.start();ordered.tick();const transport=transportState(now);latest.health={...latest.health,status:lastStatWall?'healthy':'waiting',session:'valid',transport,gap:ordered.gapSince?{since:new Date(ordered.gapSince).toISOString()}:false,recoveredGaps:ordered.gapCount,loopLagSkips,stale:!lastStatWall||now-lastStatWall>3500,reason:transport==='receiving-not-decoding'?'Packets arriving but no decoded block in 10s':transport==='no-data'?'No packets from bound connection in 10s':lastStatWall?'Passive capture active; see stale flag':'Passive capture active; no statistic response yet'};publish();}catch(e){fail(e.message);}},1000);
+  if(now-lastBindWall>8000)throw Error('Session binding verification stale');if(ordered.next===null)ordered.start();ordered.tick();kcp?.tick();const transport=transportState(now);latest.health={...latest.health,status:lastStatWall?'healthy':'waiting',session:'valid',transport,gap:ordered.gapSince?{since:new Date(ordered.gapSince).toISOString()}:false,recoveredGaps:ordered.gapCount,loopLagSkips,stale:!lastStatWall||now-lastStatWall>3500,reason:transport==='receiving-not-decoding'?'Packets arriving but no decoded block in 10s':transport==='no-data'?'No packets from bound connection in 10s':lastStatWall?'Passive capture active; see stale flag':'Passive capture active; no statistic response yet'};publish();}catch(e){fail(e.message);}},1000);
 })().catch(e=>fail(e.message));

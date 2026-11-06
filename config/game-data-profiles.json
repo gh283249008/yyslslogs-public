@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "yysls-game-data-profiles-20261106-v1",
+  "basis": "Exact SHA-256 of the selected installation's LocalData/Patch/HD/v2/MANIFEST; executable and property schema alone do not distinguish this data update",
+  "legacyWithoutMarker": "preserve-existing-policy",
+  "versionedRuleIds": ["10245461"],
+  "profiles": {
+    "94a090d784fc4f1d5dd479ee818d024d3da0c1e6889f89a236da94cdb28f09d9": {
+      "id": "cn-hd-20261106",
+      "evidence": "outputs/client-update-040-20261106/tables/buff-rows.json",
+      "ruleOverrides": {
+        "10245461": { "defensePerStack": 0.1 }
+      }
+    }
+  }
+}
