@@ -1,11 +1,12 @@
 const {app,BrowserWindow,ipcMain,dialog,shell}=require('electron');
 const fs=require('node:fs'),path=require('node:path');
 const {scanSessions}=require('./sessions.cjs');
-const {createUploadPackage}=require('../modules/storage/upload-package.cjs');
+const {packageSession}=require('../modules/storage/recover-statistics.cjs');
 const {UploadClient}=require('./upload-client.cjs');
 let win,busy=false,root,output,sessions=[],client;const packages=new Set();
 app.whenReady().then(()=>{
  root=path.join(app.getPath('appData'),'YyslsLogs/sessions');output=app.isPackaged?path.dirname(process.execPath):path.resolve(__dirname,'..');
+ if(process.env.YYSLS_UPLOADER_OUTPUT)output=path.resolve(process.env.YYSLS_UPLOADER_OUTPUT);
  if(process.argv.includes('--verify-generator')){root=process.env.YYSLS_GENERATOR_TEST_ROOT||root;output=process.env.YYSLS_GENERATOR_TEST_OUTPUT||output;}
  client=new UploadClient(path.join(app.getPath('userData'),'upload-resume.json'));
  if(process.argv.includes('--verify-generator')&&process.env.YYSLS_UPLOAD_TEST_ORIGIN){
@@ -20,7 +21,7 @@ app.whenReady().then(()=>{
   if(busy||client.active)throw Error('正在生成，请稍候。');if(!Array.isArray(ids)||!ids.length)throw Error('请先勾选日期或会话。');
   const chosen=ids.map(id=>sessions.find(s=>s.id===id));if(chosen.some(s=>!s)||new Set(ids).size!==ids.length)throw Error('选择无效，请刷新列表。');
   busy=true;const results=[];
-  try{for(const s of chosen){try{let destination=path.join(output,s.id+'.yylogs');if(fs.existsSync(destination))destination=path.join(output,s.id+'-'+Date.now()+'.yylogs');const {manifest,...result}=await createUploadPackage(s.capture,destination,{recoverTail:true,onProgress:p=>win.webContents.send('progress',{session:s.id,...p})});packages.add(result.path);results.push({session:s.id,ok:true,...result});}catch(e){results.push({session:s.id,ok:false,error:e.message});}}return results;}finally{busy=false;}
+  try{for(const s of chosen){try{let destination=path.join(output,s.id+'.yylogs');if(fs.existsSync(destination))destination=path.join(output,s.id+'-'+Date.now()+'.yylogs');const {manifest,...result}=await packageSession(s,destination,{recoverTail:true,onProgress:p=>win.webContents.send('progress',{session:s.id,...p})});packages.add(result.path);results.push({session:s.id,ok:true,...result});}catch(e){results.push({session:s.id,ok:false,error:e.message});}}return results;}finally{busy=false;}
  });
  listen('login',(username,password)=>client.login(String(username),String(password)));
  listen('upload-tasks',()=>client.tasks());
@@ -35,7 +36,7 @@ app.whenReady().then(()=>{
  if(process.argv.includes('--verify-generator'))win.webContents.once('did-finish-load',async()=>{try{
   for(let n=0;n<100&&!await win.webContents.executeJavaScript("document.querySelector('[data-id]')!==null");n++)await new Promise(r=>setTimeout(r,50));
   await new Promise(r=>setTimeout(r,200));fs.writeFileSync(path.join(output,'workbench-initial.png'),(await win.webContents.capturePage()).toPNG());
-  const selected=await win.webContents.executeJavaScript("(()=>{document.querySelectorAll('section > label:first-child > input').forEach(e=>e.click());document.querySelectorAll('[data-id]')[2].click();const n=document.querySelectorAll('[data-id]:checked').length;document.querySelector('#generate').click();return n;})()");if(selected!==2)throw Error('Date/session selection failed');
+  const selected=await win.webContents.executeJavaScript("(()=>{document.querySelectorAll('section > label:first-child > input').forEach(e=>e.click());const records=document.querySelectorAll('[data-id]');if(records.length>1)records[records.length-1].click();const n=document.querySelectorAll('[data-id]:checked').length;document.querySelector('#generate').click();return n;})()");if(selected!==Math.max(1,sessions.length-1))throw Error('Date/session selection failed');
   let done=false;for(let n=0;n<600;n++){done=await win.webContents.executeJavaScript("document.querySelector('#status').textContent.includes('已生成：')");if(done)break;await new Promise(r=>setTimeout(r,50));}if(!done)throw Error('Generation failed');while(await win.webContents.executeJavaScript("document.querySelector('#generate').disabled"))await new Promise(r=>setTimeout(r,50));if(fs.readdirSync(output).filter(f=>f.endsWith('.yylogs')).length!==selected)throw Error('Wrong generated count');
   if(process.env.YYSLS_UPLOAD_TEST_ORIGIN){
    await win.webContents.executeJavaScript("document.querySelector('#username').value='qa_gui';document.querySelector('#password').value='synthetic-gui-password';document.querySelector('#login').click();");

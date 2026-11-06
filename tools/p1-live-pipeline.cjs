@@ -157,10 +157,16 @@ function finishNow(status='stopped'){
  publish();atomic(path.join(out,'completion.json'),{at:new Date().toISOString(),status,failed,packets:frames,blocks:protoCount,statistics:statsCount,incompleteTailBytes:blocks.buf.length,pendingPackets:ordered.pending.length+(kcp?.pending.size||0),pendingMessages:pending.size,unparsedCaptureBytes:rawSpool?.backlogBytes||0,drainComplete:!(pending.size||rawSpool?.hasPending||kcp?.pending.size),publication:snapshotPublisher.status()});
  ledger.close();rawSpool?.close();
  Promise.all([snapshotPublisher.close(),networkDiagnostics?.close()]).then(async([publication])=>{
-  if(mode==='live'&&fs.existsSync(path.join(out,'battles/index.jsonl'))){
-   const packageFile=require('../modules/storage/upload-package.cjs').defaultUploadPath(out,path.resolve(__dirname,'..'));
-   try{const {manifest,...result}=await require('../modules/storage/upload-package.cjs').createUploadPackage(out,packageFile);atomic(path.join(path.dirname(out),'upload-package.json'),{status:'complete',...result});}
-   catch(e){atomic(path.join(path.dirname(out),'upload-package.json'),{status:'failed',error:e.message,rawRecordsRetained:true});}
+  if(mode==='live'){
+   try {
+    const captureDir=await require('../modules/storage/recover-statistics.cjs').persistRecoveredBattles(out);
+    if(captureDir){
+     const uploader=require('../modules/storage/upload-package.cjs');
+     const packageFile=uploader.defaultUploadPath(out,path.resolve(__dirname,'..'));
+     const {manifest,...result}=await uploader.createUploadPackage(captureDir,packageFile);
+     atomic(path.join(path.dirname(out),'upload-package.json'),{status:'complete',...result});
+    }
+   } catch(e){atomic(path.join(path.dirname(out),'upload-package.json'),{status:'failed',error:e.message,rawRecordsRetained:true});}
   }
   console.log(JSON.stringify({output:out,status,statistics:statsCount,publication}));process.exitCode=failed?1:0;
  });
