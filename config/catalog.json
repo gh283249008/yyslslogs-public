@@ -292,6 +292,15 @@
         "byName": "object",
         "kungfuColors": "object"
       }
+    },
+    "config/encounter-display-names.json": {
+      "domain": "encounter-presentation",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "legacyWithoutMarker": "string",
+        "profiles": "object"
+      }
     }
   }
 }

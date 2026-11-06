@@ -1,5 +1,6 @@
 'use strict';
-const {resolveEncounterIdentity}=require('./encounter-catalog.cjs');
+const {resolveEncounterDisplayIdentity}=require('./encounter-display-name.cjs');
+const {normalizeGameData}=require('./game-data-version.cjs');
 // Cumulative snapshots only. Never manufacture hit counts, buff credit or uptime.
 class CombatModel {
   constructor() { this.session=null; this.current=null; this.history=[]; this.n=0; this.latest=null; this.lastZero=null; }
@@ -28,7 +29,7 @@ class CombatModel {
       // An observed zero-to-positive transition brackets the first recorded damage.
       // It is a local estimate, never an authoritative encounter start timestamp.
       const bracket=zero?.npcNo===s.npcNo && delta>0 && delta<=2500?{from:zero.at,to:s.observedAt}:null;
-      this.current={id:`${this.session}:${++this.n}`,npcNo:s.npcNo,actors:{},firstObservedAt:s.observedAt,mode:s.source.mode,authoritativeSeconds:null,finalized:false,
+      this.current={id:`${this.session}:${++this.n}`,npcNo:s.npcNo,actors:{},firstObservedAt:s.observedAt,mode:s.source.mode,...(s.source.gameData!==undefined?{displayGameData:normalizeGameData(s.source.gameData)}:{}),authoritativeSeconds:null,finalized:false,
         estimatedStartAt:bracket?new Date((Date.parse(bracket.from)+Date.parse(bracket.to))/2).toISOString():null,startBracket:bracket};
       this.lastZero=null;
     }
@@ -93,7 +94,7 @@ class CombatModel {
       seconds=Math.max(0,(end-Date.parse(clock?.startObservedAt||c.estimatedStartAt))/1000)||null;
       basis=clock?.startObservedAt?'server-battle-state-received':'local-statistic-start-estimate';
     }
-    const identity=clock?.identityContext?resolveEncounterIdentity(clock.identityContext,c.npcNo):null;
+    const identity=clock?.identityContext?resolveEncounterDisplayIdentity(clock.identityContext,c.npcNo,c.displayGameData):null;
     const qiValues=c.qiCounter?.values||{},qiRows=Object.values(qiValues),qiDamage=qiRows.length?qiRows.reduce((v,a)=>v+a,0):null;
     const qi={status:qiDamage===null?'unavailable':'validated-counter',resourceId:2,damage:qiDamage,
       dps:qiDamage!==null&&seconds?qiDamage/seconds:null,coverage:c.qiCounter?.coverage||'unverified',

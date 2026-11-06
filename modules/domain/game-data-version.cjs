@@ -23,6 +23,7 @@ function normalizeGameData(value){
  return Object.freeze({manifestSha256:valid?value.manifestSha256:null});
 }
 function gameDataKey(value){const v=normalizeGameData(value);return v===undefined?'legacy-unversioned':v.manifestSha256||'explicit-unknown';}
+function createSessionSource(mode,sessionId,value){const gameData=normalizeGameData(value);return Object.freeze({mode,sessionId,...(gameData!==undefined?{gameData}:{})});}
 function resolveRule(rule,id,gameData){
  if(!DATA.versionedRuleIds.includes(String(id))||gameData===undefined)return rule;
  const marker=normalizeGameData(gameData),profile=marker.manifestSha256&&DATA.profiles[marker.manifestSha256];
@@ -34,4 +35,4 @@ function assertSameGameData(sources){
  if(key==='legacy-unversioned'&&sources.every(s=>gameDataKey(s?.gameData)===key))return;
  if(!first?.sessionId||sources.some(s=>s?.sessionId!==first.sessionId||gameDataKey(s?.gameData)!==key))throw Error('inconsistent_session_game_data');
 }
-module.exports={sha256,validate,validatePolicy,normalizeGameData,gameDataKey,resolveRule,assertSameGameData};
+module.exports={sha256,validate,validatePolicy,normalizeGameData,gameDataKey,createSessionSource,resolveRule,assertSameGameData};

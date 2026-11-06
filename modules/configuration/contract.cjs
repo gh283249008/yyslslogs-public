@@ -13,6 +13,7 @@ function validate(file,value){
  const schema=catalog.entries[file];demand(schema,'unregistered '+file);demand(object(value),file+' must be object');
  if(schema.schemaVersion!==null)demand(value.schemaVersion===schema.schemaVersion,file+' unsupported version');
  for(const [key,type] of Object.entries(schema.required))demand(type==='array'?Array.isArray(value[key]):type==='object'?object(value[key]):typeof value[key]===type,file+'.'+key);
+ if(file==='config/encounter-display-names.json')require('../domain/encounter-display-name.cjs').validateDisplayNames(value);
  if(file==='yanyun-logs/config/activity.json'){
   demand(Number.isSafeInteger(value.hitWindowMs)&&value.hitWindowMs>0&&value.hitWindowMs<=1000,'activity hit window');
   const ids=new Set(),pairs=new Set();

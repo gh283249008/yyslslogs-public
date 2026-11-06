@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "legacyWithoutMarker": "existing-catalog-only",
+  "profiles": {
+    "94a090d784fc4f1d5dd479ee818d024d3da0c1e6889f89a236da94cdb28f09d9": {
+      "schemaProfileIds": [
+        "cn-20261021-r64304-preset10207"
+      ],
+      "entries": [
+        {
+          "bossName": "桃靥剑姬",
+          "match": {
+            "dungeonSid": 188,
+            "dungeonGameId": 456,
+            "statisticNpcNo": 116,
+            "npcTemplateNo": 24900001,
+            "customValueId": 6930060,
+            "serialId": 26,
+            "dungeonSerialId": 26
+          },
+          "evidence": {
+            "entityRowSha256": "b3342cf514f1c1e4f1fe75b5958db7b19a8c161724edac83bc299ccb58c3b5b1",
+            "billboardRowSha256": "128315258f60a2f36310d86ae581736db6a51345d5451c916b6f224bb2c6fbb7",
+            "locale": {
+              "id": "6232988482257382769",
+              "text": "桃靥剑姬",
+              "file": "locale/translate_words_map_zh_cn",
+              "page": 878,
+              "slot": 63,
+              "offset": 9624,
+              "length": 12,
+              "pageSha256": "b54906f970931dc4f52b8e497ae67e8a5fdedf57b9028f309604872eaa399f0a"
+            }
+          }
+        },
+        {
+          "bossName": "耶律阿不里",
+          "match": {
+            "dungeonSid": 189,
+            "dungeonGameId": 456,
+            "statisticNpcNo": 117,
+            "npcTemplateNo": 210000200,
+            "customValueId": 6930063,
+            "serialId": 100,
+            "dungeonSerialId": 100
+          },
+          "evidence": {
+            "entityRowSha256": "0b4fdfe3e1321ffcc327242b72e02c583151a2c169dfd41e8248376cb56244a9",
+            "billboardRowSha256": "beeb89273688b48d25c36dae5c01d85e44ff38ef85a4b26cd04f5febc53ae0ff",
+            "locale": {
+              "id": "-4641622659831485768",
+              "text": "耶律阿不里",
+              "file": "locale/translate_words_map_zh_cn",
+              "page": 1397,
+              "slot": 90,
+              "offset": 13493,
+              "length": 15,
+              "pageSha256": "147d4c46690031f58c498bd193f53d19bee66d0c0ed72df49422ad527e259c96"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
