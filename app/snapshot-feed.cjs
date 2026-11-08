@@ -1,5 +1,6 @@
 const fs=require('fs'),path=require('path');
 const {SchoolDisplayFeed}=require('./school-display-feed.cjs');
+const {validIdentity}=require('../modules/storage/identity-cache.cjs');
 // Consume every appended statistic, including short-lived nonzero time_cost.
 // Latest.json remains health metadata; it must not erase an end snapshot.
 class SnapshotFeed {
@@ -42,7 +43,7 @@ class SnapshotFeed {
     if(view.encounter&&fs.existsSync(namesFile))try{
       const identity=JSON.parse(fs.readFileSync(namesFile,'utf8').replace(/^\uFEFF/,''));
       if(identity.source?.sessionId===latest.source?.sessionId && view.encounter.id.startsWith(identity.source.sessionId+':')){
-        const names=new Map((identity.names||[]).filter(a=>/^[a-f0-9]{16}$/.test(a.idHash)&&typeof a.name==='string'&&a.name.length<=256&&['wire.match.players_data.nickname','wire.avatar.base.nickname','wire.combat_stat_detail.name'].includes(a.nameSource)).map(a=>[a.idHash,a]));
+        const names=new Map((identity.names||[]).filter(validIdentity).map(a=>[a.idHash,a]));
         view.encounter.actors=view.encounter.actors.map(a=>names.has(a.idHash)?{...a,name:names.get(a.idHash).name,nameSource:names.get(a.idHash).nameSource}:a);
       }
     }catch(e){identityError='Name metadata unavailable';}
