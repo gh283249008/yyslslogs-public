@@ -100,6 +100,10 @@ function validate(file,value){
  if(file==='config/schema-profiles.json'){
   demand(Object.hasOwn(value.profiles,value.legacyReplayProfileId),'legacy profile');
   for(const [sha,id] of Object.entries(value.byClientSha256))demand(/^[a-f0-9]{64}$/.test(sha)&&Object.hasOwn(value.profiles,id),'client schema binding');
+  for(const [data,bindings] of Object.entries(value.byGameDataSha256||{})){
+   demand(/^[a-f0-9]{64}$/.test(data)&&object(bindings)&&Object.keys(bindings).length>0,'game data schema binding');
+   for(const [client,id] of Object.entries(bindings))demand(Object.hasOwn(value.byClientSha256,client)&&Object.hasOwn(value.profiles,id),'client data schema profile');
+  }
   for(const p of Object.values(value.profiles)){demand(Number.isInteger(p.count)&&p.count>0&&/^[a-f0-9]{64}$/.test(p.sha256),'schema dictionary metadata');localPath(root,p.file);}
  }
  if(file==='config/rdps-simple-v1.json'){

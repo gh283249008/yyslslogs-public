@@ -4,6 +4,7 @@ const path = require('node:path');
 const os = require('node:os');
 const readline = require('node:readline');
 const { createUploadPackage } = require('./upload-package.cjs');
+const { requiresSchemaRepair, replayCapture } = require('./repair-capture.cjs');
 
 function findBattleCapture(capture) {
   return [capture, path.join(capture, 'statistics-only')].find(dir =>
@@ -16,10 +17,21 @@ function canRecover(capture) {
 }
 
 async function packageSession(session, destination, options) {
-  if (!session.needsRecovery) return createUploadPackage(session.capture, destination, options);
+  const original = session.originalCapture || session.capture;
+  if (requiresSchemaRepair(original)) {
+    const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'yylogs-reparse-'));
+    try {
+      options?.onProgress?.({ done: 0, total: 1, file: '正在从原始日志修复字段字典，请稍候' });
+      const repaired = await replayCapture(original, scratch);
+      return await createUploadPackage(repaired, destination, options);
+    } finally {
+      fs.rmSync(scratch, { recursive: true, force: true });
+    }
+  }
+  if (!session.statisticsOnly) return createUploadPackage(session.capture, destination, options);
   const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'yylogs-statistics-'));
   try {
-    await writeRecoveredBattles(session.capture, scratch);
+    await writeRecoveredBattles(session.originalCapture || session.capture, scratch);
     return await createUploadPackage(scratch, destination, options);
   } finally {
     fs.rmSync(scratch, { recursive: true, force: true });
@@ -27,6 +39,15 @@ async function packageSession(session, destination, options) {
 }
 
 async function writeRecoveredBattles(capture, scratch) {
+  const { SIDECARS } = await import('../contracts/import-format.mjs');
+  const originals = [];
+  for (const name of ['statistics.jsonl', ...SIDECARS]) {
+    const file = path.join(capture, name);
+    if (!fs.existsSync(file)) continue;
+    const before = fs.statSync(file);
+    originals.push({ file, size: before.size, mtimeMs: before.mtimeMs });
+    if (name !== 'statistics.jsonl') fs.copyFileSync(file, path.join(scratch, name));
+  }
     const input = path.join(capture, 'statistics.jsonl');
   const before = fs.statSync(input);
     const battles = path.join(scratch, 'battles');
@@ -73,6 +94,12 @@ async function writeRecoveredBattles(capture, scratch) {
     if (before.size !== after.size || before.mtimeMs !== after.mtimeMs) throw Error('记录仍在变化，请停止采集后重试。');
     if (!index.length) throw Error('此会话没有可恢复的战斗结算统计。');
     fs.writeFileSync(path.join(battles, 'index.jsonl'), index.map(row => JSON.stringify(row)).join('\n') + '\n');
+    for (const original of originals) {
+      const current = fs.statSync(original.file);
+      if (current.size !== original.size || current.mtimeMs !== original.mtimeMs) {
+        throw Error('记录仍在变化，请停止采集后重试。');
+      }
+    }
     return index.length;
 }
 

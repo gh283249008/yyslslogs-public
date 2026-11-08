@@ -5,6 +5,11 @@ LEGACY_INDEX_SHA='b274d7be7fecfdd1fa94532d818c07ccdba1d56d35f2e6bd9845a41fa9f052
 BUILD_SHA=os.environ.get('YYSLS_CLIENT_BUILD_SHA256','').lower()
 catalog=json.loads((ROOT/'config/schema-profiles.json').read_text(encoding='utf-8'))
 profile_id=catalog['byClientSha256'].get(BUILD_SHA)
+DATA_SHA=os.environ.get('YYSLS_GAME_DATA_SHA256','').lower()
+if BUILD_SHA and DATA_SHA:
+ pair=catalog.get('byGameDataSha256',{}).get(DATA_SHA,{})
+ if BUILD_SHA not in pair:raise ValueError('Unsupported client/data pair for property schema')
+ profile_id=pair[BUILD_SHA]
 external=os.environ.get('YYSLS_VERIFIED_SCHEMA') if BUILD_SHA else None
 if profile_id is None and external:
  spec=json.loads(external)
@@ -28,4 +33,4 @@ def schema_index(name):
  if len(matches)!=1:raise ValueError('Missing or ambiguous property schema name: '+name)
  return matches[0]
 def schema_metadata():
- return dict(id=profile_id,clientBuildSha256=BUILD_SHA or None,count=SCHEMA_COUNT,file=PROFILE['file'],sha256=INDEX_SHA,legacyReplayFallback=not bool(BUILD_SHA))
+ return dict(id=profile_id,clientBuildSha256=BUILD_SHA or None,count=SCHEMA_COUNT,file=PROFILE['file'],sha256=INDEX_SHA,legacyReplayFallback=not bool(BUILD_SHA),gameDataSha256=DATA_SHA or None)

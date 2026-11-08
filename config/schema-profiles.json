@@ -17,6 +17,17 @@
       "count": 10207,
       "file": "config/schema-index-cn-20261021-r64304.json",
       "sha256": "4d3b124cba0fd07edeebb5b6ba67609721b4d71c16cf3341166c7fb9866b4e5d"
+    },
+    "cn-20261106-preset10269": {
+      "count": 10269,
+      "file": "config/schema-index-cn-20261106-10269.json",
+      "sha256": "64f72ae74a2857adfc02df8a5a69e5fbe99cc4076a225d6d53b5e1f3e825fb7a"
+    }
+  },
+  "byGameDataSha256": {
+    "94a090d784fc4f1d5dd479ee818d024d3da0c1e6889f89a236da94cdb28f09d9": {
+      "fe67929ca09a351709ec6a4f317ebac4f9ca7e541360c05383b18c51ce17aab8": "cn-20261106-preset10269",
+      "4483a00721a7b08a21f3cfb666eb6a8858dacf2e3830956be98c569bac746d1b": "cn-20261106-preset10269"
     }
   }
 }

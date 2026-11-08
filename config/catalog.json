@@ -301,6 +301,16 @@
         "legacyWithoutMarker": "string",
         "profiles": "object"
       }
+    },
+    "config/schema-index-cn-20261106-10269.json": {
+      "domain": "client",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "count": "number",
+        "clientBuildSha256": "string",
+        "rows": "array"
+      }
     }
   }
 }

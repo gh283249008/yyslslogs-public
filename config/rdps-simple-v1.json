@@ -1,5 +1,5 @@
 {
-  "id": "yysls-cn-simple-rdps-20261106-v47",
+  "id": "yysls-cn-simple-rdps-20261108-v48",
   "enabled": true,
   "label": "rDPS 简化估算",
   "resource": "HP",
@@ -352,7 +352,7 @@
   },
   "personalBuffBaseline": {
     "file": "config/personal-buff-baselines.json",
-    "sha256": "0ef781c3305ca9b4965d575795678ae8e8343d69ac5da2c2c3dc82fce877802c",
+    "sha256": "c7a71646c6bcabc8fbafb4d3396b6cd2c10f16718c25289f5ced9b01d68f0031",
     "completeness": "observed-audited-effects-only"
   },
   "kungfuAttributeChannels": {
