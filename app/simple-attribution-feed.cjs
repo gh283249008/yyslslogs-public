@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('fs'),path=require('path');
 const {POLICY,policySha256}=require('../tools/p1-simple-rdps.cjs');
+const {battleDifficulty}=require('../modules/domain/encounter-difficulty.cjs');
 const {ACTIVE_PROFILE}=require('../tools/p1-version-baseline.cjs');
 function applySimpleEstimate(view,dir){
  const c=view.encounter,s=view.snapshot,file=path.join(dir,'attribution-estimate.json');
@@ -37,6 +38,6 @@ function applySimpleEstimate(view,dir){
   return {...a,mechanicDamage,rdps:(a.damage-r.externalGain+r.externalGiven)/c.durationSeconds,dpsGiven:r.externalGiven/c.durationSeconds,dpsTaken:r.externalGain/c.durationSeconds};
  });
  if(Math.abs(given-taken)>1e-7*Math.max(1,given,taken))throw Error('estimate_transfer_not_conserved');
- return {result:{...e,retained:!!retained,totalGiven:given/c.durationSeconds,totalTaken:taken/c.durationSeconds},encounter:{...c,attribution:'estimated',actors,mechanics}};
+ return {result:{...e,retained:!!retained,totalGiven:given/c.durationSeconds,totalTaken:taken/c.durationSeconds},encounter:{...c,difficulty:battleDifficulty({source:s.source,clock:c.encounterClock,statistics:{observedAt:c.lastObservedAt},attribution:e},c.identity),attribution:'estimated',actors,mechanics}};
 }
 module.exports={applySimpleEstimate};

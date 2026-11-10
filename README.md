@@ -1,12 +1,12 @@
-# 燕云LOGS 0.4.1fix-r4
+# 燕云LOGS 0.4.2
 
-燕云十六声本地采集器与手动上传工具。本仓库发布 0.4.1 公开版源码与下载包。
+燕云十六声本地采集器与手动上传工具。本仓库发布 0.4.2 公开版源码与下载包。
 
-修复 TCP 初始化到正式采集之间漏掉队友身份信息的问题；同一连接保持连续采集。悬浮窗按数据变化更新，减少重复重绘与 GPU 竞争。保留 HD 字典选择、旧记录恢复及昵称补全修复。
+修复 TCP 初始化到正式采集之间漏掉队友身份信息的问题；同一连接保持连续采集。撤回强制软件渲染，恢复硬件合成，保留按数据变化更新和重复计算优化。周期性定格问题仍需现场确认，不将回放通过等同于现场修复。保留 HD 字典选择、旧记录恢复及昵称补全修复。
 
 ## 下载
 
-[下载 Windows x64 完整包](https://github.com/gh283249008/yyslslogs-public/releases/tag/v0.4.1fix-r4)，解压后保留整个目录。支持 Win64r、Win64rh，内置官网签名解码配置源。
+[下载 Windows x64 完整包](https://github.com/gh283249008/yyslslogs-public/releases/tag/v0.4.2)，解压后保留整个目录。支持 Win64r、Win64rh，内置官网签名解码配置源。
 
 本次新增鸣金·霆识别和浅钢蓝配色，同步网站 rDPS 规则；断石按客户端数据版本采用对应数值，旧报告保持原口径。包含加速器连接支持。已确认的副本 Boss 自动显示名称，本次补入观澜使、枕月、迷踪守宫、卢以诚，并保留桃靥剑姬和耶律阿不里；新名称严格匹配客户端数据版本与完整身份，未知目标保留待确认提示。
 
@@ -18,7 +18,7 @@
 
 ## 源码与构建
 
-运行源码来自已验收的 0.4.1 成品。app 为采集器界面，package-generator 为生成/上传工具，modules 与 tools 为采集、存储和解析模块；config 及 evidence 仅含运行必需的版本化配置、字典和协议描述符，不含战斗记录。
+运行源码来自已验收的 0.4.2 成品。app 为采集器界面，package-generator 为生成/上传工具，modules 与 tools 为采集、存储和解析模块；config 及 evidence 仅含运行必需的版本化配置、字典和协议描述符，不含战斗记录。
 
 Windows x64、Node.js 24：
 
@@ -27,8 +27,10 @@ npm ci --prefix app
 npm ci --prefix tools
 $env:YYSLS_BUILD_PYTHON = 'C:/runtimes/python312'
 $env:YYSLS_BUILD_WIRESHARK = 'C:/Program Files/Wireshark'
-node tools/build-public.mjs
+node tools/build-public.mjs auto
 ```
+
+构建默认将源码版本及既有成品版本的最大值递增一个补丁版本，同步程序和 EXE 版本号，不重复使用旧版本。
 
 Python 运行时需要 CPython 3.12、DLLs 及完整标准库；Wireshark 目录需有 tshark/dumpcap。最终用户无需安装 Node/Python/Wireshark。Npcap 驱动不捆绑，按程序引导从官方下载。
 

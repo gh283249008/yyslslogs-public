@@ -1,12 +1,13 @@
 'use strict';
 const {app,BrowserWindow,ipcMain,globalShortcut,Tray,Menu,nativeImage,shell,dialog,net}=require('electron');
 const fs=require('fs'),path=require('path'),http=require('http');
-// Small transparent overlays should not compete with the game for GPU rendering.
-app.disableHardwareAcceleration();
+// Keep Chromium hardware compositing: forcing transparent overlays through
+// software composition can stall presentation of the game behind the overlay.
 const {CombatModel,toKagerou}=require('./combat-model.cjs');
 const {SnapshotFeed}=require('./snapshot-feed.cjs');
 const {AttributionFeed}=require('./attribution-feed.cjs');
 const {BuffMonitorFeed}=require('./buff-monitor-feed.cjs');
+const {overlayState,buffStateKey}=require('./overlay-state.cjs');
 const {ServiceLifecycle}=require('./service-lifecycle.cjs');
 const {runtimePaths,childEnv,checkRuntime}=require('../tools/p2-runtime.cjs');
 const root=path.resolve(__dirname,'..'),dist=path.join(root,'vendor/kagerou/dist');
@@ -38,9 +39,10 @@ let win,buffWin,tray,server,model=new CombatModel(),feed=new SnapshotFeed(latest
 function mainWindowAlive(){return !app.isQuitting&&win&&!win.isDestroyed();}
 function showMainWindow(){if(mainWindowAlive()){if(win.isMinimized())win.restore();win.show();}}
 app.on('second-instance',()=>{if(mainWindowAlive()){showMainWindow();win.focus();}});
-function payload(){return {mode,locked,labelsFromScreenshot:mode==='replay'&&!!labelsFile,...lastView,service:{...serviceState},data:lastView?toKagerou(lastView,mode==='replay'?actorLabels:{}):null};}
+function payload(){return {mode,locked,labelsFromScreenshot:mode==='replay'&&!!labelsFile,...overlayState(lastView),service:{message:serviceState.message,detail:serviceState.detail},data:lastView?toKagerou(lastView,mode==='replay'?actorLabels:{}):null};}
 function buffPayload(){return {...buffFeed.poll(),locked:buffLocked};}
-function send(){if(win&&!win.isDestroyed()&&(checks||win.isVisible()))win.webContents.send('state',payload());if(buffWin&&!buffWin.isDestroyed()){const state=buffPayload();if(checks||buffWin.isVisible())buffWin.webContents.send('buff-state',state);}}
+let lastMainState=null,lastBuffState=null;
+function send(force=false){if(win&&!win.isDestroyed()&&(checks||win.isVisible())){const state=payload(),key=JSON.stringify(state);if(force||key!==lastMainState){win.webContents.send('state',state);lastMainState=key;}}if(buffWin&&!buffWin.isDestroyed()){const state=buffPayload();if(checks||buffWin.isVisible()){const key=buffStateKey(state);if(force||key!==lastBuffState){buffWin.webContents.send('buff-state',state);lastBuffState=key;}}}}
 function toggleLock(){if(!mainWindowAlive())return;locked=!locked;win.setIgnoreMouseEvents(locked,{forward:true});send();}
 function toggleBuffLock(){buffLocked=!buffLocked;if(buffWin&&!buffWin.isDestroyed())buffWin.setIgnoreMouseEvents(buffLocked,{forward:true});send();}
 function toggleBuffWindow(){if(!buffWin||buffWin.isDestroyed())return;if(buffWin.isVisible())buffWin.hide();else buffWin.showInactive();updateTray();}
@@ -170,10 +172,10 @@ app.whenReady().then(async()=>{
   win=new BrowserWindow({...bounds,minWidth:460,minHeight:180,frame:false,transparent:true,alwaysOnTop:true,show:!checks,icon:path.join(__dirname,'assets/logo.png'),backgroundColor:'#00000000',title:'燕云 Logs · Kagerou',
     webPreferences:{preload:path.join(__dirname,'preload.cjs'),backgroundThrottling:!checks,contextIsolation:true,nodeIntegration:false,sandbox:true}});
   win.setAlwaysOnTop(true,'screen-saver');
-  win.on('show',send);
+  win.on('show',()=>send(true));
   buffWin=new BrowserWindow({...buffBounds,width:478,height:150,minWidth:120,minHeight:88,maxWidth:520,maxHeight:180,frame:false,transparent:true,resizable:false,alwaysOnTop:true,show:!checks,skipTaskbar:true,focusable:true,icon:path.join(__dirname,'assets/logo.png'),backgroundColor:'#00000000',title:'燕云 Logs · Buff 提示',webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   buffWin.setAlwaysOnTop(true,'screen-saver');
-  buffWin.on('show',send);
+  buffWin.on('show',()=>send(true));
   buffWin.on('close',event=>{if(!app.isQuitting){event.preventDefault();buffWin.hide();}});
   buffWin.on('move',()=>{try{fs.mkdirSync(path.dirname(buffPrefs),{recursive:true});fs.writeFileSync(buffPrefs,JSON.stringify(buffWin.getBounds()));}catch{}});
   win.webContents.setWindowOpenHandler(({url})=>url.startsWith(origin+'/kagerou/config/')?{action:'allow',overrideBrowserWindowOptions:{width:900,height:700,webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true}}}:{action:'deny'});
@@ -181,8 +183,8 @@ app.whenReady().then(async()=>{
   win.on('close',()=>{if(checks)return;try{fs.mkdirSync(path.dirname(prefs),{recursive:true});fs.writeFileSync(prefs,JSON.stringify(win.getBounds()));}catch{}});
   // The companion window outlives the main window; window-all-closed is insufficient.
   win.on('closed',()=>{if(!app.isQuitting)app.quit();});
-  ipcMain.on('ready',e=>{if(mainWindowAlive()&&e.sender===win.webContents)send();});
-  ipcMain.on('buff-ready',e=>{if(e.sender===buffWin.webContents)send();});
+  ipcMain.on('ready',e=>{if(mainWindowAlive()&&e.sender===win.webContents)send(true);});
+  ipcMain.on('buff-ready',e=>{if(e.sender===buffWin.webContents)send(true);});
   ipcMain.on('command',(e,a)=>{if(mainWindowAlive()&&(e.sender===win.webContents||(!buffWin.isDestroyed()&&e.sender===buffWin.webContents)))action(a);});
   const pixels=Buffer.alloc(16*16*4);for(let p=0;p<pixels.length;p+=4){pixels[p]=0xda;pixels[p+1]=0xc6;pixels[p+2]=0x26;pixels[p+3]=255;}
   const icon=fs.existsSync(path.join(__dirname,'assets/logo.png'))?nativeImage.createFromPath(path.join(__dirname,'assets/logo.png')).resize({width:32,height:32}):nativeImage.createFromBitmap(pixels,{width:16,height:16});
@@ -224,7 +226,7 @@ app.whenReady().then(async()=>{
     let busy=false;
     const diagnosticTimer=setInterval(async()=>{if(busy||win.isDestroyed())return;busy=true;try{
       const ui=await win.webContents.executeJavaScript('({text:document.body.innerText,rows:document.querySelectorAll("#table > li").length,errors:window.__yyslsErrors||[]})');
-      const record={at:new Date().toISOString(),pid:process.pid,mainPid:process.pid,servicePid:service?.pid??null,serviceLaunchId:serviceLifecycle.snapshot()?.launchId??null,service:serviceState,mode,latest,visible:win.isVisible(),alwaysOnTop:win.isAlwaysOnTop(),locked,buffWindow:{visible:buffWin?.isVisible()??false,alwaysOnTop:buffWin?.isAlwaysOnTop()??false,locked:buffLocked,bounds:buffWin?.getBounds()??null},...ui};
+      const record={at:new Date().toISOString(),version:app.getVersion(),gpuFeatures:app.getGPUFeatureStatus(),pid:process.pid,mainPid:process.pid,servicePid:service?.pid??null,serviceLaunchId:serviceLifecycle.snapshot()?.launchId??null,service:serviceState,mode,latest,visible:win.isVisible(),alwaysOnTop:win.isAlwaysOnTop(),locked,buffWindow:{visible:buffWin?.isVisible()??false,alwaysOnTop:buffWin?.isAlwaysOnTop()??false,locked:buffLocked,bounds:buffWin?.getBounds()??null},...ui};
       const file=path.join(diagnosticRoot,'runtime-health.json');fs.writeFileSync(file+'.tmp',JSON.stringify(record,null,2));fs.renameSync(file+'.tmp',file);
       fs.appendFileSync(path.join(path.dirname(latest),'overlay-observations.jsonl'),JSON.stringify(record)+'\n');
     }catch(e){console.error('Overlay diagnostics:',e.message);}finally{busy=false;}},2000);
@@ -233,7 +235,7 @@ app.whenReady().then(async()=>{
   fs.mkdirSync(diagnosticRoot,{recursive:true});
   fs.writeFileSync(path.join(diagnosticRoot,`${checks?'verification-launch':'launch'}.json`),JSON.stringify({pid:process.pid,mainPid:process.pid,servicePid:service?.pid??null,serviceLaunchId:serviceLifecycle.snapshot()?.launchId??null,origin,latest,mode,shortcutResults,at:new Date().toISOString()},null,2));
   if(startupCheck){
-    const report={at:new Date().toISOString(),scope:'Actual hidden Electron GUI → environment check → child service handshake → rendered status → owned service stop. No combat or replay validation.',mainPid:process.pid,dataRoot,origin,environment:null,passed:false};
+    const report={at:new Date().toISOString(),version:app.getVersion(),gpuFeatures:app.getGPUFeatureStatus(),scope:'Actual hidden Electron GUI → environment check → child service handshake → rendered status → owned service stop. No combat or replay validation.',mainPid:process.pid,dataRoot,origin,environment:null,passed:false};
     const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
     try{
       report.environment=JSON.parse(fs.readFileSync(path.join(diagnosticRoot,'environment.json')));
@@ -316,7 +318,7 @@ app.whenReady().then(async()=>{
       await win.webContents.executeJavaScript('document.querySelectorAll(".tabs span")[0].click()');
       await win.webContents.executeJavaScript('document.querySelector("[data-host=lock]").click()');await new Promise(r=>setTimeout(r,100));const lockCommandVerified=locked;
       await win.webContents.executeJavaScript('document.querySelector("[data-host=lock]").click()');await new Promise(r=>setTimeout(r,100));
-      fs.writeFileSync(path.join(diagnosticRoot,`${liveCheck?'live-path-verification':'ui-verification'}.json`),JSON.stringify({...state,buffState,qiState,qiNumeric:{syntheticUiOnly:true,...qiNumeric},lockCommandVerified,model:lastView},null,2));
+      fs.writeFileSync(path.join(diagnosticRoot,`${liveCheck?'live-path-verification':'ui-verification'}.json`),JSON.stringify({version:app.getVersion(),gpuFeatures:app.getGPUFeatureStatus(),...state,buffState,qiState,qiNumeric:{syntheticUiOnly:true,...qiNumeric},lockCommandVerified,model:lastView},null,2));
       const expected=lastView?.encounter?.actors||[];
       if(!/^[\d,.]+$/.test(state.footerValue)||!state.debugPanelHidden||(lastView?.snapshot?.source?.mode==='replay'&&!state.text.includes('回放')))process.exitCode=1;
       if(!state.hiddenTransferColumns||state.schoolColors.some(x=>x.nameColor!=='rgb(255, 255, 255)'||!x.gaugeColor))process.exitCode=1;

@@ -311,6 +311,19 @@
         "clientBuildSha256": "string",
         "rows": "array"
       }
+    },
+    "config/upload-format.json": {
+      "domain": "upload-format",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "expandedFileBytes": "number",
+        "jsonBytes": "number",
+        "jsonlLineBytes": "number",
+        "expandedPackageBytes": "number",
+        "manifestBytes": "number",
+        "fileCount": "number"
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 'use strict';
+const {observedDifficulty}=require('./encounter-difficulty.cjs');
 const {ACTIVE_PROFILE,F,POLICY,policySha256,registry,personalBuffs,kungfuChannels,finite,time}=require('./context.cjs');
 const {simpleHitCredit}=require('./hit-credit.cjs');
 const {normalizeGameData}=require('./game-data-version.cjs');
@@ -229,7 +230,19 @@ class SimpleRdpsStream {
     const targets=new Set(mine.filter(h=>h.timestampMs>window.fromMs&&atOrBefore(h,{t:window.toMs,transportRecordOrdinal:window.transportRecordOrdinal})).map(h=>h.targetActorHash));
     const target=targets.size===1?[...targets][0]:null;
     try{
-     const r=reconstructGapJump({sourceActorHash:actor.id,targetActorHash:target,missingAmount:take,...window},{encounterSchool:encounterSchools.get(actor.id)||null});
+     // Statistic jumps hold frozen Buff/attribute state. Reuse only the exact
+     // same window, amount, target and school; late hits can retract a window
+     // or change its target, and a newly identified school must recalculate it.
+     if(!window.jump)throw Error('missing_statistic_jump_snapshot');
+     this.gapCreditCache??=new WeakMap();
+     let cachedByActor=this.gapCreditCache.get(window.jump);
+     if(!cachedByActor){cachedByActor=new Map();this.gapCreditCache.set(window.jump,cachedByActor);}
+     const school=encounterSchools.get(actor.id)||null;
+     const cacheKey=JSON.stringify([target,take,window.fromMs,window.toMs,window.transportRecordOrdinal,school]);
+     const cached=cachedByActor.get(actor.id);
+     const r=cached?.key===cacheKey&&cached.previousJump===window.previousJump?cached.result:
+      reconstructGapJump({sourceActorHash:actor.id,targetActorHash:target,missingAmount:take,...window},{encounterSchool:school});
+     cachedByActor.set(actor.id,{key:cacheKey,previousJump:window.previousJump,result:r});
      for(const reason of r.issues)issues.set('gap:'+reason,(issues.get('gap:'+reason)||0)+1);
      if(!target)issues.set('gap_target_unknown',1);
      let gain=0;
@@ -252,7 +265,7 @@ class SimpleRdpsStream {
   const totalDamage=actors.reduce((s,a)=>s+a.damage,0),totalAttributedDamage=actors.reduce((s,a)=>s+a.damage-a.externalGain+a.externalGiven,mechanicGiven);
   const conservation={unit:'damage',totalGiven,totalTaken,givenTakenError:totalGiven-totalTaken,rdpsDamageError:totalAttributedDamage-totalDamage};
   if(Object.values(conservation).some(v=>typeof v==='number'&&!finite(v))||Math.abs(conservation.givenTakenError)>1e-9*Math.max(1,totalGiven,totalTaken)||Math.abs(conservation.rdpsDamageError)>1e-9*Math.max(1,totalDamage))return {...meta,reasons:['estimate_not_conserved']};
-  return {...meta,status:'estimated',npcNo:c.npcNo,encounterAnchor:c.startObservedAt,spaceHash:c.spaceHash,throughObservedAt:s.observedAt,actors,mechanics:mechanics.filter(m=>m.externalGiven>0||this.buffHistory.some(b=>POLICY.mechanicProviders[m.id].ruleIds.includes(String(b.buffNo))&&roster.has(b.targetActorHash)&&b.startMs<=cutoff&&b.endMs>=Date.parse(c.startObservedAt))).map(m=>({...m,partial:POLICY.mechanicProviders[m.id].ruleIds.some(id=>issues.has('resource_success_unknown:'+id)||issues.has('gap:resource_success_unknown:'+id))})),transfers:[...transfers.values()],conservation,coverage:{encounterSchools:Object.fromEntries(encounterSchools),kind:'observed-hits-plus-gap-reconstruction',transportGaps:c.transportGaps||0,hits,deferredHits,hitsWithSkippedRules:uncreditedHits,personalBaselineKnownHits,personalBaselineUnknownHits:hits-personalBaselineKnownHits,observedPersonalBaselineHits,personalBuffBaseline:POLICY.personalBuffBaseline,reconstructedGapSeconds:reconstructedHits,reconstructedGain,gapSeconds,timingBasis:'statistic-jump-buff-snapshot-estimate',reconciliation:'cumulative-residual; late notifications retract most recent unmatched intervals',fullAttribution:false},reasons:[...issues.keys()],limitations:['首版简化倍率，不代表真实角色属性或精确游戏公式。','已采命中与缺口估算分开记账；缺口估算不增加命中次数、技能明细或原始伤害。','减防沿用每减少1点外防增加0.0155%伤害系数。穿透区保留原倍率和区间分摊，外抗减益原归因结果乘流派RD外功占比，属性抗性减益原归因结果乘RD属攻占比。RD占比是流派级近似，不代表逐击实际伤害类型；流派或属性抗性未知时跳过对应穿透归因。外穿基准63.78，属穿基准30，个人穿透保留在分母。惧刃8%及易伤10%的指定武学按用户口径沿用整场固定具体流派；已知非普通伤害排除，缺少伤害类型的气血部分按普通伤害简化估算并标记。惊神仍要求确切持续伤害或高额流血判定点，不用固定流派代替这些条件。','攻击区保留原倍率、个人攻击分母和区间分摊；按静态规则的外功、属攻生效通道拆分原归因，分别乘配置的外功系数和属攻系数后相加。破竹风为0.78+0.27，不归一化；扶风只作用属攻，烁鼓同时作用外功和属攻；个人攻击基线按已审计外功/属性通道分别进入分母，各通道先计算攻击区贡献再后置加权；非攻击区保留原参考分摊。霖、气竭5%与八方易伤同区加算；区内按增量比例、区间按对数权重分摊。','按已观察 buff 的等级、层数、有效区间和判定表条件纳入个人增伤及攻击区分母；个人基线覆盖仍不完整，未观察项不补造。易伤条件额外10%需武学与伤害适用条件均已知。','真气失衡气竭普通伤害10%进入独立区；鸣金系数按用户指定折算20点鸣金穿透，仅鸣金系按RD属攻分量归因。施加者未知或条件未知不补算；相同基线去重。未支持的条件效果单独列出；自身增益不外转。','缺口按服务器累计与已收逐击的差额定位到接收区间（通常约1秒），后到逐击会撤回最近未匹配差额；这不是精确的服务器命中时刻。缺口使用统计跳变到达时冻结的增益及气竭状态；区间内buff变化单独标记估算，不按时间均摊；指定武学条件沿用本场固定具体流派，持续伤害等其他技能条件未知时不启用。目标仅在同期该玩家已采命中指向唯一目标时近似使用；否则跳过目标相关规则。首个统计前、传输断流或历史不全的缺口不补算。0估算增益不代表确认无增益。']};
+  return {...meta,status:'estimated',difficulty:observedDifficulty(this.buffHistory,{startMs:c.startMs,endMs:cutoff,players:[...roster]}),npcNo:c.npcNo,encounterAnchor:c.startObservedAt,spaceHash:c.spaceHash,throughObservedAt:s.observedAt,actors,mechanics:mechanics.filter(m=>m.externalGiven>0||this.buffHistory.some(b=>POLICY.mechanicProviders[m.id].ruleIds.includes(String(b.buffNo))&&roster.has(b.targetActorHash)&&b.startMs<=cutoff&&b.endMs>=Date.parse(c.startObservedAt))).map(m=>({...m,partial:POLICY.mechanicProviders[m.id].ruleIds.some(id=>issues.has('resource_success_unknown:'+id)||issues.has('gap:resource_success_unknown:'+id))})),transfers:[...transfers.values()],conservation,coverage:{encounterSchools:Object.fromEntries(encounterSchools),kind:'observed-hits-plus-gap-reconstruction',transportGaps:c.transportGaps||0,hits,deferredHits,hitsWithSkippedRules:uncreditedHits,personalBaselineKnownHits,personalBaselineUnknownHits:hits-personalBaselineKnownHits,observedPersonalBaselineHits,personalBuffBaseline:POLICY.personalBuffBaseline,reconstructedGapSeconds:reconstructedHits,reconstructedGain,gapSeconds,timingBasis:'statistic-jump-buff-snapshot-estimate',reconciliation:'cumulative-residual; late notifications retract most recent unmatched intervals',fullAttribution:false},reasons:[...issues.keys()],limitations:['首版简化倍率，不代表真实角色属性或精确游戏公式。','已采命中与缺口估算分开记账；缺口估算不增加命中次数、技能明细或原始伤害。','减防沿用每减少1点外防增加0.0155%伤害系数。穿透区保留原倍率和区间分摊，外抗减益原归因结果乘流派RD外功占比，属性抗性减益原归因结果乘RD属攻占比。RD占比是流派级近似，不代表逐击实际伤害类型；流派或属性抗性未知时跳过对应穿透归因。外穿基准63.78，属穿基准30，个人穿透保留在分母。惧刃8%及易伤10%的指定武学按用户口径沿用整场固定具体流派；已知非普通伤害排除，缺少伤害类型的气血部分按普通伤害简化估算并标记。惊神仍要求确切持续伤害或高额流血判定点，不用固定流派代替这些条件。','攻击区保留原倍率、个人攻击分母和区间分摊；按静态规则的外功、属攻生效通道拆分原归因，分别乘配置的外功系数和属攻系数后相加。破竹风为0.78+0.27，不归一化；扶风只作用属攻，烁鼓同时作用外功和属攻；个人攻击基线按已审计外功/属性通道分别进入分母，各通道先计算攻击区贡献再后置加权；非攻击区保留原参考分摊。霖、气竭5%与八方易伤同区加算；区内按增量比例、区间按对数权重分摊。','按已观察 buff 的等级、层数、有效区间和判定表条件纳入个人增伤及攻击区分母；个人基线覆盖仍不完整，未观察项不补造。易伤条件额外10%需武学与伤害适用条件均已知。','真气失衡气竭普通伤害10%进入独立区；鸣金系数按用户指定折算20点鸣金穿透，仅鸣金系按RD属攻分量归因。施加者未知或条件未知不补算；相同基线去重。未支持的条件效果单独列出；自身增益不外转。','缺口按服务器累计与已收逐击的差额定位到接收区间（通常约1秒），后到逐击会撤回最近未匹配差额；这不是精确的服务器命中时刻。缺口使用统计跳变到达时冻结的增益及气竭状态；区间内buff变化单独标记估算，不按时间均摊；指定武学条件沿用本场固定具体流派，持续伤害等其他技能条件未知时不启用。目标仅在同期该玩家已采命中指向唯一目标时近似使用；否则跳过目标相关规则。首个统计前、传输断流或历史不全的缺口不补算。0估算增益不代表确认无增益。']};
  }
 }
 

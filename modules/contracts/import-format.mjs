@@ -12,3 +12,15 @@ export function selectCapture(files) {
   if (!selected.some(x => /^battles\/[^/]+\/battle.json$/.test(x.path))) throw Error('这个目录还没有保存完整战斗，请先结束一场战斗再导入。');
   return { files: selected, skipped: entries.length - selected.length };
 }
+
+// Header checks are shared by browser, native uploader and server admission.
+// Sizes describe uncompressed members; limits are supplied by JSON configuration.
+export function assertMemberSizes(file, limits) {
+  if (!file || typeof file.path !== 'string') throw Object.assign(Error('上传包文件路径无效。'), {status:400});
+  if (!Number.isSafeInteger(file.size) || file.size < 0 || file.encoding === 'gzip' && file.size === 0) throw Object.assign(Error(file.path + '：压缩文件大小无效。'), {status:400});
+  const raw = file.encoding === 'gzip' ? file.rawSize : file.size;
+  if (!Number.isSafeInteger(raw) || raw < 0) throw Object.assign(Error(file.path + '：解压大小必须是非负安全整数。'), {status:400});
+  if (!limits) return;
+  const maximum = file.path.endsWith('.json') ? limits.jsonBytes : limits.expandedFileBytes;
+  if (raw > maximum) throw Object.assign(Error(file.path + '：解压后 ' + raw + ' 字节，超过' + (file.path.endsWith('.json') ? ' JSON 元数据' : '单个日志') + '上限 ' + maximum + ' 字节。'), {status:413});
+}

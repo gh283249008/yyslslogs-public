@@ -55,7 +55,8 @@
       "package-generator/logo.ico",
       "config/rd-damage-composition.json",
       "config/attack-source-weights.json",
-      "config/decoder-channel.json"
+      "config/decoder-channel.json",
+      "config/upload-format.json"
     ]
   }
 }

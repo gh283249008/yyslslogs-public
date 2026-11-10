@@ -1,15 +1,16 @@
 'use strict';
 const fs=require('node:fs'),https=require('node:https'),crypto=require('node:crypto');
 const config=require('./upload-client.json');
+const formatLimits=require('../config/upload-format.json');
 async function inspectPackage(file){
- const {analysisFile}=await import('../modules/contracts/import-format.mjs');
+ const {analysisFile,assertMemberSizes}=await import('../modules/contracts/import-format.mjs');
  const h=await fs.promises.open(file,'r');try{
   const stat=await h.stat(),prefix=Buffer.alloc(12);await h.read(prefix,0,12,0);
   if(prefix.subarray(0,8).toString()!=='YYLOGS1\n')throw Error('不是有效的 yylogs 压缩包');
-  const length=prefix.readUInt32LE(8);if(length>2*1024**2||12+length>stat.size)throw Error('压缩包清单无效');
+  const length=prefix.readUInt32LE(8);if(length===0||length>formatLimits.manifestBytes||12+length>stat.size)throw Error('压缩包清单无效');
   const header=Buffer.alloc(length);await h.read(header,0,length,12);const m=JSON.parse(header);
-  if(m.format!=='yysls-upload'||m.version!==1||!Array.isArray(m.files)||m.files.length>20000)throw Error('压缩包版本无效');
-  let bytes=0;const names=new Set();for(const f of m.files){if(!analysisFile(f.path)||names.has(f.path.toLowerCase())||f.encoding!=='gzip'||!Number.isSafeInteger(f.size)||f.size<0||!Number.isSafeInteger(f.rawSize)||f.rawSize<0||!/^[a-f0-9]{64}$/.test(f.sha256))throw Error('压缩包文件清单无效');names.add(f.path.toLowerCase());bytes+=f.size;}
+  if(m.format!=='yysls-upload'||m.version!==1||!Array.isArray(m.files)||!m.files.length||m.files.length>formatLimits.fileCount)throw Error('压缩包版本无效');
+  let bytes=0;const names=new Set();for(const f of m.files){if(!f||typeof f.path!=='string'||!analysisFile(f.path)||names.has(f.path.toLowerCase())||f.encoding!=='gzip'||!Number.isSafeInteger(f.size)||f.size<0||!Number.isSafeInteger(f.rawSize)||f.rawSize<0||!/^[a-f0-9]{64}$/.test(f.sha256))throw Error('压缩包文件清单无效');assertMemberSizes(f,formatLimits);names.add(f.path.toLowerCase());bytes+=f.size;}
   if(!names.has('battles/index.jsonl')||bytes+12+length!==stat.size)throw Error('压缩包不完整');
   return {files:m.files,offset:12+length,bytes,stat,fingerprint:crypto.createHash('sha256').update(header).digest('hex')};
  }finally{await h.close();}

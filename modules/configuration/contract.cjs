@@ -28,6 +28,10 @@ function validate(file,value){
   for(const key of Object.keys(schema.required))demand(Number.isSafeInteger(value[key])&&value[key]>0,'cloud limit '+key);
   demand(value.uploadBytes<=8*1024**3&&value.uploadBytes<=value.accountBytes&&value.accountBytes<=value.storageBytes,'cloud upload quota');
  }
+ if(file==='config/upload-format.json'){
+  for(const key of Object.keys(schema.required))demand(Number.isSafeInteger(value[key])&&value[key]>0,'upload format '+key);
+  demand(value.jsonBytes<=value.expandedFileBytes&&value.expandedFileBytes<=value.expandedPackageBytes&&value.jsonlLineBytes<=value.jsonBytes,'upload format size ordering');
+ }
  if(file==='config/attribution-baselines.json'){
   demand(Object.hasOwn(value.profiles,value.activeProfileId),'missing active baseline');
   for(const p of Object.values(value.profiles))for(const key of ['physicalPenetration','attributePenetration'])demand(typeof p[key]==='number'&&Number.isFinite(p[key])&&p[key]>=0,'invalid '+key);

@@ -19,7 +19,14 @@ class SnapshotFeed {
     }finally{fs.closeSync(f);}
   }
   poll(model){
-    const latest=JSON.parse(fs.readFileSync(this.latestPath,'utf8').replace(/^\uFEFF/,''));
+    // The publisher replaces this file atomically. Poll metadata at UI cadence,
+    // but parse the (potentially large) attribution only when its file changes.
+    const latestFd=fs.openSync(this.latestPath,'r');let latest;
+    try{
+      const stat=fs.fstatSync(latestFd),key=[stat.dev,stat.ino,stat.size,stat.mtimeMs,stat.ctimeMs].join(':');
+      if(key!==this.latestFileKey){this.cachedLatest=JSON.parse(fs.readFileSync(latestFd,'utf8').replace(/^\uFEFF/,''));this.latestFileKey=key;}
+      latest=this.cachedLatest;
+    }finally{fs.closeSync(latestFd);}
     if(fs.existsSync(this.ledger)){
       const f=fs.openSync(this.ledger,'r');
       try{const stat=fs.fstatSync(f),id=`${stat.dev}:${stat.ino}:${stat.birthtimeMs}`;

@@ -1,5 +1,6 @@
 'use strict';
 const {resolveEncounterDisplayIdentity}=require('./encounter-display-name.cjs');
+const {identityDifficulty,difficultyName,battleDifficulty}=require('./encounter-difficulty.cjs');
 const {normalizeGameData}=require('./game-data-version.cjs');
 // Cumulative snapshots only. Never manufacture hit counts, buff credit or uptime.
 class CombatModel {
@@ -119,7 +120,7 @@ function toKagerou(view,labels={}){
     yyslsTaken:['available','estimated'].includes(c.attributionValidation?.status)&&Number.isFinite(a.dpsTaken)?a.dpsTaken:'—',yyslsCoverage:c.attributionValidation?.status==='estimated'?'简化估算':'已观测'}]));
   for(const m of c.mechanics||[])if(c.attributionValidation?.status==='estimated')Combatant[m.id]={name:escape(m.name),Job:'',yyslsMechanic:true,yyslsSchoolColor:'#bd5a76',damage:0,yyslsRawDamage:0,encdps:0,'damage%':'0',yyslsRdps:m.partial&&m.externalGiven===0?'—':m.rdps,yyslsGiven:m.rdps,yyslsTaken:'—',yyslsCoverage:m.partial?'部分状态未知':'机制增伤估算'};
   return {isActive:c.finalized||c.clockEnded?'false':'true',Encounter:{yyslsEncounterId:c.id,damage:total,
-    title:c.identity?.bossName||`目标 ${c.npcNo}（名称待确认）`,CurrentZoneName:c.identity?.dungeonName||'燕云十六声 · 已观测角色',
+    title:difficultyName(c.identity?.bossName||`目标 ${c.npcNo}（名称待确认）`,c.difficulty||battleDifficulty({source:view.snapshot?.source,clock:c.encounterClock,statistics:{observedAt:c.lastObservedAt},attribution:view.snapshot?.attributionEstimate},c.identity)),CurrentZoneName:c.identity?.dungeonName||'燕云十六声 · 已观测角色',
     duration:time?`${Math.floor(time/60).toString().padStart(2,'0')}:${(time%60).toFixed(2).padStart(5,'0')}`:'时长待结算',
     DURATION:time??0,encdps:time?total/time:'---',enchps:'---',yyslsQiDamage:c.qi?.damage??'—',
     yyslsQiDps:c.qi?.dps??'—',yyslsQiStatus:c.qi?.status||'unavailable',yyslsQiReason:c.qi?.reason||''},Combatant};

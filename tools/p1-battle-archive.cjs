@@ -16,7 +16,7 @@ class BattleArchive{
   fs.writeFileSync(path.join(dir,'identities.json'),JSON.stringify({source:this.source,names:identities}));
   if(estimate?.encounterAnchor===clock.startObservedAt)fs.writeFileSync(path.join(dir,'attribution-estimate.json'),JSON.stringify(estimate));
   const data={schemaVersion:1,id,source:this.source,updatedAt:new Date().toISOString(),status:clock.endObservedAt?'ended':snapshot.health?.status==='stopped'||snapshot.health?.status==='invalid'?'interrupted':'active',clock,statistics:stats,identities,attribution:estimate?.encounterAnchor===clock.startObservedAt?estimate:null,health:snapshot.health,rawSessionDirectory:'../..',rawFiles:['manifest.json','transport.private.tsv','damage-events.jsonl','buff-events.jsonl','encounter-events.jsonl','attribute-events.jsonl','attribution-hit-estimates.jsonl','settlement-details.jsonl'],scope:'Per-fight snapshots and attribution with shared retained raw session evidence. Reception clock; missing events are not reconstructed.'};
-  const target=path.join(dir,'battle.json'),tmp=target+'.tmp';fs.writeFileSync(tmp,JSON.stringify(data,null,2));fs.renameSync(tmp,target);
+  const target=path.join(dir,'battle.json'),tmp=target+'.tmp';fs.writeFileSync(tmp,JSON.stringify(data));fs.renameSync(tmp,target);
  }
 }
 module.exports={BattleArchive};

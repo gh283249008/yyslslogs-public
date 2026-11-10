@@ -91,7 +91,34 @@
               },
               "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
               "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "2a747eea21c2247701a2a7e31e80dadb3520ed7bc526e3778c53643c906ca6d0",
+              "locale": {
+                "id": "-614792456993917894",
+                "text": "多人巫女-10人-挑战竞速",
+                "ref": {
+                  "key": "-614792456993917894",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 103155,
+                  "file": 1008,
+                  "page": 417,
+                  "offset": 16240,
+                  "length": 48
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "92bdb2a385f9272c3ee1649b2f9430321fce2b212fa076d99b20ca7c2669ebb5",
+                "pageSha256": "70c5fcf619ab434f26862b36fa82d13dbccaca3f91f1e25fd21903a191178a12"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "challenge",
+            "variant": "race-challenge",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -125,7 +152,34 @@
               },
               "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
               "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "51c7b210cbc4b2bd4616fbc49091396b6aa867888885742c97ed0df63b33b115",
+              "locale": {
+                "id": "6465872213562201846",
+                "text": "多人巫女-10人",
+                "ref": {
+                  "key": "6465872213562201846",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 115842,
+                  "file": 1008,
+                  "page": 457,
+                  "offset": 992,
+                  "length": 32
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "326101724566658460fe9d17f6eff84a5a82d0ba04d54c97a01f334c357049b0",
+                "pageSha256": "ffcecc95d3bba7290d2e972cd6e7e0a92d35bb30fe92c1bf40738f51ff1845aa"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -159,7 +213,34 @@
               },
               "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
               "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "af8de07018250ba041a0b17dd632d8201d2d192c050a36751616b5eba2ace868",
+              "locale": {
+                "id": "2940747839455321418",
+                "text": "多人-扫地童子-5人",
+                "ref": {
+                  "key": "2940747839455321418",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 181765,
+                  "file": 1008,
+                  "page": 437,
+                  "offset": 9888,
+                  "length": 32
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "c920a8406de3a909c41714ba920dc230dd39020e720e7abc09a212a1700db19b",
+                "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -193,7 +274,34 @@
               },
               "rowSha256": "5c2688a5539ce5250e8ef1a31d049fe5ef3b339efe48d12125461d671b5ee616",
               "pageSha256": "a6c5b1166b4ecf80063675eb97b66718805367142ed707b202358f0c6200740b"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "29d08f77b5610cfe1f328c8cabb173f471a7d4ce60f2ffb33fc3e4e74cf53e3a",
+              "locale": {
+                "id": "-7525513649017609876",
+                "text": "多人水母-10人",
+                "ref": {
+                  "key": "-7525513649017609876",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 41174,
+                  "file": 1007,
+                  "page": 1288,
+                  "offset": 6560,
+                  "length": 32
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "8773ab08eed1e4bf5b521286274de50c6017d16abe70375a3562e2a6c4d7ba88",
+                "pageSha256": "ce36a57628ac65fb993f5d9205cf97e45096510f3496e1300d7de15a0cddae99"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -227,7 +335,34 @@
               },
               "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
               "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "967541095874f8041814ecea6e974887c7546ec7477e59934f394a8e86872227",
+              "locale": {
+                "id": "-6580138805949784788",
+                "text": "多人-迷踪守宫--5人-挑战竞速",
+                "ref": {
+                  "key": "-6580138805949784788",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 134862,
+                  "file": 1009,
+                  "page": 160,
+                  "offset": 880,
+                  "length": 48
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "a77bd6d216e15da405b4729fd3848a327a26a3b07961f366a748e985a8d89461",
+                "pageSha256": "fc02f21f8e4909af2770bc86cfea4799d3483f06a9e32dfadf32dc7067dd9dcc"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "challenge",
+            "variant": "race-challenge",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -261,7 +396,34 @@
               },
               "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
               "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "f2ee165309770b1a5fb6b08200771bf49acc4f00c19fb901ecb820f7c0405a2f",
+              "locale": {
+                "id": "3188302633277464200",
+                "text": "多人-扫地童子-5人-挑战竞速",
+                "ref": {
+                  "key": "3188302633277464200",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 211685,
+                  "file": 1008,
+                  "page": 439,
+                  "offset": 1600,
+                  "length": 48
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "a34c098c93b21978d31b03c32a24b6dab041570a0033a97b9eee413512281fa7",
+                "pageSha256": "ae4c24b4f47e700fa8a522e0bb13b14de47a62f44bb405fa413f8ab2592c00fc"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "challenge",
+            "variant": "race-challenge",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -295,7 +457,34 @@
               },
               "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
               "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "2af53a75a526369089b47b6fabf2187a6a23da3fc7dbd73c2596e1585253b759",
+              "locale": {
+                "id": "3906102718315653659",
+                "text": "多人巫女-10人-普通竞速",
+                "ref": {
+                  "key": "3906102718315653659",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 75777,
+                  "file": 1008,
+                  "page": 443,
+                  "offset": 1312,
+                  "length": 48
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "eb23599497bf40403b4849bde144b4bfc0b2d100464e71287b238bd730d1b461",
+                "pageSha256": "665431c0dbc627f7c9d4866d852b907a410e2b5df99f2bb763e5e12878c9ccd3"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "race-basic",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -329,7 +518,34 @@
               },
               "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
               "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "93ec650e4b58992a16ffe1ba8b6dbc82d119135919d50f2e4c6d246c405c03ad",
+              "locale": {
+                "id": "-6353725471520659282",
+                "text": "多人-扫地童子-5人-普通竞速",
+                "ref": {
+                  "key": "-6353725471520659282",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 81437,
+                  "file": 1008,
+                  "page": 386,
+                  "offset": 10576,
+                  "length": 48
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "f266357f51a8c907c2ea50253bb8b85fcbc182538cfaeb5d4e7c0f994699faa7",
+                "pageSha256": "aa0557310a96daf6c4961cfee420c5f36b345da06ca1cd1aacc4fc3072f0a686"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "race-basic",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -363,7 +579,34 @@
               },
               "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
               "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "60b0ad44531c06bcd838f70d838625cd204cfaa7161eb15189885b0097e635ea",
+              "locale": {
+                "id": "-5760121700931535371",
+                "text": "多人-迷踪守宫--5人-普通竞速",
+                "ref": {
+                  "key": "-5760121700931535371",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 62251,
+                  "file": 1009,
+                  "page": 160,
+                  "offset": 6592,
+                  "length": 48
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "a9f5e47a38b4af0ff85d661d86b9c2fe6d2f890f7250c5ffc7eabef6543f76db",
+                "pageSha256": "fc02f21f8e4909af2770bc86cfea4799d3483f06a9e32dfadf32dc7067dd9dcc"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "race-basic",
+            "basis": "version-bound-client-dungeon-mode"
           }
         },
         {
@@ -397,7 +640,34 @@
               },
               "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
               "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "33d7ac8a216a18dac1784caba7a3ba8b2f3cb86366e01fea9a6413b8c2300a47",
+              "locale": {
+                "id": "797821039238503361",
+                "text": "多人-迷踪守宫--5人",
+                "ref": {
+                  "key": "797821039238503361",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 11983,
+                  "slot": 75973,
+                  "file": 1008,
+                  "page": 425,
+                  "offset": 13344,
+                  "length": 32
+                },
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "rowSha256": "48406f93214ec279dfbde89f71408d90da15ce4b475fb05480fcadaee6420679",
+                "pageSha256": "bf57ee4716e96430f5d2d0dec181bee5af9cc2443c424cb1194d3d199b464e98"
+              }
             }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
           }
         }
       ]

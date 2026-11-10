@@ -1,6 +1,7 @@
+import crypto from 'node:crypto';import {resolveReleaseVersion} from './release-version.cjs';
 import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {rcedit} from 'rcedit';import {nativeClosure} from './desktop-package-lib.mjs';
-const name=process.argv[2]||'YyslsLogs-0.4.1-public';if(!/^YyslsLogs-0\.4\.1-[a-z0-9-]+$/.test(name))throw Error('Invalid release name');
-const root=path.resolve(import.meta.dirname,'..'),out=path.join(root,'release',name),resources=path.join(out,'resources');
+const root=path.resolve(import.meta.dirname,'..'),version=resolveReleaseVersion({sourceVersion:JSON.parse(fs.readFileSync(path.join(root,'app/package.json'))).version,releaseDirectory:path.join(root,'release'),requested:process.argv[2]});
+const name='YyslsLogs-'+version+'-public',out=path.join(root,'release',name),resources=path.join(out,'resources');
 if(fs.existsSync(out))throw Error('Use a fresh release directory');
 const python=process.env.YYSLS_BUILD_PYTHON,wireshark=process.env.YYSLS_BUILD_WIRESHARK;
 if(!python||!wireshark)throw Error('Set YYSLS_BUILD_PYTHON and YYSLS_BUILD_WIRESHARK');
@@ -12,7 +13,8 @@ const msg=path.join(root,'tools/node_modules/@msgpack/msgpack');for(const file o
 execFileSync(path.join(python,'python.exe'),[path.join(root,'tools/package-python-runtime.py'),python,path.join(resources,'runtime/python')],{windowsHide:true,stdio:'inherit'});
 const deps=nativeClosure(wireshark,['tshark.exe','dumpcap.exe']);for(const file of [...deps.files,'COPYING.txt','README.txt'])copy(path.join(wireshark,file),path.join(resources,'runtime/wireshark',file));
 for(const file of ['vcruntime140.dll','vcruntime140_1.dll'])copy(path.join(python,file),path.join(resources,'runtime/wireshark',file));copy(path.join(process.env.SystemRoot,'System32/msvcp140.dll'),path.join(resources,'runtime/wireshark/msvcp140.dll'));
-await rcedit(path.join(out,'燕云 Logs.exe'),{icon:path.join(root,'app/assets/logo.ico'),'file-version':'0.4.1','product-version':'0.4.1','requested-execution-level':'asInvoker'});
+await rcedit(path.join(out,'燕云 Logs.exe'),{icon:path.join(root,'app/assets/logo.ico'),'file-version':version,'product-version':version,'requested-execution-level':'asInvoker'});
 fs.copyFileSync(path.join(out,'燕云 Logs.exe'),path.join(out,'yylogs上传器.exe'));await rcedit(path.join(out,'yylogs上传器.exe'),{icon:path.join(root,'package-generator/logo.ico'),'version-string':{ProductName:'燕云LOGS',FileDescription:'燕云LOGS 记录与上传',OriginalFilename:'yylogs上传器.exe'}});
 for(const file of ['使用说明.txt','THIRD-PARTY.txt','LICENSE'])copy(path.join(root,file),path.join(out,file));
-console.log(out);
+const pkg=JSON.parse(fs.readFileSync(path.join(resources,'app/package.json')));pkg.version=version;fs.writeFileSync(path.join(resources,'app/package.json'),JSON.stringify(pkg,null,2)+'\n');
+const files=[];function inventory(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const f=path.join(dir,e.name);if(e.isDirectory())inventory(f);else files.push({path:path.relative(out,f).replaceAll('\\','/'),bytes:fs.statSync(f).size,sha256:crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')});}}inventory(out);fs.writeFileSync(path.join(out,'build-manifest.json'),JSON.stringify({version,createdAt:new Date().toISOString(),files},null,2)+'\n');console.log(out);
