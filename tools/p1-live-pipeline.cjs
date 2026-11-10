@@ -8,7 +8,7 @@ const {damageEventsFromAreaSync}=require('./p1-rdps-damage-batch.cjs');
 const {hpTextEvidenceFromAreaSync}=require('./p1-hp-text-evidence.cjs');
 const {connectionBoundary}=require('./p1-capture-flags.cjs');
 const {namesFromMatchWrapper}=require('./p1-identity-names.cjs');
-const {IdentityCache}=require('./p1-identity-cache.cjs');
+const {IdentityCache,validIdentity}=require('./p1-identity-cache.cjs');
 const {RdpsObservation}=require('./p1-rdps-observation.cjs');
 const {SimpleRdpsStream}=require('./p1-simple-rdps.cjs');
 const {decodeStatisticPayload,settlementFromObject,SettlementAuditBuffer}=require('./p1-settlement-details.cjs');
@@ -39,7 +39,7 @@ let encounterClock=null;
 const settlementAudit=new SettlementAuditBuffer();
 let rejectedEventCount=0,detailCount=0,auxiliaryEventCount=0,auxiliaryRejectedCount=0,attributeEventCount=0,attributeCoverage=null;
 let buffEventCount=0,buffCoverage={schemaVersion:1,events:0,complete:false,attributionReady:false,timingValidated:false,sourceOwnershipValidated:false,snapshotValidated:false,privateBuffCoverageComplete:false,lifecycleOpcodesValidated:false,aoiClosureValidated:false,reason:'Waiting for validated buff property observations'};
-if(opts['identity-seed']){const seed=JSON.parse(fs.readFileSync(opts['identity-seed'],'utf8').replace(/^\uFEFF/,''));if(seed.source?.sessionId!==sessionId)throw Error('Identity seed session mismatch');for(const row of seed.names||[])if(/^[a-f0-9]{16}$/.test(row.idHash)&&typeof row.name==='string'&&['wire.match.players_data.nickname','wire.avatar.base.nickname','wire.combat_stat_detail.name'].includes(row.nameSource))identities.set(row.idHash,row);}
+if(opts['identity-seed']){const seed=JSON.parse(fs.readFileSync(opts['identity-seed'],'utf8').replace(/^\uFEFF/,''));if(seed.source?.sessionId!==sessionId)throw Error('Identity seed session mismatch');for(const row of seed.names||[])if(validIdentity(row))identities.set(row.idHash,row);}
 let latest={schemaVersion:1,source,observedAt:null,health:{status:'starting',gap:false,stale:true,session:mode==='live'?'pending':'recorded',reason:'Waiting for validated session and server statistics'},npcNo:null,timeCostSeconds:0,actors:[],sequence:0},lastStatWall=0,lastBindWall=0,lastBind=null,stopped=false,failed=false,capture=null,watcher=null,tick=null,startTimer=null,frames=0,statsCount=0,eventCount=0,protoCount=0,pending=new Map(),nextJob=0;
 const manifest={schemaVersion:1,...(gameData!==undefined?{gameData}:{}),startedAt:new Date().toISOString(),mode,sessionId,configPath,configSha256:hash(fs.readFileSync(configPath)),pid:c.pid,processStartUtc:c.processStartUtc,flow:c.flow,interface:c.captureInterface,serverEncryptedOrigin:c.serverEncryptedOrigin,initialStateSha256:c.initialStateSha256,code:['../modules/acquisition/kcp-stream.cjs','../modules/acquisition/connection-candidates.cjs','../modules/storage/raw-spool.cjs','../modules/storage/ledger-writer.cjs','../modules/acquisition/capture-profile.cjs','../modules/acquisition/capture-flags.cjs','../config/runtime-io.json','p1-capture-profile.cjs','p1-network-diagnostics.cjs','p1-process-priority.cjs','p1-battle-archive.cjs','p1_target_resource_stream.py','p1-capture-flags.cjs','p1_attribute_stream.py','p1-hp-text-evidence.cjs','p1-settlement-details.cjs','p1-snapshot-publisher.cjs','p1-simple-rdps.cjs','p1-gap-rdps-reconstruction.cjs','p1-version-baseline.cjs','p1-physical-resistance.cjs','p1-rdps-observation.cjs','p1-rdps-runtime.cjs','p1_buff_stream.py','p1_encounter_schema.py','p1_encounter_identity.py','p1-identity-names.cjs','p1-identity-cache.cjs','p1-live-core.cjs','p1-rdps-damage-batch.cjs','p1-live-pipeline.cjs','p1-live-proto.py','../scripts/windows/p1-live-session-watch.ps1'].map(n=>({file:n,sha256:hash(fs.readFileSync(path.join(__dirname,n)))})),limits:['Requires the recorded session-specific cipher state and sequence origin; no automatic re-login recovery.','Cumulative statistics and single/batch Behit notifications are decoded. Notifications include damage, healing and incoming damage; complete hostile events and buff attribution remain unverified.','Read-only packet capture. No game process memory access, modification or injected code.','Single configured capture interface. Startup may discard an incomplete initial frame after strict multiframe/schema validation.','Session bindings are polled once per second; SYN/FIN/RST end the bound connection, keeping data already captured.','Capture loss is bridged by exact RC4 advance and block resync; messages inside a gap are absent, logged in transport-gaps.jsonl, and stateful buff/attribute views restart after it.']};
 manifest.transportFormat=c.transport==='kcp'?{version:3,transport:'kcp',fields:require('../modules/acquisition/capture-profile.cjs').udpFields,envelope:c.kcp.envelope,sequence:'KCP segments reassembled to cipher byte offsets; unknown gaps are not skipped',telemetryIntervalMs:5000}:{version:2,fields:require('./p1-capture-profile.cjs').diagnosticFields,appliesTo:mode==='live'?'this live capture':'replay input retains its original 8/13/21-field format',tcpAnalysis:'offline only',telemetryIntervalMs:5000};
@@ -128,23 +128,25 @@ function onGap(gap){
 }
 const ordered=new OrderedCipher(state,c.serverEncryptedOrigin,{onBytes:(bytes,meta)=>blocks.push(bytes,meta),onGap:gapRecovery?onGap:null,gapMs:c.gapTimeoutMs??3000,maxSkip:c.maxRc4SeekBytes??128*1024*1024});
 const kcp=c.transport==='kcp'?new (require('../modules/acquisition/kcp-stream.cjs').KcpStream)({...c.kcp,gapMs:c.gapTimeoutMs??3000,onBytes:(data,meta)=>{if(data.length){ordered.push({data,...meta});ordered.start();ordered.drain();}}}):null;
+const inheritedCapture=!!kcp||c.captureHandoff==='tcp';
 let finishingKcp=false;
-process.on('message',message=>{if(message?.type==='kcp-capture-error')fail(message.message||'KCP capture failed');});
+process.on('message',message=>{if(message?.type==='kcp-capture-error'||message?.type==='tcp-capture-error')fail(message.message||'Inherited capture failed');});
 function continuity(){return {recoveredGaps:ordered.gapCount,gapBytes:ordered.gapBytes,lateBytesDropped:ordered.lateBytes,resyncs:blocks.resyncs,resyncSkippedBytes:blocks.resyncSkippedBytes,discardedPartialBytes:blocks.discardedBytes,recovery:gapRecovery};}
 function fail(reason){if(stopped)return;failed=true;latest.health={status:'invalid',gap:reason.toLowerCase().includes('gap')?{reason}:false,stale:true,session:'invalid',reason};finish('invalid');}
 function finish(status='stopped'){
  if(stopped||finishingKcp)return;
- if(!kcp||mode!=='live'){finishNow(status);return;}
+ if(!inheritedCapture||mode!=='live'){finishNow(status);return;}
  finishingKcp=true;clearInterval(tick);clearTimeout(startTimer);
  (async()=>{
   try{
-   if(process.connected)process.send({type:'stop-kcp-capture'},()=>{});
+   if(process.connected)process.send({type:kcp?'stop-kcp-capture':'stop-tcp-capture'},()=>{});
    const deadline=Date.now()+30000;
    while(!process.stdin.readableEnded&&Date.now()<deadline)await wait(10);
    while(!failed&&(rawSpool?.hasPending||pending.size)&&Date.now()<deadline){pumpRaw();await wait(10);}
    if(!failed){
-    ordered.start();ordered.drain();
-    if(!process.stdin.readableEnded||rawSpool?.hasPending||pending.size||kcp.pending.size||blocks.buf.length)throw Error('KCP stop has an incomplete transport tail or undrained queue');
+    ordered.start();if(kcp)ordered.drain();else ordered.finish();
+    while(!failed&&pending.size&&Date.now()<deadline)await wait(10);
+    if(!process.stdin.readableEnded||rawSpool?.hasPending||pending.size||kcp?.pending.size||blocks.buf.length)throw Error('Inherited capture stop has an incomplete transport tail or undrained queue');
    }
   }catch(e){failed=true;latest.health={status:'invalid',gap:{reason:e.message},stale:true,session:'invalid',reason:e.message};}
   finishNow(failed?'invalid':status);if(process.connected)process.disconnect();
@@ -156,7 +158,7 @@ function finishNow(status='stopped'){
  if(!failed&&status!=='connection-closed')latest.health={...latest.health,status,stale:mode==='live',reason:status==='replay-complete'?'Replay completed; no live connection claim':'Passive collector stopped'};
  publish();atomic(path.join(out,'completion.json'),{at:new Date().toISOString(),status,failed,packets:frames,blocks:protoCount,statistics:statsCount,incompleteTailBytes:blocks.buf.length,pendingPackets:ordered.pending.length+(kcp?.pending.size||0),pendingMessages:pending.size,unparsedCaptureBytes:rawSpool?.backlogBytes||0,drainComplete:!(pending.size||rawSpool?.hasPending||kcp?.pending.size),publication:snapshotPublisher.status()});
  ledger.close();rawSpool?.close();
- Promise.all([snapshotPublisher.close(),networkDiagnostics?.close()]).then(async([publication])=>{
+ Promise.resolve().then(async()=>{
   if(mode==='live'){
    try {
     const captureDir=await require('../modules/storage/recover-statistics.cjs').persistRecoveredBattles(out);
@@ -168,6 +170,7 @@ function finishNow(status='stopped'){
     }
    } catch(e){atomic(path.join(path.dirname(out),'upload-package.json'),{status:'failed',error:e.message,rawRecordsRetained:true});}
   }
+  const [publication]=await Promise.all([snapshotPublisher.close(),networkDiagnostics?.close()]);
   console.log(JSON.stringify({output:out,status,statistics:statsCount,publication}));process.exitCode=failed?1:0;
  });
 }
@@ -179,7 +182,7 @@ function packet(line,oldFormat=false){if(stopped)return;const a=line.split('\t')
   frames++;lastFrameWall=Date.now();for(const segment of p.segments)kcp.push(segment,{frame:p.frame,observedAt:new Date(p.time*1000).toISOString()});return;
  }
  if(oldFormat){if(a.length!==8)throw Error('Replay TSV requires8 fields');p={frame:+a[0],time:a[1],iface:a[2],src:a[3],sport:+a[4],seq:+a[5],len:+a[6],hex:a[7]};if(p.iface!==String(c.replayInterfaceId))throw Error('Unexpected replay interface');}
- else{if(!require('./p1-capture-profile.cjs').isLiveFieldCount(a.length))throw Error('Live TSV requires 13 or 21 fields');p={frame:+a[0],time:a[1],iface:a[2],src:a[3],sport:+a[4],dst:a[5],dport:+a[6],seq:+a[7],len:+a[8],syn:a[9],fin:a[10],rst:a[11],hex:a[12]};if(connectionBoundary(p)){closeConnection('Connection SYN/FIN/RST observed; prior captured data retained');return;}if(closing)return;if(p.src!==c.flow.serverAddress||p.sport!==c.flow.serverPort)return;if(p.dst!==c.flow.clientAddress||p.dport!==c.flow.clientPort)throw Error('Unexpected server flow');}
+ else{if(!require('./p1-capture-profile.cjs').isLiveFieldCount(a.length))throw Error('Live TSV requires 13 or 21 fields');p={frame:+a[0],time:a[1],iface:a[2],src:a[3],sport:+a[4],dst:a[5],dport:+a[6],seq:+a[7],len:+a[8],syn:a[9],fin:a[10],rst:a[11],hex:a[12]};if(connectionBoundary(p)){transportBoundarySeen=true;closeConnection('Connection SYN/FIN/RST observed; prior captured data retained');return;}if(transportBoundarySeen)return;if(p.src!==c.flow.serverAddress||p.sport!==c.flow.serverPort)return;if(p.dst!==c.flow.clientAddress||p.dport!==c.flow.clientPort)throw Error('Unexpected server flow');}
  if(p.src!==c.flow.serverAddress||p.sport!==c.flow.serverPort)return;const data=Buffer.from(p.hex||'','hex');if(data.length!==p.len)throw Error('Truncated capture payload');if(!data.length)return;frames++;lastFrameWall=Date.now();ordered.push({seq:p.seq,data,frame:p.frame,observedAt:new Date(Number(p.time)*1000).toISOString()});if(ordered.next!==null)ordered.drain();
 }
 function wait(ms){return new Promise(r=>setTimeout(r,ms));}
@@ -193,7 +196,7 @@ function transportState(now=Date.now()){
 }
 // A clean FIN/RST or a new SYN ends this connection. Everything already captured
 // stays valid; queued blocks drain before the collector stops.
-let closing=false;
+let closing=false,transportBoundarySeen=false;
 async function closeConnection(reason){
  if(closing||stopped)return;closing=true;
  // Replay: stop consuming after the boundary; the replay loop completes normally.
@@ -221,10 +224,10 @@ process.on('SIGINT',()=>finish());process.on('SIGTERM',()=>finish());
  const f=c.flow,bpf=`tcp and host ${f.clientAddress} and host ${f.serverAddress} and port ${f.clientPort} and port ${f.serverPort}`;
 
  let ingress;
- if(kcp){
+ if(inheritedCapture){
   ingress=process.stdin;
-  process.stdin.on('end',()=>{if(!stopped&&!finishingKcp){if(fs.existsSync(path.join(out,'stop')))finish();else fail('KCP capture handoff closed');}});
-  atomic(path.join(out,'collector.json'),{pid:null,pipelinePid:process.pid,schemaPid:py.pid,watcherPid:watcher.pid,interface:c.captureInterface,transport:'kcp',captureOwner:'session-service'});
+  process.stdin.on('end',()=>{if(!stopped&&!finishingKcp){if(fs.existsSync(path.join(out,'stop')))finish();else fail('Capture handoff closed');}});
+  atomic(path.join(out,'collector.json'),{pid:null,pipelinePid:process.pid,schemaPid:py.pid,watcherPid:watcher.pid,interface:c.captureInterface,transport:kcp?'kcp':'tcp',captureOwner:'session-service'});
  }else{
  capture=spawn(c.tshark,require('./p1-capture-profile.cjs').captureArgs([c.captureInterface],bpf,undefined,true),{windowsHide:true,stdio:['ignore','pipe','pipe']});atomic(path.join(out,'collector.json'),{pid:capture.pid,pipelinePid:process.pid,schemaPid:py.pid,watcherPid:watcher.pid,interface:c.captureInterface,filter:bpf});capture.once('spawn',()=>{workerPriorities.capture=setWorkerPriority(capture.pid,'capture');});capture.stderr.on('data',b=>ledger.append(path.join(out,'capture.stderr.txt'),b));capture.on('error',e=>fail('Packet capture failed: '+e.message));capture.on('exit',code=>{if(!stopped)fail('Packet capture exited '+code);});ingress=capture.stdout;
  }

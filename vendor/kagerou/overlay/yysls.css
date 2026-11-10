@@ -27,4 +27,4 @@ body main{flex:1;min-height:0;height:auto!important;max-height:none!important}
 nav{margin-top:0!important}
 #init-menu .button[data-button=donate],#dropdown-more [data-button=merge-pet],#dropdown-more [data-button=end-encounter],#dropdown-more [data-button=fullscreen],#dropdown-more [data-button=capture]{display:none!important}
 .footer-rdps > small{margin-left:5px}
-.gauge{transition:width .2s linear}
+.gauge{transition:none}

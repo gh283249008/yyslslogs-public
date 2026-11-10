@@ -21,10 +21,10 @@ window.addEventListener('load',()=>{
     window.config.set('footer.rank',false)
     window.renderer.updateConfig(window.config.get());window.renderer.updateHeader();window.tabdisplay.render()
     if(!window.yysls){document.querySelector('#yysls-status').textContent='请通过本地燕云悬浮窗启动器打开';return}
-    let previousMode=null
+    let previousMode=null,previousData=null
     window.yysls.subscribe(s=>{
       if(previousMode!==s.mode){
-        previousMode=s.mode;window.hist=new History();window.renderer.currentHistory=false;window.renderer.standby=true
+        previousMode=s.mode;previousData=null;window.hist=new History();window.renderer.currentHistory=false;window.renderer.standby=true
         document.body.classList.add('standby');document.querySelector('#table').textContent=''
         document.querySelector('#rdps').textContent='—';document.querySelector('#history-time').textContent='等待数据';document.querySelector('#history-mob').textContent=''
       }
@@ -59,7 +59,7 @@ window.addEventListener('load',()=>{
       }
       const nav=document.querySelector('nav');if(nav)nav.title=(replay?'历史回放 · ':'')+(s.service?.detail||status)+'\n'+rdpsText+' · '+qiText
       document.querySelector('[data-host="lock"]').textContent=s.locked?'已穿透':'锁定'
-      if(s.data){window.hist.push(s.data);window.renderer.update()}
+      if(s.data){const key=JSON.stringify(s.data);if(key!==previousData){previousData=key;window.hist.push(s.data);window.renderer.update()}}
       const foot=document.querySelector('.footer-rdps > small');if(foot)foot.textContent=replay?'回放 · 估算':attribution?.updating?'DPS · 归因更新中':attribution?.retained?'已保留 · 估算':window.renderer.current==='1'?'真气 DPS':attribution?.status==='estimated'?'DPS · 归因估算':'DPS'
     })
   },50)

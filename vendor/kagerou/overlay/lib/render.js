@@ -168,7 +168,8 @@
       let playerRank = 0
 
       let table = $('#table')
-      table.innerHTML = ''
+      const previousRows = Array.from(table.children)
+      let renderedRows = 0
 
       for (let i in d) {
         let o = d[i]
@@ -176,8 +177,12 @@
         if (isYou(o.name, this.config.format.myname)) {
           playerRank = o.rank
         }
-        table.appendChild(this.template.render(o, max))
+        const next = this.template.render(o, max), previous = previousRows[renderedRows++]
+        if (!previous) table.appendChild(next)
+        else if (!previous.isEqualNode(next)) table.replaceChild(next, previous)
       }
+
+      for (const extra of previousRows.slice(renderedRows)) extra.remove()
 
       // footer (rdps, rhps)
 

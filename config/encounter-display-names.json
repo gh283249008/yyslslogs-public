@@ -59,6 +59,346 @@
               "pageSha256": "147d4c46690031f58c498bd193f53d19bee66d0c0ed72df49422ad527e259c96"
             }
           }
+        },
+        {
+          "bossName": "观澜使",
+          "match": {
+            "dungeonSid": 258,
+            "dungeonGameId": 602,
+            "statisticNpcNo": 151,
+            "npcTemplateNo": 23300013,
+            "customValueId": 233000132,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "b9828def5fd683d4c42a47cf13a2fb590a6080de69cc106e46055e0da71ea266",
+            "billboardRowSha256": "5071827b4d1c4b028ae28246c93a0cc62b004e0967b0f1812501981585d2a906",
+            "locale": {
+              "id": "-7060964761896550751",
+              "text": "观澜使",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7060964761896550751",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 48054,
+                "file": 1007,
+                "page": 1290,
+                "offset": 12144,
+                "length": 16
+              },
+              "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
+              "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            }
+          }
+        },
+        {
+          "bossName": "观澜使",
+          "match": {
+            "dungeonSid": 257,
+            "dungeonGameId": 601,
+            "statisticNpcNo": 151,
+            "npcTemplateNo": 23300013,
+            "customValueId": null,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "b9828def5fd683d4c42a47cf13a2fb590a6080de69cc106e46055e0da71ea266",
+            "billboardRowSha256": "5071827b4d1c4b028ae28246c93a0cc62b004e0967b0f1812501981585d2a906",
+            "locale": {
+              "id": "-7060964761896550751",
+              "text": "观澜使",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7060964761896550751",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 48054,
+                "file": 1007,
+                "page": 1290,
+                "offset": 12144,
+                "length": 16
+              },
+              "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
+              "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            }
+          }
+        },
+        {
+          "bossName": "卢以诚",
+          "match": {
+            "dungeonSid": 263,
+            "dungeonGameId": 598,
+            "statisticNpcNo": 154,
+            "npcTemplateNo": 21700003,
+            "customValueId": null,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "7753de59079aa0aacf1524065a0cbdfe200259228a7b949f32447e4f5483f2d0",
+            "billboardRowSha256": "ea0d10b8d137e70582e635f796e8fb293ccba1bbe1b24ded2098601de53b08e6",
+            "locale": {
+              "id": "2895610807280334448",
+              "text": "卢以诚",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "2895610807280334448",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 28361,
+                "file": 1008,
+                "page": 437,
+                "offset": 6496,
+                "length": 16
+              },
+              "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
+              "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            }
+          }
+        },
+        {
+          "bossName": "枕月",
+          "match": {
+            "dungeonSid": 259,
+            "dungeonGameId": 601,
+            "statisticNpcNo": 152,
+            "npcTemplateNo": 117000001,
+            "customValueId": null,
+            "serialId": 2,
+            "dungeonSerialId": 2
+          },
+          "evidence": {
+            "entityRowSha256": "36b23b891d978c8c0c6ca779bc62ec7321f40f205aab86d1a2e7f9de4dd432dd",
+            "billboardRowSha256": "82be8dbf4cc6eeb8c4d4fdeff83891afd31270f971a1c9719f258f16f1e61f48",
+            "locale": {
+              "id": "5207912733523151262",
+              "text": "枕月",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "5207912733523151262",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 141644,
+                "file": 1008,
+                "page": 450,
+                "offset": 4336,
+                "length": 16
+              },
+              "rowSha256": "5c2688a5539ce5250e8ef1a31d049fe5ef3b339efe48d12125461d671b5ee616",
+              "pageSha256": "a6c5b1166b4ecf80063675eb97b66718805367142ed707b202358f0c6200740b"
+            }
+          }
+        },
+        {
+          "bossName": "迷踪守宫",
+          "match": {
+            "dungeonSid": 256,
+            "dungeonGameId": 600,
+            "statisticNpcNo": 153,
+            "npcTemplateNo": 210000500,
+            "customValueId": 2100005002,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "24cce09e663d8a97f38778f3c767e43fb8ce9f85241caf736a28f7fb4d694113",
+            "billboardRowSha256": "f78d47a29ec7b436f51c3a27d7ec4c601faa769e63002bfa51d534e4073bb314",
+            "locale": {
+              "id": "-7347373878293753319",
+              "text": "迷踪守宫",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7347373878293753319",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 168079,
+                "file": 1007,
+                "page": 1289,
+                "offset": 4288,
+                "length": 16
+              },
+              "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
+              "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            }
+          }
+        },
+        {
+          "bossName": "卢以诚",
+          "match": {
+            "dungeonSid": 265,
+            "dungeonGameId": 600,
+            "statisticNpcNo": 154,
+            "npcTemplateNo": 21700003,
+            "customValueId": 217000032,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "7753de59079aa0aacf1524065a0cbdfe200259228a7b949f32447e4f5483f2d0",
+            "billboardRowSha256": "ea0d10b8d137e70582e635f796e8fb293ccba1bbe1b24ded2098601de53b08e6",
+            "locale": {
+              "id": "2895610807280334448",
+              "text": "卢以诚",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "2895610807280334448",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 28361,
+                "file": 1008,
+                "page": 437,
+                "offset": 6496,
+                "length": 16
+              },
+              "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
+              "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            }
+          }
+        },
+        {
+          "bossName": "观澜使",
+          "match": {
+            "dungeonSid": 261,
+            "dungeonGameId": 603,
+            "statisticNpcNo": 151,
+            "npcTemplateNo": 23300013,
+            "customValueId": 233000131,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "b9828def5fd683d4c42a47cf13a2fb590a6080de69cc106e46055e0da71ea266",
+            "billboardRowSha256": "5071827b4d1c4b028ae28246c93a0cc62b004e0967b0f1812501981585d2a906",
+            "locale": {
+              "id": "-7060964761896550751",
+              "text": "观澜使",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7060964761896550751",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 48054,
+                "file": 1007,
+                "page": 1290,
+                "offset": 12144,
+                "length": 16
+              },
+              "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
+              "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            }
+          }
+        },
+        {
+          "bossName": "卢以诚",
+          "match": {
+            "dungeonSid": 264,
+            "dungeonGameId": 599,
+            "statisticNpcNo": 154,
+            "npcTemplateNo": 21700003,
+            "customValueId": 217000031,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "7753de59079aa0aacf1524065a0cbdfe200259228a7b949f32447e4f5483f2d0",
+            "billboardRowSha256": "ea0d10b8d137e70582e635f796e8fb293ccba1bbe1b24ded2098601de53b08e6",
+            "locale": {
+              "id": "2895610807280334448",
+              "text": "卢以诚",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "2895610807280334448",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 28361,
+                "file": 1008,
+                "page": 437,
+                "offset": 6496,
+                "length": 16
+              },
+              "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
+              "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            }
+          }
+        },
+        {
+          "bossName": "迷踪守宫",
+          "match": {
+            "dungeonSid": 255,
+            "dungeonGameId": 599,
+            "statisticNpcNo": 153,
+            "npcTemplateNo": 210000500,
+            "customValueId": 2100005001,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "24cce09e663d8a97f38778f3c767e43fb8ce9f85241caf736a28f7fb4d694113",
+            "billboardRowSha256": "f78d47a29ec7b436f51c3a27d7ec4c601faa769e63002bfa51d534e4073bb314",
+            "locale": {
+              "id": "-7347373878293753319",
+              "text": "迷踪守宫",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7347373878293753319",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 168079,
+                "file": 1007,
+                "page": 1289,
+                "offset": 4288,
+                "length": 16
+              },
+              "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
+              "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            }
+          }
+        },
+        {
+          "bossName": "迷踪守宫",
+          "match": {
+            "dungeonSid": 254,
+            "dungeonGameId": 598,
+            "statisticNpcNo": 153,
+            "npcTemplateNo": 210000500,
+            "customValueId": null,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "24cce09e663d8a97f38778f3c767e43fb8ce9f85241caf736a28f7fb4d694113",
+            "billboardRowSha256": "f78d47a29ec7b436f51c3a27d7ec4c601faa769e63002bfa51d534e4073bb314",
+            "locale": {
+              "id": "-7347373878293753319",
+              "text": "迷踪守宫",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7347373878293753319",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 11983,
+                "slot": 168079,
+                "file": 1007,
+                "page": 1289,
+                "offset": 4288,
+                "length": 16
+              },
+              "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
+              "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            }
+          }
         }
       ]
     }

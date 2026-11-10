@@ -61,11 +61,13 @@ async function bootstrap(m){
  }
  const filter='tcp and ('+m.flows.map(f=>`(src host ${f.serverAddress} and src port ${f.serverPort} and dst host ${f.clientAddress} and dst port ${f.clientPort})`).join(' or ')+')';
  const log=path.join(boot,'capture.private.tsv');
- await require('./tcp-initialization-capture.cjs').captureTcpInitialization({tshark,device:interfaces[0],filter,log,closing:()=>fs.existsSync(stopFile),idleTimeoutMs:selection.preferred||selection.attempts>1?18000:5000,snapshot:()=>run(python,['-B','-X','utf8',path.join(__dirname,'p2-read-state.py'),boot],{input:readStateInput})});
+ const bridge=await require('./tcp-initialization-capture.cjs').captureTcpInitialization({keepOpen:true,tshark,device:interfaces[0],filter,log,closing:()=>fs.existsSync(stopFile),idleTimeoutMs:selection.preferred||selection.attempts>1?18000:5000,snapshot:()=>run(python,['-B','-X','utf8',path.join(__dirname,'p2-read-state.py'),boot],{input:readStateInput})});
+ try{
  const recovery=JSON.parse(fs.readFileSync(path.join(boot,'rpc-state-recovery.json')));if(recovery.status!=='snapshot-ready')throw Error('解码状态尚未准备好：'+recovery.reason);
  if(recovery.clientBuildSha256!==imageSha256)throw Error('初始化期间客户端文件发生变化');
  if(recovery.transportProtocol==='KCP')throw Error('初始化期间游戏已切换为 KCP，等待重新选择连接');
- const rows=fs.readFileSync(log,'utf8').trim().split(/\r?\n/).filter(Boolean).map(l=>{const a=l.split('\t');return{time:+a[1],iface:+a[2],src:a[3],sport:+a[4],dst:a[5],dport:+a[6],seq:+a[7],len:+a[8],data:Buffer.from(a[12]||'','hex')};}).filter(r=>r.len&&r.data.length===r.len);
+ const initialBytes=Buffer.alloc(bridge.alignmentBytes),initialFd=fs.openSync(log,'r');try{if(fs.readSync(initialFd,initialBytes,0,initialBytes.length,0)!==initialBytes.length)throw Error('Initialization journal truncated');}finally{fs.closeSync(initialFd);}
+ const initialText=initialBytes.toString('utf8');const rows=initialText.slice(0,initialText.lastIndexOf('\n')+1).trim().split(/\r?\n/).filter(Boolean).map(l=>{const a=l.split('\t');return{time:+a[1],iface:+a[2],src:a[3],sport:+a[4],dst:a[5],dport:+a[6],seq:+a[7],len:+a[8],data:Buffer.from(a[12]||'','hex')};}).filter(r=>r.len&&r.data.length===r.len);
  const groups=new Map();for(const r of rows){const k=JSON.stringify([r.iface,r.src,r.sport,r.dst,r.dport]);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r);}
  let config=null,attempt=0;
  for(const group of groups.values()){
@@ -75,14 +77,15 @@ async function bootstrap(m){
    if(bytes.length<64)continue;const at=Date.parse(recovery.snapshotAtUtc)/1000;const before=group.filter(r=>r.time<at-3),after=group.filter(r=>r.time<=at+3);if(!after.length)continue;
    const minCursor=before.length?Math.max(...before.map(r=>r.seq+r.data.length))-origin:0,maxCursor=Math.max(...after.map(r=>r.seq+r.data.length))-origin;
    const dir=path.join(boot,'candidate-'+(++attempt));fs.mkdirSync(dir);const cipherFile=path.join(dir,'cipher.private.bin');fs.writeFileSync(cipherFile,bytes);
-   const flow={serverAddress:first.src,serverPort:first.sport,clientAddress:first.dst,clientPort:first.dport};const align={stateFile:recovery.stateObject,expectedVtable:recovery.expectedVtable,cipherFile,minCursor,maxCursor,maxPrefix:256,python,outDir:path.join(dir,'aligned'),metadata:{pid:m.pid,flow,gaps:0,overlapsVerified:true,captureStartTcpSequence:origin,duplicateBytes:duplicates,sourceTsvSha256:sha(fs.readFileSync(log)),snapshotAtUtc:recovery.snapshotAtUtc,interface:interfaces[first.iface]}};
+   const flow={serverAddress:first.src,serverPort:first.sport,clientAddress:first.dst,clientPort:first.dport};const align={stateFile:recovery.stateObject,expectedVtable:recovery.expectedVtable,cipherFile,minCursor,maxCursor,maxPrefix:256,python,outDir:path.join(dir,'aligned'),metadata:{pid:m.pid,flow,gaps:0,overlapsVerified:true,captureStartTcpSequence:origin,duplicateBytes:duplicates,sourceTsvSha256:sha(initialBytes),sourceTsvBytes:initialBytes.length,snapshotAtUtc:recovery.snapshotAtUtc,interface:interfaces[first.iface]}};
    const alignFile=path.join(dir,'align.private.json');fs.writeFileSync(alignFile,JSON.stringify(align));await run(node,[path.join(__dirname,'align-rc4-late-state.cjs'),alignFile],{timeout:120000});
    const report=path.join(align.outDir,'report.json'),r=JSON.parse(fs.readFileSync(report));if(!r.unique||!r.roundTrip)continue;
    config={identityCacheFile:path.join(data,'identity-cache.json'),clientBuildSha256:profile.imageSha256,...(approved?{decoderEnvelope:approved.envelope}:{}),pid:m.pid,processStartUtc:m.processStartUtc,processPath:m.modulePath,flow,captureInterface:interfaces[first.iface],python,tshark,serverEncryptedOrigin:origin,initialStateFile:path.join(align.outDir,r.anchor.stateFile),initialStateSha256:r.anchor.stateSha256,cipherStateKind:'validated-midstream',cipherAnchorReport:report,cipherAnchorReportSha256:sha(fs.readFileSync(report)),gapTimeoutMs:3000,knownAcquisitionGaps:[{kind:'joined-existing-session',note:'Initialization is not a claim that earlier combat was captured.'}]};break;
   }catch(e){fs.appendFileSync(path.join(boot,'alignment-errors.log'),e.message+'\n');}
  }
  if(!config)throw Object.assign(Error(!rows.length?'候选连接没有有效载荷，继续检查其他连接':!attempt?'候选连接的数据不足以校验游戏协议，继续检查其他连接':'当前候选连接未通过游戏协议校验，继续检查其他连接；证据已保留'),{code:attempt?'candidate-protocol-mismatch':'candidate-insufficient-data'});
- await launchPipeline(m,session,{...config,gameData});
+ await launchPipeline(m,session,{...config,gameData,captureHandoff:'tcp'},bridge);
+ }catch(e){bridge.stop();throw e;}
 }
 async function launchPipeline(m,session,config,bridge=null){
  assertSameGameData(config.gameData,readGameDataProfile(m.modulePath));

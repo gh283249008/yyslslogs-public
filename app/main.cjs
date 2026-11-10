@@ -1,6 +1,8 @@
 'use strict';
 const {app,BrowserWindow,ipcMain,globalShortcut,Tray,Menu,nativeImage,shell,dialog,net}=require('electron');
 const fs=require('fs'),path=require('path'),http=require('http');
+// Small transparent overlays should not compete with the game for GPU rendering.
+app.disableHardwareAcceleration();
 const {CombatModel,toKagerou}=require('./combat-model.cjs');
 const {SnapshotFeed}=require('./snapshot-feed.cjs');
 const {AttributionFeed}=require('./attribution-feed.cjs');
@@ -38,7 +40,7 @@ function showMainWindow(){if(mainWindowAlive()){if(win.isMinimized())win.restore
 app.on('second-instance',()=>{if(mainWindowAlive()){showMainWindow();win.focus();}});
 function payload(){return {mode,locked,labelsFromScreenshot:mode==='replay'&&!!labelsFile,...lastView,service:{...serviceState},data:lastView?toKagerou(lastView,mode==='replay'?actorLabels:{}):null};}
 function buffPayload(){return {...buffFeed.poll(),locked:buffLocked};}
-function send(){if(win&&!win.isDestroyed())win.webContents.send('state',payload());if(buffWin&&!buffWin.isDestroyed())buffWin.webContents.send('buff-state',buffPayload());}
+function send(){if(win&&!win.isDestroyed()&&(checks||win.isVisible()))win.webContents.send('state',payload());if(buffWin&&!buffWin.isDestroyed()){const state=buffPayload();if(checks||buffWin.isVisible())buffWin.webContents.send('buff-state',state);}}
 function toggleLock(){if(!mainWindowAlive())return;locked=!locked;win.setIgnoreMouseEvents(locked,{forward:true});send();}
 function toggleBuffLock(){buffLocked=!buffLocked;if(buffWin&&!buffWin.isDestroyed())buffWin.setIgnoreMouseEvents(buffLocked,{forward:true});send();}
 function toggleBuffWindow(){if(!buffWin||buffWin.isDestroyed())return;if(buffWin.isVisible())buffWin.hide();else buffWin.showInactive();updateTray();}
@@ -168,8 +170,10 @@ app.whenReady().then(async()=>{
   win=new BrowserWindow({...bounds,minWidth:460,minHeight:180,frame:false,transparent:true,alwaysOnTop:true,show:!checks,icon:path.join(__dirname,'assets/logo.png'),backgroundColor:'#00000000',title:'燕云 Logs · Kagerou',
     webPreferences:{preload:path.join(__dirname,'preload.cjs'),backgroundThrottling:!checks,contextIsolation:true,nodeIntegration:false,sandbox:true}});
   win.setAlwaysOnTop(true,'screen-saver');
+  win.on('show',send);
   buffWin=new BrowserWindow({...buffBounds,width:478,height:150,minWidth:120,minHeight:88,maxWidth:520,maxHeight:180,frame:false,transparent:true,resizable:false,alwaysOnTop:true,show:!checks,skipTaskbar:true,focusable:true,icon:path.join(__dirname,'assets/logo.png'),backgroundColor:'#00000000',title:'燕云 Logs · Buff 提示',webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   buffWin.setAlwaysOnTop(true,'screen-saver');
+  buffWin.on('show',send);
   buffWin.on('close',event=>{if(!app.isQuitting){event.preventDefault();buffWin.hide();}});
   buffWin.on('move',()=>{try{fs.mkdirSync(path.dirname(buffPrefs),{recursive:true});fs.writeFileSync(buffPrefs,JSON.stringify(buffWin.getBounds()));}catch{}});
   win.webContents.setWindowOpenHandler(({url})=>url.startsWith(origin+'/kagerou/config/')?{action:'allow',overrideBrowserWindowOptions:{width:900,height:700,webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true}}}:{action:'deny'});

@@ -3,7 +3,8 @@ const fs=require('node:fs'),readline=require('node:readline'),{spawn}=require('n
 const {finished}=require('node:stream/promises');
 const {captureArgs}=require('./p1-capture-profile.cjs'),{setWorkerPriority}=require('./p1-process-priority.cjs');
 const noData=()=>Object.assign(Error('当前候选连接没有收到有效数据，继续检查其他连接'),{code:'candidate-no-data'});
-async function captureTcpInitialization({tshark,device,filter,log,snapshot,closing=()=>false,idleTimeoutMs=5000,snapshotDelayMs=6000,startCapture=spawn}){
+async function captureTcpInitialization({keepOpen=false,tshark,device,filter,log,snapshot,closing=()=>false,idleTimeoutMs=5000,snapshotDelayMs=6000,startCapture=spawn}){
+ if(keepOpen)return require('./tcp-capture-handoff.cjs').captureTcpHandoff({tshark,device,filter,log,snapshot,closing,idleTimeoutMs,snapshotDelayMs,startCapture});
  if(typeof device!=='string'||!device.startsWith('\\Device\\NPF_'))throw Error('Exactly one Npcap interface is required');
  const capture=startCapture(tshark,captureArgs([device],filter,18),{windowsHide:true,stdio:['ignore','pipe','pipe']});
  const output=fs.createWriteStream(log,{flags:'wx'});capture.stdout.pipe(output);
