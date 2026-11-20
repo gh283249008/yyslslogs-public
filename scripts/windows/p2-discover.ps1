@@ -1,6 +1,14 @@
 param([int]$GameProcessId=0,[string]$ExpectedStart='', [string]$UdpRemoteAddress='', [int]$UdpRemotePort=0)
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+function Get-PppRouteIndices {
+ foreach($adapter in [Net.NetworkInformation.NetworkInterface]::GetAllNetworkInterfaces()){
+  if($adapter.NetworkInterfaceType -eq 'Ppp' -and $adapter.OperationalStatus -eq 'Up'){
+   $ipv4=$adapter.GetIPProperties().GetIPv4Properties()
+   if($null -ne $ipv4){$ipv4.Index}
+  }
+ }
+}
 function Get-GameCaptureInterfaces($Flows) {
  $selected=@();$evidence=@()
  foreach($flow in $Flows){
@@ -13,10 +21,19 @@ function Get-GameCaptureInterfaces($Flows) {
   else{$routes=@(Find-NetRoute -RemoteIPAddress $flow.serverAddress -LocalIPAddress $flow.clientAddress -ErrorAction SilentlyContinue)}
   $indices=@($routes | ForEach-Object {$_.InterfaceIndex} | Sort-Object -Unique)
   $match=@($up | Where-Object {$_.ifIndex -in $indices})
+  $routeIndices=@($indices)
   $method='bound-flow-route'
   if($match.Count -ne 1 -and $flow.clientAddress -ne '0.0.0.0'){
    $indices=@(Get-NetIPAddress -IPAddress $flow.clientAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue | ForEach-Object {$_.InterfaceIndex} | Sort-Object -Unique)
    $match=@($up | Where-Object {$_.ifIndex -in $indices});$method='unique-local-address'
+  }
+  if(($match.Count -eq 0 -or ($match.Count -eq 1 -and -not $match[0].HardwareInterface)) -and $routeIndices.Count -eq 1 -and $routeIndices[0] -in @(Get-PppRouteIndices)){
+   # Windows can expose the bound PPP interface without an Npcap device.
+   # Only a single active physical Ethernet carrier is eligible for PPPoE frames.
+   $physical=@($up | Where-Object {$_.HardwareInterface})
+   if($physical.Count -eq 1 -and [int]$physical[0].InterfaceType -eq 6){
+    $match=$physical;$method='pppoe-ethernet'
+   }
   }
   if($match.Count -ne 1){throw 'Cannot uniquely select game capture adapter; refusing all-adapter capture'}
   $device='\Device\NPF_{'+$match[0].InterfaceGuid.ToString().Trim('{}')+'}'

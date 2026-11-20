@@ -20,6 +20,7 @@ function run(exe,args,{input=null,timeout=60000}={}){return new Promise((resolve
 async function discover(bound=null,remote=null){const args=bound?[String(bound.pid),bound.processStartUtc,...(remote?[remote.address,String(remote.port)]:[])]:[];return JSON.parse((await run(powershell,powershellScriptArgs(path.join(__dirname,'../scripts/windows/p2-discover.ps1'),args))).replace(/^\uFEFF/,''));}
 const key=m=>JSON.stringify([m.pid,m.processStartUtc,m.flows]);
 const {readGameDataProfile,assertSameGameData}=require('./game-data-profile.cjs');
+const buildLabels=require('../config/client-build-labels.json');
 const resolver=new (require('./decoder-profiles.cjs').ProfileResolver)(data);let waitingHash=null,lastImage=null;
 const routing=require('../modules/acquisition/connection-candidates.cjs'),selector=new routing.CandidateSelector();
 const {loadRoutingHint,routingHint}=require('./connection-history.cjs');let lastConnection=loadRoutingHint(data);
@@ -30,7 +31,7 @@ async function bootstrap(m){
  const imageSha256=lastImage?.stamp===stamp?lastImage.hash:sha(fs.readFileSync(m.modulePath));lastImage={stamp,hash:imageSha256};
  let approved=null,profile=[catalog,...(catalog.profiles||[])].find(p=>p.imageSha256===imageSha256);
  if(!profile){let reason='尚无已验证的解码配置';try{approved=await resolver.resolve(imageSha256);}catch(e){reason=e.message;}profile=approved?.profile;
-  if(!profile){const detail=reason+'；客户端 SHA-256：'+imageSha256+'。将自动检查更新。';status('等待版本适配',detail);if(waitingHash!==imageSha256){fs.appendFileSync(path.join(data,'service-errors.log'),new Date().toISOString()+' '+detail+'\n');waitingHash=imageSha256;}await wait(15000);return;}
+  if(!profile){const label=buildLabels[imageSha256];const detail=(label?label+'；':'')+reason+'；客户端 SHA-256：'+imageSha256+'。将自动检查更新。';status('等待版本适配',detail);if(waitingHash!==imageSha256){fs.appendFileSync(path.join(data,'service-errors.log'),new Date().toISOString()+' '+detail+'\n');waitingHash=imageSha256;}await wait(15000);return;}
  }
  waitingHash=null;
  const gameData=readGameDataProfile(m.modulePath);
@@ -48,7 +49,7 @@ async function bootstrap(m){
  // Validate exactly one discovered flow on its bound route per initialization.
  m={...m,interfaces:[candidate.interface],...(candidate.transport==='tcp'?{flows:[candidate.flow]}:{})};
  if(m.interfaces?.length!==1)throw Error('游戏网卡不唯一');
- const session=path.join(data,'sessions',new Date().toISOString().replace(/[:.]/g,'-')+'-'+m.pid),boot=path.join(session,'initialization');fs.mkdirSync(boot,{recursive:true});fs.writeFileSync(path.join(boot,'module.json'),JSON.stringify(m));
+ const session=path.join(require('../modules/storage/capture-location.cjs').locations(data)[0],new Date().toISOString().replace(/[:.]/g,'-')+'-'+m.pid),boot=path.join(session,'initialization');fs.mkdirSync(boot,{recursive:true});fs.writeFileSync(path.join(boot,'module.json'),JSON.stringify(m));
  fs.writeFileSync(path.join(boot,'connection-selection.json'),JSON.stringify({candidates:candidates.length,tier:selection.tier,attempts:selection.attempts,previouslyValidated:selection.preferred,ordering:'direct before compatibility fallback; stable candidate rounds'},null,2));
  status('正在初始化当前登录会话',`发现 ${candidates.length} 条候选连接，优先核对普通直连，再检查加速器转发；请等待采集已就绪。`);
  const list=await run(tshark,['-D']);const available=list.split(/\r?\n/).map(l=>l.match(/^\d+\. (\\Device\\NPF_\S+)/)?.[1]).filter(Boolean);
@@ -59,7 +60,7 @@ async function bootstrap(m){
   const bridge=await require('./kcp-bootstrap.cjs').bootstrapKcp({m,recovery:readiness,candidate,boot,python,tshark,node,run,profile,approved,data,readStateInput,closing:()=>fs.existsSync(stopFile)});
   try{await launchPipeline(m,session,{...bridge.config,gameData},bridge);}catch(e){bridge.stop();throw e;}return;
  }
- const filter='tcp and ('+m.flows.map(f=>`(src host ${f.serverAddress} and src port ${f.serverPort} and dst host ${f.clientAddress} and dst port ${f.clientPort})`).join(' or ')+')';
+ const filter=candidate.pppoe?routing.captureFilter(candidate):'tcp and ('+m.flows.map(f=>`(src host ${f.serverAddress} and src port ${f.serverPort} and dst host ${f.clientAddress} and dst port ${f.clientPort})`).join(' or ')+')';
  const log=path.join(boot,'capture.private.tsv');
  const bridge=await require('./tcp-initialization-capture.cjs').captureTcpInitialization({keepOpen:true,tshark,device:interfaces[0],filter,log,closing:()=>fs.existsSync(stopFile),idleTimeoutMs:selection.preferred||selection.attempts>1?18000:5000,snapshot:()=>run(python,['-B','-X','utf8',path.join(__dirname,'p2-read-state.py'),boot],{input:readStateInput})});
  try{

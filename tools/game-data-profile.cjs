@@ -4,7 +4,9 @@ const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypt
 function manifestPath(exe){
  const full=path.resolve(exe);
  if(!/[\\/]Engine[\\/]Binaries[\\/]Win64rh?[\\/]yysls\.exe$/i.test(full))throw Error('unsupported_game_install_layout');
- const root=path.resolve(path.dirname(full),'../../..');
+ const binariesRoot=path.resolve(path.dirname(full),'../../..');
+ const isPatchCopy=/[\\/]LocalData[\\/]Patch[\\/]BinPatch$/i.test(binariesRoot);
+ const root=isPatchCopy?path.resolve(binariesRoot,'../../..'):binariesRoot;
  return {root,file:path.join(root,'LocalData','Patch','HD','v2','MANIFEST')};
 }
 function readGameDataProfile(exe){

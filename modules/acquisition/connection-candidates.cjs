@@ -15,18 +15,25 @@ function candidates(m,readiness){
     result.push({transport:'kcp',interface:'\\Device\\NPF_Loopback',endpoint:e,remote,envelope:'uu-ipv4',relay:{address:f.serverAddress,port:f.serverPort,clientAddress:f.clientAddress}});
    }
    for(const r of m.udpRoutes||[])if(r.endpoint.clientAddress===e.clientAddress&&r.endpoint.clientPort===e.clientPort)
-    result.push({transport:'kcp',interface:r.interface,endpoint:e,remote,envelope:'direct'});
+    result.push({transport:'kcp',interface:r.interface,endpoint:e,remote,envelope:'direct',...(r.method==='pppoe-ethernet'?{pppoe:true}:{})});
   }
  }else{
   for(const flow of m.flows||[]){
    endpoint({address:flow.serverAddress,port:flow.serverPort});endpoint({address:flow.clientAddress,port:flow.clientPort});
    const devices=[...new Set((m.interfaceSelection||[]).filter(r=>sameFlow(r.flow,flow)).map(r=>r.interface))];
-   if(devices.length===1)result.push({transport:'tcp',flow,interface:devices[0]});
+   if(devices.length===1){
+    const match=m.interfaceSelection.find(r=>sameFlow(r.flow,flow)&&r.interface===devices[0]);
+    result.push({transport:'tcp',flow,interface:devices[0],...(match.method==='pppoe-ethernet'?{pppoe:true}:{})});
+   }
   }
  }
  return [...new Map(result.map(c=>[JSON.stringify(c),c])).values()];
 }
-function captureFilter(c){
+function captureFilter(c) {
+ const filter=ipFilter(c);
+ return c.pppoe ? 'pppoes and ('+filter+')' : filter;
+}
+function ipFilter(c){
  if(c.transport==='tcp'){const f=c.flow;endpoint({address:f.serverAddress,port:f.serverPort});endpoint({address:f.clientAddress,port:f.clientPort});return `tcp and src host ${f.serverAddress} and src port ${f.serverPort} and dst host ${f.clientAddress} and dst port ${f.clientPort}`;}
  const r=endpoint(c.remote),e=endpoint({address:c.endpoint.clientAddress,port:c.endpoint.clientPort});
  if(c.envelope==='uu-ipv4'){

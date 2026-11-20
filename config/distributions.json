@@ -56,7 +56,21 @@
       "config/rd-damage-composition.json",
       "config/attack-source-weights.json",
       "config/decoder-channel.json",
-      "config/upload-format.json"
+      "config/upload-format.json",
+      "config/catalog.json",
+      "config/client-build-labels.json",
+      "config/client-build.json",
+      "config/decoder-profiles/4483a00721a7b08a21f3cfb666eb6a8858dacf2e3830956be98c569bac746d1b.json",
+      "config/decoder-profiles/fe67929ca09a351709ec6a4f317ebac4f9ca7e541360c05383b18c51ce17aab8.json",
+      "config/encounter-display-names.json",
+      "config/game-data-profiles.json",
+      "config/monitor-buff-names.json",
+      "config/overlay-schools.json",
+      "config/platform-scripts.json",
+      "config/runtime-io.json",
+      "config/schema-index-cn-20261106-10269.json",
+      "config/schema-index-cn-20261119-r65588-10269.json",
+      "config/worker-protocol.json"
     ]
   }
 }

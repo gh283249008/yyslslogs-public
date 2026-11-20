@@ -9,8 +9,8 @@ const ACTIVE_KINDS=new Set(['apply_candidate','update','snapshot','field_patch']
 const REMOVAL_KINDS=new Set(['remove_candidate']);
 
 class BuffMonitorFeed {
-  constructor(latestPath,{now=()=>Date.now()}={}){
-    this.now=now;this.setSource(latestPath);
+  constructor(latestPath,{now=()=>Date.now(),definitions=BUFFS}={}){
+    this.definitions=definitions;this.enabled=Object.keys(definitions).length>0;this.now=now;this.setSource(latestPath);
   }
   setSource(latestPath){
     this.latestPath=path.resolve(latestPath);
@@ -26,10 +26,10 @@ class BuffMonitorFeed {
       if(this.selfActor&&this.selfActor!==event.targetActorHash)this.identityConflict=true;
       else this.selfActor=event.targetActorHash;
     }
-    if(!['oc_buffs','ac_buffs'].includes(event?.bag)||!BUFFS[event.buffNo])return;
+    if(!['oc_buffs','ac_buffs'].includes(event?.bag))return;
     const key=`${event.bag}:${event.targetActorHash||'self'}:${event.buffInstanceHash||event.buffNo}`;
     if(REMOVAL_KINDS.has(event.kind)){this.states.delete(key);return;}
-    if(!ACTIVE_KINDS.has(event.kind))return;
+    if(!this.definitions[event.buffNo]||!ACTIVE_KINDS.has(event.kind))return;
     const prior=this.states.get(key),observed=Date.parse(event.observedAt)/1000;
     const refresh=!event.initial&&event.kind!=='snapshot'&&(event.kind==='apply_candidate'||
       event.kind==='update'&&event.changes?.start_ts!=null||
@@ -53,19 +53,23 @@ class BuffMonitorFeed {
     for(const row of rows){if(!row.trim())continue;try{this.consume(JSON.parse(row));}catch{/* A malformed evidence row cannot create a UI state. */}}
   }
   poll(){
-    this.readNew();
+    if(this.enabled)this.readNew();
     const nowSeconds=this.now()/1000,chosen=new Map();
     for(const [key,event] of this.states){
-      const spec=BUFFS[event.buffNo];if(!spec)continue;
+      const spec=this.definitions[event.buffNo];if(!spec)continue;
       const expiry=typeof event.localExpirySeconds==='number'?event.localExpirySeconds:NaN;
       if(Number.isFinite(expiry)&&expiry<=nowSeconds){this.states.delete(key);continue;}
       if(event.bag==='ac_buffs'&&(this.identityConflict||!this.selfActor||event.targetActorHash!==this.selfActor))continue;
       const stacks=Number.isInteger(event.charge_level)&&event.charge_level>=1&&event.charge_level<=spec.maxStacks?event.charge_level:null;
       const value={durationSeconds:typeof event.durationSeconds==='number'&&event.durationSeconds>0?event.durationSeconds:null,phase:spec.requiresResourceSuccess?(event.resourceChangeSuccess===true?'active':event.resourceChangeSuccess===false?'pending':'unknown'):null,stacks,id:String(event.buffNo),name:spec.name,variant:spec.requiresResourceSuccess?(event.resourceChangeSuccess===true?spec.variant:event.resourceChangeSuccess===false?'待治疗达标':'增伤状态未知'):spec.slot==='bengjie'?(stacks==null?'层数未知':`${stacks} 层`):spec.variant,remainingSeconds:Number.isFinite(expiry)?Math.max(0,expiry-nowSeconds):null,expiresAt:Number.isFinite(expiry)?new Date(expiry*1000).toISOString():null,observedAt:event.observedAt,kind:event.kind,uncertain:event.completeFields!==true};
-      const previous=chosen.get(spec.slot);
-      if(!previous||(value.remainingSeconds??-1)>(previous.remainingSeconds??-1))chosen.set(spec.slot,value);
+      const keyForDisplay=spec.monitorKey||spec.slot;
+      const previous=chosen.get(keyForDisplay);
+      if(!previous||(value.remainingSeconds??-1)>(previous.remainingSeconds??-1)){
+        chosen.set(keyForDisplay,{...value,key:keyForDisplay,style:spec.slot,order:spec.order});
+      }
     }
-    return {schemaVersion:1,source:{sessionId:this.sessionId},status:this.sessionId?'observing':'waiting',buffs:SLOTS.map(slot=>chosen.get(slot)||null),notice:'仅显示本机自身 Buff；倒计时按收到应用/刷新事件的时刻与同步持续时间估算，移除立即隐藏。首次快照起点未知时不猜剩余时间。'};
+    const buffs=this.definitions===BUFFS?SLOTS.map(slot=>chosen.get(slot)||null):[...chosen.values()].sort((a,b)=>a.order-b.order);
+    return {schemaVersion:1,source:{sessionId:this.sessionId},status:this.sessionId?'observing':'waiting',buffs,notice:'仅显示本机自身 Buff；倒计时按收到应用/刷新事件的时刻与同步持续时间估算，移除立即隐藏。首次快照起点未知时不猜剩余时间。'};
   }
 }
 module.exports={BUFFS,BuffMonitorFeed};

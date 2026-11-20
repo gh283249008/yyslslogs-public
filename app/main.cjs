@@ -1,11 +1,12 @@
 'use strict';
-const {app,BrowserWindow,ipcMain,globalShortcut,Tray,Menu,nativeImage,shell,dialog,net}=require('electron');
+const {app,BrowserWindow,ipcMain,globalShortcut,Tray,Menu,nativeImage,shell,dialog,net,screen}=require('electron');
 const fs=require('fs'),path=require('path'),http=require('http');
 // Keep Chromium hardware compositing: forcing transparent overlays through
 // software composition can stall presentation of the game behind the overlay.
 const {CombatModel,toKagerou}=require('./combat-model.cjs');
 const {SnapshotFeed}=require('./snapshot-feed.cjs');
 const {AttributionFeed}=require('./attribution-feed.cjs');
+const {locations,selectLocation}=require('../modules/storage/capture-location.cjs');
 const {BuffMonitorFeed}=require('./buff-monitor-feed.cjs');
 const {overlayState,buffStateKey}=require('./overlay-state.cjs');
 const {ServiceLifecycle}=require('./service-lifecycle.cjs');
@@ -30,26 +31,33 @@ const arg=n=>{let i=process.argv.indexOf(n);return i<0?null:process.argv[i+1];};
 let activeTest=null;try{activeTest=JSON.parse(fs.readFileSync(path.join(root,'evidence/p1/active-test.json')));}catch{}
 let latest=path.resolve(arg('--live-file')||path.join(dataRoot,'waiting/latest.json'));
 if(!arg('--live-file')){fs.mkdirSync(path.dirname(latest),{recursive:true});fs.writeFileSync(latest,JSON.stringify({schemaVersion:1,source:{mode:'live',sessionId:'waiting'},observedAt:null,publishedAt:new Date().toISOString(),actors:[],sequence:0,npcNo:null,timeCostSeconds:0,health:{status:'starting',session:'pending',gap:false,stale:true}}));}
+const monitor=require('./buff-selection.cjs');
+let selectedBuffs=monitor.readSelection(dataRoot);
+const newMonitor=file=>new BuffMonitorFeed(file,{definitions:monitor.definitions(selectedBuffs)});
 const labelsFile=arg('--labels-file'),actorLabels=labelsFile?JSON.parse(fs.readFileSync(path.resolve(labelsFile))):{};
 let attributionFeed=new AttributionFeed(latest),service=null,serviceState={message:'等待启动'},lastServiceSource=null;
 const serviceLifecycle=new ServiceLifecycle();
 let checkingRuntime=false,setupTimer=null;
 const diagnosticRoot=path.join(dataRoot,'diagnostics');
-let win,buffWin,tray,server,model=new CombatModel(),feed=new SnapshotFeed(latest),buffFeed=new BuffMonitorFeed(latest),mode=process.argv.includes('--replay')?'replay':'live',locked=false,buffLocked=false,lastText='',replayTimer,replayIndex=0,replayRows=[],lastView=null;
+let win,buffWin,tray,server,model=new CombatModel(),feed=new SnapshotFeed(latest),buffFeed=newMonitor(latest),mode=process.argv.includes('--replay')?'replay':'live',locked=false,buffLocked=false,lastText='',replayTimer,replayIndex=0,replayRows=[],lastView=null;
 function mainWindowAlive(){return !app.isQuitting&&win&&!win.isDestroyed();}
 function showMainWindow(){if(mainWindowAlive()){if(win.isMinimized())win.restore();win.show();}}
 app.on('second-instance',()=>{if(mainWindowAlive()){showMainWindow();win.focus();}});
 function payload(){return {mode,locked,labelsFromScreenshot:mode==='replay'&&!!labelsFile,...overlayState(lastView),service:{message:serviceState.message,detail:serviceState.detail},data:lastView?toKagerou(lastView,mode==='replay'?actorLabels:{}):null};}
-function buffPayload(){return {...buffFeed.poll(),locked:buffLocked};}
+function buffPayload(){return {...buffFeed.poll(),configuredCount:selectedBuffs.length,locked:buffLocked};}
 let lastMainState=null,lastBuffState=null;
 function send(force=false){if(win&&!win.isDestroyed()&&(checks||win.isVisible())){const state=payload(),key=JSON.stringify(state);if(force||key!==lastMainState){win.webContents.send('state',state);lastMainState=key;}}if(buffWin&&!buffWin.isDestroyed()){const state=buffPayload();if(checks||buffWin.isVisible()){const key=buffStateKey(state);if(force||key!==lastBuffState){buffWin.webContents.send('buff-state',state);lastBuffState=key;}}}}
-function toggleLock(){if(!mainWindowAlive())return;locked=!locked;win.setIgnoreMouseEvents(locked,{forward:true});send();}
-function toggleBuffLock(){buffLocked=!buffLocked;if(buffWin&&!buffWin.isDestroyed())buffWin.setIgnoreMouseEvents(buffLocked,{forward:true});send();}
+function toggleLock(){if(!mainWindowAlive())return;locked=!locked;win.setIgnoreMouseEvents(locked,{forward:false});send();}
+function toggleBuffLock(){buffLocked=!buffLocked;if(buffWin&&!buffWin.isDestroyed())buffWin.setIgnoreMouseEvents(buffLocked,{forward:false});send();}
 function toggleBuffWindow(){if(!buffWin||buffWin.isDestroyed())return;if(buffWin.isVisible())buffWin.hide();else buffWin.showInactive();updateTray();}
-function setSource(file){latest=file;model=new CombatModel();feed=new SnapshotFeed(latest);buffFeed=new BuffMonitorFeed(latest);attributionFeed=new AttributionFeed(latest);lastView=null;clearInterval(replayTimer);mode='live';send();}
+function setSource(file){latest=file;model=new CombatModel();feed=new SnapshotFeed(latest);buffFeed=newMonitor(latest);attributionFeed=new AttributionFeed(latest);lastView=null;clearInterval(replayTimer);mode='live';send();}
+function displayLocation(){try{return locations(dataRoot)[0];}catch{return '设置无效，请在 Buff 提示窗中重新选择';}}
 function historyMenu(){
- const entries=[];const sessions=path.join(dataRoot,'sessions');
+ const entries=[];
+ let roots;try{roots=locations(dataRoot);}catch{return [{label:'记录目录设置无效，请重新选择',enabled:false}];}
+ for(const sessions of roots)try{
  if(fs.existsSync(sessions))for(const session of fs.readdirSync(sessions)){const dir=path.join(sessions,session,'capture','battles');if(!fs.existsSync(dir))continue;for(const id of fs.readdirSync(dir)){try{const b=JSON.parse(fs.readFileSync(path.join(dir,id,'battle.json')));entries.push({label:new Date(b.clock.startObservedAt).toLocaleString('zh-CN')+' · '+(require('../modules/domain/encounter-display-name.cjs').resolveEncounterDisplayIdentity(b.clock.identityContext,b.statistics.npcNo,b.source?.gameData)?.bossName||'Boss '+b.statistics.npcNo),at:b.clock.startObservedAt,file:path.join(dir,id,'latest.json')});}catch{}}}
+ }catch(error){if(error.code!=='ENOENT')console.warn('历史记录目录暂不可读',error.code);}
  entries.sort((a,b)=>b.at.localeCompare(a.at));
  const items=entries.slice(0,20).map(e=>({label:e.label,click:()=>setSource(e.file)}));
  const sample=path.join(root,'sample/latest.json');if(fs.existsSync(sample))items.push({label:'演示：已保存战斗记录',click:()=>setSource(sample)});
@@ -64,8 +72,8 @@ function updateTray(){send();if(!tray)return;tray.setToolTip(('燕云 Logs · '+
  {label:'显示悬浮窗',click:showMainWindow},{label:'锁定 / 鼠标穿透 (Ctrl+Shift+F8)',click:toggleLock},
  {label:buffWin?.isVisible()?'隐藏 Buff 提示窗':'显示 Buff 提示窗',click:toggleBuffWindow},{label:'锁定 Buff 提示窗 / 鼠标穿透',type:'checkbox',checked:buffLocked,click:toggleBuffLock},
  {label:'实时采集',click:()=>{lastServiceSource=null;if(serviceState.latestPath)setSource(serviceState.latestPath);else setSource(path.join(dataRoot,'waiting/latest.json'));}},
- {label:'本地战斗记录',submenu:historyMenu()},{label:'打开记录文件夹',click:()=>shell.openPath(dataRoot)},
- {label:'状态与版本',click:()=>dialog.showMessageBox(win,{type:'info',title:'燕云 Logs',message:serviceState.message,detail:'版本 '+app.getVersion()+'\n'+(serviceState.detail||'')+'\n记录目录：'+dataRoot+'\nrDPS 为简化估算。未知个人增益和未支持条件不会冒充完整归因。'})},
+ {label:'本地战斗记录',submenu:historyMenu()},{label:'打开记录文件夹',click:async()=>{try{const error=await shell.openPath(locations(dataRoot)[0]);if(error)throw Error(error);}catch(error){dialog.showErrorBox('记录目录不可用',error.message);}}},
+ {label:'状态与版本',click:()=>dialog.showMessageBox(win,{type:'info',title:'燕云 Logs',message:serviceState.message,detail:'版本 '+app.getVersion()+'\n'+(serviceState.detail||'')+'\n记录目录：'+displayLocation()+'\nrDPS 为简化估算。未知个人增益和未支持条件不会冒充完整归因。'})},
  {label:'检查采集环境 / 安装驱动',click:()=>prepareCapture(true,true)},
  {label:'以管理员权限重新启动',click:restartElevated},
  {label:'退出',click:()=>app.quit()}]));}
@@ -173,7 +181,7 @@ app.whenReady().then(async()=>{
     webPreferences:{preload:path.join(__dirname,'preload.cjs'),backgroundThrottling:!checks,contextIsolation:true,nodeIntegration:false,sandbox:true}});
   win.setAlwaysOnTop(true,'screen-saver');
   win.on('show',()=>send(true));
-  buffWin=new BrowserWindow({...buffBounds,width:478,height:150,minWidth:120,minHeight:88,maxWidth:520,maxHeight:180,frame:false,transparent:true,resizable:false,alwaysOnTop:true,show:!checks,skipTaskbar:true,focusable:true,icon:path.join(__dirname,'assets/logo.png'),backgroundColor:'#00000000',title:'燕云 Logs · Buff 提示',webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
+  buffWin=new BrowserWindow({...buffBounds,width:478,height:150,minWidth:120,minHeight:88,maxWidth:520,frame:false,transparent:true,resizable:false,alwaysOnTop:true,show:!checks,skipTaskbar:true,focusable:true,icon:path.join(__dirname,'assets/logo.png'),backgroundColor:'#00000000',title:'燕云 Logs · Buff 提示',webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   buffWin.setAlwaysOnTop(true,'screen-saver');
   buffWin.on('show',()=>send(true));
   buffWin.on('close',event=>{if(!app.isQuitting){event.preventDefault();buffWin.hide();}});
@@ -184,6 +192,26 @@ app.whenReady().then(async()=>{
   // The companion window outlives the main window; window-all-closed is insufficient.
   win.on('closed',()=>{if(!app.isQuitting)app.quit();});
   ipcMain.on('ready',e=>{if(mainWindowAlive()&&e.sender===win.webContents)send(true);});
+  ipcMain.on('monitor-layout',(event,count,editing)=>{
+    if(event.sender!==buffWin.webContents||!Number.isSafeInteger(count)||count<0||typeof editing!=='boolean')return;
+    const bounds=buffWin.getBounds(),area=screen.getDisplayMatching(bounds).workArea;
+    const height=Math.min(area.height,editing&&!buffLocked?320:150+Math.max(0,Math.ceil(count/4)-1)*124);
+    const y=Math.max(area.y,Math.min(bounds.y,area.y+area.height-height));
+    if(bounds.height!==height||bounds.y!==y)buffWin.setBounds({...bounds,height,y});
+  });
+  ipcMain.handle('monitor-settings',(event,next)=>{
+    if(event.sender!==buffWin.webContents)throw Error('无效窗口');
+    if(next!==undefined){
+      monitor.saveSelection(dataRoot,next);selectedBuffs=next;buffFeed=newMonitor(latest);send(true);
+    }
+    return {selection:selectedBuffs,names:next===undefined?monitor.names:undefined,groups:monitor.groups};
+  });
+  ipcMain.handle('capture-folder',async(event,choose)=>{
+    if(event.sender!==buffWin.webContents)throw Error('无效窗口');
+    if(!choose){try{return locations(dataRoot)[0];}catch{return '设置无效，请重新选择';}}
+    const result=await dialog.showOpenDialog(buffWin,{title:'选择今后保存采集记录的目录',properties:['openDirectory','createDirectory']});
+    return result.canceled?locations(dataRoot)[0]:selectLocation(dataRoot,result.filePaths[0]);
+  });
   ipcMain.on('buff-ready',e=>{if(e.sender===buffWin.webContents)send(true);});
   ipcMain.on('command',(e,a)=>{if(mainWindowAlive()&&(e.sender===win.webContents||(!buffWin.isDestroyed()&&e.sender===buffWin.webContents)))action(a);});
   const pixels=Buffer.alloc(16*16*4);for(let p=0;p<pixels.length;p+=4){pixels[p]=0xda;pixels[p+1]=0xc6;pixels[p+2]=0x26;pixels[p+3]=255;}
@@ -202,7 +230,7 @@ app.whenReady().then(async()=>{
       try{
         const s=JSON.parse(fs.readFileSync(path.join(dataRoot,'service.json')));
         if(serviceLifecycle.accept(s)){
-          if(JSON.stringify(s)!==JSON.stringify(serviceState)){serviceState=s;serviceDiagnostics('status');updateTray();}
+          if(JSON.stringify(s)!==JSON.stringify(serviceState)){serviceState=s;serviceDiagnostics('status');send();if(tray)tray.setToolTip(('燕云 Logs · '+serviceState.message).slice(0,120));}
           if(s.latestPath&&s.latestPath!==lastServiceSource){lastServiceSource=s.latestPath;setSource(s.latestPath);}
         }
       }catch{}
@@ -279,7 +307,7 @@ app.whenReady().then(async()=>{
       const pic=await win.webContents.capturePage();fs.writeFileSync(path.join(diagnosticRoot,`${liveCheck?'live-path':'replay'}.png`),pic.toPNG());
       const buffState=await buffWin.webContents.executeJavaScript('({text:document.body.innerText,empty:document.querySelector("#empty").style.display!=="none",errors:window.__yyslsErrors||[]})');
       clearInterval(poll);
-      const monitorPreview=await buffWin.webContents.executeJavaScript(`(()=>{state={locked:false,buffs:[{name:'烁鼓',variant:'+12% 攻击',remainingSeconds:8,durationSeconds:12},{name:'增伤·霖',variant:'+24% 增伤',remainingSeconds:12,durationSeconds:24},{name:'崩解',variant:'5 层',remainingSeconds:4.5,durationSeconds:5},{name:'血祭',phase:'active',variant:'+25% 独立增伤',remainingSeconds:10,durationSeconds:18}]};receivedAt=Date.now();render();const n=document.getElementById('xueji');return {synthetic:true,text:n.innerText,visible:getComputedStyle(n).display!=='none',fits:n.getBoundingClientRect().right<=innerWidth};})()`);
+      const monitorPreview=await buffWin.webContents.executeJavaScript(`(()=>{state={locked:false,buffs:[{style:'shuogu',name:'烁鼓',variant:'+12% 攻击',remainingSeconds:8,durationSeconds:12},{style:'lin',name:'增伤·霖',variant:'+24% 增伤',remainingSeconds:12,durationSeconds:24},{style:'bengjie',name:'崩解',variant:'5 层',remainingSeconds:4.5,durationSeconds:5},{style:'xueji',name:'血祭',phase:'active',variant:'+25% 独立增伤',remainingSeconds:10,durationSeconds:18}]};receivedAt=Date.now();render();const n=[...document.querySelectorAll('.buff')].find(el=>el.querySelector('.name')?.textContent==='血祭');return {synthetic:true,text:n.innerText,visible:getComputedStyle(n).display!=='none',fits:n.getBoundingClientRect().right<=innerWidth};})()`);
       fs.writeFileSync(path.join(diagnosticRoot,'buff-preview.json'),JSON.stringify(monitorPreview,null,2));
       if(!monitorPreview.visible||!monitorPreview.fits||!monitorPreview.text.includes('+25% 独立增伤'))process.exitCode=1;
       await new Promise(r=>setTimeout(r,300));
