@@ -75,6 +75,8 @@ const workerWriter=new WorkerBatchWriter(py.stdin,{onError:e=>fail(e.message)});
 let readyResolve;const ready=new Promise(r=>readyResolve=r);
 readline.createInterface({input:py.stdout,crlfDelay:Infinity}).on('line',line=>{if(stopped)return;try{for(const message of workerResponses(line))onWorkerMessage(message);}catch(e){fail(e.message);}});
 function onWorkerMessage(m){if(stopped)return;try{if(m.ready){workerWriter.batching=m.workerProtocol?.schemaVersion===1;manifest.workerProtocol=m.workerProtocol||{schemaVersion:0};manifest.propertySchemaProfile=m.schemaProfile;atomic(path.join(out,'manifest.json'),manifest);readyResolve();return;}const job=pending.get(m.id);if(!job)throw Error('Unexpected schema worker response');pending.delete(m.id);if(!m.ok)throw Error('Protobuf validation failed: '+m.error);
+ // UI lifecycle records never enter attribution or the historical buff ledger.
+ for(const event of m.monitorEvents||[])ledger.append(path.join(out,'monitor-events.jsonl'),JSON.stringify({...event,schemaVersion:1,source:{mode,sessionId},observedAt:job.observedAt,transportRecordOrdinal:job.recordOrdinal})+'\n');
  if(m.control==='transport_gap'){buffCoverage=m.buffCoverage;attributeCoverage=m.attributeCoverage;simpleRdps.markGap(job.gap);recorded=new RecordedDamageTracker(recordedPolicy);settlementAudit.markGap(job.recordOrdinal);encounterClock=encounterClock&&{...encounterClock,transportGaps:(encounterClock.transportGaps||0)+1};latest.health={...latest.health,lastGap:{index:job.gap.index,bytes:job.gap.bytes,resumeObservedAt:job.gap.resumeObservedAt}};publish();return;}
  protoCount++;lastDecodedWall=Date.now();lastDecodedCaptureAt=job.observedAt;
  if(m.attributeCoverage)attributeCoverage=m.attributeCoverage;
@@ -155,6 +157,7 @@ function finish(status='stopped'){
 function finishNow(status='stopped'){
  if(stopped)return;stopped=true;clearInterval(tick);clearInterval(pumpTimer);clearTimeout(startTimer);capture?.kill();watcher?.kill();workerWriter.close();py.kill();
  buffCoverage={...buffCoverage,streamEnded:true,attributionReady:false,complete:false};
+ if(mode==='live')ledger.append(path.join(out,'monitor-events.jsonl'),JSON.stringify({schemaVersion:1,kind:'monitor_invalidate',reason:'session_end',source:{mode,sessionId},observedAt:new Date().toISOString()})+'\n');
  if(!failed&&status!=='connection-closed')latest.health={...latest.health,status,stale:mode==='live',reason:status==='replay-complete'?'Replay completed; no live connection claim':'Passive collector stopped'};
  publish();atomic(path.join(out,'completion.json'),{at:new Date().toISOString(),status,failed,packets:frames,blocks:protoCount,statistics:statsCount,incompleteTailBytes:blocks.buf.length,pendingPackets:ordered.pending.length+(kcp?.pending.size||0),pendingMessages:pending.size,unparsedCaptureBytes:rawSpool?.backlogBytes||0,drainComplete:!(pending.size||rawSpool?.hasPending||kcp?.pending.size),publication:snapshotPublisher.status()});
  ledger.close();rawSpool?.close();

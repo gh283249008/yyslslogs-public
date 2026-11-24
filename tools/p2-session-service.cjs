@@ -15,7 +15,7 @@ fs.mkdirSync(data,{recursive:true});const stopFile=path.join(data,'stop');if(fs.
 const {python,tshark,powershell}=runtimePaths();
 const publisher=new (require('./p1-snapshot-publisher.cjs').SnapshotPublisher)();
 const node=process.execPath;let current=null,latestPath=null;
-function status(message,detail=''){const value={at:new Date().toISOString(),pid:process.pid,launchId,message,detail,latestPath};const f=path.join(data,'service.json');publisher.write(f,value);}
+function status(message,detail=''){const value={at:new Date().toISOString(),pid:process.pid,launchId,message,detail,latestPath,captureActive:!!current&&current.child.exitCode===null&&current.child.signalCode===null};const f=path.join(data,'service.json');publisher.write(f,value);}
 function run(exe,args,{input=null,timeout=60000}={}){return new Promise((resolve,reject)=>{let stdout='',stderr='';const p=spawn(exe,args,{cwd:root,windowsHide:true,stdio:['pipe','pipe','pipe']});const timer=setTimeout(()=>p.kill(),timeout);p.stdout.on('data',b=>{stdout+=b;if(stdout.length>16*1024*1024)p.kill();});p.stderr.on('data',b=>stderr+=b);p.on('error',reject);p.on('close',code=>{clearTimeout(timer);if(code!==0)reject(Error(stderr.slice(-1500)||'子进程退出 '+code));else resolve(stdout);});p.stdin.end(input);});}
 async function discover(bound=null,remote=null){const args=bound?[String(bound.pid),bound.processStartUtc,...(remote?[remote.address,String(remote.port)]:[])]:[];return JSON.parse((await run(powershell,powershellScriptArgs(path.join(__dirname,'../scripts/windows/p2-discover.ps1'),args))).replace(/^\uFEFF/,''));}
 const key=m=>JSON.stringify([m.pid,m.processStartUtc,m.flows]);
@@ -102,7 +102,7 @@ async function launchPipeline(m,session,config,bridge=null){
  status('等待游戏启动','启动游戏并进入角色后自动初始化。');
  while(!fs.existsSync(stopFile)){
   try{
-   if(current){if(current.child.exitCode!==null||current.child.signalCode!==null){status('正在恢复采集','采集进程已退出；历史数据保留');current=null;await wait(1000);continue;}const complete=path.join(current.out,'completion.json');if(fs.existsSync(complete)){const c=JSON.parse(fs.readFileSync(complete));status('正在恢复采集',c.status);current=null;await wait(10000);continue;}
+   if(current){if(current.child.exitCode!==null||current.child.signalCode!==null){current=null;status('正在恢复采集','采集进程已退出；历史数据保留');await wait(1000);continue;}const complete=path.join(current.out,'completion.json');if(fs.existsSync(complete)){const c=JSON.parse(fs.readFileSync(complete));current=null;status('正在恢复采集',c.status);await wait(10000);continue;}
     const health=path.join(current.out,'health.json');if(fs.existsSync(health)){const h=JSON.parse(fs.readFileSync(health));status(h.session==='valid'?'采集已就绪':'正在校验会话',h.reason||'');}await wait(2000);continue;}
    const m=await discover();if(m.status==='waiting-game'){status('等待游戏启动');await wait(4000);continue;}if(m.status!=='running')throw Error(m.error||m.status);await bootstrap(m);
   }catch(e){if(fs.existsSync(stopFile))break;

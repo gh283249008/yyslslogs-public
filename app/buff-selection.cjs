@@ -6,31 +6,39 @@ const groups=Object.fromEntries(slots.map(slot=>['group:'+slot,Object.values(buf
 function definitions(selection){
   if(!Array.isArray(selection))throw Error('监控列表无效');
   const seen=new Set(),result=Object.create(null);
-  for(const [order,key] of selection.entries()){
+  const entries=selection.map(item=>typeof item==='string'?{key:item,target:'self'}:item);
+  const put=(id,spec)=>{
+    const monitors=(result[id]?.monitors||[]).filter(row=>row.target!==spec.target);
+    monitors.push(spec);result[id]={...spec,monitors};
+  };
+  for(const [order,item] of entries.entries()){
+    const {key,target}=item||{};
+    if(!['self','boss'].includes(target))throw Error('请选择自身 Buff 或 Boss Debuff');
     if(typeof key!=='string'||(!Object.hasOwn(groups,key)&&!/^[1-9]\d{0,9}$/.test(key)))throw Error('请输入有效状态 ID');
-    if(seen.has(key))throw Error('同一状态只能添加一次');
-    seen.add(key);
+    const monitorKey=target==='boss'?'boss:'+key:key;
+    if(seen.has(monitorKey))throw Error('同一对象的状态只能添加一次');
+    seen.add(monitorKey);
     if(Object.hasOwn(groups,key)){
       for(const [id,spec] of Object.entries(buffs)){
-        if('group:'+spec.slot===key)result[id]={...spec,monitorKey:key,order};
+        if('group:'+spec.slot===key)put(id,{...spec,monitorKey,order,target});
       }
     }
   }
-  for(const [order,key] of selection.entries()){
+  for(const [order,{key,target}] of entries.entries()){
     if(Object.hasOwn(groups,key))continue;
     const spec=buffs[key]||{slot:'custom',name:names[key]||'ID '+key,variant:''};
-    result[key]={...spec,monitorKey:key,order};
+    put(key,{...spec,monitorKey:target==='boss'?'boss:'+key:key,order,target});
   }
   return result;
 }
 function readSelection(data){
   try{
-    const listFile=path.join(data,'monitor-list.json');
-    const settings=JSON.parse(fs.readFileSync(fs.existsSync(listFile)?listFile:path.join(data,'monitor-buffs.json'),'utf8'));
+    const scopedFile=path.join(data,'monitor-targets.json'),listFile=path.join(data,'monitor-list.json');
+    const settings=JSON.parse(fs.readFileSync(fs.existsSync(scopedFile)?scopedFile:fs.existsSync(listFile)?listFile:path.join(data,'monitor-buffs.json'),'utf8'));
     let selection;
     if(settings.schemaVersion===1&&Array.isArray(settings.slots)&&settings.slots.length===slots.length){
       selection=settings.slots.map((key,i)=>key==='default'?'group:'+slots[i]:key).filter(key=>key!=='');
-    }else if(settings.schemaVersion===2)selection=settings.selection;
+    }else if([2,3].includes(settings.schemaVersion))selection=settings.selection;
     else throw Error('监控列表版本未知');
     definitions(selection);
     return selection;
@@ -41,8 +49,10 @@ function readSelection(data){
 }
 function saveSelection(data,selection){
   definitions(selection);
-  const file=path.join(data,'monitor-list.json');
-  fs.writeFileSync(file+'.tmp',JSON.stringify({schemaVersion:2,selection}));
+  // Keep the schema 1/2 file readable by a rolled-back 0.4.3 installation.
+  const scoped=selection.some(item=>typeof item==='object')||fs.existsSync(path.join(data,'monitor-targets.json'));
+  const file=path.join(data,scoped?'monitor-targets.json':'monitor-list.json');
+  fs.writeFileSync(file+'.tmp',JSON.stringify({schemaVersion:scoped?3:2,selection}));
   fs.renameSync(file+'.tmp',file);
 }
 module.exports={definitions,readSelection,saveSelection,names,groups};

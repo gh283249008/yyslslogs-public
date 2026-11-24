@@ -8,7 +8,8 @@ from p1_schema_profile import ROOT, INDEX, INDEX_SHA, NAMES, SCHEMA_COUNT
 def hashed(value):return hashlib.sha256(value if isinstance(value,bytes) else str(value).encode()).hexdigest()[:16]
 
 class BuffStream:
- def __init__(self):
+ def __init__(self,monitor=False):
+  self.monitor_enabled=monitor;self.monitor_events=[];self.monitor_identity=None
   data=INDEX.read_bytes()
   if hashlib.sha256(data).hexdigest()!=INDEX_SHA:raise ValueError('Buff property preset evidence changed')
   self.names=dict(NAMES)
@@ -36,6 +37,9 @@ class BuffStream:
    if f.type==f.TYPE_MESSAGE:
     for sub in (v if f.is_repeated else [v]):self._ids(sub)
  def invalidate(self,reason,actor=None,clear=True):
+  if self.monitor_enabled:
+   self.monitor_events.append({'kind':'monitor_invalidate','targetActorHash':actor,'reason':reason})
+   if actor is None or actor==self.monitor_identity:self.monitor_identity=None
   self.revision+=1
   self.counts['invalidation:'+reason]+=1
   self.invalidations.append({'reason':reason,'actorHash':actor})
@@ -56,6 +60,14 @@ class BuffStream:
     if m.path:path=[self.value(x) for x in m.path]
     if m.HasField('name'):path=path+[self.value(m.name)]
     path=[x for x in path if x is not None]
+    # These exact containers are declared OWN_CLIENT in BuffPropOwn. Empty
+    # containers and flag updates identify the recipient without a buff item.
+    if self.monitor_enabled and actor and len(path)>=2 and path[0]=='buffs_data' and path[1] in ('oc_buffs','oc_flags','oc_flags_src'):
+     if actor!=self.monitor_identity:
+      self.monitor_events.append({'kind':'monitor_identity','targetActorHash':actor,'identityBasis':'buffs_data.'+path[1]})
+      self.monitor_identity=actor
+    if self.monitor_enabled and actor and len(path)==2 and path[0]=='buffs_data' and path[1] in ('oc_buffs','ac_buffs') and (initial or m.oper in (11,49)):
+     self.monitor_events.append({'kind':'monitor_invalidate','targetActorHash':actor,'bag':path[1],'reason':'bag_snapshot'})
     if len(path)>=2 and path[:2]==['buffs_data','res_changed_record']:
      resource_rows.append({'target':actor,'path':path,'oper':m.oper,'hasValue':m.HasField('value'),'hasDict':m.HasField('dict'),'value':self.value(m.value) if m.HasField('value') else None})
     if len(path)>=2 and path[:2] in (['buffs_data','ac_buffs'],['buffs_data','oc_buffs']):
@@ -95,6 +107,7 @@ class BuffStream:
    e.update(kind=kind,rawOperation=op,buffInstanceHash=k[2],bag=k[1],buffNo=v.get('No'),level=v.get('level'),charge_level=v.get('charge_level'),duration=duration,durationSeconds=seconds,rawStartTimestamp=raw,startTimestampSeconds=start,nominalExpirySeconds=start+seconds if start is not None and seconds is not None and seconds>=0 else None,skill_id=v.get('skill_id'),sourceActorHash=source,sourceIdPresent=source is not None,sourceEqualsTarget=source==k[0] if source else None,sourceChanged=prior is not None and prior!=source,previousSourceActorHash=prior,completeFields=all(n in s for n in ('No','fromid','duration','start_ts')),hadKnownState=bool(before),changes=changes,attributionReady=False,appliesOnlyToSource=None,visibility='ALL_CLIENTS projection' if k[1]=='ac_buffs' else 'OWN_CLIENT projection',timingBasis='packet reception and nominal buff clock; no validated hit execution clock',semanticEvidence='Preset fields and static getters validated; lifecycle opcode labels are candidates, not authoritative ownership')
    if e['buffNo'] in self.resource_rules:self._resource_fields(e,v.get('_resourceChangeRemaining'))
    out.append(e)
+   if self.monitor_enabled:self.monitor_events.append(e)
    a=self.actors.setdefault(k[0],{'actorHash':k[0],'events':0,'sourcePresentEvents':0,'acEvents':0,'ocEvents':0,'hasInitialSnapshot':False})
    a['events']+=1;a['sourcePresentEvents']+=source is not None;a['acEvents' if k[1]=='ac_buffs' else 'ocEvents']+=1;a['hasInitialSnapshot']|=kind=='snapshot'
    if op==4:self.states.pop(k,None);self.state_events.pop(k,None)
@@ -123,10 +136,13 @@ class BuffStream:
     if base is None:continue
     event=copy.deepcopy(base);event.update(kind='field_patch',rawOperation=None,initial=False,changes={'res_changed_record':{str(resource):remaining}},hadKnownState=True)
     self._resource_fields(event,remaining);self.state_events[k]=event;out.append(event)
+    if self.monitor_enabled:self.monitor_events.append(event)
     self.counts['field_patch']+=1
     a=self.actors[k[0]];a['events']+=1;a['sourcePresentEvents']+=event['sourceIdPresent'];a['acEvents' if k[1]=='ac_buffs' else 'ocEvents']+=1
   if out:self.revision+=1
   return out
+ def drain_monitor_events(self):
+  events=self.monitor_events;self.monitor_events=[];return events
  def _resource_fields(self,event,remaining):
   event.update(resourceChangeRemaining=remaining,resourceChangeSuccess=None if remaining is None else remaining==0,resourceChangeBasis='observed res_changed_record; unique recipient buff instance')
  def coverage(self):

@@ -33,7 +33,7 @@ let latest=path.resolve(arg('--live-file')||path.join(dataRoot,'waiting/latest.j
 if(!arg('--live-file')){fs.mkdirSync(path.dirname(latest),{recursive:true});fs.writeFileSync(latest,JSON.stringify({schemaVersion:1,source:{mode:'live',sessionId:'waiting'},observedAt:null,publishedAt:new Date().toISOString(),actors:[],sequence:0,npcNo:null,timeCostSeconds:0,health:{status:'starting',session:'pending',gap:false,stale:true}}));}
 const monitor=require('./buff-selection.cjs');
 let selectedBuffs=monitor.readSelection(dataRoot);
-const newMonitor=file=>new BuffMonitorFeed(file,{definitions:monitor.definitions(selectedBuffs)});
+const newMonitor=(file,subject=null)=>new BuffMonitorFeed(file,{definitions:monitor.definitions(selectedBuffs),subject});
 const labelsFile=arg('--labels-file'),actorLabels=labelsFile?JSON.parse(fs.readFileSync(path.resolve(labelsFile))):{};
 let attributionFeed=new AttributionFeed(latest),service=null,serviceState={message:'等待启动'},lastServiceSource=null;
 const serviceLifecycle=new ServiceLifecycle();
@@ -44,7 +44,8 @@ function mainWindowAlive(){return !app.isQuitting&&win&&!win.isDestroyed();}
 function showMainWindow(){if(mainWindowAlive()){if(win.isMinimized())win.restore();win.show();}}
 app.on('second-instance',()=>{if(mainWindowAlive()){showMainWindow();win.focus();}});
 function payload(){return {mode,locked,labelsFromScreenshot:mode==='replay'&&!!labelsFile,...overlayState(lastView),service:{message:serviceState.message,detail:serviceState.detail},data:lastView?toKagerou(lastView,mode==='replay'?actorLabels:{}):null};}
-function buffPayload(){return {...buffFeed.poll(),configuredCount:selectedBuffs.length,locked:buffLocked};}
+function monitorHealth(){return serviceState.captureActive===false||['starting','error','stopped'].includes(serviceState.status)?{status:'invalid'}:lastView?.snapshot?.health;}
+function buffPayload(){return {...buffFeed.poll(monitorHealth(),lastView?.snapshot),configuredCount:selectedBuffs.length,locked:buffLocked};}
 let lastMainState=null,lastBuffState=null;
 function send(force=false){if(win&&!win.isDestroyed()&&(checks||win.isVisible())){const state=payload(),key=JSON.stringify(state);if(force||key!==lastMainState){win.webContents.send('state',state);lastMainState=key;}}if(buffWin&&!buffWin.isDestroyed()){const state=buffPayload();if(checks||buffWin.isVisible()){const key=buffStateKey(state);if(force||key!==lastBuffState){buffWin.webContents.send('buff-state',state);lastBuffState=key;}}}}
 function toggleLock(){if(!mainWindowAlive())return;locked=!locked;win.setIgnoreMouseEvents(locked,{forward:false});send();}
@@ -201,10 +202,16 @@ app.whenReady().then(async()=>{
   });
   ipcMain.handle('monitor-settings',(event,next)=>{
     if(event.sender!==buffWin.webContents)throw Error('无效窗口');
+    buffFeed.poll(monitorHealth(),lastView?.snapshot);
     if(next!==undefined){
-      monitor.saveSelection(dataRoot,next);selectedBuffs=next;buffFeed=newMonitor(latest);send(true);
+      const selection=Array.isArray(next)?next:next?.selection;
+      monitor.definitions(selection);
+      const previousSubject=buffFeed.subject;
+      if(!Array.isArray(next))buffFeed.setSubject(next.subject||null,next.sessionId);
+      try{monitor.saveSelection(dataRoot,selection);}catch(error){buffFeed.subject=previousSubject;throw error;}
+      selectedBuffs=selection;buffFeed=newMonitor(latest,buffFeed.subject);send(true);
     }
-    return {selection:selectedBuffs,names:next===undefined?monitor.names:undefined,groups:monitor.groups};
+    return {selection:selectedBuffs,names:next===undefined?monitor.names:undefined,groups:monitor.groups,subjects:buffFeed.subjectOptions(),subject:buffFeed.selectedActor(),sessionId:buffFeed.sessionId};
   });
   ipcMain.handle('capture-folder',async(event,choose)=>{
     if(event.sender!==buffWin.webContents)throw Error('无效窗口');
@@ -351,7 +358,7 @@ app.whenReady().then(async()=>{
       if(!/^[\d,.]+$/.test(state.footerValue)||!state.debugPanelHidden||(lastView?.snapshot?.source?.mode==='replay'&&!state.text.includes('回放')))process.exitCode=1;
       if(!state.hiddenTransferColumns||state.schoolColors.some(x=>x.nameColor!=='rgb(255, 255, 255)'||!x.gaugeColor))process.exitCode=1;
       if(!expected.length||state.rows!==Object.keys(toKagerou(lastView).Combatant).length||state.errors.length||buffState.errors.length||!buffState.empty||qiState.errors.length||!qiState.headers.includes('真气输出')||qiState.rows!==expected.length||qiNumeric.names[0]!=='界面验证-高值'||qiNumeric.names[2]!=='界面验证-未知'||!qiNumeric.text.includes('1,000')||qiNumeric.footer!=='101'||qiNumeric.gauges.some(x=>x.includes('NaN'))||!lockCommandVerified||locked)process.exitCode=1;
-    }catch(e){fs.writeFileSync(path.join(diagnosticRoot,'verification-error.txt'),e.stack);process.exitCode=1;}finally{app.exit(process.exitCode||0);}},7000);
+    }catch(e){fs.writeFileSync(path.join(diagnosticRoot,'verification-error.txt'),e.stack);process.exitCode=1;}finally{app.exit(process.exitCode||0);}},process.argv.includes('--verify-monitor')?20000:7000);
   }
 });
 app.on('window-all-closed',()=>app.quit());

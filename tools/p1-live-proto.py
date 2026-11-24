@@ -8,7 +8,7 @@ from p1_identity_stream import IdentityStream
 from p1_schema_profile import schema_metadata
 identity_stream=IdentityStream()
 encounter_schema=EncounterSchema()
-buff_stream=BuffStream()
+buff_stream=BuffStream(monitor=True)
 attribute_stream=AttributeStream()
 target_resource_stream=TargetResourceStream()
 root=pathlib.Path(__file__).resolve().parents[1]/'evidence/p0/runtime-rpc-analysis'
@@ -42,7 +42,7 @@ def transport_gap():
  attribute_stream.invalidate('transport_gap')
  attribute_stream.last_ordinal=None
  encounter_schema.states.clear()
- return {'buffCoverage':buff_stream.coverage(),'attributeCoverage':attribute_stream.coverage()}
+ return {'buffCoverage':buff_stream.coverage(),'attributeCoverage':attribute_stream.coverage(),'monitorEvents':buff_stream.drain_monitor_events()}
 def decode_job(job):
  try:
   if job.get('control')=='transport_gap':
@@ -59,7 +59,8 @@ def decode_job(job):
   attribute_events=attribute_stream.pending_invalidations+attribute_events
   buff_revision=buff_stream.revision
   buff_events=buff_stream.consume(msg)
-  return {'id':job['id'],'ok':True,'statistics':out,'events':events,'identities':identities,'identityRows':identity_stream.consume(msg),'encounterEvents':encounter_events,'buffEvents':buff_events,'attributeEvents':attribute_events,'attributeCoverage':attribute_stream.coverage() if job['id']%100==0 else None,'buffCoverage':buff_stream.coverage() if job['id']%100==0 else None}
+  monitor_events=buff_stream.drain_monitor_events()
+  return {'id':job['id'],'ok':True,'statistics':out,'events':events,'identities':identities,'identityRows':identity_stream.consume(msg),'encounterEvents':encounter_events,'buffEvents':buff_events,'monitorEvents':monitor_events,'attributeEvents':attribute_events,'attributeCoverage':attribute_stream.coverage() if job['id']%100==0 else None,'buffCoverage':buff_stream.coverage() if job['id']%100==0 else None}
  except Exception as e:return {'id':job.get('id') if isinstance(job,dict) else None,'ok':False,'error':type(e).__name__+': '+str(e)}
 
 for line in sys.stdin:

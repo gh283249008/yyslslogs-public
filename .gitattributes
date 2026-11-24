@@ -2,3 +2,22 @@
 config/*.json -text
 config/decoder-profiles/*.json -text
 evidence/**/*.json -text
+
+# Keep these packaged runtime members byte-identical to release artifacts.
+app/snapshot-feed.cjs -text
+evidence/p0/runtime-rpc-analysis/pydeps/protobuf-7.36.2.dist-info/RECORD -text
+evidence/p1/event-validation/buff-item/LT21-3478.luac.tsv -text
+modules/acquisition/capture-profile.cjs -text
+modules/acquisition/kcp-stream.cjs -text
+modules/domain/gap-reconstruction.cjs -text
+modules/domain/hit-credit.cjs -text
+modules/storage/snapshot-publisher.cjs -text
+scripts/windows/p1-live-session-watch.ps1 -text
+tools/analyze-network-diagnostics.cjs -text
+tools/connection-history.cjs -text
+tools/decoder-profiles.cjs -text
+tools/kcp-bootstrap.cjs -text
+tools/p1-battle-archive.cjs -text
+tools/p1-cipher-anchor.cjs -text
+tools/p2-read-state.py -text
+tools/p2_state_reader.py -text

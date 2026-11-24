@@ -13,7 +13,7 @@
 .buff{width:100%;min-width:0}.empty{grid-column:1/-1;width:auto;min-height:110px}
 #panel.has-overflow{-webkit-app-region:no-drag}#prefs-open{position:absolute;right:9px;top:4px;cursor:pointer}
 #prefs-open,#prefs{-webkit-app-region:no-drag}.locked #prefs-open,#prefs[hidden]{display:none}
-#prefs-open,#prefs button,#prefs input{font:inherit;background:#252c39;color:#f5f6f8;border:1px solid #657183;border-radius:5px;padding:4px 7px}
+#prefs-open,#prefs button,#prefs input,#prefs select{font:inherit;background:#252c39;color:#f5f6f8;border:1px solid #657183;border-radius:5px;padding:4px 7px}
 #prefs-open{font-size:11px}
 #prefs{position:absolute;inset:6px;display:flex;flex-direction:column;gap:7px;background:#181c25;border:1px solid #61687b;border-radius:8px;padding:9px;font-size:12px}
 .search,.actions{display:flex;gap:6px;align-items:center}.search input{min-width:0;flex:1}
@@ -26,7 +26,9 @@
 <template id="card"><div class="buff"><div class="name"></div><div class="dial"><div class="time"></div></div><div class="variant"></div></div></template>
 <button id="prefs-open" aria-label="监控和记录设置">设置</button>
 <form id="prefs" hidden><strong>自选 Buff / Debuff</strong>
-<div class="search"><input id="search" aria-label="状态名称或 ID" placeholder="搜索名称或输入状态 ID" list="matches" autocomplete="off"><datalist id="matches"></datalist><button type="button" id="add">添加</button></div>
+<label>本人角色 <select id="subject" aria-label="本次监控的本人角色"><option value="">自动识别</option></select></label>
+<small>未自动识别时可选择自己的角色；选择仅对本次采集会话有效。</small>
+<div class="search"><select id="scope" aria-label="状态监控对象"><option value="self">自身 Buff</option><option value="boss">Boss Debuff</option></select><input id="search" aria-label="状态名称或 ID" placeholder="搜索名称或输入状态 ID" list="matches" autocomplete="off"><datalist id="matches"></datalist><button type="button" id="add">添加</button></div>
 <ul id="choices" aria-label="已选监控状态"></ul>
 <output id="settings-message" role="status"></output>
 <div class="actions"><button id="folder" type="button" title="下一次采集会话生效">记录目录</button><button type="submit">保存</button><button id="prefs-close" type="button">取消</button></div></form>
@@ -69,12 +71,12 @@ function render(){
     if(node.className!==css)node.className=css;
     const progress=String(Math.round((Number.isFinite(remaining)&&row.durationSeconds>0?Math.min(1,remaining/row.durationSeconds):0)*100)/100);
     if(node.style.getPropertyValue('--progress')!==progress)node.style.setProperty('--progress',progress);
-    text(node.querySelector('.name'),row.name);text(node.querySelector('.variant'),row.variant);
+    text(node.querySelector('.name'),row.name);text(node.querySelector('.variant'),[row.target==='boss'?'Boss · '+row.targetName:null,row.variant].filter(Boolean).join(' · '));
     text(node.querySelector('.time'),Number.isFinite(remaining)?remaining.toFixed(1):'--');
   });
   for(const [key,node] of cards)if(!current.has(key)){node.remove();cards.delete(key);}
   const empty=$('#empty'),display=rows.length?'none':'grid';
-  if(!rows.length)text(empty,state.configuredCount===0?'还未选择监控状态，点「设置」添加':'等待自身 Buff 状态');
+  if(!rows.length)text(empty,state.configuredCount===0?'还未选择监控状态，点「设置」添加':({'catching-up':'正在同步当前 Buff 状态','interrupted':'采集已中断，等待状态重新同步','waiting-identity':'等待识别本人，可在设置中选择自己的角色','identity-conflict':'角色身份有冲突，请在设置中确认本人','waiting-boss':'等待识别本场 Boss，不显示其他目标的 Debuff'}[state.status]||'等待所选 Buff / Debuff 触发'));
   if(empty.style.display!==display)empty.style.display=display;
   layout();
   if(!rows.some(r=>Number.isFinite(r.remainingSeconds)&&r.remainingSeconds>(Date.now()-receivedAt)/1000)){clearInterval(countdown);countdown=null;}
@@ -84,11 +86,17 @@ function schedule(){
   if(!document.hidden&&state.buffs?.some(r=>r&&Number.isFinite(r.remainingSeconds)&&r.remainingSeconds>0))countdown=setInterval(render,100);
 }
 window.addEventListener('resize',()=>panel.classList.toggle('has-overflow',panel.scrollHeight>panel.clientHeight));
-let names={},groups={},catalog=[],draft=new Set(),revision=0,busy=false;
+let names={},groups={},catalog=[],draft=new Set(),revision=0,busy=false,settingsSession=null;
 function label(key){return groups[key]?groups[key]+'（全部变体）':names[key]?names[key]+' · '+key:'ID '+key;}
+const scoped=key=>$('#scope').value==='boss'?'boss:'+key:key;
+const encode=item=>typeof item==='string'?item:item.target==='boss'?'boss:'+item.key:item.key;
+const decode=key=>key.startsWith('boss:')?{key:key.slice(5),target:'boss'}:key;
 function addChip(key){
-  const li=document.createElement('li'),remove=document.createElement('button');
-  li.append(document.createTextNode(label(key)));remove.type='button';remove.textContent='×';remove.setAttribute('aria-label','移除 '+label(key));
+  const li=document.createElement('li'),remove=document.createElement('button'),scope=document.createElement('button');
+  const boss=key.startsWith('boss:'),raw=boss?key.slice(5):key;
+  scope.type='button';scope.textContent=boss?'Boss Debuff':'自身 Buff';scope.title='点击切换监控对象';
+  scope.onclick=()=>{const next=boss?raw:'boss:'+raw;if(draft.has(next)){message.value='该对象的状态已在列表中';return;}draft=new Set([...draft].map(item=>item===key?next:item));choices.replaceChildren();draft.forEach(addChip);message.value='';};
+  li.append(scope,document.createTextNode(label(raw)));remove.type='button';remove.textContent='×';remove.setAttribute('aria-label','移除 '+label(raw));
   remove.onclick=()=>{draft.delete(key);li.remove();message.value='';};
   li.append(remove);choices.append(li);
 }
@@ -97,7 +105,7 @@ function options(){
   if(!q)return;
   let shown=0;
   for(const [key,name] of catalog){
-    if(draft.has(key)||(!key.startsWith(q)&&!name.includes(q)))continue;
+    if(draft.has(scoped(key))||(!key.startsWith(q)&&!name.includes(q)))continue;
     const item=document.createElement('option');item.value=label(key);list.append(item);
     if(++shown===30)break;
   }
@@ -111,10 +119,11 @@ function add(){
     if(found.length!==1){message.value=found.length?'有多个同名状态，请选择带 ID 的一项。':'请选择匹配的状态，或输入数字 ID。';return false;}
     key=found[0][0];
   }
+  key=scoped(key);
   if(draft.has(key)){message.value='该状态已在列表中';search.value='';options();return true;}
   draft.add(key);addChip(key);search.value='';options();message.value='';search.focus();return true;
 }
-search.oninput=options;$('#add').onclick=add;
+search.oninput=options;$('#scope').onchange=options;$('#add').onclick=add;
 search.onkeydown=e=>{if(e.key==='Enter'&&!e.isComposing){e.preventDefault();add();}};
 $('#prefs-open').onclick=async()=>{
   const request=++revision;
@@ -122,7 +131,11 @@ $('#prefs-open').onclick=async()=>{
     const data=await window.yysls.monitorSettings();
     if(request!==revision||state.locked)return;
     names=data.names;groups=data.groups;catalog=[...Object.entries(names),...Object.entries(groups)];
-    choices.replaceChildren();draft=new Set(data.selection);draft.forEach(addChip);
+    settingsSession=data.sessionId;
+    const subject=$('#subject');subject.replaceChildren(new Option('自动识别',''));
+    for(const row of data.subjects||[])subject.append(new Option(row.name+' · '+row.id.slice(-6),row.id));
+    subject.value=data.subject||'';
+    choices.replaceChildren();draft=new Set(data.selection.map(encode));draft.forEach(addChip);
     message.value='';search.value='';options();prefs.hidden=false;layout();search.focus();
     const folder=await window.yysls.captureFolder(false);
     $('#folder').textContent='记录目录：'+folder;
@@ -136,7 +149,7 @@ $('#prefs-close').onclick=()=>{++revision;closeEditor();};
 prefs.onsubmit=async e=>{
   e.preventDefault();if(busy||(search.value.trim()&&!add()))return;
   busy=true;
-  try{await window.yysls.monitorSettings([...draft]);closeEditor();}catch(error){message.value=error.message;}finally{busy=false;}
+  try{await window.yysls.monitorSettings({selection:[...draft].map(decode),subject:$('#subject').value,sessionId:settingsSession});closeEditor();}catch(error){message.value=error.message;}finally{busy=false;}
 };
 window.yysls.subscribeBuff(next=>{state=next||state;receivedAt=Date.now();if(!document.hidden)render();schedule();});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();schedule();});
