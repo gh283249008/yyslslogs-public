@@ -4,14 +4,15 @@
 const fs=require('fs'),path=require('path');
 const {StringDecoder}=require('node:string_decoder');
 
-const {buffs:BUFFS,slots:SLOTS}=require('../config/overlay-buffs.json');
+const {buffs:BUFFS,slots:SLOTS,cooldownEstimates=[]}=require('../config/overlay-buffs.json');
+const {BuffCooldownEstimates}=require('./buff-cooldown-estimates.cjs');
 const ACTIVE_KINDS=new Set(['apply_candidate','update','snapshot','field_patch']);
 const REMOVAL_KINDS=new Set(['remove_candidate']);
 const {resolveEncounterDisplayIdentity}=require('../modules/domain/encounter-display-name.cjs');
 
 class BuffMonitorFeed {
   constructor(latestPath,{now=()=>Date.now(),definitions=BUFFS,subject=null}={}){
-    this.definitions=definitions;this.enabled=Object.keys(definitions).length>0;this.now=now;this.setSource(latestPath);this.subject=subject;
+    this.cooldownEstimates=new BuffCooldownEstimates(cooldownEstimates);this.definitions=definitions;this.enabled=Object.keys(definitions).length>0;this.now=now;this.setSource(latestPath);this.subject=subject;
   }
   setSource(latestPath){
     this.latestPath=path.resolve(latestPath);
@@ -19,11 +20,12 @@ class BuffMonitorFeed {
     this.reset();this.subject=null;
   }
   reset(){
+    this.cooldownEstimates.clear();
     this.offset=0;this.partial='';this.decoder=new StringDecoder('utf8');this.states=new Map();this.seenActors=new Set();this.sessionId=null;this.selfActor=null;this.identityConflict=false;this.interrupted=false;this.catchingUp=false;this.boss=null;
   }
   bind(actor){
     if(!actor)return;
-    if(this.selfActor&&this.selfActor!==actor)this.identityConflict=true;
+    if(this.selfActor&&this.selfActor!==actor){this.identityConflict=true;this.cooldownEstimates.clear();}
     else this.selfActor=actor;
   }
   selectedActor(){
@@ -32,6 +34,7 @@ class BuffMonitorFeed {
   setSubject(actor,sessionId){
     if(sessionId!==this.sessionId)throw Error('采集会话已切换，请重新打开设置');
     if(actor&&!this.subjectOptions().some(row=>row.id===actor))throw Error('该角色尚未在本次采集中识别，请等待角色数据');
+    if(actor!==this.selectedActor())this.cooldownEstimates.clear();
     this.subject=actor?{actor,sessionId}:null;
   }
   subjectOptions(){
@@ -54,9 +57,10 @@ class BuffMonitorFeed {
     this.boss=next;
   }
   consume(event){
-    if(event?.source?.sessionId&&this.sessionId&&event.source.sessionId!==this.sessionId){this.states.clear();this.seenActors.clear();this.selfActor=null;this.identityConflict=false;this.interrupted=false;this.subject=null;this.boss=null;}
+    if(event?.source?.sessionId&&this.sessionId&&event.source.sessionId!==this.sessionId){this.cooldownEstimates.clear();this.states.clear();this.seenActors.clear();this.selfActor=null;this.identityConflict=false;this.interrupted=false;this.subject=null;this.boss=null;}
     if(event?.source?.sessionId)this.sessionId=event.source.sessionId;
     if(event.kind==='monitor_invalidate'){
+      this.cooldownEstimates.invalidate(event);
       for(const [key,state] of this.states)if((!event.targetActorHash||state.targetActorHash===event.targetActorHash)&&(!event.bag||state.bag===event.bag))this.states.delete(key);
       if(!event.bag&&(!event.targetActorHash||event.targetActorHash===this.selfActor)){this.selfActor=null;this.identityConflict=false;}
       if(!event.targetActorHash){this.interrupted=true;if(event.reason==='session_end')this.subject=null;}
@@ -73,6 +77,7 @@ class BuffMonitorFeed {
     }
     if(!['oc_buffs','ac_buffs'].includes(event?.bag))return;
     if(event.targetActorHash)this.seenActors.add(event.targetActorHash);
+    this.cooldownEstimates.consume(event,this.selectedActor()||(!this.identityConflict&&this.selfActor),this.definitions);
     const key=`${event.bag}:${event.targetActorHash||'self'}:${event.buffInstanceHash||event.buffNo}`;
     if(REMOVAL_KINDS.has(event.kind)){this.states.delete(key);return;}
     if(!ACTIVE_KINDS.has(event.kind))return;
@@ -112,11 +117,12 @@ class BuffMonitorFeed {
     this.readNew();
     this.setBoss(snapshot);
     const disconnected=health?.session==='invalid'||['invalid','stopped','connection-closed'].includes(health?.status);
-    if(disconnected){this.states.clear();this.interrupted=true;}
+    if(disconnected){this.cooldownEstimates.clear();this.states.clear();this.interrupted=true;}
     const nowSeconds=this.now()/1000,chosen=new Map();
     for(const [key,event] of this.states){
       const definition=this.definitions[event.buffNo];if(!definition)continue;
       const expiry=typeof event.localExpirySeconds==='number'?event.localExpirySeconds:NaN;
+      if(Number.isFinite(expiry))this.cooldownEstimates.suppress(event.buffNo,event.targetActorHash,expiry);
       if(Number.isFinite(expiry)&&expiry<=nowSeconds){this.states.delete(key);continue;}
       if(this.catchingUp||disconnected)continue;
       for(const spec of definition.monitors||[definition]){
@@ -132,6 +138,13 @@ class BuffMonitorFeed {
       if(!previous||(value.remainingSeconds??-1)>(previous.remainingSeconds??-1)){
         chosen.set(keyForDisplay,{...value,key:keyForDisplay,style:spec.slot,order:spec.order,target:boss?'boss':'self',targetName:boss?this.boss.name:null});
       }
+      }
+    }
+    if(!this.catchingUp&&!disconnected){
+      const actor=this.selectedActor()||(!this.identityConflict&&this.selfActor);
+      for(const row of this.cooldownEstimates.project(actor,this.definitions,nowSeconds)){
+        const actual=chosen.get(row.key);
+        if(!actual||actual.remainingSeconds==null)chosen.set(row.key,row);
       }
     }
     const buffs=this.definitions===BUFFS?SLOTS.map(slot=>chosen.get(slot)||null):[...chosen.values()].sort((a,b)=>a.order-b.order);

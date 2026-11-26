@@ -182,6 +182,65 @@
         "registeredRva": "0x59dfca4",
         "expected": 21
       }
+    },
+    {
+      "id": "cn-20261126-d0e878ef-win64rh",
+      "imageSha256": "d0e878ef6e2723386789c501b920489ef1cb0446903503f734458dfe47182df5",
+      "gamePath": "D:/yysls/yysls_medium/Engine/Binaries/Win64rh/yysls.exe",
+      "build": "2026-11-26/d0e878ef",
+      "stateOffsets": {
+        "luaRootRva": "0x84a2e38",
+        "wrapperVtableRva": "0x5c8ff98",
+        "rc4VtableRva": "0x5c8c0d8"
+      },
+      "validation": {
+        "status": "preflight-verified-target-transport-unverified",
+        "authority": "Saved REA semantics plus current bounded module snapshots and offline Capstone byte/reference comparison",
+        "comparison": "outputs\\win64rh-d0e878ef-adaptation-20261126\\native\\reviewed-chain-comparison.json",
+        "proofs": [
+          {
+            "finding": "Lua root selected by unique seed_reply caller, with exact identifying string",
+            "seedReply": "0x1430ef3a0",
+            "rootCallSite": "0x1430ef454",
+            "rootAccessor": "0x141dfd130",
+            "rootStaticObject": "0x1484a2e38",
+            "rootStatePointerOffset": 8
+          },
+          {
+            "finding": "Unique wrapper constructor calls unique cipher constructor and wrapper base constructor; same object member offsets",
+            "wrapperCtor": "0x143190e30",
+            "cipherCtor": "0x1430ea9d0",
+            "wrapperBaseCtor": "0x1430ebb60",
+            "wrapperVtable": "0x145c8ff98",
+            "cipherVtable": "0x145c8c0d8"
+          },
+          {
+            "finding": "Unique transform constructor calls same wrapper constructor for outbound and inbound; inbound offset remains 0x10",
+            "transformCtor": "0x1431906b0"
+          },
+          {
+            "finding": "Unique cipher constructor calls uniquely matched RC4 KSA; RC4 PRGA independently matches",
+            "ksa": "0x144cfd980",
+            "prga": "0x144cfdd90"
+          },
+          {
+            "finding": "rpc_handler native extraction selected by exact rpc_handler string among template-like candidates; userdata extraction independently unique",
+            "rpcHandlerFromLua": "0x141df8db0",
+            "customUserdata": "0x144f6d360"
+          }
+        ],
+        "limitations": [
+          "Current-session field-chain checks, RC4 permutation checks and unique captured-traffic alignment remain required before use.",
+          "Lua table internals are not exhaustively compared; bounded exact-key lookup must retain all existing checks.",
+          "This profile does not claim live combat completeness or session reconnect success."
+        ],
+        "dictionaryEvidence": "outputs/win64rh-d0e878ef-adaptation-20261126/schema/verification.json",
+        "pointerEvidence": "outputs/win64rh-d0e878ef-adaptation-20261126/pointer-inworld-r1.json"
+      },
+      "rpcHandlerType": {
+        "registeredRva": "0x59fa9f4",
+        "expected": 21
+      }
     }
   ]
 }
