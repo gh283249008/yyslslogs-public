@@ -671,6 +671,675 @@
           }
         }
       ]
+    },
+    "df00f6a4d7933baee1b38e6fb72427e2fa583d43999ca0325fd555eb96d70053": {
+      "schemaProfileIds": [
+        "cn-20261128-df00f6-preset10487"
+      ],
+      "entries": [
+        {
+          "bossName": "桃靥剑姬",
+          "match": {
+            "dungeonSid": 188,
+            "dungeonGameId": 456,
+            "statisticNpcNo": 116,
+            "npcTemplateNo": 24900001,
+            "customValueId": 6930060,
+            "serialId": 26,
+            "dungeonSerialId": 26
+          },
+          "evidence": {
+            "entityRowSha256": "b3342cf514f1c1e4f1fe75b5958db7b19a8c161724edac83bc299ccb58c3b5b1",
+            "billboardRowSha256": "128315258f60a2f36310d86ae581736db6a51345d5451c916b6f224bb2c6fbb7",
+            "locale": {
+              "id": "6232988482257382769",
+              "text": "桃靥剑姬",
+              "file": "locale/translate_words_map_zh_cn",
+              "page": 878,
+              "slot": 63,
+              "offset": 9624,
+              "length": 12,
+              "pageSha256": "b54906f970931dc4f52b8e497ae67e8a5fdedf57b9028f309604872eaa399f0a"
+            }
+          }
+        },
+        {
+          "bossName": "耶律阿不里",
+          "match": {
+            "dungeonSid": 189,
+            "dungeonGameId": 456,
+            "statisticNpcNo": 117,
+            "npcTemplateNo": 210000200,
+            "customValueId": 6930063,
+            "serialId": 100,
+            "dungeonSerialId": 100
+          },
+          "evidence": {
+            "entityRowSha256": "0b4fdfe3e1321ffcc327242b72e02c583151a2c169dfd41e8248376cb56244a9",
+            "billboardRowSha256": "beeb89273688b48d25c36dae5c01d85e44ff38ef85a4b26cd04f5febc53ae0ff",
+            "locale": {
+              "id": "-4641622659831485768",
+              "text": "耶律阿不里",
+              "file": "locale/translate_words_map_zh_cn",
+              "page": 1397,
+              "slot": 90,
+              "offset": 13493,
+              "length": 15,
+              "pageSha256": "147d4c46690031f58c498bd193f53d19bee66d0c0ed72df49422ad527e259c96"
+            }
+          }
+        },
+        {
+          "bossName": "观澜使",
+          "match": {
+            "dungeonSid": 258,
+            "dungeonGameId": 602,
+            "statisticNpcNo": 151,
+            "npcTemplateNo": 23300013,
+            "customValueId": 233000132,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "b9828def5fd683d4c42a47cf13a2fb590a6080de69cc106e46055e0da71ea266",
+            "billboardRowSha256": "5071827b4d1c4b028ae28246c93a0cc62b004e0967b0f1812501981585d2a906",
+            "locale": {
+              "id": "-7060964761896550751",
+              "text": "观澜使",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7060964761896550751",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 48054,
+                "file": 1007,
+                "page": 1290,
+                "offset": 12144,
+                "length": 16
+              },
+              "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
+              "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "2a747eea21c2247701a2a7e31e80dadb3520ed7bc526e3778c53643c906ca6d0",
+              "locale": {
+                "id": "-614792456993917894",
+                "text": "多人巫女-10人-挑战竞速",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "-614792456993917894",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 103155,
+                  "file": 1008,
+                  "page": 417,
+                  "offset": 16240,
+                  "length": 48
+                },
+                "rowSha256": "92bdb2a385f9272c3ee1649b2f9430321fce2b212fa076d99b20ca7c2669ebb5",
+                "pageSha256": "70c5fcf619ab434f26862b36fa82d13dbccaca3f91f1e25fd21903a191178a12"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "challenge",
+            "variant": "race-challenge",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "观澜使",
+          "match": {
+            "dungeonSid": 257,
+            "dungeonGameId": 601,
+            "statisticNpcNo": 151,
+            "npcTemplateNo": 23300013,
+            "customValueId": null,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "b9828def5fd683d4c42a47cf13a2fb590a6080de69cc106e46055e0da71ea266",
+            "billboardRowSha256": "5071827b4d1c4b028ae28246c93a0cc62b004e0967b0f1812501981585d2a906",
+            "locale": {
+              "id": "-7060964761896550751",
+              "text": "观澜使",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7060964761896550751",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 48054,
+                "file": 1007,
+                "page": 1290,
+                "offset": 12144,
+                "length": 16
+              },
+              "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
+              "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "51c7b210cbc4b2bd4616fbc49091396b6aa867888885742c97ed0df63b33b115",
+              "locale": {
+                "id": "6465872213562201846",
+                "text": "多人巫女-10人",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "6465872213562201846",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 115844,
+                  "file": 1008,
+                  "page": 457,
+                  "offset": 992,
+                  "length": 32
+                },
+                "rowSha256": "326101724566658460fe9d17f6eff84a5a82d0ba04d54c97a01f334c357049b0",
+                "pageSha256": "ffcecc95d3bba7290d2e972cd6e7e0a92d35bb30fe92c1bf40738f51ff1845aa"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "卢以诚",
+          "match": {
+            "dungeonSid": 263,
+            "dungeonGameId": 598,
+            "statisticNpcNo": 154,
+            "npcTemplateNo": 21700003,
+            "customValueId": null,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "f2c022112d1683f841bba7f680c2de0b38747e049f1afcbf7a97aa8014925dfe",
+            "billboardRowSha256": "633e53eb8e691072fff74863843c9fb09784a1bbb7a060aeb1fd76bd64107f3c",
+            "locale": {
+              "id": "2895610807280334448",
+              "text": "卢以诚",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "2895610807280334448",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 28361,
+                "file": 1008,
+                "page": 437,
+                "offset": 6496,
+                "length": 16
+              },
+              "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
+              "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "08b9687e19b18e6d00669a62ae32f6cc79a8730c6fe2a4588a8a00776f3cd26b",
+              "locale": {
+                "id": "2940747839455321418",
+                "text": "多人-扫地童子-5人",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "2940747839455321418",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 181766,
+                  "file": 1008,
+                  "page": 437,
+                  "offset": 9888,
+                  "length": 32
+                },
+                "rowSha256": "c920a8406de3a909c41714ba920dc230dd39020e720e7abc09a212a1700db19b",
+                "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "枕月",
+          "match": {
+            "dungeonSid": 259,
+            "dungeonGameId": 601,
+            "statisticNpcNo": 152,
+            "npcTemplateNo": 117000001,
+            "customValueId": null,
+            "serialId": 2,
+            "dungeonSerialId": 2
+          },
+          "evidence": {
+            "entityRowSha256": "36b23b891d978c8c0c6ca779bc62ec7321f40f205aab86d1a2e7f9de4dd432dd",
+            "billboardRowSha256": "82be8dbf4cc6eeb8c4d4fdeff83891afd31270f971a1c9719f258f16f1e61f48",
+            "locale": {
+              "id": "5207912733523151262",
+              "text": "枕月",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "5207912733523151262",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 141645,
+                "file": 1008,
+                "page": 450,
+                "offset": 4336,
+                "length": 16
+              },
+              "rowSha256": "5c2688a5539ce5250e8ef1a31d049fe5ef3b339efe48d12125461d671b5ee616",
+              "pageSha256": "a6c5b1166b4ecf80063675eb97b66718805367142ed707b202358f0c6200740b"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "7c956964af432c92ed1412119c8f0b13bc1b6c027d977432b1b85fe52e8ce6d2",
+              "locale": {
+                "id": "-7525513649017609876",
+                "text": "多人水母-10人",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "-7525513649017609876",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 41174,
+                  "file": 1007,
+                  "page": 1288,
+                  "offset": 6560,
+                  "length": 32
+                },
+                "rowSha256": "8773ab08eed1e4bf5b521286274de50c6017d16abe70375a3562e2a6c4d7ba88",
+                "pageSha256": "ce36a57628ac65fb993f5d9205cf97e45096510f3496e1300d7de15a0cddae99"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "迷踪守宫",
+          "match": {
+            "dungeonSid": 256,
+            "dungeonGameId": 600,
+            "statisticNpcNo": 153,
+            "npcTemplateNo": 210000500,
+            "customValueId": 2100005002,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "24cce09e663d8a97f38778f3c767e43fb8ce9f85241caf736a28f7fb4d694113",
+            "billboardRowSha256": "f78d47a29ec7b436f51c3a27d7ec4c601faa769e63002bfa51d534e4073bb314",
+            "locale": {
+              "id": "-7347373878293753319",
+              "text": "迷踪守宫",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7347373878293753319",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 168079,
+                "file": 1007,
+                "page": 1289,
+                "offset": 4288,
+                "length": 16
+              },
+              "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
+              "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "ff75457cca1df34d4997c2833426875bbb1c5cc0f793724455b20be81c12a020",
+              "locale": {
+                "id": "-6580138805949784788",
+                "text": "多人-迷踪守宫--5人-挑战竞速",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "-6580138805949784788",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 134862,
+                  "file": 1009,
+                  "page": 745,
+                  "offset": 1088,
+                  "length": 48
+                },
+                "rowSha256": "a77bd6d216e15da405b4729fd3848a327a26a3b07961f366a748e985a8d89461",
+                "pageSha256": "62f28cdfc08a2eb9e0f50a93a44525760d30aedcbbdadffc2dc3157c97f5ecfa"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "challenge",
+            "variant": "race-challenge",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "卢以诚",
+          "match": {
+            "dungeonSid": 265,
+            "dungeonGameId": 600,
+            "statisticNpcNo": 154,
+            "npcTemplateNo": 21700003,
+            "customValueId": 217000032,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "f2c022112d1683f841bba7f680c2de0b38747e049f1afcbf7a97aa8014925dfe",
+            "billboardRowSha256": "633e53eb8e691072fff74863843c9fb09784a1bbb7a060aeb1fd76bd64107f3c",
+            "locale": {
+              "id": "2895610807280334448",
+              "text": "卢以诚",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "2895610807280334448",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 28361,
+                "file": 1008,
+                "page": 437,
+                "offset": 6496,
+                "length": 16
+              },
+              "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
+              "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "f2ee165309770b1a5fb6b08200771bf49acc4f00c19fb901ecb820f7c0405a2f",
+              "locale": {
+                "id": "3188302633277464200",
+                "text": "多人-扫地童子-5人-挑战竞速",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "3188302633277464200",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 211685,
+                  "file": 1008,
+                  "page": 439,
+                  "offset": 1600,
+                  "length": 48
+                },
+                "rowSha256": "a34c098c93b21978d31b03c32a24b6dab041570a0033a97b9eee413512281fa7",
+                "pageSha256": "ae4c24b4f47e700fa8a522e0bb13b14de47a62f44bb405fa413f8ab2592c00fc"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "challenge",
+            "variant": "race-challenge",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "观澜使",
+          "match": {
+            "dungeonSid": 261,
+            "dungeonGameId": 603,
+            "statisticNpcNo": 151,
+            "npcTemplateNo": 23300013,
+            "customValueId": 233000131,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "b9828def5fd683d4c42a47cf13a2fb590a6080de69cc106e46055e0da71ea266",
+            "billboardRowSha256": "5071827b4d1c4b028ae28246c93a0cc62b004e0967b0f1812501981585d2a906",
+            "locale": {
+              "id": "-7060964761896550751",
+              "text": "观澜使",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7060964761896550751",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 48054,
+                "file": 1007,
+                "page": 1290,
+                "offset": 12144,
+                "length": 16
+              },
+              "rowSha256": "8d5f0b4c22b6207ed93c7b69fffa2a69da5a2457345f9b99747db760eea8d912",
+              "pageSha256": "a5cb7303937045cd8a646ac0e93adbca3759f11cc50f1e05487d956eb31f5e7d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "2af53a75a526369089b47b6fabf2187a6a23da3fc7dbd73c2596e1585253b759",
+              "locale": {
+                "id": "3906102718315653659",
+                "text": "多人巫女-10人-普通竞速",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "3906102718315653659",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 75777,
+                  "file": 1008,
+                  "page": 443,
+                  "offset": 1312,
+                  "length": 48
+                },
+                "rowSha256": "eb23599497bf40403b4849bde144b4bfc0b2d100464e71287b238bd730d1b461",
+                "pageSha256": "665431c0dbc627f7c9d4866d852b907a410e2b5df99f2bb763e5e12878c9ccd3"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "race-basic",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "卢以诚",
+          "match": {
+            "dungeonSid": 264,
+            "dungeonGameId": 599,
+            "statisticNpcNo": 154,
+            "npcTemplateNo": 21700003,
+            "customValueId": 217000031,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "f2c022112d1683f841bba7f680c2de0b38747e049f1afcbf7a97aa8014925dfe",
+            "billboardRowSha256": "633e53eb8e691072fff74863843c9fb09784a1bbb7a060aeb1fd76bd64107f3c",
+            "locale": {
+              "id": "2895610807280334448",
+              "text": "卢以诚",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "2895610807280334448",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 28361,
+                "file": 1008,
+                "page": 437,
+                "offset": 6496,
+                "length": 16
+              },
+              "rowSha256": "d80d7927bec72a3fa0913ba0efb16f2c81db3dee446dc1c728a7a93b65492fbb",
+              "pageSha256": "ec9ca2bc61e2d8f9652d099a1249e2120efab43ecb55e103414edfde4dac1edf"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "93ec650e4b58992a16ffe1ba8b6dbc82d119135919d50f2e4c6d246c405c03ad",
+              "locale": {
+                "id": "-6353725471520659282",
+                "text": "多人-扫地童子-5人-普通竞速",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "-6353725471520659282",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 81437,
+                  "file": 1008,
+                  "page": 386,
+                  "offset": 10576,
+                  "length": 48
+                },
+                "rowSha256": "f266357f51a8c907c2ea50253bb8b85fcbc182538cfaeb5d4e7c0f994699faa7",
+                "pageSha256": "aa0557310a96daf6c4961cfee420c5f36b345da06ca1cd1aacc4fc3072f0a686"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "race-basic",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "迷踪守宫",
+          "match": {
+            "dungeonSid": 255,
+            "dungeonGameId": 599,
+            "statisticNpcNo": 153,
+            "npcTemplateNo": 210000500,
+            "customValueId": 2100005001,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "24cce09e663d8a97f38778f3c767e43fb8ce9f85241caf736a28f7fb4d694113",
+            "billboardRowSha256": "f78d47a29ec7b436f51c3a27d7ec4c601faa769e63002bfa51d534e4073bb314",
+            "locale": {
+              "id": "-7347373878293753319",
+              "text": "迷踪守宫",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7347373878293753319",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 168079,
+                "file": 1007,
+                "page": 1289,
+                "offset": 4288,
+                "length": 16
+              },
+              "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
+              "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "6aef9f61776c764005472634c4c0d43257b3c563c14c884e781b5833dd4a1883",
+              "locale": {
+                "id": "-5760121700931535371",
+                "text": "多人-迷踪守宫--5人-普通竞速",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "-5760121700931535371",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 62251,
+                  "file": 1009,
+                  "page": 747,
+                  "offset": 12320,
+                  "length": 48
+                },
+                "rowSha256": "a9f5e47a38b4af0ff85d661d86b9c2fe6d2f890f7250c5ffc7eabef6543f76db",
+                "pageSha256": "bc6c432d9ab1e29c474fb97b9ddb7d72baf305ae2221e866c0ed7b5f99f6567f"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "race-basic",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        },
+        {
+          "bossName": "迷踪守宫",
+          "match": {
+            "dungeonSid": 254,
+            "dungeonGameId": 598,
+            "statisticNpcNo": 153,
+            "npcTemplateNo": 210000500,
+            "customValueId": null,
+            "serialId": 1,
+            "dungeonSerialId": 1
+          },
+          "evidence": {
+            "entityRowSha256": "24cce09e663d8a97f38778f3c767e43fb8ce9f85241caf736a28f7fb4d694113",
+            "billboardRowSha256": "f78d47a29ec7b436f51c3a27d7ec4c601faa769e63002bfa51d534e4073bb314",
+            "locale": {
+              "id": "-7347373878293753319",
+              "text": "迷踪守宫",
+              "table": "translate_words_map_zh_cn__small_bin_diff",
+              "ref": {
+                "key": "-7347373878293753319",
+                "kind": "primary",
+                "indexFile": "index1001",
+                "indexPage": 12465,
+                "slot": 168079,
+                "file": 1007,
+                "page": 1289,
+                "offset": 4288,
+                "length": 16
+              },
+              "rowSha256": "28b34cb24880435e9e32e8939fb69e27ffc3f158838d0954f557297b9ad35999",
+              "pageSha256": "7ae055dbaad9c66d69a58427faac1f7959ec714d5856cae230e365fcb837135d"
+            },
+            "difficulty": {
+              "table": "fuben_info",
+              "rowSha256": "6624d245160cab94ed920855713bae48c2ebb367625dfb8f2b5feeba1bcb6b90",
+              "locale": {
+                "id": "797821039238503361",
+                "text": "多人-迷踪守宫--5人",
+                "table": "translate_words_map_zh_cn__small_bin_diff",
+                "ref": {
+                  "key": "797821039238503361",
+                  "kind": "primary",
+                  "indexFile": "index1001",
+                  "indexPage": 12465,
+                  "slot": 75973,
+                  "file": 1008,
+                  "page": 425,
+                  "offset": 13344,
+                  "length": 32
+                },
+                "rowSha256": "48406f93214ec279dfbde89f71408d90da15ce4b475fb05480fcadaee6420679",
+                "pageSha256": "bf57ee4716e96430f5d2d0dec181bee5af9cc2443c424cb1194d3d199b464e98"
+              }
+            }
+          },
+          "difficulty": {
+            "mode": "normal",
+            "variant": "normal",
+            "basis": "version-bound-client-dungeon-mode"
+          }
+        }
+      ]
     }
   }
 }

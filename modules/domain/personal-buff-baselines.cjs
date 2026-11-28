@@ -10,7 +10,7 @@ for(const rules of [DATA.rules,...Object.values(DATA.schemaProfiles||{}).map(p=>
 const hasContextRule=buffNo=>contextIds.has(buffNo);
 const versionedRules=new Set(DATA.versionedRuleIds||[]),versionedCalcpoints=new Set(Object.values(DATA.schemaProfiles||{}).flatMap(p=>Object.keys(p.calcpointOverrides||{})));
 function calcpointRecord(id,schemaPreset){
- if(versionedCalcpoints.has(String(id))){const profile=DATA.schemaProfiles?.[schemaPreset];return profile?(profile.calcpointOverrides?.[id]??DATA.calcpoints[id]??null):null;}
+ if(versionedCalcpoints.has(String(id))){const profile=DATA.schemaProfiles?.[schemaPreset];return profile?(Object.hasOwn(profile.calcpointOverrides||{},id)?profile.calcpointOverrides[id]:(DATA.calcpoints[id]??null)):null;}
  return DATA.calcpoints[id]??null;
 }
 function matchesCondition(c,rawCalcpointId,rawSkillId,context){

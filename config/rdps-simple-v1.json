@@ -352,7 +352,7 @@
   },
   "personalBuffBaseline": {
     "file": "config/personal-buff-baselines.json",
-    "sha256": "c7a71646c6bcabc8fbafb4d3396b6cd2c10f16718c25289f5ced9b01d68f0031",
+    "sha256": "2aa3d4e470623efa417e6e649c58bfda2e762ff15a06da2c6af4d9c939cb8ad1",
     "completeness": "observed-audited-effects-only"
   },
   "kungfuAttributeChannels": {
@@ -508,7 +508,7 @@
   },
   "gameDataProfiles": {
     "file": "config/game-data-profiles.json",
-    "sha256": "1d841ee91e0ffde4b0e13fb18bc8ad675b6cb63af2435b33ceb3a4e909a74ab4",
+    "sha256": "dd76daf69af6a239e7ab42afa0a16f3abf5cf4dee6c59629c8808a95236d82d1",
     "basis": "Exact installed HD MANIFEST binding; original unversioned reports retain historical rule"
   }
 }

@@ -324,6 +324,17 @@
         "manifestBytes": "number",
         "fileCount": "number"
       }
+    },
+    "config/schema-index-cn-20261128-df00f6-10487.json": {
+      "domain": "client",
+      "schemaVersion": 1,
+      "required": {
+        "schemaVersion": "number",
+        "count": "number",
+        "clientBuildSha256": "string",
+        "gameDataSha256": "string",
+        "rows": "array"
+      }
     }
   }
 }

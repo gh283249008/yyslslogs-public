@@ -93,7 +93,7 @@ function validate(file,value){
     demand(/^\d+$/.test(preset)&&positive(Number(preset))&&object(p)&&object(p.ruleOverrides)&&object(p.calcpointOverrides)&&['legacy-table','unverified'].includes(p.skillClassesBasis),'personal schema profile');
     demand(Object.keys(p.ruleOverrides).every(id=>value.versionedRuleIds.includes(Number(id))),'personal schema rule binding');
     validate(file,{...value,rules:p.ruleOverrides,schemaProfiles:undefined,versionedRuleIds:undefined});
-    for(const [id,t]of Object.entries(p.calcpointOverrides))demand(/^\d+$/.test(id)&&Array.isArray(t)&&t.length===4&&t.slice(0,3).every(v=>v===null||Number.isSafeInteger(v)&&v>=0)&&Array.isArray(t[3])&&t[3].every(v=>Number.isSafeInteger(v)&&v>=0),'personal schema calcpoint');
+    for(const [id,t]of Object.entries(p.calcpointOverrides))demand(/^\d+$/.test(id)&&(t===null||Array.isArray(t)&&t.length===4&&t.slice(0,3).every(v=>v===null||Number.isSafeInteger(v)&&v>=0)&&Array.isArray(t[3])&&t[3].every(v=>Number.isSafeInteger(v)&&v>=0)),'personal schema calcpoint');
     if(p.skillClassesBasis==='unverified')demand(object(p.skillClasses)&&Object.keys(p.skillClasses).length===0,'unverified skill classes must stay empty');
    }
   }
